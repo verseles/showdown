@@ -16,6 +16,8 @@
 		"test": "npm run test:unit -- --run"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.0.0",
+		"@commitlint/config-conventional": "^19.0.0",
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.39.1",
 		"@sveltejs/adapter-static": "^3.0.10",
@@ -37,6 +39,18 @@
 		"vite": "^7.2.2",
 		"vitest": "^4.0.10",
 		"vitest-browser-svelte": "^2.0.1"
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte,md}": [
+			"prettier --check",
+			"eslint"
+		],
+		"*.{svelte,ts,js}": [
+			"svelte-check --tsconfig ./tsconfig.json"
+		]
+	},
+	"commitlint": {
+		"extends": ["@commitlint/config-conventional"]
 	},
 	"dependencies": {
 		"bits-ui": "^2.14.4"

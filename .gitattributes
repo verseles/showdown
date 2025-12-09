@@ -1,0 +1,11 @@
+# Ensure consistent line endings
+* text=auto eol=lf
+
+# Source code files
+*.{js,ts,svelte,json,md,yml,yaml} text eol=lf
+
+# Binary files
+*.{png,jpg,jpeg,gif,ico,svg,woff,woff2,ttf,eot} binary
+
+# Svelte components
+*.svelte linguist-documentation
