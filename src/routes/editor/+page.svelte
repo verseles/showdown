@@ -62,7 +62,14 @@
 </div>
 
 {#if showGitIntegration}
-	<div class="modal-overlay" onclick={() => showGitIntegration = false}>
+	<div
+		class="modal-overlay"
+		role="dialog"
+		aria-label="Git Integration"
+		onclick={() => showGitIntegration = false}
+		onkeydown={(e) => e.key === 'Escape' && (showGitIntegration = false)}
+		tabindex="0"
+	>
 		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
 			<GitIntegration onClose={() => showGitIntegration = false} />
 		</div>

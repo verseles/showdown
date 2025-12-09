@@ -93,6 +93,7 @@
 			{#each categories.slice(0, expanded ? categories.length : 3) as category}
 				<div
 					class="category-item"
+					role="tooltip"
 					onmouseenter={(e) => showScoreTooltip(e as MouseEvent, category.id)}
 					onmouseleave={() => showTooltip.set(false)}
 				>

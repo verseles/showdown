@@ -129,7 +129,14 @@
 	</div>
 
 	{#if showForm}
-		<div class="modal-overlay" onclick={closeForm}>
+		<div
+			class="modal-overlay"
+			role="dialog"
+			aria-label={editingModel ? 'Edit Model' : 'Add New Model'}
+			onclick={closeForm}
+			onkeydown={(e) => e.key === 'Escape' && closeForm()}
+			tabindex="0"
+		>
 			<div class="modal-content" onclick={(e) => e.stopPropagation()}>
 				<div class="modal-header">
 					<h3>{editingModel ? 'Edit Model' : 'Add New Model'}</h3>
