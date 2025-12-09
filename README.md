@@ -1,144 +1,96 @@
 # Showdown
 
-**Comprehensive LLM Rankings & Comparison**
+> **Which AI model is actually the best?** We aggregate 20+ benchmarks so you don't have to.
 
-https://showdown.best
+[![Live Site](https://img.shields.io/badge/Live-showdown.best-blue)](https://showdown.best)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-green)](LICENSE)
 
-Compare the best AI language models across coding, reasoning, agents, math, multimodal, multilingual, and conversational ability. Transparent rankings aggregating 20+ industry-standard benchmarks.
+## What is Showdown?
 
-## Mission
+Tired of cherry-picked benchmarks and marketing hype? **Showdown** provides transparent, community-maintained rankings of AI language models across real-world categories:
 
-Provide a single, trustworthy source for comparing AI language models across practical categories. Community-maintained through open data (JSON) and GitHub PRs.
+- **Coding** - Can it actually write working code?
+- **Reasoning** - PhD-level science, complex logic
+- **Agents & Tools** - Function calling, browser automation
+- **Math** - From algebra to competition problems
+- **Multimodal** - Vision understanding
+- **Multilingual** - Beyond English
+- **Conversation** - Creative writing, instruction following
 
-## Architecture
+All data is open. All methodology is transparent. All contributions are welcome.
 
-- **Frontend:** Svelte 5 + SvelteKit (SSG)
-- **Data:** Single JSON file (`data/showdown.json`)
-- **Hosting:** Cloudflare Pages
-- **Updates:** Community PRs + automated validation
+## Quick Start
 
-## Rankings Methodology
+Visit **[showdown.best](https://showdown.best)** to explore the rankings.
 
-Scores aggregate 20+ industry-standard benchmarks organized into 7 categories:
+Want to run it locally?
 
-| Category       | Weight | Benchmarks                                                        |
-| -------------- | ------ | ----------------------------------------------------------------- |
-| Coding         | 25%    | SWE-Bench Verified, Terminal-Bench, LMArena Coding, LiveCodeBench |
-| Reasoning      | 25%    | GPQA Diamond, AIME 2024, ARC-AGI, LMArena Hard Prompts            |
-| Agents & Tools | 18%    | BFCL, TAU-Bench, OSWorld, WebDev Arena                            |
-| Conversation   | 12%    | LMArena Creative Writing, Instruction Following                   |
-| Math           | 10%    | MATH-500, GSM8K, LMArena Math                                     |
-| Multimodal     | 7%     | MathVista, MMMU, LMArena Vision                                   |
-| Multilingual   | 3%     | MMLU, MMMLU, LMArena English/Chinese                              |
+```bash
+git clone https://github.com/verseles/showdown.git
+cd showdown
+npm install
+npm run dev
+```
 
-### Scoring Logic
+## How Rankings Work
 
-- **Percentage benchmarks:** Used directly (0-100%)
-- **Elo benchmarks:** Normalized to 0-100 scale using min/max ranges
-- **Missing data:** Weights renormalized for present benchmarks only
-- **Overall score:** Weighted average of category scores
+We aggregate scores from 20+ industry benchmarks, weighted by practical importance:
 
-## Features
+| Category       | Weight | What it measures                                 |
+| -------------- | ------ | ------------------------------------------------ |
+| Coding         | 25%    | Real GitHub issues, live coding challenges       |
+| Reasoning      | 25%    | PhD science questions, novel problem solving     |
+| Agents & Tools | 18%    | API usage, multi-step tasks, browser automation  |
+| Conversation   | 12%    | Creative writing, following complex instructions |
+| Math           | 10%    | Competition math, word problems                  |
+| Multimodal     | 7%     | Understanding images, charts, diagrams           |
+| Multilingual   | 3%     | Performance across languages                     |
 
-- **Sortable Rankings Table:** Click any column header to sort
-- **Category Tooltips:** Hover for benchmark breakdowns with source links
-- **Filters:** Provider, type (proprietary/open-source), favorites
-- **Column Visibility:** Toggle columns to customize your view
-- **Favorites:** Star models to track them (persisted to localStorage)
-- **Mobile Responsive:** Card view for smaller screens
-- **Dark Mode:** Toggle light/dark theme
-- **Static Site:** Fast loading, works without JavaScript
+**Scoring:**
+
+- Percentage benchmarks used directly
+- Elo scores normalized to 0-100
+- Missing data? We renormalize weights fairly
+- Final score = weighted average across categories
 
 ## Contributing
 
-### Report Outdated Score
+### Found an outdated score?
 
-[Open an issue](https://github.com/verseles/showdown/issues/new?template=update-score.yml) with:
+[Open an issue](https://github.com/verseles/showdown/issues/new?template=update-score.yml) with the correct value and source.
 
-- Model name
-- Benchmark name
-- Correct value
-- Source URL
+### Want to add a model?
 
-### Request New Model
+[Open an issue](https://github.com/verseles/showdown/issues/new?template=add-model.yml) with available benchmark scores.
 
-[Open an issue](https://github.com/verseles/showdown/issues/new?template=add-model.yml) with:
+### Ready to submit a PR?
 
-- Model name and provider
-- Available benchmark scores with sources
-- Pricing and performance metrics
-
-### Submit a PR
-
-1. Fork the repository
+1. Fork this repo
 2. Edit `data/showdown.json`
-3. Ensure JSON is valid and scores are within expected ranges
-4. Submit PR - automated validation will run
-5. Maintainer reviews and merges
+3. Submit PR - our CI validates the data automatically
+4. Get merged!
 
-### Data Schema
+## Tech Stack
 
-```json
-{
-	"id": "model-id",
-	"name": "Model Name",
-	"provider": "Provider",
-	"type": "proprietary",
-	"release_date": "2025-01-01",
-	"pricing": {
-		"input_per_1m": 1.0,
-		"output_per_1m": 5.0,
-		"average_per_1m": 3.0
-	},
-	"performance": {
-		"output_speed_tps": 100,
-		"latency_ttft_ms": 500,
-		"source": "https://artificialanalysis.ai"
-	},
-	"editor_notes": "Brief description of strengths and weaknesses",
-	"benchmark_scores": {
-		"swe_bench": 75.5,
-		"gpqa_diamond": 85.0
-	}
-}
-```
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Type check
-npm run check
-
-# Lint
-npm run lint
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
+- **Frontend:** Svelte 5 + SvelteKit (static site generation)
+- **Data:** Single JSON file - easy to edit, easy to validate
+- **Hosting:** Cloudflare Pages - fast worldwide
+- **CI/CD:** GitHub Actions - automated validation on every PR
 
 ## Data Sources
 
-- [SWE-Bench](https://swebench.com) - Real-world GitHub issue resolution
-- [GPQA Diamond](https://github.com/idavidrein/gpqa) - PhD-level science questions
-- [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling accuracy
-- [LMArena](https://lmarena.ai/leaderboard) - Human preference rankings
-- [Artificial Analysis](https://artificialanalysis.ai) - Speed and latency metrics
+Rankings aggregate data from trusted sources:
+
+- [SWE-Bench](https://swebench.com) - Real GitHub issue resolution
+- [GPQA](https://github.com/idavidrein/gpqa) - PhD-level questions
+- [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling
+- [LMArena](https://lmarena.ai/leaderboard) - Human preferences
+- [Artificial Analysis](https://artificialanalysis.ai) - Speed metrics
 
 ## License
 
-AGPL-3.0 - See [LICENSE](LICENSE)
+AGPL-3.0 - Keep it open!
 
-## Acknowledgments
+---
 
-Built with [Svelte 5](https://svelte.dev) and [SvelteKit](https://kit.svelte.dev). Deployed on [Cloudflare Pages](https://pages.cloudflare.com).
-
-Data aggregated from public benchmark sources. Community contributions welcome.
+**Built with [Svelte](https://svelte.dev). Hosted on [Cloudflare](https://pages.cloudflare.com). Made for the community.**

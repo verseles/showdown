@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+	import { untrack } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Category, FilterState } from '$lib/types.js';
+	import type { Category, FilterState, Model } from '$lib/types.js';
 	import {
 		rankModels,
 		sortModels,
@@ -36,10 +37,10 @@
 	// Favorites state
 	let favorites = $state<string[]>([]);
 
-	// Column visibility state
+	// Column visibility state - Provider hidden by default
 	let visibleColumns = $state({
 		rank: true,
-		provider: true,
+		provider: false,
 		model: true,
 		type: true,
 		coding: true,
@@ -58,31 +59,45 @@
 	// Column settings dropdown state
 	let showColumnSettings = $state(false);
 
-	// Load favorites and column visibility from localStorage
-	$effect(() => {
-		if (typeof window !== 'undefined') {
-			const storedFavorites = localStorage.getItem('favorites');
-			if (storedFavorites) {
+	// Track if localStorage has been loaded
+	let isInitialized = $state(false);
+
+	// Load favorites and column visibility from localStorage (only once on mount)
+	onMount(() => {
+		const storedFavorites = localStorage.getItem('favorites');
+		if (storedFavorites) {
+			try {
 				favorites = JSON.parse(storedFavorites);
+			} catch {
+				// Invalid JSON, use default
 			}
-			const storedColumns = localStorage.getItem('visibleColumns');
-			if (storedColumns) {
+		}
+		const storedColumns = localStorage.getItem('visibleColumns');
+		if (storedColumns) {
+			try {
 				visibleColumns = { ...visibleColumns, ...JSON.parse(storedColumns) };
+			} catch {
+				// Invalid JSON, use default
 			}
 		}
+		isInitialized = true;
 	});
 
-	// Save favorites to localStorage
+	// Save favorites to localStorage (only after initialization)
 	$effect(() => {
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('favorites', JSON.stringify(favorites));
+		if (isInitialized) {
+			untrack(() => {
+				localStorage.setItem('favorites', JSON.stringify(favorites));
+			});
 		}
 	});
 
-	// Save column visibility to localStorage
+	// Save column visibility to localStorage (only after initialization)
 	$effect(() => {
-		if (typeof window !== 'undefined') {
-			localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+		if (isInitialized) {
+			untrack(() => {
+				localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+			});
 		}
 	});
 
@@ -135,7 +150,7 @@
 
 	// Tooltip state
 	let activeTooltip = $state<{
-		type: 'model' | 'category' | 'score';
+		type: 'model' | 'category' | 'score' | 'price';
 		data: unknown;
 		x: number;
 		y: number;
@@ -143,7 +158,7 @@
 
 	function showTooltip(
 		event: MouseEvent,
-		type: 'model' | 'category' | 'score',
+		type: 'model' | 'category' | 'score' | 'price',
 		tooltipData: unknown
 	) {
 		const target = event.currentTarget as HTMLElement;
@@ -159,6 +174,18 @@
 	function hideTooltip() {
 		activeTooltip = null;
 	}
+
+	// Available languages (for future i18n)
+	const languages = [
+		{ code: 'en', name: 'English' },
+		{ code: 'pt', name: 'Português' },
+		{ code: 'es', name: 'Español' },
+		{ code: 'zh', name: '中文' },
+		{ code: 'ja', name: '日本語' },
+		{ code: 'de', name: 'Deutsch' },
+		{ code: 'fr', name: 'Français' }
+	];
+	let selectedLanguage = $state('en');
 </script>
 
 <svelte:head>
@@ -193,6 +220,30 @@
 						Updated: {new Date(data.meta.last_update).toLocaleDateString()}
 					</span>
 				</div>
+				<select
+					class="language-select"
+					bind:value={selectedLanguage}
+					aria-label="Select language"
+					title="Language selection (coming soon)"
+				>
+					{#each languages as lang (lang.code)}
+						<option value={lang.code}>{lang.name}</option>
+					{/each}
+				</select>
+				<a
+					href="https://github.com/verseles/showdown"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="github-star-btn"
+					aria-label="Star on GitHub"
+				>
+					<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+						<path
+							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+						/>
+					</svg>
+					<span>Star</span>
+				</a>
 				<button
 					class="theme-toggle"
 					onclick={() => themeContext?.toggle()}
@@ -555,7 +606,13 @@
 								{/if}
 							{/each}
 							{#if visibleColumns.price}
-								<td class="col-num">{formatPrice(ranked.model.pricing.average_per_1m)}</td>
+								<td
+									class="col-num col-price"
+									onmouseenter={(e) => showTooltip(e, 'price', ranked.model)}
+									onmouseleave={hideTooltip}
+								>
+									{formatPrice(ranked.model.pricing.average_per_1m)}
+								</td>
 							{/if}
 							{#if visibleColumns.speed}
 								<td class="col-num">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</td
@@ -668,6 +725,26 @@
 						.breakdown.length} benchmarks available
 				</p>
 			</div>
+		{:else if activeTooltip.type === 'price'}
+			{@const model = activeTooltip.data as Model}
+			<div class="tooltip-header">Pricing: {model.name}</div>
+			<div class="tooltip-body">
+				<div class="price-breakdown">
+					<div class="price-row">
+						<span class="price-label">Input</span>
+						<span class="price-value">${model.pricing.input_per_1m.toFixed(2)} / 1M tokens</span>
+					</div>
+					<div class="price-row">
+						<span class="price-label">Output</span>
+						<span class="price-value">${model.pricing.output_per_1m.toFixed(2)} / 1M tokens</span>
+					</div>
+					<div class="price-row price-average">
+						<span class="price-label">Average</span>
+						<span class="price-value">${model.pricing.average_per_1m.toFixed(2)} / 1M tokens</span>
+					</div>
+				</div>
+				<p class="price-note">Average = (Input + Output) / 2</p>
+			</div>
 		{/if}
 	</div>
 {/if}
@@ -754,6 +831,41 @@
 	.theme-toggle:hover {
 		background: var(--border-color);
 		transform: scale(1.05);
+	}
+
+	.language-select {
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--bg-tertiary);
+		color: var(--text-primary);
+		font-size: 0.875rem;
+		cursor: pointer;
+	}
+
+	.github-star-btn {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xs);
+		padding: var(--spacing-xs) var(--spacing-sm);
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		color: var(--text-primary);
+		text-decoration: none;
+		font-size: 0.875rem;
+		transition:
+			background var(--transition-fast),
+			transform var(--transition-fast);
+	}
+
+	.github-star-btn:hover {
+		background: var(--border-color);
+		transform: scale(1.02);
+	}
+
+	.github-star-btn svg {
+		flex-shrink: 0;
 	}
 
 	/* Main */
@@ -1034,7 +1146,9 @@
 
 	.rank-cell {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		align-items: baseline;
+		gap: var(--spacing-sm);
 	}
 
 	.rank-number {
@@ -1043,7 +1157,7 @@
 	}
 
 	.overall-score {
-		font-size: 0.75rem;
+		font-size: 0.8rem;
 		color: var(--text-muted);
 		font-family: var(--font-mono);
 	}
@@ -1215,6 +1329,44 @@
 	.benchmark-count {
 		font-size: 0.75rem;
 		color: var(--text-muted);
+	}
+
+	.price-breakdown {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+	}
+
+	.price-row {
+		display: flex;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+	}
+
+	.price-label {
+		color: var(--text-secondary);
+	}
+
+	.price-value {
+		font-family: var(--font-mono);
+		font-weight: 500;
+	}
+
+	.price-average {
+		padding-top: var(--spacing-xs);
+		border-top: 1px solid var(--border-light);
+		font-weight: 600;
+	}
+
+	.price-note {
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		font-style: italic;
+		margin-top: var(--spacing-xs);
+	}
+
+	.col-price {
+		cursor: help;
 	}
 
 	/* Footer */
