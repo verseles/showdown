@@ -13,7 +13,10 @@ const config = {
 			fallback: undefined,
 			precompress: true,
 			strict: true
-		})
+		}),
+		prerender: {
+			handleUnseenRoutes: 'ignore'
+		}
 	}
 };
 
