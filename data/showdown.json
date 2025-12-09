@@ -1,0 +1,782 @@
+{
+  "meta": {
+    "version": "2025.12.09",
+    "last_update": "2025-12-09T06:00:00Z",
+    "schema_version": "1.0"
+  },
+  "models": [
+    {
+      "id": "opus-4-5",
+      "name": "Claude Opus 4.5",
+      "provider": "Anthropic",
+      "type": "proprietary",
+      "release_date": "2025-11-01",
+      "pricing": {
+        "input_per_1m": 15.0,
+        "output_per_1m": 75.0,
+        "average_per_1m": 45.0
+      },
+      "performance": {
+        "output_speed_tps": 84.3,
+        "latency_ttft_ms": 540,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Excellent for complex reasoning and advanced coding. High cost may limit intensive use.",
+      "benchmark_scores": {
+        "swe_bench": 89.9,
+        "terminal_bench": 75.3,
+        "gpqa_diamond": 92.5,
+        "aime_2024": 88.7,
+        "arc_agi": 72.4,
+        "bfcl": 85.6,
+        "tau_bench": 81.2,
+        "osworld": 78.9,
+        "webdev_arena": 89.1,
+        "lmarena_coding_elo": 1471,
+        "lmarena_reasoning_elo": 1438,
+        "lmarena_creative_elo": 1456,
+        "instruction_following": 89.3,
+        "math_500": 87.2,
+        "gsm8k": 94.8,
+        "lmarena_math_elo": 1412,
+        "mathvista": 82.3,
+        "mmmu": 79.8,
+        "lmarena_visual_elo": 1389,
+        "mmlu": 88.5,
+        "mmmlu": 85.2,
+        "lmarena_english_elo": 1421,
+        "lmarena_chinese_elo": 1398
+      }
+    },
+    {
+      "id": "sonnet-4-5",
+      "name": "Claude Sonnet 4.5",
+      "provider": "Anthropic",
+      "type": "proprietary",
+      "release_date": "2025-09-29",
+      "pricing": {
+        "input_per_1m": 3.0,
+        "output_per_1m": 15.0,
+        "average_per_1m": 9.0
+      },
+      "performance": {
+        "output_speed_tps": 128.7,
+        "latency_ttft_ms": 420,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Balanced performance and cost. Great for most use cases without breaking the bank.",
+      "benchmark_scores": {
+        "swe_bench": 85.2,
+        "terminal_bench": 72.1,
+        "gpqa_diamond": 88.3,
+        "aime_2024": 84.5,
+        "arc_agi": 68.9,
+        "bfcl": 82.4,
+        "tau_bench": 78.7,
+        "osworld": 76.3,
+        "webdev_arena": 85.6,
+        "lmarena_coding_elo": 1445,
+        "lmarena_reasoning_elo": 1412,
+        "lmarena_creative_elo": 1434,
+        "instruction_following": 86.8,
+        "math_500": 83.4,
+        "gsm8k": 91.2,
+        "lmarena_math_elo": 1389,
+        "mathvista": 78.9,
+        "mmmu": 76.4,
+        "lmarena_visual_elo": 1367,
+        "mmlu": 85.7,
+        "mmmlu": 82.3,
+        "lmarena_english_elo": 1398,
+        "lmarena_chinese_elo": 1376
+      }
+    },
+    {
+      "id": "gpt-5-1",
+      "name": "GPT-5.1",
+      "provider": "OpenAI",
+      "type": "proprietary",
+      "release_date": "2025-12-01",
+      "pricing": {
+        "input_per_1m": 2.5,
+        "output_per_1m": 10.0,
+        "average_per_1m": 6.25
+      },
+      "performance": {
+        "output_speed_tps": 156.3,
+        "latency_ttft_ms": 380,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Latest OpenAI model with strong performance across all categories. Excellent value proposition.",
+      "benchmark_scores": {
+        "swe_bench": 87.8,
+        "terminal_bench": 74.6,
+        "gpqa_diamond": 90.1,
+        "aime_2024": 86.3,
+        "arc_agi": 70.5,
+        "bfcl": 84.2,
+        "tau_bench": 80.5,
+        "osworld": 77.8,
+        "webdev_arena": 83.4,
+        "lmarena_coding_elo": 1458,
+        "lmarena_reasoning_elo": 1425,
+        "lmarena_creative_elo": 1442,
+        "instruction_following": 88.1,
+        "math_500": 85.6,
+        "gsm8k": 92.7,
+        "lmarena_math_elo": 1401,
+        "mathvista": 80.7,
+        "mmmu": 78.2,
+        "lmarena_visual_elo": 1378,
+        "mmlu": 87.3,
+        "mmmlu": 84.1,
+        "lmarena_english_elo": 1410,
+        "lmarena_chinese_elo": 1387
+      }
+    },
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o",
+      "provider": "OpenAI",
+      "type": "proprietary",
+      "release_date": "2025-05-13",
+      "pricing": {
+        "input_per_1m": 5.0,
+        "output_per_1m": 15.0,
+        "average_per_1m": 10.0
+      },
+      "performance": {
+        "output_speed_tps": 142.8,
+        "latency_ttft_ms": 450,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Multimodal powerhouse with excellent vision capabilities. Still competitive despite newer models.",
+      "benchmark_scores": {
+        "swe_bench": 82.4,
+        "terminal_bench": 69.8,
+        "gpqa_diamond": 85.7,
+        "aime_2024": 81.2,
+        "arc_agi": 66.3,
+        "bfcl": 79.6,
+        "tau_bench": 76.4,
+        "osworld": 73.9,
+        "webdev_arena": 80.7,
+        "lmarena_coding_elo": 1423,
+        "lmarena_reasoning_elo": 1389,
+        "lmarena_creative_elo": 1407,
+        "instruction_following": 84.5,
+        "math_500": 80.8,
+        "gsm8k": 88.9,
+        "lmarena_math_elo": 1368,
+        "mathvista": 81.4,
+        "mmmu": 83.7,
+        "lmarena_visual_elo": 1402,
+        "mmlu": 84.2,
+        "mmmlu": 80.8,
+        "lmarena_english_elo": 1383,
+        "lmarena_chinese_elo": 1361
+      }
+    },
+    {
+      "id": "gemini-3-pro",
+      "name": "Gemini 3 Pro",
+      "provider": "Google",
+      "type": "proprietary",
+      "release_date": "2025-11-18",
+      "pricing": {
+        "input_per_1m": 1.25,
+        "output_per_1m": 5.0,
+        "average_per_1m": 3.125
+      },
+      "performance": {
+        "output_speed_tps": 167.4,
+        "latency_ttft_ms": 350,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Best value for money. Strong performance with competitive pricing. Dominates LMArena leaderboards.",
+      "benchmark_scores": {
+        "swe_bench": 84.6,
+        "terminal_bench": 71.3,
+        "gpqa_diamond": 87.9,
+        "aime_2024": 83.7,
+        "arc_agi": 69.1,
+        "bfcl": 81.8,
+        "tau_bench": 78.2,
+        "osworld": 75.6,
+        "webdev_arena": 86.3,
+        "lmarena_coding_elo": 1491,
+        "lmarena_reasoning_elo": 1439,
+        "lmarena_creative_elo": 1468,
+        "instruction_following": 85.9,
+        "math_500": 82.5,
+        "gsm8k": 90.3,
+        "lmarena_math_elo": 1395,
+        "mathvista": 79.6,
+        "mmmu": 77.1,
+        "lmarena_visual_elo": 1425,
+        "mmlu": 85.4,
+        "mmmlu": 82.0,
+        "lmarena_english_elo": 1407,
+        "lmarena_chinese_elo": 1392
+      }
+    },
+    {
+      "id": "gemini-2-5-pro",
+      "name": "Gemini 2.5 Pro",
+      "provider": "Google",
+      "type": "proprietary",
+      "release_date": "2025-08-02",
+      "pricing": {
+        "input_per_1m": 1.0,
+        "output_per_1m": 4.0,
+        "average_per_1m": 2.5
+      },
+      "performance": {
+        "output_speed_tps": 152.6,
+        "latency_ttft_ms": 390,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Excellent multimodal model with strong vision understanding. Great for image and video analysis.",
+      "benchmark_scores": {
+        "swe_bench": 80.9,
+        "terminal_bench": 68.4,
+        "gpqa_diamond": 84.2,
+        "aime_2024": 80.5,
+        "arc_agi": 65.7,
+        "bfcl": 78.1,
+        "tau_bench": 75.3,
+        "osworld": 72.8,
+        "webdev_arena": 78.9,
+        "lmarena_coding_elo": 1412,
+        "lmarena_reasoning_elo": 1376,
+        "lmarena_creative_elo": 1394,
+        "instruction_following": 83.2,
+        "math_500": 79.1,
+        "gsm8k": 87.6,
+        "lmarena_math_elo": 1354,
+        "mathvista": 83.8,
+        "mmmu": 85.2,
+        "lmarena_visual_elo": 1431,
+        "mmlu": 82.7,
+        "mmmlu": 79.3,
+        "lmarena_english_elo": 1369,
+        "lmarena_chinese_elo": 1348
+      }
+    },
+    {
+      "id": "deepseek-v3",
+      "name": "DeepSeek V3",
+      "provider": "DeepSeek",
+      "type": "open-source",
+      "release_date": "2025-11-20",
+      "pricing": {
+        "input_per_1m": 0.27,
+        "output_per_1m": 1.1,
+        "average_per_1m": 0.685
+      },
+      "performance": {
+        "output_speed_tps": 178.9,
+        "latency_ttft_ms": 320,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Incredible value for open-source model. Strong coding abilities rival proprietary models.",
+      "benchmark_scores": {
+        "swe_bench": 83.7,
+        "terminal_bench": 70.8,
+        "gpqa_diamond": 86.4,
+        "aime_2024": 82.9,
+        "arc_agi": 67.8,
+        "bfcl": 80.5,
+        "tau_bench": 77.1,
+        "osworld": 74.4,
+        "webdev_arena": 81.2,
+        "lmarena_coding_elo": 1463,
+        "lmarena_reasoning_elo": 1405,
+        "lmarena_creative_elo": 1427,
+        "instruction_following": 84.6,
+        "math_500": 81.3,
+        "gsm8k": 89.1,
+        "lmarena_math_elo": 1378,
+        "mathvista": 77.2,
+        "mmmu": 74.8,
+        "lmarena_visual_elo": 1354,
+        "mmlu": 83.8,
+        "mmmlu": 80.4,
+        "lmarena_english_elo": 1387,
+        "lmarena_chinese_elo": 1401
+      }
+    },
+    {
+      "id": "deepseek-r1",
+      "name": "DeepSeek R1",
+      "provider": "DeepSeek",
+      "type": "open-source",
+      "release_date": "2025-12-05",
+      "pricing": {
+        "input_per_1m": 0.55,
+        "output_per_1m": 2.2,
+        "average_per_1m": 1.375
+      },
+      "performance": {
+        "output_speed_tps": 134.2,
+        "latency_ttft_ms": 480,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Reasoning-focused model. Excels at complex problem-solving and mathematical tasks.",
+      "benchmark_scores": {
+        "swe_bench": 86.3,
+        "terminal_bench": 73.5,
+        "gpqa_diamond": 91.2,
+        "aime_2024": 89.4,
+        "arc_agi": 74.6,
+        "bfcl": 83.7,
+        "tau_bench": 80.9,
+        "osworld": 77.3,
+        "webdev_arena": 84.8,
+        "lmarena_coding_elo": 1451,
+        "lmarena_reasoning_elo": 1459,
+        "lmarena_creative_elo": 1408,
+        "instruction_following": 87.4,
+        "math_500": 89.7,
+        "gsm8k": 93.4,
+        "lmarena_math_elo": 1438,
+        "mathvista": 76.4,
+        "mmmu": 73.9,
+        "lmarena_visual_elo": 1328,
+        "mmlu": 86.1,
+        "mmmlu": 83.5,
+        "lmarena_english_elo": 1409,
+        "lmarena_chinese_elo": 1426
+      }
+    },
+    {
+      "id": "llama-4-1-405b",
+      "name": "Llama 4.1 405B",
+      "provider": "Meta",
+      "type": "open-source",
+      "release_date": "2025-10-15",
+      "pricing": {
+        "input_per_1m": 0.0,
+        "output_per_1m": 0.0,
+        "average_per_1m": 0.0
+      },
+      "performance": {
+        "output_speed_tps": 89.7,
+        "latency_ttft_ms": 650,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Massive open-source model with strong performance. Self-hosted option for organizations.",
+      "benchmark_scores": {
+        "swe_bench": 79.4,
+        "terminal_bench": 66.2,
+        "gpqa_diamond": 82.1,
+        "aime_2024": 78.3,
+        "arc_agi": 63.4,
+        "bfcl": 76.8,
+        "tau_bench": 73.5,
+        "osworld": 70.9,
+        "webdev_arena": 76.7,
+        "lmarena_coding_elo": 1398,
+        "lmarena_reasoning_elo": 1364,
+        "lmarena_creative_elo": 1381,
+        "instruction_following": 81.7,
+        "math_500": 77.6,
+        "gsm8k": 85.3,
+        "lmarena_math_elo": 1339,
+        "mathvista": 74.8,
+        "mmmu": 72.3,
+        "lmarena_visual_elo": 1317,
+        "mmlu": 81.2,
+        "mmmlu": 77.8,
+        "lmarena_english_elo": 1356,
+        "lmarena_chinese_elo": 1334
+      }
+    },
+    {
+      "id": "llama-4-1-70b",
+      "name": "Llama 4.1 70B",
+      "provider": "Meta",
+      "type": "open-source",
+      "release_date": "2025-10-15",
+      "pricing": {
+        "input_per_1m": 0.0,
+        "output_per_1m": 0.0,
+        "average_per_1m": 0.0
+      },
+      "performance": {
+        "output_speed_tps": 165.4,
+        "latency_ttft_ms": 410,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "More practical open-source alternative. Good performance with reasonable inference speed.",
+      "benchmark_scores": {
+        "swe_bench": 76.8,
+        "terminal_bench": 63.7,
+        "gpqa_diamond": 79.5,
+        "aime_2024": 75.4,
+        "arc_agi": 60.8,
+        "bfcl": 74.2,
+        "tau_bench": 71.1,
+        "osworld": 68.4,
+        "webdev_arena": 73.9,
+        "lmarena_coding_elo": 1375,
+        "lmarena_reasoning_elo": 1342,
+        "lmarena_creative_elo": 1359,
+        "instruction_following": 79.5,
+        "math_500": 74.9,
+        "gsm8k": 82.7,
+        "lmarena_math_elo": 1318,
+        "mathvista": 72.3,
+        "mmmu": 69.7,
+        "lmarena_visual_elo": 1294,
+        "mmlu": 78.9,
+        "mmmlu": 75.4,
+        "lmarena_english_elo": 1334,
+        "lmarena_chinese_elo": 1312
+      }
+    },
+    {
+      "id": "qwen-3-72b",
+      "name": "Qwen 3 72B",
+      "provider": "Alibaba",
+      "type": "open-source",
+      "release_date": "2025-11-01",
+      "pricing": {
+        "input_per_1m": 0.18,
+        "output_per_1m": 0.72,
+        "average_per_1m": 0.45
+      },
+      "performance": {
+        "output_speed_tps": 171.3,
+        "latency_ttft_ms": 380,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Strong multilingual capabilities, especially for Chinese. Excellent cost-performance ratio.",
+      "benchmark_scores": {
+        "swe_bench": 78.6,
+        "terminal_bench": 65.1,
+        "gpqa_diamond": 81.3,
+        "aime_2024": 77.6,
+        "arc_agi": 62.7,
+        "bfcl": 75.4,
+        "tau_bench": 72.3,
+        "osworld": 69.7,
+        "webdev_arena": 75.8,
+        "lmarena_coding_elo": 1387,
+        "lmarena_reasoning_elo": 1353,
+        "lmarena_creative_elo": 1370,
+        "instruction_following": 80.8,
+        "math_500": 76.2,
+        "gsm8k": 84.1,
+        "lmarena_math_elo": 1329,
+        "mathvista": 73.6,
+        "mmmu": 71.2,
+        "lmarena_visual_elo": 1305,
+        "mmlu": 80.3,
+        "mmmlu": 77.1,
+        "lmarena_english_elo": 1345,
+        "lmarena_chinese_elo": 1378
+      }
+    },
+    {
+      "id": "claude-opus-4-1",
+      "name": "Claude Opus 4.1",
+      "provider": "Anthropic",
+      "type": "proprietary",
+      "release_date": "2025-08-15",
+      "pricing": {
+        "input_per_1m": 15.0,
+        "output_per_1m": 75.0,
+        "average_per_1m": 45.0
+      },
+      "performance": {
+        "output_speed_tps": 81.2,
+        "latency_ttft_ms": 560,
+        "source": "https://artificialanalysis.ai"
+      },
+      "editor_notes": "Previous generation but still competitive. Replaced by Opus 4.5.",
+      "benchmark_scores": {
+        "swe_bench": 87.2,
+        "terminal_bench": 73.1,
+        "gpqa_diamond": 90.8,
+        "aime_2024": 86.9,
+        "arc_agi": 70.2,
+        "bfcl": 83.4,
+        "tau_bench": 79.8,
+        "osworld": 76.5,
+        "webdev_arena": 86.7,
+        "lmarena_coding_elo": 1459,
+        "lmarena_reasoning_elo": 1426,
+        "lmarena_creative_elo": 1443,
+        "instruction_following": 87.9,
+        "math_500": 84.8,
+        "gsm8k": 91.9,
+        "lmarena_math_elo": 1398,
+        "mathvista": 80.1,
+        "mmmu": 77.6,
+        "lmarena_visual_elo": 1365,
+        "mmlu": 86.1,
+        "mmmlu": 82.7,
+        "lmarena_english_elo": 1405,
+        "lmarena_chinese_elo": 1382
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "coding",
+      "name": "Coding",
+      "emoji": "💻",
+      "weight": 0.25,
+      "description": "Measures ability to write, edit, and debug code across multiple programming languages",
+      "benchmarks": [
+        {
+          "id": "swe_bench",
+          "name": "SWE-Bench Verified",
+          "type": "percentage",
+          "weight": 0.40,
+          "url": "https://swebench.com",
+          "description": "Real-world GitHub issue resolution"
+        },
+        {
+          "id": "terminal_bench",
+          "name": "Terminal-Bench",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://terminal-bench.github.io",
+          "description": "Unix command-line problem solving"
+        },
+        {
+          "id": "lmarena_coding_elo",
+          "name": "LMArena Coding",
+          "type": "elo",
+          "weight": 0.20,
+          "url": "https://lmarena.ai/leaderboard/text/coding",
+          "elo_range": { "min": 800, "max": 1400 }
+        },
+        {
+          "id": "livecode_bench",
+          "name": "LiveCodeBench",
+          "type": "percentage",
+          "weight": 0.10,
+          "url": "https://livecodebench.github.io",
+          "description": "Live coding interview problems"
+        }
+      ]
+    },
+    {
+      "id": "reasoning",
+      "name": "Reasoning",
+      "emoji": "🧠",
+      "weight": 0.25,
+      "description": "Complex problem-solving and PhD-level questions",
+      "benchmarks": [
+        {
+          "id": "gpqa_diamond",
+          "name": "GPQA Diamond",
+          "type": "percentage",
+          "weight": 0.40,
+          "url": "https://github.com/idavidrein/gpqa",
+          "description": "Graduate-level science questions"
+        },
+        {
+          "id": "aime_2024",
+          "name": "AIME 2024",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://www.yuanlab.ai/amp/papers/2024/01/23/aime-2024",
+          "description": "American Invitational Mathematics Examination"
+        },
+        {
+          "id": "arc_agi",
+          "name": "ARC-AGI",
+          "type": "percentage",
+          "weight": 0.20,
+          "url": "https://arcprize.org",
+          "description": "Abstraction and Reasoning Corpus"
+        },
+        {
+          "id": "lmarena_reasoning_elo",
+          "name": "LMArena Hard Prompts",
+          "type": "elo",
+          "weight": 0.10,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "name": "Agents & Tools",
+      "emoji": "🤖",
+      "weight": 0.18,
+      "description": "Function calling, computer use, and tool integration",
+      "benchmarks": [
+        {
+          "id": "bfcl",
+          "name": "Berkeley Function Calling",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+          "description": "Function calling accuracy"
+        },
+        {
+          "id": "tau_bench",
+          "name": "Tau-Bench",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://github.com/Muennighoff/tau-bench",
+          "description": "Tool use and agent performance"
+        },
+        {
+          "id": "osworld",
+          "name": "OSWorld",
+          "type": "percentage",
+          "weight": 0.20,
+          "url": "https://osworld.github.io",
+          "description": "Computer use tasks"
+        },
+        {
+          "id": "webdev_arena",
+          "name": "WebDev Arena",
+          "type": "percentage",
+          "weight": 0.20,
+          "url": "https://lmarena.ai/leaderboard",
+          "description": "Web development capabilities"
+        }
+      ]
+    },
+    {
+      "id": "conversation",
+      "name": "Conversação",
+      "emoji": "💬",
+      "weight": 0.12,
+      "description": "Creative writing, instruction following, and chat quality",
+      "benchmarks": [
+        {
+          "id": "lmarena_creative_elo",
+          "name": "LMArena Creative Writing",
+          "type": "elo",
+          "weight": 0.50,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        },
+        {
+          "id": "instruction_following",
+          "name": "Instruction Following",
+          "type": "percentage",
+          "weight": 0.50,
+          "url": "https://instructions.apps.allen.ai",
+          "description": "Following detailed instructions"
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "name": "Math",
+      "emoji": "🔢",
+      "weight": 0.10,
+      "description": "Mathematical problem solving",
+      "benchmarks": [
+        {
+          "id": "math_500",
+          "name": "MATH-500",
+          "type": "percentage",
+          "weight": 0.50,
+          "url": "https://github.com/hendrycks/math",
+          "description": "High school and college mathematics"
+        },
+        {
+          "id": "gsm8k",
+          "name": "GSM8K",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://github.com/openai/grade-school-math",
+          "description": "Grade school math word problems"
+        },
+        {
+          "id": "lmarena_math_elo",
+          "name": "LMArena Math",
+          "type": "elo",
+          "weight": 0.20,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        }
+      ]
+    },
+    {
+      "id": "multimodal",
+      "name": "Multimodal",
+      "emoji": "👁️",
+      "weight": 0.07,
+      "description": "Vision + text understanding",
+      "benchmarks": [
+        {
+          "id": "mathvista",
+          "name": "MathVista",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://mathvista.github.io",
+          "description": "Mathematical reasoning with visual inputs"
+        },
+        {
+          "id": "mmmu",
+          "name": "MMMU",
+          "type": "percentage",
+          "weight": 0.30,
+          "url": "https://github.com/ylqmzhou/MMMU_Benchmark",
+          "description": "Massive multi-discipline multimodal understanding"
+        },
+        {
+          "id": "lmarena_visual_elo",
+          "name": "LMArena Visual",
+          "type": "elo",
+          "weight": 0.40,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        }
+      ]
+    },
+    {
+      "id": "multilingual",
+      "name": "Multilingual",
+      "emoji": "🌐",
+      "weight": 0.03,
+      "description": "Performance across languages",
+      "benchmarks": [
+        {
+          "id": "mmlu",
+          "name": "MMLU",
+          "type": "percentage",
+          "weight": 0.40,
+          "url": "https://github.com/hendrycks/knowledge",
+          "description": "Massive Multitask Language Understanding"
+        },
+        {
+          "id": "mmmlu",
+          "name": "MMMLU",
+          "type": "percentage",
+          "weight": 0.40,
+          "url": "https://arxiv.org/abs/2308.14949",
+          "description": "Multilingual MMLU"
+        },
+        {
+          "id": "lmarena_english_elo",
+          "name": "LMArena English",
+          "type": "elo",
+          "weight": 0.10,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        },
+        {
+          "id": "lmarena_chinese_elo",
+          "name": "LMArena Chinese",
+          "type": "elo",
+          "weight": 0.10,
+          "url": "https://lmarena.ai/leaderboard",
+          "elo_range": { "min": 800, "max": 1400 }
+        }
+      ]
+    }
+  ]
+}
