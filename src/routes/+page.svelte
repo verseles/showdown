@@ -312,88 +312,90 @@
 				</label>
 			</div>
 
-			<button
-				class="reset-btn"
-				onclick={() => {
-					filters = {
-						providers: [],
-						types: [],
-						priceRange: [0, 100],
-						speedRange: [0, 3000],
-						dateRange: 'all',
-						favoritesOnly: false
-					};
-				}}
-			>
-				Reset
-			</button>
-
-			<div class="column-settings-wrapper">
+			<div class="filter-actions">
 				<button
-					class="columns-btn"
-					onclick={() => (showColumnSettings = !showColumnSettings)}
-					aria-expanded={showColumnSettings}
+					class="reset-btn"
+					onclick={() => {
+						filters = {
+							providers: [],
+							types: [],
+							priceRange: [0, 100],
+							speedRange: [0, 3000],
+							dateRange: 'all',
+							favoritesOnly: false
+						};
+					}}
 				>
-					Columns
+					Reset
 				</button>
-				{#if showColumnSettings}
-					<div class="column-settings-dropdown">
-						<div class="dropdown-header">
-							<span>Visible Columns</span>
-							<button class="close-btn" onclick={() => (showColumnSettings = false)}>x</button>
-						</div>
-						<div class="column-options">
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.rank} />
-								Rank & Score
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.provider} />
-								Provider
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.model} />
-								Model
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.type} />
-								Type
-							</label>
-							<hr />
-							{#each data.categories as category (category.id)}
+
+				<div class="column-settings-wrapper">
+					<button
+						class="columns-btn"
+						onclick={() => (showColumnSettings = !showColumnSettings)}
+						aria-expanded={showColumnSettings}
+					>
+						Columns
+					</button>
+					{#if showColumnSettings}
+						<div class="column-settings-dropdown">
+							<div class="dropdown-header">
+								<span>Visible Columns</span>
+								<button class="close-btn" onclick={() => (showColumnSettings = false)}>x</button>
+							</div>
+							<div class="column-options">
 								<label class="column-option">
-									<input
-										type="checkbox"
-										checked={visibleColumns[category.id as keyof typeof visibleColumns]}
-										onchange={() => {
-											visibleColumns[category.id as keyof typeof visibleColumns] =
-												!visibleColumns[category.id as keyof typeof visibleColumns];
-										}}
-									/>
-									{category.emoji}
-									{category.name}
+									<input type="checkbox" bind:checked={visibleColumns.rank} />
+									Rank & Score
 								</label>
-							{/each}
-							<hr />
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.price} />
-								Price
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.speed} />
-								Speed
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.latency} />
-								Latency
-							</label>
-							<label class="column-option">
-								<input type="checkbox" bind:checked={visibleColumns.release_date} />
-								Release Date
-							</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.provider} />
+									Provider
+								</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.model} />
+									Model
+								</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.type} />
+									Type
+								</label>
+								<hr />
+								{#each data.categories as category (category.id)}
+									<label class="column-option">
+										<input
+											type="checkbox"
+											checked={visibleColumns[category.id as keyof typeof visibleColumns]}
+											onchange={() => {
+												visibleColumns[category.id as keyof typeof visibleColumns] =
+													!visibleColumns[category.id as keyof typeof visibleColumns];
+											}}
+										/>
+										{category.emoji}
+										{category.name}
+									</label>
+								{/each}
+								<hr />
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.price} />
+									Price
+								</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.speed} />
+									Speed
+								</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.latency} />
+									Latency
+								</label>
+								<label class="column-option">
+									<input type="checkbox" bind:checked={visibleColumns.release_date} />
+									Release Date
+								</label>
+							</div>
 						</div>
-					</div>
-				{/if}
+					{/if}
+				</div>
 			</div>
 		</div>
 
@@ -752,7 +754,7 @@
 <footer class="footer">
 	<div class="container">
 		<p>
-			Data sourced from public benchmarks.
+			<span>Data sourced from public benchmarks.</span>
 			<a href="https://github.com/verseles/showdown" target="_blank" rel="noopener noreferrer">
 				Contribute on GitHub
 			</a>
@@ -921,6 +923,13 @@
 		font-size: 0.875rem;
 	}
 
+	.filter-actions {
+		display: flex;
+		gap: var(--spacing-sm);
+		align-self: flex-end;
+		margin-left: auto;
+	}
+
 	.reset-btn {
 		padding: var(--spacing-xs) var(--spacing-md);
 		background: var(--bg-tertiary);
@@ -929,7 +938,6 @@
 		color: var(--text-primary);
 		cursor: pointer;
 		font-size: 0.875rem;
-		align-self: flex-end;
 		transition: background var(--transition-fast);
 	}
 
@@ -940,7 +948,6 @@
 	/* Column Settings */
 	.column-settings-wrapper {
 		position: relative;
-		align-self: flex-end;
 	}
 
 	.columns-btn {
@@ -1399,7 +1406,40 @@
 			flex-direction: column;
 		}
 
+		/* Keep filter actions on same row */
+		.filter-actions {
+			display: flex;
+			gap: var(--spacing-sm);
+			width: 100%;
+		}
+
+		.reset-btn,
+		.column-settings-wrapper {
+			flex: 1;
+		}
+
+		.columns-btn {
+			width: 100%;
+		}
+
+		/* Header meta on single line */
 		.header-meta {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: var(--spacing-sm);
+			font-size: 0.75rem;
+		}
+
+		/* Fix theme toggle circle */
+		.theme-toggle {
+			flex-shrink: 0;
+			min-width: 40px;
+			min-height: 40px;
+		}
+
+		/* Footer line break */
+		.footer p {
+			display: flex;
 			flex-direction: column;
 			gap: var(--spacing-xs);
 		}
