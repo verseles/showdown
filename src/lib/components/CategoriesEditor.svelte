@@ -140,7 +140,7 @@
 			onkeydown={(e) => e.key === 'Escape' && closeForm()}
 			tabindex="0"
 		>
-			<div class="modal-content" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-content" role="document" onclick={(e) => e.stopPropagation()}>
 				<div class="modal-header">
 					<h3>{editingCategory ? 'Edit Category' : 'Add New Category'}</h3>
 					<button class="close-button" onclick={closeForm}>✕</button>
