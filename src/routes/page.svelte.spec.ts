@@ -13,6 +13,9 @@ const mockModels = [
 		pricing: { input: 0.1, output: 0.2 },
 		speed: 100,
 		elo: 1200,
+		performance: {
+			output_speed_tps: 100
+		},
 		benchmarks: {}
 	}
 ];
