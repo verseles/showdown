@@ -1,0 +1,73 @@
+name: Add New Model
+description: Request to add a new model to the rankings
+labels: ["new-model"]
+body:
+  - type: input
+    id: model_name
+    attributes:
+      label: Model Name
+      placeholder: "e.g., Claude Sonnet 5"
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: Provider
+      placeholder: "e.g., Anthropic, OpenAI, Google, Meta"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Model Type
+      options:
+        - Proprietary
+        - Open Source
+    validations:
+      required: true
+
+  - type: input
+    id: release_date
+    attributes:
+      label: Release Date
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+
+  - type: textarea
+    id: benchmark_scores
+    attributes:
+      label: Benchmark Scores
+      description: List available benchmark scores with sources
+      placeholder: |
+        - SWE-Bench Verified: 85.2% (source: https://...)
+        - GPQA Diamond: 90.1% (source: https://...)
+        - BFCL: 88.5% (source: https://...)
+    validations:
+      required: true
+
+  - type: textarea
+    id: pricing
+    attributes:
+      label: API Pricing
+      description: Input and output pricing per million tokens
+      placeholder: |
+        - Input: $X.XX per million tokens
+        - Output: $X.XX per million tokens
+
+  - type: textarea
+    id: performance
+    attributes:
+      label: Performance Metrics
+      description: Speed and latency if available
+      placeholder: |
+        - Output speed: XXX tokens/second
+        - Latency (TTFT): XXXms
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Editor Notes
+      description: Brief summary of the model's strengths and weaknesses

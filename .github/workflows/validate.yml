@@ -1,0 +1,74 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Validate JSON data
+        run: |
+          node -e "
+            const data = require('./data/showdown.json');
+            const models = data.models;
+            const categories = data.categories;
+
+            // Validate models have required fields
+            for (const model of models) {
+              if (!model.id || !model.name || !model.provider) {
+                throw new Error('Model missing required fields: ' + model.id);
+              }
+              if (!model.benchmark_scores) {
+                throw new Error('Model missing benchmark_scores: ' + model.id);
+              }
+            }
+
+            // Validate category weights sum to 1
+            const totalWeight = categories.reduce((sum, cat) => sum + cat.weight, 0);
+            if (Math.abs(totalWeight - 1) > 0.01) {
+              throw new Error('Category weights do not sum to 1: ' + totalWeight);
+            }
+
+            // Validate benchmark IDs in models exist in categories
+            const benchmarkIds = new Set();
+            for (const cat of categories) {
+              for (const bench of cat.benchmarks) {
+                benchmarkIds.add(bench.id);
+              }
+            }
+
+            for (const model of models) {
+              for (const benchId of Object.keys(model.benchmark_scores)) {
+                if (!benchmarkIds.has(benchId)) {
+                  throw new Error('Unknown benchmark ' + benchId + ' in model ' + model.id);
+                }
+              }
+            }
+
+            console.log('Validation passed: ' + models.length + ' models, ' + categories.length + ' categories');
+          "
