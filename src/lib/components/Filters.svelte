@@ -12,6 +12,7 @@
 
 	// Extract unique providers
 	let providers = $derived(() => {
+		if (!models || !Array.isArray(models)) return [];
 		const unique = [...new Set(models.map((m: any) => m.provider))];
 		return unique.sort();
 	});
