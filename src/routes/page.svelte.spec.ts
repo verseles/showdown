@@ -10,7 +10,11 @@ const mockModels = [
 		name: 'Test Model',
 		provider: 'Test Provider',
 		type: 'open-source',
-		pricing: { input: 0.1, output: 0.2 },
+		pricing: {
+			input: 0.1,
+			output: 0.2,
+			average_per_1m: 0.15
+		},
 		speed: 100,
 		elo: 1200,
 		performance: {
