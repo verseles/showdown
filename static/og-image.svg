@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient backgrounds -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="card-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:0.95" />
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="80" r="120" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1100" cy="550" r="100" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="200" cy="500" r="80" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- Main card -->
+  <rect x="100" y="100" width="1000" height="430" rx="20" fill="url(#card-gradient)" filter="url(#shadow)"/>
+
+  <!-- Header section -->
+  <text x="600" y="180" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="#1a1a1a">
+    Showdown.Best
+  </text>
+
+  <text x="600" y="230" font-family="Arial, sans-serif" font-size="32" text-anchor="middle" fill="#495057">
+    LLM Comparison Platform
+  </text>
+
+  <!-- Models list -->
+  <g transform="translate(150, 280)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="#212529">
+      Compare Top AI Models:
+    </text>
+
+    <text x="0" y="45" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      • Claude Opus 4.5 • GPT-4.1 • Gemini 2.5 Pro
+    </text>
+
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      • DeepSeek V3 • Llama 4.1 • Qwen 3 72B
+    </text>
+
+    <text x="0" y="105" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      • And 6+ more flagship models
+    </text>
+  </g>
+
+  <!-- Categories -->
+  <g transform="translate(650, 280)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="#212529">
+      7 Benchmark Categories:
+    </text>
+
+    <text x="0" y="45" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      💻 Coding • 🧠 Reasoning • 🤖 Agents
+    </text>
+
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      💬 Conversation • 🔢 Math • 👁️ Multimodal
+    </text>
+
+    <text x="0" y="105" font-family="Arial, sans-serif" font-size="22" fill="#495057">
+      🌐 Multilingual
+    </text>
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="570" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="rgba(255,255,255,0.9)">
+    showdown.best • Built with Svelte 5 & SvelteKit
+  </text>
+</svg>
