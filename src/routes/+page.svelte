@@ -143,7 +143,9 @@
 	}
 
 	// Derived filtered and sorted models
-	let filteredAndSortedModels = $derived(() => {
+	let filteredAndSortedModels = $state([]);
+
+	$effect(() => {
 		let filtered = data.models.filter((model: any) => {
 			// Filter by providers
 			if (filters.providers.length > 0 && !filters.providers.includes(model.provider)) {
@@ -233,7 +235,7 @@
 			return 0;
 		});
 
-		return sorted;
+		filteredAndSortedModels = sorted;
 	});
 
 	// Get score for a category
