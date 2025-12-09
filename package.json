@@ -13,8 +13,7 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run",
-		"deploy": "npx wrangler deploy"
+		"test": "npm run test:unit -- --run"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
