@@ -138,7 +138,7 @@
 		<button class="toggle-filters" onclick={() => showFilters = !showFilters}>
 			{showFilters ? '▼' : '▶'} Filters
 		</button>
-		<span class="filter-count">{filteredCount} of {models?.length || 0} models</span>
+		<span class="filter-count">{filteredCount} of {(models && Array.isArray(models)) ? models.length : 0} models</span>
 		<button class="reset-button" onclick={resetFilters}>
 			Reset
 		</button>
