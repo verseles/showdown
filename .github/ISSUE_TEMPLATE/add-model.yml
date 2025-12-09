@@ -1,12 +1,12 @@
 name: Add New Model
 description: Request to add a new model to the rankings
-labels: ["new-model"]
+labels: ['new-model']
 body:
   - type: input
     id: model_name
     attributes:
       label: Model Name
-      placeholder: "e.g., Claude Sonnet 5"
+      placeholder: 'e.g., Claude Sonnet 5'
     validations:
       required: true
 
@@ -14,7 +14,7 @@ body:
     id: provider
     attributes:
       label: Provider
-      placeholder: "e.g., Anthropic, OpenAI, Google, Meta"
+      placeholder: 'e.g., Anthropic, OpenAI, Google, Meta'
     validations:
       required: true
 
@@ -32,7 +32,7 @@ body:
     id: release_date
     attributes:
       label: Release Date
-      placeholder: "YYYY-MM-DD"
+      placeholder: 'YYYY-MM-DD'
     validations:
       required: true
 

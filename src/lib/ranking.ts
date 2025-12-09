@@ -16,10 +16,7 @@ export function normalizeEloScore(elo: number, min: number, max: number): number
 /**
  * Get benchmark score, normalized if Elo type
  */
-export function getBenchmarkScore(
-	model: Model,
-	benchmark: Benchmark
-): number | null {
+export function getBenchmarkScore(model: Model, benchmark: Benchmark): number | null {
 	const rawScore = model.benchmark_scores[benchmark.id];
 
 	if (rawScore === null || rawScore === undefined) {
@@ -37,10 +34,7 @@ export function getBenchmarkScore(
  * Calculate weighted average for a category
  * Handles null values by renormalizing weights of present benchmarks
  */
-export function calculateCategoryScore(
-	model: Model,
-	category: Category
-): number | null {
+export function calculateCategoryScore(model: Model, category: Category): number | null {
 	const scores: { score: number; weight: number }[] = [];
 
 	for (const benchmark of category.benchmarks) {
@@ -86,10 +80,7 @@ export function getCategoryBreakdown(
  * Calculate overall score from category scores
  * Excludes null categories and renormalizes weights
  */
-export function calculateOverallScore(
-	model: Model,
-	categories: Category[]
-): number | null {
+export function calculateOverallScore(model: Model, categories: Category[]): number | null {
 	const categoryScores: { score: number; weight: number }[] = [];
 
 	for (const category of categories) {
@@ -152,10 +143,7 @@ export function countAvailableBenchmarks(
 /**
  * Calculate benchmark coverage percentage for a model
  */
-export function calculateBenchmarkCoverage(
-	model: Model,
-	categories: Category[]
-): number {
+export function calculateBenchmarkCoverage(model: Model, categories: Category[]): number {
 	let totalBenchmarks = 0;
 	let availableBenchmarks = 0;
 
@@ -172,10 +160,7 @@ export function calculateBenchmarkCoverage(
 /**
  * Rank all models and return sorted array with positions
  */
-export function rankModels(
-	models: Model[],
-	categories: Category[]
-): RankedModel[] {
+export function rankModels(models: Model[], categories: Category[]): RankedModel[] {
 	// Calculate scores for all models
 	const modelsWithScores = models.map((model) => ({
 		model,
@@ -437,7 +422,7 @@ export function formatSpeed(tps: number): string {
  * Get unique providers from models
  */
 export function getUniqueProviders(models: Model[]): string[] {
-	const providers = new Set(models.map(m => m.provider));
+	const providers = new Set(models.map((m) => m.provider));
 	return Array.from(providers).sort();
 }
 
@@ -445,7 +430,7 @@ export function getUniqueProviders(models: Model[]): string[] {
  * Get price range from models
  */
 export function getPriceRange(models: Model[]): [number, number] {
-	const prices = models.map(m => m.pricing.average_per_1m);
+	const prices = models.map((m) => m.pricing.average_per_1m);
 	return [Math.min(...prices), Math.max(...prices)];
 }
 
@@ -453,6 +438,6 @@ export function getPriceRange(models: Model[]): [number, number] {
  * Get speed range from models
  */
 export function getSpeedRange(models: Model[]): [number, number] {
-	const speeds = models.map(m => m.performance.output_speed_tps);
+	const speeds = models.map((m) => m.performance.output_speed_tps);
 	return [Math.min(...speeds), Math.max(...speeds)];
 }

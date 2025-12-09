@@ -155,8 +155,16 @@ describe('calculateOverallScore', () => {
 
 describe('rankModels', () => {
 	it('should rank models by overall score', () => {
-		const model1: Model = { ...mockModel, id: 'model1', benchmark_scores: { test_bench: 90, test_elo: 1300 } };
-		const model2: Model = { ...mockModel, id: 'model2', benchmark_scores: { test_bench: 70, test_elo: 900 } };
+		const model1: Model = {
+			...mockModel,
+			id: 'model1',
+			benchmark_scores: { test_bench: 90, test_elo: 1300 }
+		};
+		const model2: Model = {
+			...mockModel,
+			id: 'model2',
+			benchmark_scores: { test_bench: 70, test_elo: 900 }
+		};
 		const categories: Category[] = [mockCategory];
 
 		const ranked = rankModels([model2, model1], categories);

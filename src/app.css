@@ -42,7 +42,8 @@
 	--spacing-xl: 2rem;
 
 	/* Font */
-	--font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	--font-mono: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
 
 	/* Transitions */
@@ -93,20 +94,35 @@ body {
 	background-color: var(--bg-primary);
 	color: var(--text-primary);
 	line-height: 1.5;
-	transition: background-color var(--transition-base), color var(--transition-base);
+	transition:
+		background-color var(--transition-base),
+		color var(--transition-base);
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	margin: 0 0 var(--spacing-md);
 	font-weight: 600;
 	line-height: 1.2;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1rem; }
+h1 {
+	font-size: 2rem;
+}
+h2 {
+	font-size: 1.5rem;
+}
+h3 {
+	font-size: 1.25rem;
+}
+h4 {
+	font-size: 1rem;
+}
 
 p {
 	margin: 0 0 var(--spacing-md);

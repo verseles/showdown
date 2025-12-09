@@ -14,7 +14,9 @@
 
 	// Provide theme context to children
 	setContext('theme', {
-		get current() { return theme; },
+		get current() {
+			return theme;
+		},
 		toggle: toggleTheme
 	});
 

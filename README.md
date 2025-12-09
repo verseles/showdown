@@ -21,15 +21,15 @@ Provide a single, trustworthy source for comparing AI language models across pra
 
 Scores aggregate 20+ industry-standard benchmarks organized into 7 categories:
 
-| Category | Weight | Benchmarks |
-|----------|--------|------------|
-| Coding | 25% | SWE-Bench Verified, Terminal-Bench, LMArena Coding, LiveCodeBench |
-| Reasoning | 25% | GPQA Diamond, AIME 2024, ARC-AGI, LMArena Hard Prompts |
-| Agents & Tools | 18% | BFCL, TAU-Bench, OSWorld, WebDev Arena |
-| Conversation | 12% | LMArena Creative Writing, Instruction Following |
-| Math | 10% | MATH-500, GSM8K, LMArena Math |
-| Multimodal | 7% | MathVista, MMMU, LMArena Vision |
-| Multilingual | 3% | MMLU, MMMLU, LMArena English/Chinese |
+| Category       | Weight | Benchmarks                                                        |
+| -------------- | ------ | ----------------------------------------------------------------- |
+| Coding         | 25%    | SWE-Bench Verified, Terminal-Bench, LMArena Coding, LiveCodeBench |
+| Reasoning      | 25%    | GPQA Diamond, AIME 2024, ARC-AGI, LMArena Hard Prompts            |
+| Agents & Tools | 18%    | BFCL, TAU-Bench, OSWorld, WebDev Arena                            |
+| Conversation   | 12%    | LMArena Creative Writing, Instruction Following                   |
+| Math           | 10%    | MATH-500, GSM8K, LMArena Math                                     |
+| Multimodal     | 7%     | MathVista, MMMU, LMArena Vision                                   |
+| Multilingual   | 3%     | MMLU, MMMLU, LMArena English/Chinese                              |
 
 ### Scoring Logic
 
@@ -54,6 +54,7 @@ Scores aggregate 20+ industry-standard benchmarks organized into 7 categories:
 ### Report Outdated Score
 
 [Open an issue](https://github.com/verseles/showdown/issues/new?template=update-score.yml) with:
+
 - Model name
 - Benchmark name
 - Correct value
@@ -62,6 +63,7 @@ Scores aggregate 20+ industry-standard benchmarks organized into 7 categories:
 ### Request New Model
 
 [Open an issue](https://github.com/verseles/showdown/issues/new?template=add-model.yml) with:
+
 - Model name and provider
 - Available benchmark scores with sources
 - Pricing and performance metrics
@@ -78,26 +80,26 @@ Scores aggregate 20+ industry-standard benchmarks organized into 7 categories:
 
 ```json
 {
-  "id": "model-id",
-  "name": "Model Name",
-  "provider": "Provider",
-  "type": "proprietary",
-  "release_date": "2025-01-01",
-  "pricing": {
-    "input_per_1m": 1.00,
-    "output_per_1m": 5.00,
-    "average_per_1m": 3.00
-  },
-  "performance": {
-    "output_speed_tps": 100,
-    "latency_ttft_ms": 500,
-    "source": "https://artificialanalysis.ai"
-  },
-  "editor_notes": "Brief description of strengths and weaknesses",
-  "benchmark_scores": {
-    "swe_bench": 75.5,
-    "gpqa_diamond": 85.0
-  }
+	"id": "model-id",
+	"name": "Model Name",
+	"provider": "Provider",
+	"type": "proprietary",
+	"release_date": "2025-01-01",
+	"pricing": {
+		"input_per_1m": 1.0,
+		"output_per_1m": 5.0,
+		"average_per_1m": 3.0
+	},
+	"performance": {
+		"output_speed_tps": 100,
+		"latency_ttft_ms": 500,
+		"source": "https://artificialanalysis.ai"
+	},
+	"editor_notes": "Brief description of strengths and weaknesses",
+	"benchmark_scores": {
+		"swe_bench": 75.5,
+		"gpqa_diamond": 85.0
+	}
 }
 ```
 

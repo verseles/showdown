@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { PageData } from './$types';
-	import type { RankedModel, Category, FilterState } from '$lib/types.js';
+	import type { Category, FilterState } from '$lib/types.js';
 	import {
 		rankModels,
 		sortModels,
@@ -11,8 +11,6 @@
 		formatPrice,
 		formatSpeed,
 		getUniqueProviders,
-		getPriceRange,
-		getSpeedRange,
 		getCategoryBreakdown
 	} from '$lib/ranking.js';
 
@@ -102,8 +100,6 @@
 	let sortedModels = $derived(sortModels(filteredModels, sortBy, sortOrder));
 
 	let providers = $derived(getUniqueProviders(data.models));
-	let priceRange = $derived(getPriceRange(data.models));
-	let speedRange = $derived(getSpeedRange(data.models));
 
 	// Handlers
 	function handleSort(column: string) {
@@ -130,10 +126,6 @@
 	function isTopScore(score: number | null, topScore: number | null): boolean {
 		if (score === null || topScore === null) return false;
 		return Math.abs(score - topScore) < 0.1;
-	}
-
-	function getCategoryById(categoryId: string): Category | undefined {
-		return data.categories.find((c) => c.id === categoryId);
 	}
 
 	function getSortIcon(column: string): string {
@@ -204,7 +196,9 @@
 				<button
 					class="theme-toggle"
 					onclick={() => themeContext?.toggle()}
-					aria-label={themeContext?.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+					aria-label={themeContext?.current === 'dark'
+						? 'Switch to light mode'
+						: 'Switch to dark mode'}
 				>
 					{themeContext?.current === 'dark' ? '☀️' : '🌙'}
 				</button>
@@ -219,20 +213,15 @@
 		<div class="filters-bar">
 			<div class="filter-group">
 				<label for="provider-filter">Provider</label>
-				<select
-					id="provider-filter"
-					multiple
-					bind:value={filters.providers}
-					class="filter-select"
-				>
-					{#each providers as provider}
+				<select id="provider-filter" multiple bind:value={filters.providers} class="filter-select">
+					{#each providers as provider (provider)}
 						<option value={provider}>{provider}</option>
 					{/each}
 				</select>
 			</div>
 
 			<div class="filter-group">
-				<label>Type</label>
+				<span class="filter-label">Type</span>
 				<div class="checkbox-group">
 					<label class="checkbox-label">
 						<input
@@ -320,7 +309,7 @@
 								Type
 							</label>
 							<hr />
-							{#each data.categories as category}
+							{#each data.categories as category (category.id)}
 								<label class="column-option">
 									<input
 										type="checkbox"
@@ -330,7 +319,8 @@
 												!visibleColumns[category.id as keyof typeof visibleColumns];
 										}}
 									/>
-									{category.emoji} {category.name}
+									{category.emoji}
+									{category.name}
 								</label>
 							{/each}
 							<hr />
@@ -371,7 +361,11 @@
 								onkeydown={(e) => e.key === 'Enter' && handleSort('overall')}
 								tabindex="0"
 								role="columnheader"
-								aria-sort={sortBy === 'overall' ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}
+								aria-sort={sortBy === 'overall'
+									? sortOrder === 'asc'
+										? 'ascending'
+										: 'descending'
+									: 'none'}
 							>
 								<div class="th-content">
 									<span>Rank</span>
@@ -418,7 +412,7 @@
 								</div>
 							</th>
 						{/if}
-						{#each data.categories as category}
+						{#each data.categories as category (category.id)}
 							{#if visibleColumns[category.id as keyof typeof visibleColumns]}
 								<th
 									class="sortable col-score"
@@ -493,7 +487,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each sortedModels as ranked, index}
+					{#each sortedModels as ranked, index (ranked.model.id)}
 						<tr class:even={index % 2 === 0}>
 							<td class="sticky-col col-fav">
 								<button
@@ -541,7 +535,7 @@
 									</span>
 								</td>
 							{/if}
-							{#each data.categories as category}
+							{#each data.categories as category (category.id)}
 								{#if visibleColumns[category.id as keyof typeof visibleColumns]}
 									{@const score = ranked.categoryScores[category.id]}
 									<td
@@ -564,7 +558,8 @@
 								<td class="col-num">{formatPrice(ranked.model.pricing.average_per_1m)}</td>
 							{/if}
 							{#if visibleColumns.speed}
-								<td class="col-num">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</td>
+								<td class="col-num">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</td
+								>
 							{/if}
 							{#if visibleColumns.latency}
 								<td class="col-num">{ranked.model.performance.latency_ttft_ms}ms</td>
@@ -580,7 +575,7 @@
 
 		<!-- Mobile Card View -->
 		<div class="card-view">
-			{#each sortedModels as ranked}
+			{#each sortedModels as ranked (ranked.model.id)}
 				<article class="model-card">
 					<header class="card-header">
 						<div class="card-rank">
@@ -604,7 +599,7 @@
 							</span>
 						</p>
 						<div class="card-scores">
-							{#each data.categories.slice(0, 3) as category}
+							{#each data.categories.slice(0, 3) as category (category.id)}
 								<div class="score-row">
 									<span class="score-label">{category.emoji} {category.name}</span>
 									<span class="score-value">{formatScore(ranked.categoryScores[category.id])}</span>
@@ -613,7 +608,8 @@
 						</div>
 						<div class="card-footer">
 							<span class="price">{formatPrice(ranked.model.pricing.average_per_1m)}</span>
-							<span class="speed">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span>
+							<span class="speed">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+							>
 						</div>
 					</div>
 				</article>
@@ -624,11 +620,7 @@
 
 <!-- Tooltip -->
 {#if activeTooltip}
-	<div
-		class="tooltip"
-		style="left: {activeTooltip.x}px; top: {activeTooltip.y}px;"
-		role="tooltip"
-	>
+	<div class="tooltip" style="left: {activeTooltip.x}px; top: {activeTooltip.y}px;" role="tooltip">
 		{#if activeTooltip.type === 'model'}
 			{@const tooltipData = activeTooltip.data as { name: string; notes: string }}
 			<div class="tooltip-header">{tooltipData.name}</div>
@@ -647,16 +639,25 @@
 				category: Category;
 				model: { name: string };
 				score: number | null;
-				breakdown: { benchmark: { id: string; name: string; url: string }; rawScore: number | null; normalizedScore: number | null }[];
+				breakdown: {
+					benchmark: { id: string; name: string; url: string };
+					rawScore: number | null;
+					normalizedScore: number | null;
+				}[];
 			}}
 			<div class="tooltip-header">{scoreData.category.name}: {formatScore(scoreData.score)}</div>
 			<div class="tooltip-body">
 				<ul class="benchmark-list">
-					{#each scoreData.breakdown as item}
+					{#each scoreData.breakdown as item (item.benchmark.id)}
 						<li>
 							<span class="benchmark-name">{item.benchmark.name}</span>
 							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>
-							<a href={item.benchmark.url} target="_blank" rel="noopener noreferrer" class="benchmark-link">
+							<a
+								href={item.benchmark.url}
+								target="_blank"
+								rel="external noopener noreferrer"
+								class="benchmark-link"
+							>
 								🔗
 							</a>
 						</li>
@@ -745,7 +746,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: background var(--transition-fast), transform var(--transition-fast);
+		transition:
+			background var(--transition-fast),
+			transform var(--transition-fast);
 	}
 
 	.theme-toggle:hover {
