@@ -5,10 +5,10 @@
 
 /**
  * Normalize Elo scores from range [min, max] to percentage scale [0, 100]
- * @param {number} elo - Elo score
- * @param {number} min - Minimum Elo range
- * @param {number} max - Maximum Elo range
- * @returns {number} Normalized score (0-100)
+ * @param {number|null} elo - Elo score
+ * @param {number|null} min - Minimum Elo range
+ * @param {number|null} max - Maximum Elo range
+ * @returns {number|null} Normalized score (0-100) or null
  */
 export function normalizeEloScore(elo, min, max) {
   if (elo == null || min == null || max == null) return null;
@@ -19,16 +19,16 @@ export function normalizeEloScore(elo, min, max) {
 /**
  * Calculate weighted average for a category, handling nulls
  * @param {Object} model - Model object with benchmark_scores
- * @param {Object} category - Category object with benchmarks
+ * @param {Object} category - Category object with benchmarks array
  * @returns {number|null} Category score (0-100) or null if no valid scores
  */
 export function calculateCategoryScore(model, category) {
-  const { benchmarks } = category;
+  const { benchmarks } = /** @type {{ benchmarks: Array<{id: string, weight: number}> }} */ (category);
   let totalWeight = 0;
   let weightedSum = 0;
 
   for (const benchmark of benchmarks) {
-    const rawScore = model.benchmark_scores[benchmark.id];
+    const rawScore = /** @type {any} */ (model).benchmark_scores[benchmark.id];
 
     if (rawScore == null) {
       continue; // Skip null scores
@@ -60,7 +60,7 @@ export function calculateCategoryScore(model, category) {
 /**
  * Calculate overall score using category weights
  * @param {Object} model - Model object
- * @param {Array} categories - Array of category objects
+ * @param {Array<Object>} categories - Array of category objects
  * @returns {number|null} Overall score (0-100) or null if no valid categories
  */
 export function calculateOverallScore(model, categories) {
@@ -71,8 +71,8 @@ export function calculateOverallScore(model, categories) {
     const categoryScore = calculateCategoryScore(model, category);
 
     if (categoryScore != null) {
-      totalWeight += category.weight;
-      weightedSum += categoryScore * category.weight;
+      totalWeight += /** @type {any} */ (category).weight;
+      weightedSum += categoryScore * /** @type {any} */ (category).weight;
     }
   }
 

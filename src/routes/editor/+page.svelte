@@ -70,7 +70,7 @@
 		onkeydown={(e) => e.key === 'Escape' && (showGitIntegration = false)}
 		tabindex="0"
 	>
-		<div class="modal-content" role="document" onclick={(e) => e.stopPropagation()}>
+		<div class="modal-content" role="document">
 			<GitIntegration onClose={() => showGitIntegration = false} />
 		</div>
 	</div>

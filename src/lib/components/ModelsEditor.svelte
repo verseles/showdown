@@ -33,7 +33,7 @@
 	// Initialize category scores
 	function initCategoryScores() {
 		const scores: Record<string, number> = {};
-		categories.forEach(cat => {
+		categories.forEach((cat: any) => {
 			scores[cat.id] = 0;
 		});
 		return scores;
@@ -137,7 +137,7 @@
 			onkeydown={(e) => e.key === 'Escape' && closeForm()}
 			tabindex="0"
 		>
-			<div class="modal-content" role="document" onclick={(e) => e.stopPropagation()}>
+			<div class="modal-content" role="document">
 				<div class="modal-header">
 					<h3>{editingModel ? 'Edit Model' : 'Add New Model'}</h3>
 					<button class="close-button" onclick={closeForm}>✕</button>
