@@ -10,8 +10,9 @@
 	let activeTab = $state('models');
 	let showGitIntegration = $state(false);
 
-	// Get data from load function
-	let { models, categories } = data;
+	// Get data from load function with proper reactivity
+	let models = $derived(data.models);
+	let categories = $derived(data.categories);
 </script>
 
 <div class="editor-container">

@@ -569,6 +569,7 @@
 {#if showTooltip}
 	<div
 		class="tooltip"
+		role="tooltip"
 		style="left: {tooltipX}px; top: {tooltipY - 10}px"
 		onmouseenter={() => showTooltip = true}
 		onmouseleave={() => showTooltip = false}
@@ -849,15 +850,6 @@
 		max-width: 300px;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 		pointer-events: auto;
-	}
-
-	.tooltip a {
-		color: #4dabf7;
-		text-decoration: none;
-	}
-
-	.tooltip a:hover {
-		text-decoration: underline;
 	}
 
 	/* Responsive design */
