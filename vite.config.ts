@@ -1,8 +1,7 @@
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { sveltekit } from '@sveltejs/kit/vite';
-// @ts-expect-error - Paraglide bundler plugin path
-import { paraglideVitePlugin } from '@inlang/paraglide-js/dist/bundler-plugins/vite.js';
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
 
 export default defineConfig({
 	plugins: [

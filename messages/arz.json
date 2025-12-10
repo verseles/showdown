@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "site_title": "Showdown - ترتيب ومقارنة شاملة لموديلات اللغة الكبيرة",
+  "site_description": "قارن أحسن موديلات اللغة الذكية في البرمجة والتفكير والوكلاء وأكتر. ترتيبات شفافة من أكتر من 20 معيار.",
+  "og_title": "Showdown - ترتيب LLM",
+  "og_description": "مقارنة شفافة لموديلات الذكاء الاصطناعي بتجمع SWE-Bench و GPQA و LMArena وغيرهم.",
+
+  "header_title": "Showdown",
+  "header_tagline": "ترتيب LLM",
+  "header_showing": "بيعرض {count} من {total} موديل",
+  "header_updated": "آخر تحديث: {date}",
+
+  "aria_select_language": "اختار اللغة",
+  "aria_star_github": "حط نجمة على GitHub",
+  "aria_switch_light": "غير للوضع الفاتح",
+  "aria_switch_dark": "غير للوضع الغامق",
+  "aria_favorite": "مفضلة",
+  "aria_add_favorite": "ضيف للمفضلة",
+  "aria_remove_favorite": "شيل من المفضلة",
+  "aria_show_less": "عرض أقل",
+  "aria_show_more": "عرض أكتر",
+
+  "filter_provider": "المزود",
+  "filter_type": "النوع",
+  "filter_proprietary": "مملوك",
+  "filter_opensource": "مفتوح المصدر",
+  "filter_favorites_only": "المفضلة بس",
+  "filter_reset": "إعادة تعيين",
+  "filter_columns": "الأعمدة",
+  "filter_visible_columns": "الأعمدة الظاهرة",
+
+  "column_rank": "الترتيب",
+  "column_rank_score": "الترتيب والنتيجة",
+  "column_provider": "المزود",
+  "column_model": "الموديل",
+  "column_type": "النوع",
+  "column_price": "السعر",
+  "column_speed": "السرعة",
+  "column_latency": "وقت الاستجابة",
+  "column_released": "الإصدار",
+  "column_release_date": "تاريخ الإصدار",
+
+  "type_proprietary": "مملوك",
+  "type_opensource": "مفتوح المصدر",
+  "type_open": "مفتوح",
+
+  "category_coding": "البرمجة",
+  "category_reasoning": "التفكير",
+  "category_agents": "الوكلاء والأدوات",
+  "category_conversation": "المحادثة",
+  "category_math": "الرياضيات",
+  "category_multimodal": "متعدد الوسايط",
+  "category_multilingual": "متعدد اللغات",
+
+  "tooltip_weight": "الوزن: {percentage}%",
+  "tooltip_benchmarks_available": "{available}/{total} معيار متاح",
+  "tooltip_pricing": "التسعير: {model}",
+  "tooltip_input": "المدخلات",
+  "tooltip_output": "المخرجات",
+  "tooltip_average": "المتوسط",
+  "tooltip_per_1m_tokens": "/ 1M tokens",
+  "tooltip_average_formula": "المتوسط = (المدخلات + المخرجات) / 2",
+
+  "card_price_avg": "السعر (متوسط)",
+  "card_input": "المدخلات",
+  "card_output": "المخرجات",
+  "card_speed": "السرعة",
+  "card_latency": "وقت الاستجابة",
+  "card_released": "الإصدار",
+  "card_show_less": "عرض أقل",
+  "card_show_all": "عرض الكل",
+
+  "footer_data_sourced": "البيانات مصدرها معايير عامة.",
+  "footer_contribute": "ساهم على GitHub",
+
+  "github_star": "Star"
+}

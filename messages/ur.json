@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "site_title": "Showdown - LLM کی جامع درجہ بندی اور موازنہ",
+  "site_description": "کوڈنگ، استدلال، ایجنٹس وغیرہ میں بہترین AI لینگویج ماڈلز کا موازنہ کریں۔ 20+ بینچ مارکس سے شفاف درجہ بندی۔",
+  "og_title": "Showdown - LLM درجہ بندی",
+  "og_description": "SWE-Bench، GPQA، LMArena وغیرہ کو جمع کرتے ہوئے شفاف AI ماڈل موازنہ۔",
+
+  "header_title": "Showdown",
+  "header_tagline": "LLM درجہ بندی",
+  "header_showing": "{total} میں سے {count} ماڈلز دکھائے جا رہے ہیں",
+  "header_updated": "اپڈیٹ: {date}",
+
+  "aria_select_language": "زبان منتخب کریں",
+  "aria_star_github": "GitHub پر ستارہ دیں",
+  "aria_switch_light": "لائٹ موڈ میں تبدیل کریں",
+  "aria_switch_dark": "ڈارک موڈ میں تبدیل کریں",
+  "aria_favorite": "پسندیدہ",
+  "aria_add_favorite": "پسندیدہ میں شامل کریں",
+  "aria_remove_favorite": "پسندیدہ سے ہٹائیں",
+  "aria_show_less": "کم دکھائیں",
+  "aria_show_more": "مزید دکھائیں",
+
+  "filter_provider": "فراہم کنندہ",
+  "filter_type": "قسم",
+  "filter_proprietary": "ملکیتی",
+  "filter_opensource": "اوپن سورس",
+  "filter_favorites_only": "صرف پسندیدہ",
+  "filter_reset": "ری سیٹ",
+  "filter_columns": "کالم",
+  "filter_visible_columns": "نظر آنے والے کالم",
+
+  "column_rank": "درجہ",
+  "column_rank_score": "درجہ اور اسکور",
+  "column_provider": "فراہم کنندہ",
+  "column_model": "ماڈل",
+  "column_type": "قسم",
+  "column_price": "قیمت",
+  "column_speed": "رفتار",
+  "column_latency": "تاخیر",
+  "column_released": "جاری",
+  "column_release_date": "جاری ہونے کی تاریخ",
+
+  "type_proprietary": "ملکیتی",
+  "type_opensource": "اوپن سورس",
+  "type_open": "کھلا",
+
+  "category_coding": "کوڈنگ",
+  "category_reasoning": "استدلال",
+  "category_agents": "ایجنٹس اور ٹولز",
+  "category_conversation": "گفتگو",
+  "category_math": "ریاضی",
+  "category_multimodal": "ملٹی موڈل",
+  "category_multilingual": "کثیر لسانی",
+
+  "tooltip_weight": "وزن: {percentage}%",
+  "tooltip_benchmarks_available": "{available}/{total} بینچ مارکس دستیاب",
+  "tooltip_pricing": "قیمت: {model}",
+  "tooltip_input": "ان پٹ",
+  "tooltip_output": "آؤٹ پٹ",
+  "tooltip_average": "اوسط",
+  "tooltip_per_1m_tokens": "/ 1M tokens",
+  "tooltip_average_formula": "اوسط = (ان پٹ + آؤٹ پٹ) / 2",
+
+  "card_price_avg": "قیمت (اوسط)",
+  "card_input": "ان پٹ",
+  "card_output": "آؤٹ پٹ",
+  "card_speed": "رفتار",
+  "card_latency": "تاخیر",
+  "card_released": "جاری",
+  "card_show_less": "کم دکھائیں",
+  "card_show_all": "سب دکھائیں",
+
+  "footer_data_sourced": "ڈیٹا عوامی بینچ مارکس سے حاصل کیا گیا۔",
+  "footer_contribute": "GitHub پر حصہ ڈالیں",
+
+  "github_star": "Star"
+}

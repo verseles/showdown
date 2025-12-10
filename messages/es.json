@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "site_title": "Showdown - Rankings y comparación completa de LLM",
+  "site_description": "Compara los mejores modelos de lenguaje AI en codificación, razonamiento, agentes y más. Rankings transparentes de más de 20 benchmarks.",
+  "og_title": "Showdown - Rankings de LLM",
+  "og_description": "Comparación transparente de modelos AI agregando SWE-Bench, GPQA, LMArena y más.",
+
+  "header_title": "Showdown",
+  "header_tagline": "Rankings de LLM",
+  "header_showing": "Mostrando {count} de {total} modelos",
+  "header_updated": "Actualizado: {date}",
+
+  "aria_select_language": "Seleccionar idioma",
+  "aria_star_github": "Dar estrella en GitHub",
+  "aria_switch_light": "Cambiar a modo claro",
+  "aria_switch_dark": "Cambiar a modo oscuro",
+  "aria_favorite": "Favorito",
+  "aria_add_favorite": "Añadir a favoritos",
+  "aria_remove_favorite": "Quitar de favoritos",
+  "aria_show_less": "Mostrar menos",
+  "aria_show_more": "Mostrar más",
+
+  "filter_provider": "Proveedor",
+  "filter_type": "Tipo",
+  "filter_proprietary": "Propietario",
+  "filter_opensource": "Código abierto",
+  "filter_favorites_only": "Solo favoritos",
+  "filter_reset": "Restablecer",
+  "filter_columns": "Columnas",
+  "filter_visible_columns": "Columnas visibles",
+
+  "column_rank": "Rango",
+  "column_rank_score": "Rango y puntuación",
+  "column_provider": "Proveedor",
+  "column_model": "Modelo",
+  "column_type": "Tipo",
+  "column_price": "Precio",
+  "column_speed": "Velocidad",
+  "column_latency": "Latencia",
+  "column_released": "Lanzamiento",
+  "column_release_date": "Fecha de lanzamiento",
+
+  "type_proprietary": "Propietario",
+  "type_opensource": "Código abierto",
+  "type_open": "Abierto",
+
+  "category_coding": "Programación",
+  "category_reasoning": "Razonamiento",
+  "category_agents": "Agentes y herramientas",
+  "category_conversation": "Conversación",
+  "category_math": "Matemáticas",
+  "category_multimodal": "Multimodal",
+  "category_multilingual": "Multilingüe",
+
+  "tooltip_weight": "Peso: {percentage}%",
+  "tooltip_benchmarks_available": "{available}/{total} benchmarks disponibles",
+  "tooltip_pricing": "Precios: {model}",
+  "tooltip_input": "Entrada",
+  "tooltip_output": "Salida",
+  "tooltip_average": "Promedio",
+  "tooltip_per_1m_tokens": "/ 1M tokens",
+  "tooltip_average_formula": "Promedio = (Entrada + Salida) / 2",
+
+  "card_price_avg": "Precio (prom.)",
+  "card_input": "Entrada",
+  "card_output": "Salida",
+  "card_speed": "Velocidad",
+  "card_latency": "Latencia",
+  "card_released": "Lanzamiento",
+  "card_show_less": "Mostrar menos",
+  "card_show_all": "Mostrar todo",
+
+  "footer_data_sourced": "Datos obtenidos de benchmarks públicos.",
+  "footer_contribute": "Contribuir en GitHub",
+
+  "github_star": "Star"
+}

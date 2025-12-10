@@ -26,8 +26,7 @@
     "sv"
   ],
   "modules": [
-    "file:/home/user/showdown/node_modules/@inlang/plugin-message-format/dist/index.js",
-    "file:/home/user/showdown/node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
+    "./plugins/message-format.js"
   ],
   "plugin.inlang.messageFormat": {
     "pathPattern": "./messages/{languageTag}.json"
