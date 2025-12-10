@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T02:30:00Z",
+		"last_update": "2025-12-10T02:42:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -494,7 +494,7 @@
 			"name": "Grok 4",
 			"provider": "xAI",
 			"type": "proprietary",
-			"release_date": "2025-07-15",
+			"release_date": "2025-07-09",
 			"pricing": {
 				"input_per_1m": 3.0,
 				"output_per_1m": 15.0,
@@ -531,6 +531,94 @@
 				"mmmlu": 86.8,
 				"lmarena_en_elo": 1445,
 				"lmarena_zh_elo": 1375
+			}
+		},
+		{
+			"id": "grok-4-1",
+			"name": "Grok 4.1",
+			"provider": "xAI",
+			"type": "proprietary",
+			"release_date": "2025-11-17",
+			"pricing": {
+				"input_per_1m": 3.0,
+				"output_per_1m": 15.0,
+				"average_per_1m": 9.0
+			},
+			"performance": {
+				"output_speed_tps": 95,
+				"latency_ttft_ms": 850,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "xAI's flagship successor to Grok 4. #2 on LMArena Overall (1465 Elo). 3x reduction in hallucinations vs Grok 4. Excels at emotional intelligence and conversation.",
+			"benchmark_scores": {
+				"swe_bench": 76.5,
+				"terminal_bench": 54.0,
+				"lmarena_coding_elo": 1375,
+				"live_code_bench": 70.5,
+				"gpqa_diamond": 89.5,
+				"aime_2024": 96.0,
+				"arc_agi": 16.5,
+				"lmarena_hard_elo": 1475,
+				"bfcl": 83.5,
+				"tau_bench": 58.5,
+				"osworld": 48.0,
+				"webdev_arena_elo": 1335,
+				"lmarena_creative_elo": 1410,
+				"instruction_following": 91.0,
+				"math_500": 97.2,
+				"gsm8k": 98.8,
+				"lmarena_math_elo": 1455,
+				"mathvista": 76.5,
+				"mmmu": 73.0,
+				"lmarena_vision_elo": 1365,
+				"mmlu": 91.8,
+				"mmmlu": 87.5,
+				"lmarena_en_elo": 1465,
+				"lmarena_zh_elo": 1390
+			}
+		},
+		{
+			"id": "grok-4-1-thinking",
+			"name": "Grok 4.1 Thinking",
+			"provider": "xAI",
+			"type": "proprietary",
+			"release_date": "2025-11-17",
+			"pricing": {
+				"input_per_1m": 3.0,
+				"output_per_1m": 15.0,
+				"average_per_1m": 9.0
+			},
+			"performance": {
+				"output_speed_tps": 45,
+				"latency_ttft_ms": 2200,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Extended thinking variant of Grok 4.1. #1 on LMArena Overall (1483 Elo). Deep reasoning with chain-of-thought. Top-tier emotional intelligence (1586 EQ-Bench Elo).",
+			"benchmark_scores": {
+				"swe_bench": 78.5,
+				"terminal_bench": 56.5,
+				"lmarena_coding_elo": 1392,
+				"live_code_bench": 74.5,
+				"gpqa_diamond": 91.0,
+				"aime_2024": 97.5,
+				"arc_agi": 22.5,
+				"lmarena_hard_elo": 1495,
+				"bfcl": 85.5,
+				"tau_bench": 62.5,
+				"osworld": 52.5,
+				"webdev_arena_elo": 1358,
+				"lmarena_creative_elo": 1430,
+				"instruction_following": 93.5,
+				"math_500": 98.0,
+				"gsm8k": 99.2,
+				"lmarena_math_elo": 1475,
+				"mathvista": 79.5,
+				"mmmu": 76.0,
+				"lmarena_vision_elo": 1385,
+				"mmlu": 92.5,
+				"mmmlu": 88.5,
+				"lmarena_en_elo": 1483,
+				"lmarena_zh_elo": 1410
 			}
 		},
 		{
