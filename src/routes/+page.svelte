@@ -186,6 +186,21 @@
 		{ code: 'fr', name: 'Français' }
 	];
 	let selectedLanguage = $state('en');
+
+	// Expanded cards state for mobile view
+	let expandedCards = $state<Set<string>>(new Set());
+
+	function toggleCardExpanded(modelId: string) {
+		if (expandedCards.has(modelId)) {
+			expandedCards = new Set([...expandedCards].filter((id) => id !== modelId));
+		} else {
+			expandedCards = new Set([...expandedCards, modelId]);
+		}
+	}
+
+	function isCardExpanded(modelId: string): boolean {
+		return expandedCards.has(modelId);
+	}
 </script>
 
 <svelte:head>
@@ -637,7 +652,8 @@
 		<!-- Mobile Card View -->
 		<div class="card-view">
 			{#each sortedModels as ranked (ranked.model.id)}
-				<article class="model-card">
+				{@const expanded = isCardExpanded(ranked.model.id)}
+				<article class="model-card" class:expanded>
 					<header class="card-header">
 						<div class="card-rank">
 							<span class="rank-badge">#{ranked.rank ?? '—'}</span>
@@ -660,18 +676,67 @@
 							</span>
 						</p>
 						<div class="card-scores">
-							{#each data.categories.slice(0, 3) as category (category.id)}
+							{#each expanded ? data.categories : data.categories.slice(0, 3) as category (category.id)}
 								<div class="score-row">
 									<span class="score-label">{category.emoji} {category.name}</span>
 									<span class="score-value">{formatScore(ranked.categoryScores[category.id])}</span>
 								</div>
 							{/each}
 						</div>
-						<div class="card-footer">
-							<span class="price">{formatPrice(ranked.model.pricing.average_per_1m)}</span>
-							<span class="speed">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
-							>
-						</div>
+						{#if expanded}
+							<div class="card-details">
+								<div class="detail-row">
+									<span class="detail-label">Price (avg)</span>
+									<span class="detail-value"
+										>{formatPrice(ranked.model.pricing.average_per_1m)}</span
+									>
+								</div>
+								<div class="detail-row">
+									<span class="detail-label">Input</span>
+									<span class="detail-value"
+										>${ranked.model.pricing.input_per_1m.toFixed(2)}/1M</span
+									>
+								</div>
+								<div class="detail-row">
+									<span class="detail-label">Output</span>
+									<span class="detail-value"
+										>${ranked.model.pricing.output_per_1m.toFixed(2)}/1M</span
+									>
+								</div>
+								<div class="detail-row">
+									<span class="detail-label">Speed</span>
+									<span class="detail-value"
+										>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+									>
+								</div>
+								<div class="detail-row">
+									<span class="detail-label">Latency</span>
+									<span class="detail-value">{ranked.model.performance.latency_ttft_ms}ms</span>
+								</div>
+								<div class="detail-row">
+									<span class="detail-label">Released</span>
+									<span class="detail-value"
+										>{new Date(ranked.model.release_date).toLocaleDateString()}</span
+									>
+								</div>
+							</div>
+						{:else}
+							<div class="card-footer">
+								<span class="price">{formatPrice(ranked.model.pricing.average_per_1m)}</span>
+								<span class="speed"
+									>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+								>
+							</div>
+						{/if}
+						<button
+							class="expand-btn"
+							onclick={() => toggleCardExpanded(ranked.model.id)}
+							aria-expanded={expanded}
+							aria-label={expanded ? 'Show less' : 'Show more'}
+						>
+							<span class="expand-icon" class:rotated={expanded}>▼</span>
+							<span>{expanded ? 'Show less' : 'Show all'}</span>
+						</button>
 					</div>
 				</article>
 			{/each}
@@ -1397,6 +1462,62 @@
 		margin: 0;
 	}
 
+	/* Card Details (expandable) */
+	.card-details {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		padding-top: var(--spacing-sm);
+		margin-top: var(--spacing-sm);
+		border-top: 1px solid var(--border-light);
+	}
+
+	.detail-row {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.875rem;
+	}
+
+	.detail-label {
+		color: var(--text-muted);
+	}
+
+	.detail-value {
+		font-family: var(--font-mono);
+		color: var(--text-primary);
+	}
+
+	.expand-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-xs);
+		width: 100%;
+		padding: var(--spacing-sm);
+		margin-top: var(--spacing-sm);
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		color: var(--text-secondary);
+		font-size: 0.875rem;
+		cursor: pointer;
+		transition: background var(--transition-fast);
+	}
+
+	.expand-btn:hover {
+		background: var(--border-color);
+	}
+
+	.expand-icon {
+		display: inline-block;
+		transition: transform 0.2s ease;
+		font-size: 0.75rem;
+	}
+
+	.expand-icon.rotated {
+		transform: rotate(180deg);
+	}
+
 	/* Responsive */
 	@media (max-width: 767px) {
 		.table-wrapper {
@@ -1430,13 +1551,21 @@
 		}
 
 		/* Header mobile adjustments */
-		.header-meta {
-			font-size: 0.75rem;
+		.header-top {
+			flex-wrap: wrap;
 			gap: var(--spacing-sm);
 		}
 
 		.header-buttons {
+			order: 3;
+			width: 100%;
+			justify-content: flex-end;
 			gap: var(--spacing-xs);
+		}
+
+		.header-meta {
+			font-size: 0.75rem;
+			gap: var(--spacing-sm);
 		}
 
 		/* Fix theme toggle circle */
