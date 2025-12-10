@@ -5,5 +5,10 @@ yarn.lock
 bun.lock
 bun.lockb
 
+# Build outputs
+.svelte-kit/
+editor/.svelte-kit/
+
 # Miscellaneous
 /static/
+editor/static/
