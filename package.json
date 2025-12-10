@@ -13,7 +13,9 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"editor": "cd editor && npm run dev",
+		"editor:install": "cd editor && npm install"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
