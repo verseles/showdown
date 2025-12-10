@@ -100,7 +100,7 @@ This document tracks the development progress of Showdown. Features are organize
 - [ ] French (fr)
 - [ ] Standard Arabic (ar) - RTL
 - [ ] Bengali (bn)
-- [ ] Portuguese (pt)
+- [ ] Portuguese (pt-br)
 - [ ] Russian (ru)
 - [ ] Urdu (ur) - RTL
 
