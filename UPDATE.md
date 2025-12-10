@@ -39,19 +39,20 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 
 ### LMArena (Chatbot Arena) - Multiple Categories
 
-**Base URL:** https://lmarena.ai/leaderboard
+> [!IMPORTANT]
+> **Use the browser tool** to navigate to each leaderboard URL below. After the page loads, click **"View all"** to display all models before extracting ELO scores.
 
-| Category              | URL Path                                  | Benchmark ID           |
-| --------------------- | ----------------------------------------- | ---------------------- |
-| Overall               | `/leaderboard`                            | `lmarena_en_elo`       |
-| Coding                | `/leaderboard/text/coding`                | `lmarena_coding_elo`   |
-| Hard Prompts          | `/leaderboard` (filter)                   | `lmarena_hard_elo`     |
-| Creative Writing      | `/leaderboard/text/creative-writing`      | `lmarena_creative_elo` |
-| Instruction Following | `/leaderboard/text/instruction-following` | `lmarena_if_elo`       |
-| Math                  | `/leaderboard/text/math`                  | `lmarena_math_elo`     |
-| Vision                | `/leaderboard/vision`                     | `lmarena_vision_elo`   |
-| Chinese               | `/leaderboard` (filter by language)       | `lmarena_zh_elo`       |
-| WebDev Arena          | https://web.lmarena.ai/leaderboard        | `webdev_arena_elo`     |
+| Benchmark ID           | Category              | URL                                                       |
+| ---------------------- | --------------------- | --------------------------------------------------------- |
+| `lmarena_coding_elo`   | Coding                | https://lmarena.ai/leaderboard/text/coding                |
+| `lmarena_hard_elo`     | Hard Prompts          | https://lmarena.ai/leaderboard/text/hard-prompts          |
+| `webdev_arena_elo`     | WebDev Arena          | https://lmarena.ai/leaderboard/webdev                     |
+| `lmarena_creative_elo` | Creative Writing      | https://lmarena.ai/leaderboard/text/creative-writing      |
+| `lmarena_if_elo`       | Instruction Following | https://lmarena.ai/leaderboard/text/instruction-following |
+| `lmarena_math_elo`     | Math                  | https://lmarena.ai/leaderboard/text/math                  |
+| `lmarena_vision_elo`   | Vision                | https://lmarena.ai/leaderboard/vision                     |
+| `lmarena_en_elo`       | English (Overall)     | https://lmarena.ai/leaderboard/text/english               |
+| `lmarena_zh_elo`       | Chinese               | https://lmarena.ai/leaderboard/text/chinese               |
 
 ### Pricing & Performance
 
