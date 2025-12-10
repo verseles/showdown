@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T08:00:00Z",
+		"last_update": "2025-12-10T08:17:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -795,6 +795,50 @@
 				"mmmlu": 79.5,
 				"lmarena_en_elo": 1305,
 				"lmarena_zh_elo": 1365
+			}
+		},
+		{
+			"id": "qwen3-max-preview",
+			"name": "Qwen3 Max Preview",
+			"provider": "Alibaba",
+			"type": "proprietary",
+			"release_date": "2025-12-01",
+			"pricing": {
+				"input_per_1m": 1.2,
+				"output_per_1m": 6.0,
+				"average_per_1m": 3.6
+			},
+			"performance": {
+				"output_speed_tps": 85,
+				"latency_ttft_ms": 750,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Alibaba's flagship proprietary model in preview. Top 3 on LMArena. Strong coding (SWE-Bench 69.6% verified) and math performance. Thinking variant achieves 100% on AIME 2025.",
+			"benchmark_scores": {
+				"swe_bench": 69.6,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1365,
+				"live_code_bench": 66.9,
+				"gpqa_diamond": 77.8,
+				"aime_2024": 60.7,
+				"arc_agi": null,
+				"lmarena_hard_elo": 1425,
+				"bfcl": 80.5,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": 1305,
+				"lmarena_creative_elo": 1375,
+				"instruction_following": 87.5,
+				"math_500": 82.5,
+				"gsm8k": 95.5,
+				"lmarena_math_elo": 1385,
+				"mathvista": 68.5,
+				"mmmu": 65.5,
+				"lmarena_vision_elo": 1305,
+				"mmlu": 88.5,
+				"mmmlu": 83.5,
+				"lmarena_en_elo": 1440,
+				"lmarena_zh_elo": 1445
 			}
 		},
 		{
