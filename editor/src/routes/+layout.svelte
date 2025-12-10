@@ -1,6 +1,13 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	let theme = $state<'light' | 'dark'>('light');
 
@@ -20,14 +27,6 @@
 		localStorage.setItem('editor-theme', theme);
 		document.documentElement.classList.toggle('dark', theme === 'dark');
 	}
-
-	// Export for children to use
-	const layoutContext = {
-		get theme() {
-			return theme;
-		},
-		toggleTheme
-	};
 </script>
 
 <svelte:head>
@@ -35,4 +34,4 @@
 	<meta name="description" content="Data editor for Showdown LLM Rankings" />
 </svelte:head>
 
-<slot {layoutContext} />
+{@render children()}

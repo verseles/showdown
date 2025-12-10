@@ -3,17 +3,12 @@
 	import DataGrid from '$lib/components/DataGrid.svelte';
 	import Toolbar from '$lib/components/Toolbar.svelte';
 	import StatsPanel from '$lib/components/StatsPanel.svelte';
-	import {
-		loadData,
-		isLoading,
-		notifications,
-		removeNotification
-	} from '$lib/stores/data.svelte';
+	import { store, loadData, removeNotification } from '$lib/stores/data.svelte';
 
 	let theme = $state<'light' | 'dark'>('light');
 	let sidebarOpen = $state(true);
 	let selectedModelId = $state<string | null>(null);
-	let gridComponent: DataGrid;
+	let gridComponent = $state<DataGrid | null>(null);
 
 	onMount(async () => {
 		// Load theme preference
@@ -60,7 +55,7 @@
 </script>
 
 <div class="editor-container">
-	{#if isLoading}
+	{#if store.isLoading}
 		<div class="loading-screen">
 			<div class="loading-spinner"></div>
 			<p>Loading data...</p>
@@ -90,7 +85,7 @@
 
 	<!-- Notifications -->
 	<div class="notifications-container">
-		{#each notifications as notification (notification.id)}
+		{#each store.notifications as notification (notification.id)}
 			<div class="notification {notification.type}" role="alert">
 				<span>{notification.message}</span>
 				<button
