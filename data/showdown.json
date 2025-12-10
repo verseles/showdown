@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T07:55:00Z",
+		"last_update": "2025-12-10T08:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1014,6 +1014,94 @@
 				"mmlu": null,
 				"mmmlu": null,
 				"lmarena_en_elo": null,
+				"lmarena_zh_elo": null
+			}
+		},
+		{
+			"id": "longcat-flash-chat",
+			"name": "Longcat Flash Chat",
+			"provider": "Meituan",
+			"type": "open-source",
+			"release_date": "2025-12-01",
+			"pricing": {
+				"input_per_1m": 0.15,
+				"output_per_1m": 0.75,
+				"average_per_1m": 0.45
+			},
+			"performance": {
+				"output_speed_tps": 100,
+				"latency_ttft_ms": 350,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Meituan's MoE model (560B total, 27B active) optimized for agentic and conversational tasks. 128K context with strong tool use and Chinese language performance.",
+			"benchmark_scores": {
+				"swe_bench": null,
+				"terminal_bench": null,
+				"lmarena_coding_elo": null,
+				"live_code_bench": null,
+				"gpqa_diamond": 68.0,
+				"aime_2024": null,
+				"arc_agi": null,
+				"lmarena_hard_elo": null,
+				"bfcl": 82.0,
+				"tau_bench": 75.0,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": null,
+				"instruction_following": 88.5,
+				"math_500": 85.0,
+				"gsm8k": null,
+				"lmarena_math_elo": null,
+				"mathvista": null,
+				"mmmu": null,
+				"lmarena_vision_elo": null,
+				"mmlu": 88.0,
+				"mmmlu": null,
+				"lmarena_en_elo": null,
+				"lmarena_zh_elo": null
+			}
+		},
+		{
+			"id": "mistral-large-3",
+			"name": "Mistral Large 3",
+			"provider": "Mistral",
+			"type": "open-source",
+			"release_date": "2025-12-02",
+			"pricing": {
+				"input_per_1m": 0.5,
+				"output_per_1m": 1.5,
+				"average_per_1m": 1.0
+			},
+			"performance": {
+				"output_speed_tps": 90,
+				"latency_ttft_ms": 450,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Mistral's flagship MoE model (675B total, 41B active). Top open-source coding model on LMArena. Excels at structured reasoning and math with competitive pricing.",
+			"benchmark_scores": {
+				"swe_bench": 55.0,
+				"terminal_bench": 23.8,
+				"lmarena_coding_elo": 1335,
+				"live_code_bench": null,
+				"gpqa_diamond": 43.9,
+				"aime_2024": 53.3,
+				"arc_agi": null,
+				"lmarena_hard_elo": 1345,
+				"bfcl": null,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": 1335,
+				"instruction_following": null,
+				"math_500": 93.6,
+				"gsm8k": null,
+				"lmarena_math_elo": 1345,
+				"mathvista": null,
+				"mmmu": null,
+				"lmarena_vision_elo": null,
+				"mmlu": 73.1,
+				"mmmlu": null,
+				"lmarena_en_elo": 1418,
 				"lmarena_zh_elo": null
 			}
 		}
