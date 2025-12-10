@@ -2,6 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { setContext } from 'svelte';
+	import { initializeLocale, updateDocumentDirection } from '$lib/stores/locale.js';
 
 	let { children } = $props();
 
@@ -22,9 +23,15 @@
 
 	$effect(() => {
 		if (typeof window !== 'undefined') {
+			// Initialize theme
 			const stored = localStorage.getItem('theme');
 			const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 			theme = (stored as 'light' | 'dark') || (prefersDark ? 'dark' : 'light');
+
+			// Initialize locale and document direction
+			const locale = initializeLocale();
+			updateDocumentDirection(locale);
+
 			mounted = true;
 		}
 	});

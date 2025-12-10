@@ -188,3 +188,90 @@ a:hover {
 	background-color: var(--accent-primary);
 	color: white;
 }
+
+/* RTL Support */
+[dir='rtl'] {
+	direction: rtl;
+	text-align: right;
+}
+
+/* Force LTR for numbers and scores */
+[dir='rtl'] .score,
+[dir='rtl'] .number,
+[dir='rtl'] .percentage,
+[dir='rtl'] .benchmark-value,
+[dir='rtl'] .overall-score,
+[dir='rtl'] .score-value,
+[dir='rtl'] .rank-number,
+[dir='rtl'] .price,
+[dir='rtl'] .detail-value {
+	direction: ltr;
+	unicode-bidi: embed;
+}
+
+/* Force LTR for technical terms */
+[dir='rtl'] .technical-term,
+[dir='rtl'] .model-name,
+[dir='rtl'] .benchmark-name {
+	direction: ltr;
+	unicode-bidi: embed;
+}
+
+/* Table RTL adjustments */
+[dir='rtl'] .rankings-table th,
+[dir='rtl'] .rankings-table td {
+	text-align: right;
+}
+
+[dir='rtl'] .rankings-table .col-score,
+[dir='rtl'] .rankings-table .col-num {
+	text-align: left;
+}
+
+/* Sticky columns mirror in RTL */
+[dir='rtl'] .sticky-col {
+	left: auto;
+	right: 0;
+}
+
+[dir='rtl'] .col-rank {
+	left: auto;
+	right: 40px;
+}
+
+/* Flip flexbox gap direction not needed, CSS handles it */
+
+/* Dropdown position adjustment */
+[dir='rtl'] .column-settings-dropdown {
+	right: auto;
+	left: 0;
+}
+
+/* Icons that shouldn't flip */
+[dir='rtl'] .sort-icon {
+	transform: none;
+}
+
+/* Card view RTL */
+[dir='rtl'] .card-header {
+	flex-direction: row-reverse;
+}
+
+[dir='rtl'] .card-rank {
+	flex-direction: row-reverse;
+}
+
+/* Filter bar RTL */
+[dir='rtl'] .filter-actions {
+	margin-left: 0;
+	margin-right: auto;
+}
+
+/* Header RTL */
+[dir='rtl'] .header-buttons {
+	flex-direction: row-reverse;
+}
+
+[dir='rtl'] .logo {
+	flex-direction: row-reverse;
+}

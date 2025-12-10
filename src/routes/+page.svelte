@@ -14,6 +14,8 @@
 		getUniqueProviders,
 		getCategoryBreakdown
 	} from '$lib/ranking.js';
+	import * as m from '$lib/paraglide/messages.js';
+	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -175,18 +177,6 @@
 		activeTooltip = null;
 	}
 
-	// Available languages (for future i18n)
-	const languages = [
-		{ code: 'en', name: 'English' },
-		{ code: 'pt', name: 'Português' },
-		{ code: 'es', name: 'Español' },
-		{ code: 'zh', name: '中文' },
-		{ code: 'ja', name: '日本語' },
-		{ code: 'de', name: 'Deutsch' },
-		{ code: 'fr', name: 'Français' }
-	];
-	let selectedLanguage = $state('en');
-
 	// Expanded cards state for mobile view
 	let expandedCards = $state<Set<string>>(new Set());
 
@@ -204,19 +194,19 @@
 </script>
 
 <svelte:head>
-	<title>Showdown - Comprehensive LLM Rankings & Comparison</title>
+	<title>{m.site_title()}</title>
 	<meta
 		name="description"
-		content="Compare the best AI language models across coding, reasoning, agents, and more. Transparent rankings from 20+ benchmarks."
+		content={m.site_description()}
 	/>
-	<meta property="og:title" content="Showdown - LLM Rankings" />
+	<meta property="og:title" content={m.og_title()} />
 	<meta
 		property="og:description"
-		content="Transparent AI model comparison aggregating SWE-Bench, GPQA, LMArena, and more."
+		content={m.og_description()}
 	/>
 	<meta property="og:url" content="https://showdown.best" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Showdown - LLM Rankings" />
+	<meta name="twitter:title" content={m.og_title()} />
 </svelte:head>
 
 <header class="header">
@@ -224,40 +214,31 @@
 		<div class="header-content">
 			<div class="header-top">
 				<div class="logo">
-					<h1>Showdown</h1>
-					<span class="tagline">LLM Rankings</span>
+					<h1>{m.header_title()}</h1>
+					<span class="tagline">{m.header_tagline()}</span>
 				</div>
 				<div class="header-buttons">
-					<select
-						class="language-select"
-						bind:value={selectedLanguage}
-						aria-label="Select language"
-						title="Language selection (coming soon)"
-					>
-						{#each languages as lang (lang.code)}
-							<option value={lang.code}>{lang.name}</option>
-						{/each}
-					</select>
+					<LanguageSelector />
 					<a
 						href="https://github.com/verseles/showdown"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="github-star-btn"
-						aria-label="Star on GitHub"
+						aria-label={m.aria_star_github()}
 					>
 						<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
 							<path
 								d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
 							/>
 						</svg>
-						<span>Star</span>
+						<span>{m.github_star()}</span>
 					</a>
 					<button
 						class="theme-toggle"
 						onclick={() => themeContext?.toggle()}
 						aria-label={themeContext?.current === 'dark'
-							? 'Switch to light mode'
-							: 'Switch to dark mode'}
+							? m.aria_switch_light()
+							: m.aria_switch_dark()}
 					>
 						{themeContext?.current === 'dark' ? '☀️' : '🌙'}
 					</button>
@@ -265,10 +246,10 @@
 			</div>
 			<div class="header-meta">
 				<span class="model-count">
-					Showing {sortedModels.length} of {data.models.length} models
+					{m.header_showing({ count: sortedModels.length, total: data.models.length })}
 				</span>
 				<span class="last-update">
-					Updated: {new Date(data.meta.last_update).toLocaleDateString()}
+					{m.header_updated({ date: new Date(data.meta.last_update).toLocaleDateString() })}
 				</span>
 			</div>
 		</div>
@@ -280,7 +261,7 @@
 		<!-- Filters Bar -->
 		<div class="filters-bar">
 			<div class="filter-group">
-				<label for="provider-filter">Provider</label>
+				<label for="provider-filter">{m.filter_provider()}</label>
 				<select id="provider-filter" multiple bind:value={filters.providers} class="filter-select">
 					{#each providers as provider (provider)}
 						<option value={provider}>{provider}</option>
@@ -289,7 +270,7 @@
 			</div>
 
 			<div class="filter-group">
-				<span class="filter-label">Type</span>
+				<span class="filter-label">{m.filter_type()}</span>
 				<div class="checkbox-group">
 					<label class="checkbox-label">
 						<input
@@ -303,7 +284,7 @@
 								}
 							}}
 						/>
-						Proprietary
+						{m.filter_proprietary()}
 					</label>
 					<label class="checkbox-label">
 						<input
@@ -317,7 +298,7 @@
 								}
 							}}
 						/>
-						Open Source
+						{m.filter_opensource()}
 					</label>
 				</div>
 			</div>
@@ -325,7 +306,7 @@
 			<div class="filter-group">
 				<label class="checkbox-label">
 					<input type="checkbox" bind:checked={filters.favoritesOnly} />
-					Favorites only
+					{m.filter_favorites_only()}
 				</label>
 			</div>
 
@@ -343,7 +324,7 @@
 						};
 					}}
 				>
-					Reset
+					{m.filter_reset()}
 				</button>
 
 				<div class="column-settings-wrapper">
@@ -352,30 +333,30 @@
 						onclick={() => (showColumnSettings = !showColumnSettings)}
 						aria-expanded={showColumnSettings}
 					>
-						Columns
+						{m.filter_columns()}
 					</button>
 					{#if showColumnSettings}
 						<div class="column-settings-dropdown">
 							<div class="dropdown-header">
-								<span>Visible Columns</span>
+								<span>{m.filter_visible_columns()}</span>
 								<button class="close-btn" onclick={() => (showColumnSettings = false)}>x</button>
 							</div>
 							<div class="column-options">
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.rank} />
-									Rank & Score
+									{m.column_rank_score()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.provider} />
-									Provider
+									{m.column_provider()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.model} />
-									Model
+									{m.column_model()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.type} />
-									Type
+									{m.column_type()}
 								</label>
 								<hr />
 								{#each data.categories as category (category.id)}
@@ -395,19 +376,19 @@
 								<hr />
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.price} />
-									Price
+									{m.column_price()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.speed} />
-									Speed
+									{m.column_speed()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.latency} />
-									Latency
+									{m.column_latency()}
 								</label>
 								<label class="column-option">
 									<input type="checkbox" bind:checked={visibleColumns.release_date} />
-									Release Date
+									{m.column_release_date()}
 								</label>
 							</div>
 						</div>
@@ -422,7 +403,7 @@
 				<thead>
 					<tr>
 						<th class="sticky-col col-fav">
-							<span class="sr-only">Favorite</span>
+							<span class="sr-only">{m.aria_favorite()}</span>
 						</th>
 						{#if visibleColumns.rank}
 							<th
@@ -438,7 +419,7 @@
 									: 'none'}
 							>
 								<div class="th-content">
-									<span>Rank</span>
+									<span>{m.column_rank()}</span>
 									<span class="sort-icon">{getSortIcon('overall')}</span>
 								</div>
 							</th>
@@ -451,7 +432,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Provider</span>
+									<span>{m.column_provider()}</span>
 									<span class="sort-icon">{getSortIcon('provider')}</span>
 								</div>
 							</th>
@@ -464,7 +445,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Model</span>
+									<span>{m.column_model()}</span>
 									<span class="sort-icon">{getSortIcon('name')}</span>
 								</div>
 							</th>
@@ -477,7 +458,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Type</span>
+									<span>{m.column_type()}</span>
 									<span class="sort-icon">{getSortIcon('type')}</span>
 								</div>
 							</th>
@@ -510,7 +491,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Price</span>
+									<span>{m.column_price()}</span>
 									<span class="sort-icon">{getSortIcon('price')}</span>
 								</div>
 							</th>
@@ -523,7 +504,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Speed</span>
+									<span>{m.column_speed()}</span>
 									<span class="sort-icon">{getSortIcon('speed')}</span>
 								</div>
 							</th>
@@ -536,7 +517,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Latency</span>
+									<span>{m.column_latency()}</span>
 									<span class="sort-icon">{getSortIcon('latency')}</span>
 								</div>
 							</th>
@@ -549,7 +530,7 @@
 								tabindex="0"
 							>
 								<div class="th-content">
-									<span>Released</span>
+									<span>{m.column_released()}</span>
 									<span class="sort-icon">{getSortIcon('release_date')}</span>
 								</div>
 							</th>
@@ -565,8 +546,8 @@
 									class:is-favorite={isFavorite(ranked.model.id)}
 									onclick={() => toggleFavorite(ranked.model.id)}
 									aria-label={isFavorite(ranked.model.id)
-										? 'Remove from favorites'
-										: 'Add to favorites'}
+										? m.aria_remove_favorite()
+										: m.aria_add_favorite()}
 								>
 									{isFavorite(ranked.model.id) ? '★' : '☆'}
 								</button>
@@ -601,7 +582,7 @@
 							{#if visibleColumns.type}
 								<td>
 									<span class="type-badge" class:proprietary={ranked.model.type === 'proprietary'}>
-										{ranked.model.type === 'proprietary' ? 'Proprietary' : 'Open Source'}
+										{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_opensource()}
 									</span>
 								</td>
 							{/if}
@@ -672,7 +653,7 @@
 						<p class="card-provider">
 							{ranked.model.provider} ·
 							<span class="type-badge" class:proprietary={ranked.model.type === 'proprietary'}>
-								{ranked.model.type === 'proprietary' ? 'Proprietary' : 'Open'}
+								{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_open()}
 							</span>
 						</p>
 						<div class="card-scores">
@@ -686,35 +667,35 @@
 						{#if expanded}
 							<div class="card-details">
 								<div class="detail-row">
-									<span class="detail-label">Price (avg)</span>
+									<span class="detail-label">{m.card_price_avg()}</span>
 									<span class="detail-value"
 										>{formatPrice(ranked.model.pricing.average_per_1m)}</span
 									>
 								</div>
 								<div class="detail-row">
-									<span class="detail-label">Input</span>
+									<span class="detail-label">{m.card_input()}</span>
 									<span class="detail-value"
 										>${ranked.model.pricing.input_per_1m.toFixed(2)}/1M</span
 									>
 								</div>
 								<div class="detail-row">
-									<span class="detail-label">Output</span>
+									<span class="detail-label">{m.card_output()}</span>
 									<span class="detail-value"
 										>${ranked.model.pricing.output_per_1m.toFixed(2)}/1M</span
 									>
 								</div>
 								<div class="detail-row">
-									<span class="detail-label">Speed</span>
+									<span class="detail-label">{m.card_speed()}</span>
 									<span class="detail-value"
 										>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
 									>
 								</div>
 								<div class="detail-row">
-									<span class="detail-label">Latency</span>
+									<span class="detail-label">{m.card_latency()}</span>
 									<span class="detail-value">{ranked.model.performance.latency_ttft_ms}ms</span>
 								</div>
 								<div class="detail-row">
-									<span class="detail-label">Released</span>
+									<span class="detail-label">{m.card_released()}</span>
 									<span class="detail-value"
 										>{new Date(ranked.model.release_date).toLocaleDateString()}</span
 									>
@@ -732,10 +713,10 @@
 							class="expand-btn"
 							onclick={() => toggleCardExpanded(ranked.model.id)}
 							aria-expanded={expanded}
-							aria-label={expanded ? 'Show less' : 'Show more'}
+							aria-label={expanded ? m.aria_show_less() : m.aria_show_more()}
 						>
 							<span class="expand-icon" class:rotated={expanded}>▼</span>
-							<span>{expanded ? 'Show less' : 'Show all'}</span>
+							<span>{expanded ? m.card_show_less() : m.card_show_all()}</span>
 						</button>
 					</div>
 				</article>
@@ -758,7 +739,7 @@
 			<div class="tooltip-header">{category.emoji} {category.name}</div>
 			<div class="tooltip-body">
 				<p>{category.description}</p>
-				<p class="tooltip-weight">Weight: {(category.weight * 100).toFixed(0)}%</p>
+				<p class="tooltip-weight">{m.tooltip_weight({ percentage: (category.weight * 100).toFixed(0) })}</p>
 			</div>
 		{:else if activeTooltip.type === 'score'}
 			{@const scoreData = activeTooltip.data as {
@@ -790,29 +771,28 @@
 					{/each}
 				</ul>
 				<p class="benchmark-count">
-					{scoreData.breakdown.filter((b) => b.normalizedScore !== null).length}/{scoreData
-						.breakdown.length} benchmarks available
+					{m.tooltip_benchmarks_available({ available: scoreData.breakdown.filter((b) => b.normalizedScore !== null).length, total: scoreData.breakdown.length })}
 				</p>
 			</div>
 		{:else if activeTooltip.type === 'price'}
 			{@const model = activeTooltip.data as Model}
-			<div class="tooltip-header">Pricing: {model.name}</div>
+			<div class="tooltip-header">{m.tooltip_pricing({ model: model.name })}</div>
 			<div class="tooltip-body">
 				<div class="price-breakdown">
 					<div class="price-row">
-						<span class="price-label">Input</span>
-						<span class="price-value">${model.pricing.input_per_1m.toFixed(2)} / 1M tokens</span>
+						<span class="price-label">{m.tooltip_input()}</span>
+						<span class="price-value">${model.pricing.input_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
 					</div>
 					<div class="price-row">
-						<span class="price-label">Output</span>
-						<span class="price-value">${model.pricing.output_per_1m.toFixed(2)} / 1M tokens</span>
+						<span class="price-label">{m.tooltip_output()}</span>
+						<span class="price-value">${model.pricing.output_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
 					</div>
 					<div class="price-row price-average">
-						<span class="price-label">Average</span>
-						<span class="price-value">${model.pricing.average_per_1m.toFixed(2)} / 1M tokens</span>
+						<span class="price-label">{m.tooltip_average()}</span>
+						<span class="price-value">${model.pricing.average_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
 					</div>
 				</div>
-				<p class="price-note">Average = (Input + Output) / 2</p>
+				<p class="price-note">{m.tooltip_average_formula()}</p>
 			</div>
 		{/if}
 	</div>
@@ -821,9 +801,9 @@
 <footer class="footer">
 	<div class="container">
 		<p>
-			<span>Data sourced from public benchmarks.</span>
+			<span>{m.footer_data_sourced()}</span>
 			<a href="https://github.com/verseles/showdown" target="_blank" rel="noopener noreferrer">
-				Contribute on GitHub
+				{m.footer_contribute()}
 			</a>
 		</p>
 	</div>
@@ -905,16 +885,6 @@
 	.theme-toggle:hover {
 		background: var(--border-color);
 		transform: scale(1.05);
-	}
-
-	.language-select {
-		padding: var(--spacing-xs) var(--spacing-sm);
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		background: var(--bg-tertiary);
-		color: var(--text-primary);
-		font-size: 0.875rem;
-		cursor: pointer;
 	}
 
 	.github-star-btn {
@@ -1575,11 +1545,6 @@
 			min-height: 36px;
 			width: 36px;
 			height: 36px;
-		}
-
-		.language-select {
-			padding: 4px 6px;
-			font-size: 0.75rem;
 		}
 
 		.github-star-btn {
