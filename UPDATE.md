@@ -26,7 +26,7 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 | **LiveCodeBench**      | https://livecodebench.github.io                  | Leaderboard page                        |
 | **GPQA Diamond**       | https://github.com/idavidrein/gpqa               | Papers, announcements                   |
 | **AIME 2024**          | Search "AIME 2024 [model name]"                  | Provider announcements                  |
-| **ARC-AGI**            | https://arcprize.org                             | Leaderboard                             |
+| **ARC-AGI 2**          | https://arcprize.org                             | Leaderboard                             |
 | **BFCL**               | https://gorilla.cs.berkeley.edu/leaderboard.html | Berkeley Function Calling Leaderboard   |
 | **TAU-Bench**          | https://github.com/sierra-research/tau-bench     | Leaderboard                             |
 | **OSWorld**            | https://os-world.github.io                       | Leaderboard                             |
@@ -41,16 +41,17 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 
 **Base URL:** https://lmarena.ai/leaderboard
 
-| Category         | URL Path                             | Benchmark ID           |
-| ---------------- | ------------------------------------ | ---------------------- |
-| Overall          | `/leaderboard`                       | `lmarena_en_elo`       |
-| Coding           | `/leaderboard/text/coding`           | `lmarena_coding_elo`   |
-| Hard Prompts     | `/leaderboard` (filter)              | `lmarena_hard_elo`     |
-| Creative Writing | `/leaderboard/text/creative-writing` | `lmarena_creative_elo` |
-| Math             | `/leaderboard/text/math`             | `lmarena_math_elo`     |
-| Vision           | `/leaderboard/vision`                | `lmarena_vision_elo`   |
-| Chinese          | `/leaderboard` (filter by language)  | `lmarena_zh_elo`       |
-| WebDev Arena     | https://web.lmarena.ai/leaderboard   | `webdev_arena_elo`     |
+| Category              | URL Path                                  | Benchmark ID           |
+| --------------------- | ----------------------------------------- | ---------------------- |
+| Overall               | `/leaderboard`                            | `lmarena_en_elo`       |
+| Coding                | `/leaderboard/text/coding`                | `lmarena_coding_elo`   |
+| Hard Prompts          | `/leaderboard` (filter)                   | `lmarena_hard_elo`     |
+| Creative Writing      | `/leaderboard/text/creative-writing`      | `lmarena_creative_elo` |
+| Instruction Following | `/leaderboard/text/instruction-following` | `lmarena_if_elo`       |
+| Math                  | `/leaderboard/text/math`                  | `lmarena_math_elo`     |
+| Vision                | `/leaderboard/vision`                     | `lmarena_vision_elo`   |
+| Chinese               | `/leaderboard` (filter by language)       | `lmarena_zh_elo`       |
+| WebDev Arena          | https://web.lmarena.ai/leaderboard        | `webdev_arena_elo`     |
 
 ### Pricing & Performance
 
@@ -101,7 +102,7 @@ Each model in `data/showdown.json` must follow this structure:
 		"osworld": 40.0,
 		"webdev_arena_elo": 1300,
 		"lmarena_creative_elo": 1340,
-		"instruction_following": 85.0,
+		"lmarena_if_elo": 1380,
 		"math_500": 75.0,
 		"gsm8k": 92.0,
 		"lmarena_math_elo": 1310,
@@ -167,7 +168,7 @@ Each model in `data/showdown.json` must follow this structure:
 **Conversation (12% weight):**
 
 - `lmarena_creative_elo` - LMArena Creative (Elo: 1100-1500)
-- `instruction_following` - Instruction Following (%)
+- `lmarena_if_elo` - LMArena Instruction Following (Elo: 1100-1500)
 
 **Math (10% weight):**
 
@@ -352,7 +353,7 @@ Visit: https://openai.com/api/pricing
 		"osworld": null,
 		"webdev_arena_elo": 1340,
 		"lmarena_creative_elo": 1365,
-		"instruction_following": 88.0,
+		"lmarena_if_elo": 1395,
 		"math_500": 80.0,
 		"gsm8k": 95.0,
 		"lmarena_math_elo": 1345,
