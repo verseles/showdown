@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T02:42:00Z",
+		"last_update": "2025-12-10T07:52:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -226,50 +226,6 @@
 			}
 		},
 		{
-			"id": "gpt-5-1",
-			"name": "GPT-5.1",
-			"provider": "OpenAI",
-			"type": "proprietary",
-			"release_date": "2025-10-15",
-			"pricing": {
-				"input_per_1m": 1.25,
-				"output_per_1m": 10.0,
-				"average_per_1m": 5.63
-			},
-			"performance": {
-				"output_speed_tps": 95,
-				"latency_ttft_ms": 850,
-				"source": "https://artificialanalysis.ai"
-			},
-			"editor_notes": "Most balanced major model with excellent price-to-performance ratio. Strong across all categories with fast inference.",
-			"benchmark_scores": {
-				"swe_bench": 76.3,
-				"terminal_bench": 55.8,
-				"lmarena_coding_elo": 1368,
-				"live_code_bench": 70.5,
-				"gpqa_diamond": 88.1,
-				"aime_2024": 82.5,
-				"arc_agi": 12.5,
-				"lmarena_hard_elo": 1435,
-				"bfcl": 84.2,
-				"tau_bench": 60.5,
-				"osworld": 52.8,
-				"webdev_arena_elo": 1345,
-				"lmarena_creative_elo": 1405,
-				"instruction_following": 90.8,
-				"math_500": 90.2,
-				"gsm8k": 97.8,
-				"lmarena_math_elo": 1395,
-				"mathvista": 74.5,
-				"mmmu": 72.8,
-				"lmarena_vision_elo": 1345,
-				"mmlu": 91.5,
-				"mmmlu": 86.5,
-				"lmarena_en_elo": 1420,
-				"lmarena_zh_elo": 1365
-			}
-		},
-		{
 			"id": "gpt-4o",
 			"name": "GPT-4o",
 			"provider": "OpenAI",
@@ -487,50 +443,6 @@
 				"mmmlu": 84.0,
 				"lmarena_en_elo": 1355,
 				"lmarena_zh_elo": 1395
-			}
-		},
-		{
-			"id": "grok-4",
-			"name": "Grok 4",
-			"provider": "xAI",
-			"type": "proprietary",
-			"release_date": "2025-07-09",
-			"pricing": {
-				"input_per_1m": 3.0,
-				"output_per_1m": 15.0,
-				"average_per_1m": 9.0
-			},
-			"performance": {
-				"output_speed_tps": 88,
-				"latency_ttft_ms": 920,
-				"source": "https://artificialanalysis.ai"
-			},
-			"editor_notes": "Strong reasoning with breakthrough on Humanity's Last Exam. Built with massive RL compute. Excels at math Olympiad problems.",
-			"benchmark_scores": {
-				"swe_bench": 75.0,
-				"terminal_bench": 52.8,
-				"lmarena_coding_elo": 1365,
-				"live_code_bench": 68.5,
-				"gpqa_diamond": 88.9,
-				"aime_2024": 95.0,
-				"arc_agi": 15.9,
-				"lmarena_hard_elo": 1465,
-				"bfcl": 81.5,
-				"tau_bench": 56.8,
-				"osworld": 45.5,
-				"webdev_arena_elo": 1325,
-				"lmarena_creative_elo": 1395,
-				"instruction_following": 89.5,
-				"math_500": 96.7,
-				"gsm8k": 98.5,
-				"lmarena_math_elo": 1445,
-				"mathvista": 75.2,
-				"mmmu": 71.5,
-				"lmarena_vision_elo": 1355,
-				"mmlu": 91.2,
-				"mmmlu": 86.8,
-				"lmarena_en_elo": 1445,
-				"lmarena_zh_elo": 1375
 			}
 		},
 		{
