@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T02:23:00Z",
+		"last_update": "2025-12-10T02:30:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -838,6 +838,94 @@
 				"mmlu": 95.0,
 				"mmmlu": null,
 				"lmarena_en_elo": 1346,
+				"lmarena_zh_elo": null
+			}
+		},
+		{
+			"id": "kimi-k2",
+			"name": "Kimi K2",
+			"provider": "Moonshot AI",
+			"type": "open-source",
+			"release_date": "2025-07-10",
+			"pricing": {
+				"input_per_1m": 0.6,
+				"output_per_1m": 2.5,
+				"average_per_1m": 1.55
+			},
+			"performance": {
+				"output_speed_tps": 85,
+				"latency_ttft_ms": 650,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Open-source MoE model (1T total, 32B active) with strong agentic performance. Competitive with Claude Sonnet 4 on SWE-bench at fraction of cost. 256K context window.",
+			"benchmark_scores": {
+				"swe_bench": 65.8,
+				"terminal_bench": null,
+				"lmarena_coding_elo": null,
+				"live_code_bench": 53.7,
+				"gpqa_diamond": 75.1,
+				"aime_2024": null,
+				"arc_agi": null,
+				"lmarena_hard_elo": null,
+				"bfcl": null,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": null,
+				"instruction_following": null,
+				"math_500": null,
+				"gsm8k": null,
+				"lmarena_math_elo": null,
+				"mathvista": null,
+				"mmmu": null,
+				"lmarena_vision_elo": null,
+				"mmlu": null,
+				"mmmlu": null,
+				"lmarena_en_elo": null,
+				"lmarena_zh_elo": null
+			}
+		},
+		{
+			"id": "kimi-k2-thinking",
+			"name": "Kimi K2 Thinking",
+			"provider": "Moonshot AI",
+			"type": "open-source",
+			"release_date": "2025-11-06",
+			"pricing": {
+				"input_per_1m": 0.6,
+				"output_per_1m": 2.5,
+				"average_per_1m": 1.55
+			},
+			"performance": {
+				"output_speed_tps": 45,
+				"latency_ttft_ms": 1800,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Thinking agent with multi-step reasoning and tool use. Sets open-source records on SWE-bench (71.3%) and Humanity's Last Exam (44.9% w/tools). Can execute 200-300 sequential tool calls.",
+			"benchmark_scores": {
+				"swe_bench": 71.3,
+				"terminal_bench": 47.1,
+				"lmarena_coding_elo": null,
+				"live_code_bench": 83.0,
+				"gpqa_diamond": 75.1,
+				"aime_2024": null,
+				"arc_agi": null,
+				"lmarena_hard_elo": null,
+				"bfcl": null,
+				"tau_bench": 93.0,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": null,
+				"instruction_following": null,
+				"math_500": null,
+				"gsm8k": null,
+				"lmarena_math_elo": null,
+				"mathvista": null,
+				"mmmu": null,
+				"lmarena_vision_elo": null,
+				"mmlu": null,
+				"mmmlu": null,
+				"lmarena_en_elo": null,
 				"lmarena_zh_elo": null
 			}
 		}
