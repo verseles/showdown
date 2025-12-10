@@ -91,12 +91,15 @@ This document tracks the development progress of Showdown. Features are organize
 - [x] Language selector UI (placeholder)
 - [ ] Translation system setup
 - [ ] English (en) - default
-- [ ] Portuguese (pt)
+- [ ] Mandarin Chinese (zh)
+- [ ] Hindi (hi)
 - [ ] Spanish (es)
-- [ ] Chinese (zh)
-- [ ] Japanese (ja)
-- [ ] German (de)
 - [ ] French (fr)
+- [ ] Standard Arabic (ar) - RTL
+- [ ] Bengali (bn)
+- [ ] Portuguese (pt)
+- [ ] Russian (ru)
+- [ ] Urdu (ur) - RTL
 
 ## Phase 10: Advanced Features
 
