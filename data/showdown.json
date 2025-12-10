@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2025.12.09",
-		"last_update": "2025-12-10T02:11:50Z",
+		"version": "2025.12.10",
+		"last_update": "2025-12-10T02:20:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -751,6 +751,50 @@
 				"mmmlu": 80.5,
 				"lmarena_en_elo": 1335,
 				"lmarena_zh_elo": 1305
+			}
+		},
+		{
+			"id": "minimax-m2",
+			"name": "MiniMax M2",
+			"provider": "MiniMax",
+			"type": "open-source",
+			"release_date": "2025-10-27",
+			"pricing": {
+				"input_per_1m": 0.3,
+				"output_per_1m": 1.2,
+				"average_per_1m": 0.75
+			},
+			"performance": {
+				"output_speed_tps": 100,
+				"latency_ttft_ms": 450,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "MIT-licensed 230B MoE model excelling at coding tasks. Tops Multi-SWE-Bench and WebDev Arena. Fast inference at 100 TPS with excellent value for agentic workflows.",
+			"benchmark_scores": {
+				"swe_bench": 69.4,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1346,
+				"live_code_bench": null,
+				"gpqa_diamond": 78.0,
+				"aime_2024": null,
+				"arc_agi": null,
+				"lmarena_hard_elo": 1346,
+				"bfcl": null,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": 1398,
+				"lmarena_creative_elo": 1346,
+				"instruction_following": null,
+				"math_500": null,
+				"gsm8k": null,
+				"lmarena_math_elo": 1346,
+				"mathvista": null,
+				"mmmu": null,
+				"lmarena_vision_elo": null,
+				"mmlu": 95.0,
+				"mmmlu": null,
+				"lmarena_en_elo": 1346,
+				"lmarena_zh_elo": null
 			}
 		}
 	],
