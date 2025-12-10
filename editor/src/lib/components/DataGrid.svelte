@@ -63,21 +63,24 @@
 				header: '$/1M In',
 				width: 85,
 				editor: 'text',
-				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
+				template: (v: unknown) =>
+					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : ''
 			},
 			{
 				id: 'pricing_output',
 				header: '$/1M Out',
 				width: 85,
 				editor: 'text',
-				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
+				template: (v: unknown) =>
+					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : ''
 			},
 			{
 				id: 'pricing_average',
 				header: '$/1M Avg',
 				width: 85,
 				editor: 'text',
-				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
+				template: (v: unknown) =>
+					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : ''
 			},
 			// Performance
 			{
@@ -102,8 +105,9 @@
 					header: `${category.emoji} ${benchmark.name.replace(' Verified', '').replace('LMArena ', '')}`,
 					width: 95,
 					editor: 'text',
-					template: (v: number | null) => {
+					template: (v: unknown) => {
 						if (v === null || v === undefined) return '';
+						if (typeof v !== 'number') return String(v);
 						if (benchmark.type === 'percentage') {
 							return `${v.toFixed(1)}%`;
 						}
