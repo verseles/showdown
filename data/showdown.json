@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T10:50:00Z",
+		"last_update": "2025-12-10T11:36:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1037,7 +1037,7 @@
 			"benchmark_scores": {
 				"swe_bench": 71.3,
 				"terminal_bench": 47.1,
-				"lmarena_coding_elo": null,
+				"lmarena_coding_elo": 1479,
 				"live_code_bench": 83.0,
 				"gpqa_diamond": 75.1,
 				"aime_2024": null,
