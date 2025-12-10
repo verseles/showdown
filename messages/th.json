@@ -15,6 +15,7 @@
   "aria_star_github": "ให้ดาวบน GitHub",
   "aria_switch_light": "สลับไปโหมดสว่าง",
   "aria_switch_dark": "สลับไปโหมดมืด",
+  "aria_switch_system": "เปลี่ยนเป็นโหมดระบบ",
   "aria_favorite": "รายการโปรด",
   "aria_add_favorite": "เพิ่มในรายการโปรด",
   "aria_remove_favorite": "ลบออกจากรายการโปรด",

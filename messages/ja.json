@@ -15,6 +15,7 @@
   "aria_star_github": "GitHubでスターを付ける",
   "aria_switch_light": "ライトモードに切り替え",
   "aria_switch_dark": "ダークモードに切り替え",
+  "aria_switch_system": "システムモードに切り替え",
   "aria_favorite": "お気に入り",
   "aria_add_favorite": "お気に入りに追加",
   "aria_remove_favorite": "お気に入りから削除",

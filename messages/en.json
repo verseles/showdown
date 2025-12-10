@@ -15,6 +15,7 @@
   "aria_star_github": "Star on GitHub",
   "aria_switch_light": "Switch to light mode",
   "aria_switch_dark": "Switch to dark mode",
+  "aria_switch_system": "Switch to system mode",
   "aria_favorite": "Favorite",
   "aria_add_favorite": "Add to favorites",
   "aria_remove_favorite": "Remove from favorites",

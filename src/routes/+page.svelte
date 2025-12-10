@@ -20,7 +20,25 @@
 	let { data }: { data: PageData } = $props();
 
 	// Theme context from layout
-	const themeContext = getContext<{ current: 'light' | 'dark'; toggle: () => void }>('theme');
+	const themeContext = getContext<{
+		current: 'light' | 'dark';
+		mode: 'light' | 'dark' | 'system';
+		toggle: () => void;
+	}>('theme');
+
+	// Get theme icon based on current mode
+	function getThemeIcon(mode: 'light' | 'dark' | 'system' | undefined): string {
+		if (mode === 'system') return '💻';
+		if (mode === 'dark') return '🌙';
+		return '☀️';
+	}
+
+	// Get aria-label for theme toggle
+	function getThemeAriaLabel(mode: 'light' | 'dark' | 'system' | undefined): string {
+		if (mode === 'system') return m.aria_switch_light();
+		if (mode === 'light') return m.aria_switch_dark();
+		return m.aria_switch_system();
+	}
 
 	// Sorting state
 	let sortBy = $state('overall');
@@ -236,11 +254,9 @@
 					<button
 						class="theme-toggle"
 						onclick={() => themeContext?.toggle()}
-						aria-label={themeContext?.current === 'dark'
-							? m.aria_switch_light()
-							: m.aria_switch_dark()}
+						aria-label={getThemeAriaLabel(themeContext?.mode)}
 					>
-						{themeContext?.current === 'dark' ? '☀️' : '🌙'}
+						{getThemeIcon(themeContext?.mode)}
 					</button>
 				</div>
 			</div>
