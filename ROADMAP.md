@@ -90,6 +90,9 @@ This document tracks the development progress of Showdown. Features are organize
 
 - [x] Language selector UI (placeholder)
 - [ ] Translation system setup
+
+// Top 10 Global (250M+)
+
 - [ ] English (en) - default
 - [ ] Mandarin Chinese (zh)
 - [ ] Hindi (hi)
@@ -100,6 +103,27 @@ This document tracks the development progress of Showdown. Features are organize
 - [ ] Portuguese (pt)
 - [ ] Russian (ru)
 - [ ] Urdu (ur) - RTL
+
+// 100M+ speakers
+
+- [ ] Indonesian (id)
+- [ ] German (de)
+- [ ] Japanese (ja)
+- [ ] Egyptian Arabic (arz) - RTL
+
+// Strategic Tech markets (80M-100M)
+
+- [ ] Vietnamese (vi)
+- [ ] Turkish (tr)
+- [ ] Italian (it)
+- [ ] Korean (ko)
+
+// High-value Tech markets (50M-80M)
+
+- [ ] Polish (pl)
+- [ ] Thai (th)
+- [ ] Dutch (nl)
+- [ ] Swedish (sv)
 
 ## Phase 10: Advanced Features
 
