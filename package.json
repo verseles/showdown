@@ -18,6 +18,9 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
 		"@eslint/js": "^9.39.1",
+		"@inlang/paraglide-js": "^2.6.0",
+		"@inlang/plugin-m-function-matcher": "^2.1.0",
+		"@inlang/plugin-message-format": "^4.0.0",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.48.5",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
