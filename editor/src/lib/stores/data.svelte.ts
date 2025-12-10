@@ -1,6 +1,6 @@
 /**
  * Reactive data store for Showdown Editor
- * Uses Svelte 5 runes for state management
+ * Uses Svelte 5 runes with getter pattern for exports
  */
 
 import type {
@@ -13,33 +13,67 @@ import type {
 	Notification
 } from '../types';
 
-// State
-let data = $state<ShowdownData | null>(null);
-let isLoading = $state(true);
-let hasUnsavedChanges = $state(false);
-let history = $state<HistoryEntry[]>([]);
-let historyIndex = $state(-1);
-let gitStatus = $state<GitStatus | null>(null);
-let notifications = $state<Notification[]>([]);
-let validationErrors = $state<ValidationError[]>([]);
+// Internal state (not exported directly)
+let _data = $state<ShowdownData | null>(null);
+let _isLoading = $state(true);
+let _hasUnsavedChanges = $state(false);
+let _history = $state<HistoryEntry[]>([]);
+let _historyIndex = $state(-1);
+let _gitStatus = $state<GitStatus | null>(null);
+let _notifications = $state<Notification[]>([]);
+let _validationErrors = $state<ValidationError[]>([]);
 
 const MAX_HISTORY = 50;
 
-// Derived state
-const models = $derived(data?.models ?? []);
-const categories = $derived(data?.categories ?? []);
-const meta = $derived(data?.meta ?? null);
-
-// Get all benchmark IDs from categories
-const allBenchmarkIds = $derived(
-	categories.flatMap((cat) => cat.benchmarks.map((b) => b.id))
-);
-
-// Get providers list
-const providers = $derived([...new Set(models.map((m) => m.provider))].sort());
+// Export state through a store object with getters
+export const store = {
+	get data() {
+		return _data;
+	},
+	get isLoading() {
+		return _isLoading;
+	},
+	get hasUnsavedChanges() {
+		return _hasUnsavedChanges;
+	},
+	get history() {
+		return _history;
+	},
+	get historyIndex() {
+		return _historyIndex;
+	},
+	get gitStatus() {
+		return _gitStatus;
+	},
+	get notifications() {
+		return _notifications;
+	},
+	get validationErrors() {
+		return _validationErrors;
+	},
+	get models() {
+		return _data?.models ?? [];
+	},
+	get categories() {
+		return _data?.categories ?? [];
+	},
+	get meta() {
+		return _data?.meta ?? null;
+	},
+	get allBenchmarkIds() {
+		return (_data?.categories ?? []).flatMap((cat) => cat.benchmarks.map((b) => b.id));
+	},
+	get providers() {
+		const models = _data?.models ?? [];
+		return [...new Set(models.map((m) => m.provider))].sort();
+	},
+	get flatModels() {
+		return (_data?.models ?? []).map(flattenModel);
+	}
+};
 
 // Convert model to flat structure for grid
-function flattenModel(model: Model): FlatModel {
+export function flattenModel(model: Model): FlatModel {
 	const flat: FlatModel = {
 		id: model.id,
 		name: model.name,
@@ -64,10 +98,9 @@ function flattenModel(model: Model): FlatModel {
 }
 
 // Convert flat structure back to model
-function unflattenModel(flat: FlatModel, existingModel?: Model): Model {
+export function unflattenModel(flat: FlatModel, existingModel?: Model): Model {
 	const benchmarkScores: Record<string, number | null> = {};
 
-	// Extract benchmark scores (all keys not in base fields)
 	const baseFields = new Set([
 		'id',
 		'name',
@@ -112,39 +145,36 @@ function unflattenModel(flat: FlatModel, existingModel?: Model): Model {
 	};
 }
 
-// Get flat models for grid
-const flatModels = $derived(models.map(flattenModel));
-
 // API functions
-async function loadData(): Promise<void> {
-	isLoading = true;
+export async function loadData(): Promise<void> {
+	_isLoading = true;
 	try {
 		const response = await fetch('/api/data');
 		if (!response.ok) {
 			throw new Error('Failed to load data');
 		}
-		data = await response.json();
-		hasUnsavedChanges = false;
-		validationErrors = [];
-		history = [];
-		historyIndex = -1;
+		_data = await response.json();
+		_hasUnsavedChanges = false;
+		_validationErrors = [];
+		_history = [];
+		_historyIndex = -1;
 	} catch (error) {
 		console.error('Failed to load data:', error);
 		addNotification('error', 'Failed to load data from server');
 		throw error;
 	} finally {
-		isLoading = false;
+		_isLoading = false;
 	}
 }
 
-async function saveData(): Promise<boolean> {
-	if (!data) return false;
+export async function saveData(): Promise<boolean> {
+	if (!_data) return false;
 
 	try {
 		const response = await fetch('/api/data', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data)
+			body: JSON.stringify(_data)
 		});
 
 		if (!response.ok) {
@@ -153,10 +183,10 @@ async function saveData(): Promise<boolean> {
 		}
 
 		const result = await response.json();
-		if (data) {
-			data.meta = result.meta;
+		if (_data) {
+			_data.meta = result.meta;
 		}
-		hasUnsavedChanges = false;
+		_hasUnsavedChanges = false;
 		addNotification('success', 'Data saved successfully');
 		return true;
 	} catch (error) {
@@ -166,18 +196,18 @@ async function saveData(): Promise<boolean> {
 	}
 }
 
-async function refreshGitStatus(): Promise<void> {
+export async function refreshGitStatus(): Promise<void> {
 	try {
 		const response = await fetch('/api/git/status');
 		if (response.ok) {
-			gitStatus = await response.json();
+			_gitStatus = await response.json();
 		}
 	} catch (error) {
 		console.error('Failed to get git status:', error);
 	}
 }
 
-async function commitChanges(message: string): Promise<boolean> {
+export async function commitChanges(message: string): Promise<boolean> {
 	try {
 		const response = await fetch('/api/git/commit', {
 			method: 'POST',
@@ -202,7 +232,7 @@ async function commitChanges(message: string): Promise<boolean> {
 	}
 }
 
-async function pushChanges(): Promise<boolean> {
+export async function pushChanges(): Promise<boolean> {
 	try {
 		const response = await fetch('/api/git/push', {
 			method: 'POST'
@@ -227,31 +257,31 @@ async function pushChanges(): Promise<boolean> {
 
 // Data modification functions
 function recordHistory(entry: Omit<HistoryEntry, 'timestamp'>): void {
-	// Truncate future history if we're not at the end
-	if (historyIndex < history.length - 1) {
-		history = history.slice(0, historyIndex + 1);
+	if (_historyIndex < _history.length - 1) {
+		_history = _history.slice(0, _historyIndex + 1);
 	}
 
-	history = [
-		...history.slice(-MAX_HISTORY + 1),
-		{ ...entry, timestamp: Date.now() }
-	];
-	historyIndex = history.length - 1;
+	_history = [..._history.slice(-MAX_HISTORY + 1), { ...entry, timestamp: Date.now() }];
+	_historyIndex = _history.length - 1;
 }
 
-function updateModel(modelId: string, field: string, value: unknown): void {
-	if (!data) return;
+export function updateModel(modelId: string, field: string, value: unknown): void {
+	if (!_data) return;
 
-	const modelIndex = data.models.findIndex((m) => m.id === modelId);
+	const modelIndex = _data.models.findIndex((m) => m.id === modelId);
 	if (modelIndex === -1) return;
 
-	const model = data.models[modelIndex];
+	const model = _data.models[modelIndex];
 	let oldValue: unknown;
 
 	// Handle nested fields
 	if (field.startsWith('pricing_')) {
 		const subField = field.replace('pricing_', '') as keyof Model['pricing'];
-		if (subField === 'input_per_1m' || subField === 'output_per_1m' || subField === 'average_per_1m') {
+		if (
+			subField === 'input_per_1m' ||
+			subField === 'output_per_1m' ||
+			subField === 'average_per_1m'
+		) {
 			oldValue = model.pricing[subField];
 			model.pricing[subField] = value as number;
 		}
@@ -264,12 +294,24 @@ function updateModel(modelId: string, field: string, value: unknown): void {
 	} else if (field === 'speed_source') {
 		oldValue = model.performance.source;
 		model.performance.source = value as string;
-	} else if (field in model.benchmark_scores || allBenchmarkIds.includes(field)) {
+	} else if (field in model.benchmark_scores || store.allBenchmarkIds.includes(field)) {
 		oldValue = model.benchmark_scores[field];
 		model.benchmark_scores[field] = value as number | null;
-	} else if (field === 'name' || field === 'provider' || field === 'type' || field === 'release_date' || field === 'editor_notes') {
-		oldValue = model[field];
-		(model as Record<string, unknown>)[field] = value;
+	} else if (field === 'name') {
+		oldValue = model.name;
+		model.name = value as string;
+	} else if (field === 'provider') {
+		oldValue = model.provider;
+		model.provider = value as string;
+	} else if (field === 'type') {
+		oldValue = model.type;
+		model.type = value as 'proprietary' | 'open-source';
+	} else if (field === 'release_date') {
+		oldValue = model.release_date;
+		model.release_date = value as string;
+	} else if (field === 'editor_notes') {
+		oldValue = model.editor_notes;
+		model.editor_notes = value as string;
 	}
 
 	recordHistory({
@@ -280,24 +322,22 @@ function updateModel(modelId: string, field: string, value: unknown): void {
 		newValue: value
 	});
 
-	hasUnsavedChanges = true;
+	_hasUnsavedChanges = true;
 	validateModel(model);
 }
 
-function addModel(template?: Partial<Model>): Model {
-	if (!data) throw new Error('Data not loaded');
+export function addModel(template?: Partial<Model>): Model {
+	if (!_data) throw new Error('Data not loaded');
 
-	// Generate unique ID
 	let baseId = template?.id || `new-model-${Date.now()}`;
 	let id = baseId;
 	let counter = 1;
-	while (data.models.some((m) => m.id === id)) {
+	while (_data.models.some((m) => m.id === id)) {
 		id = `${baseId}-${counter++}`;
 	}
 
-	// Create model with all benchmarks initialized to null
 	const benchmarkScores: Record<string, number | null> = {};
-	for (const cat of data.categories) {
+	for (const cat of _data.categories) {
 		for (const b of cat.benchmarks) {
 			benchmarkScores[b.id] = template?.benchmark_scores?.[b.id] ?? null;
 		}
@@ -323,24 +363,24 @@ function addModel(template?: Partial<Model>): Model {
 		benchmark_scores: benchmarkScores
 	};
 
-	data.models = [...data.models, newModel];
+	_data.models = [..._data.models, newModel];
 
 	recordHistory({
 		action: 'add',
 		modelId: id
 	});
 
-	hasUnsavedChanges = true;
+	_hasUnsavedChanges = true;
 	return newModel;
 }
 
-function deleteModel(modelId: string): boolean {
-	if (!data) return false;
+export function deleteModel(modelId: string): boolean {
+	if (!_data) return false;
 
-	const modelIndex = data.models.findIndex((m) => m.id === modelId);
+	const modelIndex = _data.models.findIndex((m) => m.id === modelId);
 	if (modelIndex === -1) return false;
 
-	const deletedModel = data.models[modelIndex];
+	const deletedModel = _data.models[modelIndex];
 
 	recordHistory({
 		action: 'delete',
@@ -348,19 +388,17 @@ function deleteModel(modelId: string): boolean {
 		oldValue: deletedModel
 	});
 
-	data.models = data.models.filter((m) => m.id !== modelId);
-	hasUnsavedChanges = true;
-
-	// Remove validation errors for deleted model
-	validationErrors = validationErrors.filter((e) => e.modelId !== modelId);
+	_data.models = _data.models.filter((m) => m.id !== modelId);
+	_hasUnsavedChanges = true;
+	_validationErrors = _validationErrors.filter((e) => e.modelId !== modelId);
 
 	return true;
 }
 
-function duplicateModel(modelId: string): Model | null {
-	if (!data) return null;
+export function duplicateModel(modelId: string): Model | null {
+	if (!_data) return null;
 
-	const model = data.models.find((m) => m.id === modelId);
+	const model = _data.models.find((m) => m.id === modelId);
 	if (!model) return null;
 
 	return addModel({
@@ -371,27 +409,30 @@ function duplicateModel(modelId: string): Model | null {
 }
 
 // Undo/Redo
-function canUndo(): boolean {
-	return historyIndex >= 0;
+export function canUndo(): boolean {
+	return _historyIndex >= 0;
 }
 
-function canRedo(): boolean {
-	return historyIndex < history.length - 1;
+export function canRedo(): boolean {
+	return _historyIndex < _history.length - 1;
 }
 
-function undo(): void {
-	if (!canUndo() || !data) return;
+export function undo(): void {
+	if (!canUndo() || !_data) return;
 
-	const entry = history[historyIndex];
+	const entry = _history[_historyIndex];
 
 	if (entry.action === 'update' && entry.field) {
-		const model = data.models.find((m) => m.id === entry.modelId);
+		const model = _data.models.find((m) => m.id === entry.modelId);
 		if (model) {
-			// Restore old value without recording history
 			const field = entry.field;
 			if (field.startsWith('pricing_')) {
 				const subField = field.replace('pricing_', '') as keyof Model['pricing'];
-				if (subField === 'input_per_1m' || subField === 'output_per_1m' || subField === 'average_per_1m') {
+				if (
+					subField === 'input_per_1m' ||
+					subField === 'output_per_1m' ||
+					subField === 'average_per_1m'
+				) {
 					model.pricing[subField] = entry.oldValue as number;
 				}
 			} else if (field === 'speed') {
@@ -400,33 +441,45 @@ function undo(): void {
 				model.performance.latency_ttft_ms = entry.oldValue as number;
 			} else if (field in model.benchmark_scores) {
 				model.benchmark_scores[field] = entry.oldValue as number | null;
-			} else {
-				(model as Record<string, unknown>)[field] = entry.oldValue;
+			} else if (field === 'name') {
+				model.name = entry.oldValue as string;
+			} else if (field === 'provider') {
+				model.provider = entry.oldValue as string;
+			} else if (field === 'type') {
+				model.type = entry.oldValue as 'proprietary' | 'open-source';
+			} else if (field === 'release_date') {
+				model.release_date = entry.oldValue as string;
+			} else if (field === 'editor_notes') {
+				model.editor_notes = entry.oldValue as string;
 			}
 		}
 	} else if (entry.action === 'add') {
-		data.models = data.models.filter((m) => m.id !== entry.modelId);
+		_data.models = _data.models.filter((m) => m.id !== entry.modelId);
 	} else if (entry.action === 'delete' && entry.oldValue) {
-		data.models = [...data.models, entry.oldValue as Model];
+		_data.models = [..._data.models, entry.oldValue as Model];
 	}
 
-	historyIndex--;
-	hasUnsavedChanges = true;
+	_historyIndex--;
+	_hasUnsavedChanges = true;
 }
 
-function redo(): void {
-	if (!canRedo() || !data) return;
+export function redo(): void {
+	if (!canRedo() || !_data) return;
 
-	historyIndex++;
-	const entry = history[historyIndex];
+	_historyIndex++;
+	const entry = _history[_historyIndex];
 
 	if (entry.action === 'update' && entry.field) {
-		const model = data.models.find((m) => m.id === entry.modelId);
+		const model = _data.models.find((m) => m.id === entry.modelId);
 		if (model) {
 			const field = entry.field;
 			if (field.startsWith('pricing_')) {
 				const subField = field.replace('pricing_', '') as keyof Model['pricing'];
-				if (subField === 'input_per_1m' || subField === 'output_per_1m' || subField === 'average_per_1m') {
+				if (
+					subField === 'input_per_1m' ||
+					subField === 'output_per_1m' ||
+					subField === 'average_per_1m'
+				) {
 					model.pricing[subField] = entry.newValue as number;
 				}
 			} else if (field === 'speed') {
@@ -435,24 +488,31 @@ function redo(): void {
 				model.performance.latency_ttft_ms = entry.newValue as number;
 			} else if (field in model.benchmark_scores) {
 				model.benchmark_scores[field] = entry.newValue as number | null;
-			} else {
-				(model as Record<string, unknown>)[field] = entry.newValue;
+			} else if (field === 'name') {
+				model.name = entry.newValue as string;
+			} else if (field === 'provider') {
+				model.provider = entry.newValue as string;
+			} else if (field === 'type') {
+				model.type = entry.newValue as 'proprietary' | 'open-source';
+			} else if (field === 'release_date') {
+				model.release_date = entry.newValue as string;
+			} else if (field === 'editor_notes') {
+				model.editor_notes = entry.newValue as string;
 			}
 		}
 	} else if (entry.action === 'add' && entry.oldValue) {
-		data.models = [...data.models, entry.oldValue as Model];
+		_data.models = [..._data.models, entry.oldValue as Model];
 	} else if (entry.action === 'delete') {
-		data.models = data.models.filter((m) => m.id !== entry.modelId);
+		_data.models = _data.models.filter((m) => m.id !== entry.modelId);
 	}
 
-	hasUnsavedChanges = true;
+	_hasUnsavedChanges = true;
 }
 
 // Validation
-function validateModel(model: Model): ValidationError[] {
+export function validateModel(model: Model): ValidationError[] {
 	const errors: ValidationError[] = [];
 
-	// Required fields
 	if (!model.name.trim()) {
 		errors.push({
 			modelId: model.id,
@@ -473,7 +533,6 @@ function validateModel(model: Model): ValidationError[] {
 		});
 	}
 
-	// Pricing validation
 	if (model.pricing.input_per_1m < 0) {
 		errors.push({
 			modelId: model.id,
@@ -494,9 +553,8 @@ function validateModel(model: Model): ValidationError[] {
 		});
 	}
 
-	// Benchmark score validation
-	if (data) {
-		for (const cat of data.categories) {
+	if (_data) {
+		for (const cat of _data.categories) {
 			for (const benchmark of cat.benchmarks) {
 				const score = model.benchmark_scores[benchmark.id];
 				if (score === null || score === undefined) continue;
@@ -526,27 +584,23 @@ function validateModel(model: Model): ValidationError[] {
 		}
 	}
 
-	// Update global validation errors
-	validationErrors = [
-		...validationErrors.filter((e) => e.modelId !== model.id),
-		...errors
-	];
+	_validationErrors = [..._validationErrors.filter((e) => e.modelId !== model.id), ...errors];
 
 	return errors;
 }
 
-function validateAllModels(): ValidationError[] {
-	if (!data) return [];
+export function validateAllModels(): ValidationError[] {
+	if (!_data) return [];
 
-	validationErrors = [];
-	for (const model of data.models) {
+	_validationErrors = [];
+	for (const model of _data.models) {
 		validateModel(model);
 	}
-	return validationErrors;
+	return _validationErrors;
 }
 
 // Notifications
-function addNotification(type: Notification['type'], message: string): void {
+export function addNotification(type: Notification['type'], message: string): void {
 	const notification: Notification = {
 		id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
 		type,
@@ -554,49 +608,44 @@ function addNotification(type: Notification['type'], message: string): void {
 		timestamp: Date.now()
 	};
 
-	notifications = [...notifications, notification];
+	_notifications = [..._notifications, notification];
 
-	// Auto-remove after 5 seconds
 	setTimeout(() => {
 		removeNotification(notification.id);
 	}, 5000);
 }
 
-function removeNotification(id: string): void {
-	notifications = notifications.filter((n) => n.id !== id);
+export function removeNotification(id: string): void {
+	_notifications = _notifications.filter((n) => n.id !== id);
 }
 
 // Statistics
-function getStats() {
-	if (!data) return null;
+export function getStats() {
+	if (!_data) return null;
 
-	const totalModels = data.models.length;
-	const totalBenchmarks = allBenchmarkIds.length;
+	const totalModels = _data.models.length;
+	const allBenchmarks = store.allBenchmarkIds;
+	const totalBenchmarks = allBenchmarks.length;
 
-	// Calculate coverage per model
-	const coverageByModel = data.models.map((model) => {
+	const coverageByModel = _data.models.map((model) => {
 		const filled = Object.values(model.benchmark_scores).filter(
 			(v) => v !== null && v !== undefined
 		).length;
 		return {
 			model: model.name,
-			coverage: (filled / totalBenchmarks) * 100
+			coverage: totalBenchmarks > 0 ? (filled / totalBenchmarks) * 100 : 0
 		};
 	});
 
-	// Calculate coverage per category
-	const coverageByCategory = data.categories.map((cat) => {
+	const coverageByCategory = _data.categories.map((cat) => {
 		const benchmarkIds = cat.benchmarks.map((b) => b.id);
 		let total = 0;
 		let filled = 0;
 
-		for (const model of data.models) {
+		for (const model of _data!.models) {
 			for (const bid of benchmarkIds) {
 				total++;
-				if (
-					model.benchmark_scores[bid] !== null &&
-					model.benchmark_scores[bid] !== undefined
-				) {
+				if (model.benchmark_scores[bid] !== null && model.benchmark_scores[bid] !== undefined) {
 					filled++;
 				}
 			}
@@ -609,16 +658,12 @@ function getStats() {
 		};
 	});
 
-	// Overall coverage
 	let totalScores = 0;
 	let filledScores = 0;
-	for (const model of data.models) {
-		for (const bid of allBenchmarkIds) {
+	for (const model of _data.models) {
+		for (const bid of allBenchmarks) {
 			totalScores++;
-			if (
-				model.benchmark_scores[bid] !== null &&
-				model.benchmark_scores[bid] !== undefined
-			) {
+			if (model.benchmark_scores[bid] !== null && model.benchmark_scores[bid] !== undefined) {
 				filledScores++;
 			}
 		}
@@ -635,44 +680,3 @@ function getStats() {
 			.sort((a, b) => a.coverage - b.coverage)
 	};
 }
-
-// Export everything
-export {
-	// State (getters)
-	data,
-	isLoading,
-	hasUnsavedChanges,
-	history,
-	historyIndex,
-	gitStatus,
-	notifications,
-	validationErrors,
-	// Derived
-	models,
-	categories,
-	meta,
-	allBenchmarkIds,
-	providers,
-	flatModels,
-	// Functions
-	loadData,
-	saveData,
-	refreshGitStatus,
-	commitChanges,
-	pushChanges,
-	updateModel,
-	addModel,
-	deleteModel,
-	duplicateModel,
-	canUndo,
-	canRedo,
-	undo,
-	redo,
-	validateModel,
-	validateAllModels,
-	addNotification,
-	removeNotification,
-	getStats,
-	flattenModel,
-	unflattenModel
-};

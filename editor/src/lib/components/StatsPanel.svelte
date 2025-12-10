@@ -1,11 +1,5 @@
 <script lang="ts">
-	import {
-		getStats,
-		meta,
-		validationErrors,
-		history,
-		models
-	} from '$lib/stores/data.svelte';
+	import { store, getStats } from '$lib/stores/data.svelte';
 
 	const stats = $derived(getStats());
 
@@ -21,14 +15,17 @@
 
 	// Get recent history entries (last 10)
 	const recentHistory = $derived(
-		[...history].reverse().slice(0, 10).map((entry) => {
-			const model = models.find((m) => m.id === entry.modelId);
-			return {
-				...entry,
-				modelName: model?.name || entry.modelId,
-				time: new Date(entry.timestamp).toLocaleTimeString()
-			};
-		})
+		[...store.history]
+			.reverse()
+			.slice(0, 10)
+			.map((entry) => {
+				const model = store.models.find((m) => m.id === entry.modelId);
+				return {
+					...entry,
+					modelName: model?.name || entry.modelId,
+					time: new Date(entry.timestamp).toLocaleTimeString()
+				};
+			})
 	);
 </script>
 
@@ -36,16 +33,16 @@
 	<!-- Metadata -->
 	<div class="card">
 		<h4 class="card-title">Data Info</h4>
-		{#if meta}
+		{#if store.meta}
 			<table class="stats-table">
 				<tbody>
 					<tr>
 						<td>Version</td>
-						<td>{meta.version}</td>
+						<td>{store.meta.version}</td>
 					</tr>
 					<tr>
 						<td>Last Update</td>
-						<td>{new Date(meta.last_update).toLocaleString()}</td>
+						<td>{new Date(store.meta.last_update).toLocaleString()}</td>
 					</tr>
 					<tr>
 						<td>Total Models</td>
@@ -102,20 +99,20 @@
 	</div>
 
 	<!-- Validation Errors -->
-	{#if validationErrors.length > 0}
+	{#if store.validationErrors.length > 0}
 		<div class="card validation-card">
-			<h4 class="card-title">Validation Errors ({validationErrors.length})</h4>
+			<h4 class="card-title">Validation Errors ({store.validationErrors.length})</h4>
 			<ul class="validation-list">
-				{#each validationErrors.slice(0, 10) as error}
+				{#each store.validationErrors.slice(0, 10) as error}
 					<li>
 						<span class="error-model">{error.modelName}</span>
 						<span class="error-field">{error.field}</span>
 						<span class="error-message">{error.message}</span>
 					</li>
 				{/each}
-				{#if validationErrors.length > 10}
+				{#if store.validationErrors.length > 10}
 					<li class="more-errors">
-						... and {validationErrors.length - 10} more
+						... and {store.validationErrors.length - 10} more
 					</li>
 				{/if}
 			</ul>

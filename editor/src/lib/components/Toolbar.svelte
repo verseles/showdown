@@ -1,19 +1,17 @@
 <script lang="ts">
 	import {
-		hasUnsavedChanges,
+		store,
 		saveData,
 		commitChanges,
 		pushChanges,
 		refreshGitStatus,
-		gitStatus,
 		addModel,
 		deleteModel,
 		duplicateModel,
 		canUndo,
 		canRedo,
 		undo,
-		redo,
-		validationErrors
+		redo
 	} from '$lib/stores/data.svelte';
 
 	interface Props {
@@ -25,14 +23,8 @@
 		onExportCsv: () => void;
 	}
 
-	let {
-		theme,
-		onToggleTheme,
-		onToggleSidebar,
-		sidebarOpen,
-		selectedModelId,
-		onExportCsv
-	}: Props = $props();
+	let { theme, onToggleTheme, onToggleSidebar, sidebarOpen, selectedModelId, onExportCsv }: Props =
+		$props();
 
 	let commitMessage = $state('');
 	let isCommitting = $state(false);
@@ -105,6 +97,16 @@
 		duplicateModel(selectedModelId);
 	}
 
+	function closeModal() {
+		showAddModal = false;
+	}
+
+	function handleOverlayKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			closeModal();
+		}
+	}
+
 	// Keyboard shortcuts
 	function handleKeydown(event: KeyboardEvent) {
 		const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -112,7 +114,7 @@
 
 		if (cmdKey && event.key === 's') {
 			event.preventDefault();
-			if (hasUnsavedChanges && commitMessage.trim()) {
+			if (store.hasUnsavedChanges && commitMessage.trim()) {
 				handleSave();
 			}
 		} else if (cmdKey && event.key === 'z' && !event.shiftKey) {
@@ -140,7 +142,11 @@
 			+ Add Model
 		</button>
 
-		<button onclick={handleDuplicateSelected} disabled={!selectedModelId} title="Duplicate selected model">
+		<button
+			onclick={handleDuplicateSelected}
+			disabled={!selectedModelId}
+			title="Duplicate selected model"
+		>
 			Duplicate
 		</button>
 
@@ -158,21 +164,15 @@
 
 	<!-- Undo/Redo -->
 	<div class="toolbar-section">
-		<button onclick={undo} disabled={!canUndo()} title="Undo (Ctrl+Z)">
-			↶ Undo
-		</button>
-		<button onclick={redo} disabled={!canRedo()} title="Redo (Ctrl+Shift+Z)">
-			↷ Redo
-		</button>
+		<button onclick={undo} disabled={!canUndo()} title="Undo (Ctrl+Z)"> ↶ Undo </button>
+		<button onclick={redo} disabled={!canRedo()} title="Redo (Ctrl+Shift+Z)"> ↷ Redo </button>
 	</div>
 
 	<div class="toolbar-divider"></div>
 
 	<!-- Export -->
 	<div class="toolbar-section">
-		<button onclick={onExportCsv} title="Export data as CSV">
-			Export CSV
-		</button>
+		<button onclick={onExportCsv} title="Export data as CSV"> Export CSV </button>
 	</div>
 
 	<div class="toolbar-divider"></div>
@@ -189,23 +189,23 @@
 
 	<!-- Git controls (right side) -->
 	<div class="git-controls">
-		{#if validationErrors.length > 0}
+		{#if store.validationErrors.length > 0}
 			<span class="status-badge error">
-				{validationErrors.length} error{validationErrors.length !== 1 ? 's' : ''}
+				{store.validationErrors.length} error{store.validationErrors.length !== 1 ? 's' : ''}
 			</span>
 		{/if}
 
-		{#if hasUnsavedChanges}
+		{#if store.hasUnsavedChanges}
 			<span class="unsaved-indicator"></span>
 		{/if}
 
 		<div class="git-status">
-			{#if gitStatus}
-				<span>Branch: {gitStatus.current}</span>
-				{#if gitStatus.ahead > 0}
-					<span class="status-badge info">↑ {gitStatus.ahead}</span>
+			{#if store.gitStatus}
+				<span>Branch: {store.gitStatus.current}</span>
+				{#if store.gitStatus.ahead > 0}
+					<span class="status-badge info">↑ {store.gitStatus.ahead}</span>
 				{/if}
-				{#if !gitStatus.isClean}
+				{#if !store.gitStatus.isClean}
 					<span class="status-badge warning">modified</span>
 				{/if}
 			{/if}
@@ -216,12 +216,12 @@
 			bind:value={commitMessage}
 			placeholder="Commit message..."
 			class="commit-input"
-			disabled={!hasUnsavedChanges && gitStatus?.isClean}
+			disabled={!store.hasUnsavedChanges && store.gitStatus?.isClean}
 		/>
 
 		<button
 			onclick={handleSave}
-			disabled={!hasUnsavedChanges || !commitMessage.trim() || isCommitting}
+			disabled={!store.hasUnsavedChanges || !commitMessage.trim() || isCommitting}
 			class="primary"
 			title="Save and commit (Ctrl+S)"
 		>
@@ -230,7 +230,7 @@
 
 		<button
 			onclick={handlePublish}
-			disabled={!gitStatus || gitStatus.ahead === 0 || isPushing}
+			disabled={!store.gitStatus || store.gitStatus.ahead === 0 || isPushing}
 			class="success"
 			title="Push to remote"
 		>
@@ -241,11 +241,26 @@
 
 <!-- Add Model Modal -->
 {#if showAddModal}
-	<div class="modal-overlay" onclick={() => (showAddModal = false)}>
-		<div class="modal" onclick={(e) => e.stopPropagation()}>
+	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+	<div
+		class="modal-overlay"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="modal-title"
+		tabindex="-1"
+		onclick={closeModal}
+		onkeydown={handleOverlayKeydown}
+	>
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div
+			class="modal"
+			role="document"
+			onclick={(e) => e.stopPropagation()}
+			onkeydown={(e) => e.stopPropagation()}
+		>
 			<div class="modal-header">
-				<h3 class="modal-title">Add New Model</h3>
-				<button class="icon-only" onclick={() => (showAddModal = false)}>✕</button>
+				<h3 class="modal-title" id="modal-title">Add New Model</h3>
+				<button class="icon-only" onclick={closeModal}>✕</button>
 			</div>
 			<div class="modal-body">
 				<label>
@@ -264,7 +279,7 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button onclick={() => (showAddModal = false)}>Cancel</button>
+				<button onclick={closeModal}>Cancel</button>
 				<button onclick={handleAddModel} class="primary" disabled={!newModelName.trim()}>
 					Add Model
 				</button>

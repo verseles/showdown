@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { Grid } from '@svar-ui/svelte-grid';
-	import {
-		flatModels,
-		categories,
-		updateModel,
-		validationErrors
-	} from '$lib/stores/data.svelte';
-	import type { FlatModel, Benchmark } from '$lib/types';
+	import { store, updateModel } from '$lib/stores/data.svelte';
+	import type { FlatModel } from '$lib/types';
 
 	interface Props {
 		theme?: 'light' | 'dark';
@@ -100,7 +95,7 @@
 		];
 
 		// Add benchmark columns from categories
-		for (const category of categories) {
+		for (const category of store.categories) {
 			for (const benchmark of category.benchmarks) {
 				cols.push({
 					id: benchmark.id,
@@ -116,7 +111,7 @@
 					},
 					css: (row: FlatModel) => {
 						const value = row[benchmark.id] as number | null;
-						const hasError = validationErrors.some(
+						const hasError = store.validationErrors.some(
 							(e) => e.modelId === row.id && e.field === benchmark.id
 						);
 
@@ -159,7 +154,7 @@
 				key.startsWith('pricing_') ||
 				key === 'speed' ||
 				key === 'latency' ||
-				categories.some((c) => c.benchmarks.some((b) => b.id === key))
+				store.categories.some((c) => c.benchmarks.some((b) => b.id === key))
 			) {
 				if (value === '' || value === null) {
 					parsedValue = null;
@@ -189,9 +184,9 @@
 	}
 
 	export function exportToCsv(): void {
-		// Manual CSV export since SVAR might not have built-in
+		// Manual CSV export
 		const headers = columns.map((c: any) => c.header).join(',');
-		const rows = flatModels.map((row) =>
+		const rows = store.flatModels.map((row) =>
 			columns
 				.map((c: any) => {
 					const val = row[c.id as keyof FlatModel];
@@ -213,15 +208,15 @@
 </script>
 
 <div class="grid-wrapper" class:dark={theme === 'dark'}>
-	<Grid data={flatModels} {columns} {init} />
+	<Grid data={store.flatModels} {columns} {init} />
 </div>
 
 <style>
 	.grid-wrapper {
 		width: 100%;
 		height: 100%;
-		--wx-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-			Arial, sans-serif;
+		--wx-font-family:
+			-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		--wx-font-size: 13px;
 	}
 
