@@ -1,9 +1,13 @@
 import { json } from '@sveltejs/kit';
 import { readFile, writeFile } from 'fs/promises';
-import { join } from 'path';
+import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import type { RequestHandler } from './$types';
 
-const DATA_PATH = join(process.cwd(), '../data/showdown.json');
+// Resolve path relative to this file's location for reliability
+const __dirname = dirname(fileURLToPath(import.meta.url));
+// Navigate from editor/src/routes/api/data/ to project root's data/showdown.json
+const DATA_PATH = resolve(__dirname, '../../../../../data/showdown.json');
 
 export const GET: RequestHandler = async () => {
 	try {

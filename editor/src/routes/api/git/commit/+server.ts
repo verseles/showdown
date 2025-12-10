@@ -1,9 +1,13 @@
 import { json } from '@sveltejs/kit';
 import simpleGit from 'simple-git';
-import { join } from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 import type { RequestHandler } from './$types';
 
-const REPO_PATH = join(process.cwd(), '..');
+// Resolve path relative to this file's location for reliability
+const __dirname = dirname(fileURLToPath(import.meta.url));
+// Navigate from editor/src/routes/api/git/commit/ to project root
+const REPO_PATH = resolve(__dirname, '../../../../../../');
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
