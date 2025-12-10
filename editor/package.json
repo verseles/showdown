@@ -20,7 +20,7 @@
 		"vite": "^7.2.2"
 	},
 	"dependencies": {
-		"ag-grid-community": "^33.4.3",
+		"@svar-ui/svelte-grid": "^2.0.0",
 		"simple-git": "^3.27.0"
 	}
 }

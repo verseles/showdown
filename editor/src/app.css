@@ -493,35 +493,6 @@ kbd {
 	opacity: 1;
 }
 
-/* AG Grid custom theme */
-.ag-theme-alpine,
-.ag-theme-alpine-dark {
-	--ag-font-family: inherit;
-	--ag-font-size: 13px;
-}
-
-.ag-theme-alpine {
-	--ag-background-color: var(--bg-primary);
-	--ag-header-background-color: var(--bg-secondary);
-	--ag-odd-row-background-color: var(--bg-primary);
-	--ag-row-hover-color: var(--bg-hover);
-	--ag-selected-row-background-color: rgba(0, 102, 204, 0.1);
-	--ag-border-color: var(--border-color);
-	--ag-header-foreground-color: var(--text-primary);
-	--ag-foreground-color: var(--text-primary);
-}
-
-.ag-theme-alpine-dark {
-	--ag-background-color: var(--bg-primary);
-	--ag-header-background-color: var(--bg-secondary);
-	--ag-odd-row-background-color: var(--bg-primary);
-	--ag-row-hover-color: var(--bg-hover);
-	--ag-selected-row-background-color: rgba(77, 171, 247, 0.15);
-	--ag-border-color: var(--border-color);
-	--ag-header-foreground-color: var(--text-primary);
-	--ag-foreground-color: var(--text-primary);
-}
-
 /* Cell validation styling */
 .cell-invalid {
 	background-color: var(--error-bg) !important;

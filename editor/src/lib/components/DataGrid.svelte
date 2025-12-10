@@ -1,309 +1,281 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { createGrid, type GridApi, type GridOptions, type ColDef, type ColGroupDef, type CellValueChangedEvent, type RowSelectedEvent } from 'ag-grid-community';
-	import 'ag-grid-community/styles/ag-grid.css';
-	import 'ag-grid-community/styles/ag-theme-alpine.css';
+	import { Grid } from '@svar-ui/svelte-grid';
 	import {
 		flatModels,
 		categories,
 		updateModel,
-		validationErrors,
-		allBenchmarkIds
+		validationErrors
 	} from '$lib/stores/data.svelte';
-	import type { FlatModel, Category, Benchmark } from '$lib/types';
+	import type { FlatModel, Benchmark } from '$lib/types';
 
 	interface Props {
 		theme?: 'light' | 'dark';
 		onRowSelected?: (modelId: string | null) => void;
-		onCellContextMenu?: (event: MouseEvent, modelId: string, field: string) => void;
 	}
 
-	let { theme = 'light', onRowSelected, onCellContextMenu }: Props = $props();
+	let { theme = 'light', onRowSelected }: Props = $props();
 
-	let gridContainer: HTMLDivElement;
-	let gridApi: GridApi<FlatModel> | null = null;
+	let api: any = null;
+	let selectedId = $state<string | null>(null);
 
 	// Build column definitions from categories
-	function buildColumnDefs(): (ColDef<FlatModel> | ColGroupDef<FlatModel>)[] {
-		const columns: (ColDef<FlatModel> | ColGroupDef<FlatModel>)[] = [
+	function buildColumns() {
+		const cols: any[] = [
 			// Fixed columns
 			{
-				field: 'name',
-				headerName: 'Model',
-				pinned: 'left',
+				id: 'name',
+				header: 'Model',
 				width: 200,
-				editable: true,
-				cellClass: (params) => {
-					const errors = validationErrors.filter(
-						(e) => e.modelId === params.data?.id && e.field === 'name'
-					);
-					return errors.length > 0 ? 'cell-invalid' : '';
-				}
+				editor: 'text',
+				frozen: true
 			},
 			{
-				field: 'provider',
-				headerName: 'Provider',
-				pinned: 'left',
+				id: 'provider',
+				header: 'Provider',
 				width: 120,
-				editable: true,
-				cellEditor: 'agSelectCellEditor',
-				cellEditorParams: {
-					values: ['Anthropic', 'OpenAI', 'Google', 'DeepSeek', 'Meta', 'xAI', 'Alibaba', 'Mistral', 'MiniMax', 'Moonshot AI', 'Meituan']
-				}
+				editor: 'richselect',
+				options: [
+					'Anthropic',
+					'OpenAI',
+					'Google',
+					'DeepSeek',
+					'Meta',
+					'xAI',
+					'Alibaba',
+					'Mistral',
+					'MiniMax',
+					'Moonshot AI',
+					'Meituan'
+				],
+				frozen: true
 			},
 			{
-				field: 'type',
-				headerName: 'Type',
+				id: 'type',
+				header: 'Type',
 				width: 110,
-				editable: true,
-				cellEditor: 'agSelectCellEditor',
-				cellEditorParams: {
-					values: ['proprietary', 'open-source']
-				}
+				editor: 'richselect',
+				options: ['proprietary', 'open-source']
 			},
 			{
-				field: 'release_date',
-				headerName: 'Released',
+				id: 'release_date',
+				header: 'Released',
 				width: 110,
-				editable: true
+				editor: 'text'
 			},
-			// Pricing group
+			// Pricing
 			{
-				headerName: '💰 Pricing ($/1M)',
-				children: [
-					{
-						field: 'pricing_input',
-						headerName: 'Input',
-						width: 80,
-						editable: true,
-						type: 'numericColumn',
-						valueFormatter: (params) =>
-							params.value != null ? `$${params.value.toFixed(2)}` : '',
-						cellClass: (params) => {
-							const errors = validationErrors.filter(
-								(e) => e.modelId === params.data?.id && e.field === 'pricing_input'
-							);
-							return errors.length > 0 ? 'cell-invalid' : '';
-						}
-					},
-					{
-						field: 'pricing_output',
-						headerName: 'Output',
-						width: 80,
-						editable: true,
-						type: 'numericColumn',
-						valueFormatter: (params) =>
-							params.value != null ? `$${params.value.toFixed(2)}` : ''
-					},
-					{
-						field: 'pricing_average',
-						headerName: 'Avg',
-						width: 80,
-						editable: true,
-						type: 'numericColumn',
-						valueFormatter: (params) =>
-							params.value != null ? `$${params.value.toFixed(2)}` : ''
-					}
-				]
+				id: 'pricing_input',
+				header: '$/1M In',
+				width: 85,
+				editor: 'text',
+				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
 			},
-			// Performance group
 			{
-				headerName: '⚡ Performance',
-				children: [
-					{
-						field: 'speed',
-						headerName: 'Speed (tok/s)',
-						width: 100,
-						editable: true,
-						type: 'numericColumn'
-					},
-					{
-						field: 'latency',
-						headerName: 'Latency (ms)',
-						width: 100,
-						editable: true,
-						type: 'numericColumn'
-					}
-				]
+				id: 'pricing_output',
+				header: '$/1M Out',
+				width: 85,
+				editor: 'text',
+				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
+			},
+			{
+				id: 'pricing_average',
+				header: '$/1M Avg',
+				width: 85,
+				editor: 'text',
+				template: (v: number | null) => (v != null ? `$${v.toFixed(2)}` : '')
+			},
+			// Performance
+			{
+				id: 'speed',
+				header: 'Speed (tok/s)',
+				width: 100,
+				editor: 'text'
+			},
+			{
+				id: 'latency',
+				header: 'Latency (ms)',
+				width: 100,
+				editor: 'text'
 			}
 		];
 
-		// Add benchmark columns grouped by category
+		// Add benchmark columns from categories
 		for (const category of categories) {
-			const categoryColumns: ColDef<FlatModel>[] = category.benchmarks.map(
-				(benchmark: Benchmark) => ({
-					field: benchmark.id,
-					headerName: benchmark.name.replace(' Verified', '').replace('LMArena ', ''),
-					width: 90,
-					editable: true,
-					type: 'numericColumn',
-					headerTooltip: benchmark.description,
-					valueFormatter: (params) => {
-						if (params.value === null || params.value === undefined) return '';
+			for (const benchmark of category.benchmarks) {
+				cols.push({
+					id: benchmark.id,
+					header: `${category.emoji} ${benchmark.name.replace(' Verified', '').replace('LMArena ', '')}`,
+					width: 95,
+					editor: 'text',
+					template: (v: number | null) => {
+						if (v === null || v === undefined) return '';
 						if (benchmark.type === 'percentage') {
-							return `${params.value.toFixed(1)}%`;
+							return `${v.toFixed(1)}%`;
 						}
-						return params.value.toString();
+						return v.toString();
 					},
-					valueParser: (params) => {
-						if (params.newValue === '' || params.newValue === null) return null;
-						const num = parseFloat(params.newValue);
-						return isNaN(num) ? params.oldValue : num;
-					},
-					cellClass: (params) => {
-						const value = params.value;
-						const errors = validationErrors.filter(
-							(e) => e.modelId === params.data?.id && e.field === benchmark.id
+					css: (row: FlatModel) => {
+						const value = row[benchmark.id] as number | null;
+						const hasError = validationErrors.some(
+							(e) => e.modelId === row.id && e.field === benchmark.id
 						);
 
-						const classes: string[] = [];
-
-						if (errors.length > 0) {
-							classes.push('cell-invalid');
-						} else if (value === null || value === undefined) {
-							classes.push('cell-null');
-						} else if (benchmark.type === 'percentage') {
-							if (value >= 90) classes.push('cell-high-score');
-							else if (value < 50) classes.push('cell-low-score');
+						if (hasError) return 'cell-invalid';
+						if (value === null || value === undefined) return 'cell-null';
+						if (benchmark.type === 'percentage') {
+							if (value >= 90) return 'cell-high-score';
+							if (value < 50) return 'cell-low-score';
 						}
-
-						return classes.join(' ');
+						return '';
 					}
-				})
-			);
-
-			columns.push({
-				headerName: `${category.emoji} ${category.name}`,
-				children: categoryColumns
-			});
+				});
+			}
 		}
 
 		// Editor notes at the end
-		columns.push({
-			field: 'editor_notes',
-			headerName: 'Notes',
+		cols.push({
+			id: 'editor_notes',
+			header: 'Notes',
 			width: 300,
-			editable: true,
-			cellEditor: 'agLargeTextCellEditor',
-			cellEditorPopup: true
+			editor: 'text'
 		});
 
-		return columns;
+		return cols;
 	}
 
-	function handleCellValueChanged(event: CellValueChangedEvent<FlatModel>) {
-		if (!event.data || !event.colDef.field) return;
+	const columns = $derived(buildColumns());
 
-		const modelId = event.data.id;
-		const field = event.colDef.field;
-		const newValue = event.newValue;
+	// Initialize grid API
+	function init(gridApi: any) {
+		api = gridApi;
 
-		updateModel(modelId, field, newValue);
-	}
+		// Handle cell updates
+		api.on('update-cell', (ev: { id: string; key: string; value: any }) => {
+			const { id, key, value } = ev;
 
-	function handleRowSelected(event: RowSelectedEvent<FlatModel>) {
-		if (event.node.isSelected() && event.data) {
-			onRowSelected?.(event.data.id);
-		} else {
-			onRowSelected?.(null);
-		}
-	}
-
-	function handleContextMenu(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		const cell = target.closest('.ag-cell');
-		const row = target.closest('.ag-row');
-
-		if (cell && row && gridApi) {
-			const rowIndex = parseInt(row.getAttribute('row-index') || '0');
-			const colId = cell.getAttribute('col-id') || '';
-			const rowNode = gridApi.getDisplayedRowAtIndex(rowIndex);
-
-			if (rowNode?.data) {
-				event.preventDefault();
-				onCellContextMenu?.(event, rowNode.data.id, colId);
+			// Parse numeric values
+			let parsedValue = value;
+			if (
+				key.startsWith('pricing_') ||
+				key === 'speed' ||
+				key === 'latency' ||
+				categories.some((c) => c.benchmarks.some((b) => b.id === key))
+			) {
+				if (value === '' || value === null) {
+					parsedValue = null;
+				} else {
+					const num = parseFloat(value);
+					parsedValue = isNaN(num) ? null : num;
+				}
 			}
-		}
+
+			updateModel(id, key, parsedValue);
+		});
+
+		// Handle row selection
+		api.on('select-row', (ev: { id: string }) => {
+			selectedId = ev.id;
+			onRowSelected?.(ev.id);
+		});
 	}
-
-	onMount(() => {
-		const gridOptions: GridOptions<FlatModel> = {
-			columnDefs: buildColumnDefs(),
-			rowData: flatModels,
-			defaultColDef: {
-				sortable: true,
-				filter: true,
-				resizable: true,
-				suppressMovable: false
-			},
-			rowSelection: 'single',
-			animateRows: true,
-			enableCellTextSelection: true,
-			suppressRowClickSelection: false,
-			onCellValueChanged: handleCellValueChanged,
-			onRowSelected: handleRowSelected,
-			getRowId: (params) => params.data.id,
-			suppressContextMenu: true,
-			tooltipShowDelay: 500
-		};
-
-		gridApi = createGrid(gridContainer, gridOptions);
-
-		// Add context menu listener
-		gridContainer.addEventListener('contextmenu', handleContextMenu);
-	});
-
-	onDestroy(() => {
-		if (gridApi) {
-			gridApi.destroy();
-		}
-		gridContainer?.removeEventListener('contextmenu', handleContextMenu);
-	});
-
-	// Update row data when flatModels changes
-	$effect(() => {
-		if (gridApi && flatModels) {
-			gridApi.setGridOption('rowData', flatModels);
-		}
-	});
-
-	// Update column definitions when categories change
-	$effect(() => {
-		if (gridApi && categories.length > 0) {
-			gridApi.setGridOption('columnDefs', buildColumnDefs());
-		}
-	});
 
 	// Export methods for parent components
-	export function getSelectedRows(): FlatModel[] {
-		return gridApi?.getSelectedRows() || [];
+	export function getSelectedId(): string | null {
+		return selectedId;
 	}
 
-	export function selectAll(): void {
-		gridApi?.selectAll();
-	}
-
-	export function deselectAll(): void {
-		gridApi?.deselectAll();
+	export function selectRow(id: string): void {
+		api?.exec('select-row', { id });
 	}
 
 	export function exportToCsv(): void {
-		gridApi?.exportDataAsCsv({
-			fileName: `showdown-export-${new Date().toISOString().split('T')[0]}.csv`
-		});
-	}
-
-	export function sizeColumnsToFit(): void {
-		gridApi?.sizeColumnsToFit();
-	}
-
-	export function refreshCells(): void {
-		gridApi?.refreshCells({ force: true });
+		// Manual CSV export since SVAR might not have built-in
+		const headers = columns.map((c: any) => c.header).join(',');
+		const rows = flatModels.map((row) =>
+			columns
+				.map((c: any) => {
+					const val = row[c.id as keyof FlatModel];
+					if (val === null || val === undefined) return '';
+					if (typeof val === 'string' && val.includes(',')) return `"${val}"`;
+					return val;
+				})
+				.join(',')
+		);
+		const csv = [headers, ...rows].join('\n');
+		const blob = new Blob([csv], { type: 'text/csv' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `showdown-export-${new Date().toISOString().split('T')[0]}.csv`;
+		a.click();
+		URL.revokeObjectURL(url);
 	}
 </script>
 
-<div
-	bind:this={gridContainer}
-	class={theme === 'dark' ? 'ag-theme-alpine-dark' : 'ag-theme-alpine'}
-	style="width: 100%; height: 100%;"
-></div>
+<div class="grid-wrapper" class:dark={theme === 'dark'}>
+	<Grid data={flatModels} {columns} {init} />
+</div>
+
+<style>
+	.grid-wrapper {
+		width: 100%;
+		height: 100%;
+		--wx-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+			Arial, sans-serif;
+		--wx-font-size: 13px;
+	}
+
+	/* Light theme variables */
+	.grid-wrapper {
+		--wx-background: var(--bg-primary, #ffffff);
+		--wx-background-alt: var(--bg-secondary, #f8f9fa);
+		--wx-color: var(--text-primary, #212529);
+		--wx-color-secondary: var(--text-secondary, #495057);
+		--wx-border-color: var(--border-color, #dee2e6);
+	}
+
+	/* Dark theme variables */
+	.grid-wrapper.dark {
+		--wx-background: var(--bg-primary, #1a1a2e);
+		--wx-background-alt: var(--bg-secondary, #16213e);
+		--wx-color: var(--text-primary, #e4e6eb);
+		--wx-color-secondary: var(--text-secondary, #b0b3b8);
+		--wx-border-color: var(--border-color, #3a3b3c);
+	}
+
+	/* Cell styling */
+	:global(.cell-invalid) {
+		background-color: var(--error-bg, #f8d7da) !important;
+		border-left: 3px solid var(--error-color, #dc3545) !important;
+	}
+
+	:global(.cell-null) {
+		background-color: var(--bg-tertiary, #e9ecef) !important;
+		font-style: italic;
+		color: var(--text-muted, #6c757d) !important;
+	}
+
+	:global(.cell-high-score) {
+		background-color: var(--success-bg, #d4edda) !important;
+	}
+
+	:global(.cell-low-score) {
+		background-color: var(--error-bg, #f8d7da) !important;
+	}
+
+	.dark :global(.cell-null) {
+		background-color: var(--bg-tertiary, #0f3460) !important;
+	}
+
+	.dark :global(.cell-high-score) {
+		background-color: rgba(81, 207, 102, 0.15) !important;
+	}
+
+	.dark :global(.cell-low-score) {
+		background-color: rgba(255, 107, 107, 0.15) !important;
+	}
+
+	.dark :global(.cell-invalid) {
+		background-color: rgba(255, 107, 107, 0.15) !important;
+	}
+</style>
