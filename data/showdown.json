@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T09:10:00Z",
+		"last_update": "2025-12-10T09:13:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -293,7 +293,7 @@
 				"live_code_bench": 68.5,
 				"gpqa_diamond": 86.6,
 				"aime_2024": 85.0,
-				"arc_agi": null,
+				"arc_agi": 17.6,
 				"lmarena_hard_elo": 1385,
 				"bfcl": 82.5,
 				"tau_bench": null,
@@ -337,7 +337,7 @@
 				"live_code_bench": 72.5,
 				"gpqa_diamond": 88.5,
 				"aime_2024": 92.0,
-				"arc_agi": null,
+				"arc_agi": 20.0,
 				"lmarena_hard_elo": 1445,
 				"bfcl": 84.5,
 				"tau_bench": null,
