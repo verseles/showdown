@@ -19,23 +19,23 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 
 ### Primary Benchmark Sources
 
-| Benchmark              | URL                                              | What to Search                          |
-| ---------------------- | ------------------------------------------------ | --------------------------------------- |
-| **SWE-Bench Verified** | https://swebench.com                             | Leaderboard, look for "verified" scores |
-| **Terminal-Bench**     | https://github.com/terminal-bench/terminal-bench | Check README or leaderboard             |
-| **LiveCodeBench**      | https://livecodebench.github.io                  | Leaderboard page                        |
-| **GPQA Diamond**       | https://github.com/idavidrein/gpqa               | Papers, announcements                   |
-| **AIME 2024**          | Search "AIME 2024 [model name]"                  | Provider announcements                  |
-| **ARC-AGI 2**          | https://arcprize.org                             | Leaderboard                             |
-| **BFCL**               | https://gorilla.cs.berkeley.edu/leaderboard.html | Berkeley Function Calling Leaderboard   |
-| **TAU-Bench**          | https://github.com/sierra-research/tau-bench     | Leaderboard                             |
-| **OSWorld**            | https://os-world.github.io                       | Leaderboard                             |
-| **MATH-500**           | Search "[model name] MATH-500"                   | Provider technical reports              |
-| **GSM8K**              | Search "[model name] GSM8K"                      | Provider technical reports              |
-| **MathVista**          | https://mathvista.github.io                      | Leaderboard                             |
-| **MMMU**               | https://mmmu-benchmark.github.io                 | Leaderboard                             |
-| **MMLU**               | Search "[model name] MMLU"                       | Provider technical reports              |
-| **MMMLU**              | https://huggingface.co/datasets/openai/mmmlu     | Papers, evaluations                     |
+| Benchmark              | URL                                                | What to Search                          |
+| ---------------------- | -------------------------------------------------- | --------------------------------------- |
+| **SWE-Bench Verified** | https://swebench.com                               | Leaderboard, look for "verified" scores |
+| **Terminal-Bench**     | https://github.com/terminal-bench/terminal-bench   | Check README or leaderboard             |
+| **LiveCodeBench**      | https://livecodebench.github.io                    | Leaderboard page                        |
+| **GPQA Diamond**       | https://github.com/idavidrein/gpqa                 | Papers, announcements                   |
+| **AIME 2024**          | Search "AIME 2024 [model name]"                    | Provider announcements                  |
+| **ARC-AGI 2**          | https://arcprize.org/leaderboard#leaderboard-table | See ARC-AGI instructions below          |
+| **BFCL**               | https://gorilla.cs.berkeley.edu/leaderboard.html   | Berkeley Function Calling Leaderboard   |
+| **TAU-Bench**          | https://github.com/sierra-research/tau-bench       | Leaderboard                             |
+| **OSWorld**            | https://os-world.github.io                         | Leaderboard                             |
+| **MATH-500**           | Search "[model name] MATH-500"                     | Provider technical reports              |
+| **GSM8K**              | Search "[model name] GSM8K"                        | Provider technical reports              |
+| **MathVista**          | https://mathvista.github.io                        | Leaderboard                             |
+| **MMMU**               | https://mmmu-benchmark.github.io                   | Leaderboard                             |
+| **MMLU**               | Search "[model name] MMLU"                         | Provider technical reports              |
+| **MMMLU**              | https://huggingface.co/datasets/openai/mmmlu       | Papers, evaluations                     |
 
 ### LMArena (Chatbot Arena) - Multiple Categories
 
@@ -53,6 +53,17 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 | `lmarena_vision_elo`   | Vision                | https://lmarena.ai/leaderboard/vision                     |
 | `lmarena_en_elo`       | English (Overall)     | https://lmarena.ai/leaderboard/text/english               |
 | `lmarena_zh_elo`       | Chinese               | https://lmarena.ai/leaderboard/text/chinese               |
+
+### ARC-AGI 2 Scores
+
+> [!IMPORTANT]
+> **Use the browser tool** to collect ARC-AGI 2 scores:
+
+1. Navigate to https://arcprize.org/leaderboard#leaderboard-table
+2. Locate `div#leaderboard-table`
+3. Use values from the **ARC-AGI-2** column (not ARC-AGI-1)
+4. **Prioritize** entries where `System Type` == `CoT` (Chain of Thought)
+5. Model names may include variants (thinking, context size, etc.) - match to the closest model in `showdown.json`
 
 ### Pricing & Performance
 
