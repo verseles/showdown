@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+
+  "site_title": "Showdown - Comprehensive LLM Rankings & Comparison",
+  "site_description": "Compare the best AI language models across coding, reasoning, agents, and more. Transparent rankings from 20+ benchmarks.",
+  "og_title": "Showdown - LLM Rankings",
+  "og_description": "Transparent AI model comparison aggregating SWE-Bench, GPQA, LMArena, and more.",
+
+  "header_title": "Showdown",
+  "header_tagline": "LLM Rankings",
+  "header_showing": "Showing {count} of {total} models",
+  "header_updated": "Updated: {date}",
+
+  "aria_select_language": "Select language",
+  "aria_star_github": "Star on GitHub",
+  "aria_switch_light": "Switch to light mode",
+  "aria_switch_dark": "Switch to dark mode",
+  "aria_favorite": "Favorite",
+  "aria_add_favorite": "Add to favorites",
+  "aria_remove_favorite": "Remove from favorites",
+  "aria_show_less": "Show less",
+  "aria_show_more": "Show more",
+
+  "filter_provider": "Provider",
+  "filter_type": "Type",
+  "filter_proprietary": "Proprietary",
+  "filter_opensource": "Open Source",
+  "filter_favorites_only": "Favorites only",
+  "filter_reset": "Reset",
+  "filter_columns": "Columns",
+  "filter_visible_columns": "Visible Columns",
+
+  "column_rank": "Rank",
+  "column_rank_score": "Rank & Score",
+  "column_provider": "Provider",
+  "column_model": "Model",
+  "column_type": "Type",
+  "column_price": "Price",
+  "column_speed": "Speed",
+  "column_latency": "Latency",
+  "column_released": "Released",
+  "column_release_date": "Release Date",
+
+  "type_proprietary": "Proprietary",
+  "type_opensource": "Open Source",
+  "type_open": "Open",
+
+  "category_coding": "Coding",
+  "category_reasoning": "Reasoning",
+  "category_agents": "Agents & Tools",
+  "category_conversation": "Conversation",
+  "category_math": "Math",
+  "category_multimodal": "Multimodal",
+  "category_multilingual": "Multilingual",
+
+  "tooltip_weight": "Weight: {percentage}%",
+  "tooltip_benchmarks_available": "{available}/{total} benchmarks available",
+  "tooltip_pricing": "Pricing: {model}",
+  "tooltip_input": "Input",
+  "tooltip_output": "Output",
+  "tooltip_average": "Average",
+  "tooltip_per_1m_tokens": "/ 1M tokens",
+  "tooltip_average_formula": "Average = (Input + Output) / 2",
+
+  "card_price_avg": "Price (avg)",
+  "card_input": "Input",
+  "card_output": "Output",
+  "card_speed": "Speed",
+  "card_latency": "Latency",
+  "card_released": "Released",
+  "card_show_less": "Show less",
+  "card_show_all": "Show all",
+
+  "footer_data_sourced": "Data sourced from public benchmarks.",
+  "footer_contribute": "Contribute on GitHub",
+
+  "github_star": "Star"
+}
