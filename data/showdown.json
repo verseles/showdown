@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.09",
-		"last_update": "2025-12-09T06:00:00Z",
+		"last_update": "2025-12-10T02:11:50Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -47,6 +47,50 @@
 				"mmmlu": 85.2,
 				"lmarena_en_elo": 1410,
 				"lmarena_zh_elo": 1355
+			}
+		},
+		{
+			"id": "claude-opus-4-5-thinking",
+			"name": "Claude Opus 4.5 Thinking",
+			"provider": "Anthropic",
+			"type": "proprietary",
+			"release_date": "2025-11-24",
+			"pricing": {
+				"input_per_1m": 5.0,
+				"output_per_1m": 25.0,
+				"average_per_1m": 15.0
+			},
+			"performance": {
+				"output_speed_tps": 35,
+				"latency_ttft_ms": 8500,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Extended thinking variant of Opus 4.5. Excels at complex reasoning tasks with visible chain-of-thought. Won LMArena Triple Crown (Expert, WebDev, Math). Higher latency due to deliberation.",
+			"benchmark_scores": {
+				"swe_bench": 80.9,
+				"terminal_bench": 59.3,
+				"lmarena_coding_elo": 1395,
+				"live_code_bench": 75.5,
+				"gpqa_diamond": 87.0,
+				"aime_2024": 93.0,
+				"arc_agi": 37.6,
+				"lmarena_hard_elo": 1485,
+				"bfcl": 84.5,
+				"tau_bench": 68.5,
+				"osworld": 65.2,
+				"webdev_arena_elo": 1398,
+				"lmarena_creative_elo": 1410,
+				"instruction_following": 93.5,
+				"math_500": 94.5,
+				"gsm8k": 98.5,
+				"lmarena_math_elo": 1445,
+				"mathvista": 78.5,
+				"mmmu": 74.2,
+				"lmarena_vision_elo": 1355,
+				"mmlu": 91.5,
+				"mmmlu": 86.8,
+				"lmarena_en_elo": 1465,
+				"lmarena_zh_elo": 1395
 			}
 		},
 		{
