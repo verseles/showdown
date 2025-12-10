@@ -1,38 +1,96 @@
-# sv
+# Showdown
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+> **Which AI model is actually the best?** We aggregate 20+ benchmarks so you don't have to.
 
-## Creating a project
+[![Live Site](https://img.shields.io/badge/Live-showdown.best-blue)](https://showdown.best)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-green)](LICENSE)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## What is Showdown?
 
-```sh
-# create a new project in the current directory
-npx sv create
+Tired of cherry-picked benchmarks and marketing hype? **Showdown** provides transparent, community-maintained rankings of AI language models across real-world categories:
 
-# create a new project in my-app
-npx sv create my-app
-```
+- **Coding** - Can it actually write working code?
+- **Reasoning** - PhD-level science, complex logic
+- **Agents & Tools** - Function calling, browser automation
+- **Math** - From algebra to competition problems
+- **Multimodal** - Vision understanding
+- **Multilingual** - Beyond English
+- **Conversation** - Creative writing, instruction following
 
-## Developing
+All data is open. All methodology is transparent. All contributions are welcome.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Quick Start
 
-```sh
+Visit **[showdown.best](https://showdown.best)** to explore the rankings.
+
+Want to run it locally?
+
+```bash
+git clone https://github.com/verseles/showdown.git
+cd showdown
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+## How Rankings Work
 
-To create a production version of your app:
+We aggregate scores from 20+ industry benchmarks, weighted by practical importance:
 
-```sh
-npm run build
-```
+| Category       | Weight | What it measures                                 |
+| -------------- | ------ | ------------------------------------------------ |
+| Coding         | 25%    | Real GitHub issues, live coding challenges       |
+| Reasoning      | 25%    | PhD science questions, novel problem solving     |
+| Agents & Tools | 18%    | API usage, multi-step tasks, browser automation  |
+| Conversation   | 12%    | Creative writing, following complex instructions |
+| Math           | 10%    | Competition math, word problems                  |
+| Multimodal     | 7%     | Understanding images, charts, diagrams           |
+| Multilingual   | 3%     | Performance across languages                     |
 
-You can preview the production build with `npm run preview`.
+**Scoring:**
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- Percentage benchmarks used directly
+- Elo scores normalized to 0-100
+- Missing data? We renormalize weights fairly
+- Final score = weighted average across categories
+
+## Contributing
+
+### Found an outdated score?
+
+[Open an issue](https://github.com/verseles/showdown/issues/new?template=update-score.yml) with the correct value and source.
+
+### Want to add a model?
+
+[Open an issue](https://github.com/verseles/showdown/issues/new?template=add-model.yml) with available benchmark scores.
+
+### Ready to submit a PR?
+
+1. Fork this repo
+2. Edit `data/showdown.json`
+3. Submit PR - our CI validates the data automatically
+4. Get merged!
+
+## Tech Stack
+
+- **Frontend:** Svelte 5 + SvelteKit (static site generation)
+- **Data:** Single JSON file - easy to edit, easy to validate
+- **Hosting:** Cloudflare Pages - fast worldwide
+- **CI/CD:** GitHub Actions - automated validation on every PR
+
+## Data Sources
+
+Rankings aggregate data from trusted sources:
+
+- [SWE-Bench](https://swebench.com) - Real GitHub issue resolution
+- [GPQA](https://github.com/idavidrein/gpqa) - PhD-level questions
+- [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling
+- [LMArena](https://lmarena.ai/leaderboard) - Human preferences
+- [Artificial Analysis](https://artificialanalysis.ai) - Speed metrics
+
+## License
+
+AGPL-3.0 - Keep it open!
+
+---
+
+**Built with [Svelte](https://svelte.dev). Hosted on [Cloudflare](https://pages.cloudflare.com). Made for the community.**

@@ -1,0 +1,69 @@
+name: Update Benchmark Score
+description: Report an outdated benchmark score
+labels: ['data-update']
+body:
+  - type: dropdown
+    id: model
+    attributes:
+      label: Model
+      description: Which model needs updating?
+      options:
+        - Claude Opus 4.5
+        - Claude Sonnet 4.5
+        - Claude Opus 4.1
+        - GPT-5.1
+        - GPT-4o
+        - Gemini 3 Pro
+        - Gemini 2.5 Pro
+        - DeepSeek V3.1
+        - DeepSeek R1
+        - Grok 4
+        - Llama 4 Maverick
+        - Llama 4 Scout
+        - Qwen3 235B
+        - Qwen3 32B
+        - OpenAI o3
+        - Gemini 2.5 Flash
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: benchmark
+    attributes:
+      label: Benchmark Name
+      description: Which benchmark score is incorrect?
+      placeholder: 'e.g., SWE-Bench Verified, GPQA Diamond'
+    validations:
+      required: true
+
+  - type: input
+    id: current_value
+    attributes:
+      label: Current Value on Site
+      description: What value is currently shown?
+      placeholder: 'e.g., 75.2%'
+
+  - type: input
+    id: correct_value
+    attributes:
+      label: Correct Value
+      description: What should the value be?
+      placeholder: 'e.g., 78.5%'
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: Link to the benchmark source
+      placeholder: 'https://...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Any other relevant information

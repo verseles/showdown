@@ -1,3 +1,8 @@
-# allow crawling everything by default
+# Showdown - LLM Rankings
+# https://showdown.best
+
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /editor
+
+Sitemap: https://showdown.best/sitemap.xml
