@@ -89,41 +89,41 @@ This document tracks the development progress of Showdown. Features are organize
 ## Phase 9: Internationalization
 
 - [x] Language selector UI (placeholder)
-- [ ] Translation system setup
+- [x] Translation system setup
 
 // Top 10 Global (250M+)
 
-- [ ] English (en) - default
-- [ ] Mandarin Chinese (zh)
-- [ ] Hindi (hi)
-- [ ] Spanish (es)
-- [ ] French (fr)
-- [ ] Standard Arabic (ar) - RTL
-- [ ] Bengali (bn)
-- [ ] Portuguese (pt-br)
-- [ ] Russian (ru)
-- [ ] Urdu (ur) - RTL
+- [x] English (en) - default
+- [x] Mandarin Chinese (zh)
+- [x] Hindi (hi)
+- [x] Spanish (es)
+- [x] French (fr)
+- [x] Standard Arabic (ar) - RTL
+- [x] Bengali (bn)
+- [x] Portuguese (pt-br)
+- [x] Russian (ru)
+- [x] Urdu (ur) - RTL
 
 // 100M+ speakers
 
-- [ ] Indonesian (id)
-- [ ] German (de)
-- [ ] Japanese (ja)
-- [ ] Egyptian Arabic (arz) - RTL
+- [x] Indonesian (id)
+- [x] German (de)
+- [x] Japanese (ja)
+- [x] Egyptian Arabic (arz) - RTL
 
 // Strategic Tech markets (80M-100M)
 
-- [ ] Vietnamese (vi)
-- [ ] Turkish (tr)
-- [ ] Italian (it)
-- [ ] Korean (ko)
+- [x] Vietnamese (vi)
+- [x] Turkish (tr)
+- [x] Italian (it)
+- [x] Korean (ko)
 
 // High-value Tech markets (50M-80M)
 
-- [ ] Polish (pl)
-- [ ] Thai (th)
-- [ ] Dutch (nl)
-- [ ] Swedish (sv)
+- [x] Polish (pl)
+- [x] Thai (th)
+- [x] Dutch (nl)
+- [x] Swedish (sv)
 
 ## Phase 10: Advanced Features
 
