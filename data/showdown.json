@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T11:46:00Z",
+		"last_update": "2025-12-10T10:50:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -332,8 +332,8 @@
 			"editor_notes": "Extended thinking variant with high reasoning effort. Scores 69 on Artificial Analysis Index. Higher latency and cost but excels on complex reasoning tasks.",
 			"benchmark_scores": {
 				"swe_bench": 76.3,
-				"terminal_bench": null,
-				"lmarena_coding_elo": 1375,
+				"terminal_bench": 47.6,
+				"lmarena_coding_elo": 1490,
 				"live_code_bench": 78,
 				"gpqa_diamond": 88.5,
 				"aime_2024": 95.0,
@@ -376,8 +376,8 @@
 			"editor_notes": "First model to break 1500 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
 			"benchmark_scores": {
 				"swe_bench": 76.2,
-				"terminal_bench": 52.5,
-				"lmarena_coding_elo": 1395,
+				"terminal_bench": 54.2,
+				"lmarena_coding_elo": 1521,
 				"live_code_bench": 78.5,
 				"gpqa_diamond": 91.9,
 				"aime_2024": 86.5,
@@ -1042,23 +1042,23 @@
 				"gpqa_diamond": 75.1,
 				"aime_2024": null,
 				"arc_agi": null,
-				"lmarena_hard_elo": null,
+				"lmarena_hard_elo": 1448,
 				"bfcl": null,
 				"tau_bench": 93.0,
 				"osworld": null,
-				"webdev_arena_elo": null,
-				"lmarena_creative_elo": null,
-				"lmarena_if_elo": null,
+				"webdev_arena_elo": 1350,
+				"lmarena_creative_elo": 1402,
+				"lmarena_if_elo": 1416,
 				"math_500": null,
 				"gsm8k": null,
-				"lmarena_math_elo": null,
+				"lmarena_math_elo": 1428,
 				"mathvista": null,
 				"mmmu": null,
 				"lmarena_vision_elo": null,
 				"mmlu": null,
 				"mmmlu": null,
-				"lmarena_en_elo": null,
-				"lmarena_zh_elo": null
+				"lmarena_en_elo": 1444,
+				"lmarena_zh_elo": 1462
 			}
 		},
 		{
@@ -1162,7 +1162,7 @@
 					"id": "swe_bench",
 					"name": "SWE-Bench Verified",
 					"type": "percentage",
-					"weight": 0.4,
+					"weight": 0.5,
 					"url": "https://swebench.com",
 					"description": "Real-world GitHub issue resolution from popular Python repositories"
 				},
@@ -1170,7 +1170,7 @@
 					"id": "terminal_bench",
 					"name": "Terminal-Bench",
 					"type": "percentage",
-					"weight": 0.2,
+					"weight": 0.1,
 					"url": "https://github.com/terminal-bench/terminal-bench",
 					"description": "Terminal and command-line task completion"
 				},
@@ -1178,16 +1178,16 @@
 					"id": "lmarena_coding_elo",
 					"name": "LMArena Coding",
 					"type": "elo",
-					"weight": 0.25,
+					"weight": 0.3,
 					"url": "https://lmarena.ai/leaderboard/text/coding",
 					"description": "Human preference votes on coding tasks",
-					"elo_range": { "min": 1100, "max": 1500 }
+					"elo_range": { "min": 1100, "max": 1600 }
 				},
 				{
 					"id": "live_code_bench",
 					"name": "LiveCodeBench",
 					"type": "percentage",
-					"weight": 0.15,
+					"weight": 0.1,
 					"url": "https://livecodebench.github.io",
 					"description": "Competitive programming problems from recent contests"
 				}
