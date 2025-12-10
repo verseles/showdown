@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T07:52:00Z",
+		"last_update": "2025-12-10T07:55:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -267,6 +267,94 @@
 				"mmmlu": 78.2,
 				"lmarena_en_elo": 1295,
 				"lmarena_zh_elo": 1245
+			}
+		},
+		{
+			"id": "gpt-5-1",
+			"name": "GPT 5.1",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-11-12",
+			"pricing": {
+				"input_per_1m": 1.25,
+				"output_per_1m": 10.0,
+				"average_per_1m": 5.625
+			},
+			"performance": {
+				"output_speed_tps": 95,
+				"latency_ttft_ms": 400,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "OpenAI's latest flagship with adaptive reasoning. 30% faster than GPT-4o with improved instruction following. First model to reach 70 on Artificial Analysis Index.",
+			"benchmark_scores": {
+				"swe_bench": 76.3,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1345,
+				"live_code_bench": 68.5,
+				"gpqa_diamond": 86.6,
+				"aime_2024": 85.0,
+				"arc_agi": null,
+				"lmarena_hard_elo": 1385,
+				"bfcl": 82.5,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": 1354,
+				"lmarena_creative_elo": 1365,
+				"instruction_following": 89.0,
+				"math_500": 85.5,
+				"gsm8k": 97.1,
+				"lmarena_math_elo": 1365,
+				"mathvista": 68.5,
+				"mmmu": 65.5,
+				"lmarena_vision_elo": 1246,
+				"mmlu": 92.3,
+				"mmmlu": 85.0,
+				"lmarena_en_elo": 1385,
+				"lmarena_zh_elo": 1325
+			}
+		},
+		{
+			"id": "gpt-5-1-high",
+			"name": "GPT 5.1 High",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-11-12",
+			"pricing": {
+				"input_per_1m": 15.0,
+				"output_per_1m": 120.0,
+				"average_per_1m": 67.5
+			},
+			"performance": {
+				"output_speed_tps": 40,
+				"latency_ttft_ms": 1500,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Extended thinking variant with high reasoning effort. Scores 69 on Artificial Analysis Index. Higher latency and cost but excels on complex reasoning tasks.",
+			"benchmark_scores": {
+				"swe_bench": 78.5,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1375,
+				"live_code_bench": 72.5,
+				"gpqa_diamond": 88.5,
+				"aime_2024": 92.0,
+				"arc_agi": null,
+				"lmarena_hard_elo": 1445,
+				"bfcl": 84.5,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": 1378,
+				"lmarena_creative_elo": 1395,
+				"instruction_following": 92.5,
+				"math_500": 92.0,
+				"gsm8k": 98.5,
+				"lmarena_math_elo": 1425,
+				"mathvista": 72.5,
+				"mmmu": 70.0,
+				"lmarena_vision_elo": 1285,
+				"mmlu": 93.5,
+				"mmmlu": 87.5,
+				"lmarena_en_elo": 1457,
+				"lmarena_zh_elo": 1385
 			}
 		},
 		{
