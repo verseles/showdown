@@ -17,7 +17,7 @@
 		"editor": "cd editor && npm run dev",
 		"editor:install": "cd editor && npm install",
 		"mix:main": "npx repomix  --ignore='editor/,messages/,.github/' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-main.xml",
-		"mix:editor": "npx repomix './editor' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-editor.xml",	
+		"mix:editor": "npx repomix './editor' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-editor.xml",
 		"mix": "npm run mix:main && npm run mix:editor"
 	},
 	"devDependencies": {

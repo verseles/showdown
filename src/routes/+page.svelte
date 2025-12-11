@@ -213,15 +213,9 @@
 
 <svelte:head>
 	<title>{m.site_title()}</title>
-	<meta
-		name="description"
-		content={m.site_description()}
-	/>
+	<meta name="description" content={m.site_description()} />
 	<meta property="og:title" content={m.og_title()} />
-	<meta
-		property="og:description"
-		content={m.og_description()}
-	/>
+	<meta property="og:description" content={m.og_description()} />
 	<meta property="og:url" content="https://showdown.best" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={m.og_title()} />
@@ -598,7 +592,9 @@
 							{#if visibleColumns.type}
 								<td>
 									<span class="type-badge" class:proprietary={ranked.model.type === 'proprietary'}>
-										{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_opensource()}
+										{ranked.model.type === 'proprietary'
+											? m.type_proprietary()
+											: m.type_opensource()}
 									</span>
 								</td>
 							{/if}
@@ -755,7 +751,9 @@
 			<div class="tooltip-header">{category.emoji} {category.name}</div>
 			<div class="tooltip-body">
 				<p>{category.description}</p>
-				<p class="tooltip-weight">{m.tooltip_weight({ percentage: (category.weight * 100).toFixed(0) })}</p>
+				<p class="tooltip-weight">
+					{m.tooltip_weight({ percentage: (category.weight * 100).toFixed(0) })}
+				</p>
 			</div>
 		{:else if activeTooltip.type === 'score'}
 			{@const scoreData = activeTooltip.data as {
@@ -787,7 +785,10 @@
 					{/each}
 				</ul>
 				<p class="benchmark-count">
-					{m.tooltip_benchmarks_available({ available: scoreData.breakdown.filter((b) => b.normalizedScore !== null).length, total: scoreData.breakdown.length })}
+					{m.tooltip_benchmarks_available({
+						available: scoreData.breakdown.filter((b) => b.normalizedScore !== null).length,
+						total: scoreData.breakdown.length
+					})}
 				</p>
 			</div>
 		{:else if activeTooltip.type === 'price'}
@@ -797,15 +798,21 @@
 				<div class="price-breakdown">
 					<div class="price-row">
 						<span class="price-label">{m.tooltip_input()}</span>
-						<span class="price-value">${model.pricing.input_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
+						<span class="price-value"
+							>${model.pricing.input_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span
+						>
 					</div>
 					<div class="price-row">
 						<span class="price-label">{m.tooltip_output()}</span>
-						<span class="price-value">${model.pricing.output_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
+						<span class="price-value"
+							>${model.pricing.output_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span
+						>
 					</div>
 					<div class="price-row price-average">
 						<span class="price-label">{m.tooltip_average()}</span>
-						<span class="price-value">${model.pricing.average_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span>
+						<span class="price-value"
+							>${model.pricing.average_per_1m.toFixed(2)} {m.tooltip_per_1m_tokens()}</span
+						>
 					</div>
 				</div>
 				<p class="price-note">{m.tooltip_average_formula()}</p>

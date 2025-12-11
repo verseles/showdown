@@ -329,7 +329,7 @@ export function updateModel(modelId: string, field: string, value: unknown): voi
 export function addModel(template?: Partial<Model>): Model {
 	if (!_data) throw new Error('Data not loaded');
 
-	let baseId = template?.id || `new-model-${Date.now()}`;
+	const baseId = template?.id || `new-model-${Date.now()}`;
 	let id = baseId;
 	let counter = 1;
 	while (_data.models.some((m) => m.id === id)) {

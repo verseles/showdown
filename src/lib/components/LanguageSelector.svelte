@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { getLocale } from '$lib/paraglide/runtime.js';
-	import {
-		changeLocale,
-		languageData,
-		isRTL
-	} from '$lib/stores/locale.js';
+	import { changeLocale, languageData } from '$lib/stores/locale.js';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let isOpen = $state(false);

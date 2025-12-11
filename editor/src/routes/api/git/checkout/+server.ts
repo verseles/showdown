@@ -19,7 +19,10 @@ export const POST: RequestHandler = async ({ request }) => {
 		const status = await git.status();
 		if (!status.isClean()) {
 			return json(
-				{ error: 'Cannot switch branch with uncommitted changes. Please save or discard changes first.' },
+				{
+					error:
+						'Cannot switch branch with uncommitted changes. Please save or discard changes first.'
+				},
 				{ status: 400 }
 			);
 		}

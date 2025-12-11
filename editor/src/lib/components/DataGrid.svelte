@@ -191,10 +191,7 @@
 	}
 
 	// Get benchmark cell class
-	function getBenchmarkCellClass(
-		row: FlatModel,
-		benchmark: { id: string; type: string }
-	): string {
+	function getBenchmarkCellClass(row: FlatModel, benchmark: { id: string; type: string }): string {
 		const value = row[benchmark.id] as number | null;
 		const hasError = store.validationErrors.some(
 			(e) => e.modelId === row.id && e.field === benchmark.id
