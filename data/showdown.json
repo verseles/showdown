@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2025.12.10",
-		"last_update": "2025-12-10T12:30:00Z",
+		"version": "2025.12.11",
+		"last_update": "2025-12-11T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -974,11 +974,11 @@
 			}
 		},
 		{
-			"id": "kimi-k2-0711-preview",
+			"id": "kimi-k2-0905-preview",
 			"name": "Kimi K2",
 			"provider": "Moonshot AI",
 			"type": "open-source",
-			"release_date": "2025-07-10",
+			"release_date": "2025-09-05",
 			"pricing": {
 				"input_per_1m": 0.6,
 				"output_per_1m": 2.5,
@@ -991,23 +991,23 @@
 			},
 			"editor_notes": "Open-source MoE model (1T total, 32B active) with strong agentic performance. Competitive with Claude Sonnet 4 on SWE-bench at fraction of cost. 256K context window.",
 			"benchmark_scores": {
-				"swe_bench": 65.8,
-				"terminal_bench": null,
-				"lmarena_coding_elo": null,
+				"swe_bench": 69.2,
+				"terminal_bench": 35.7,
+				"lmarena_coding_elo": 1466,
 				"live_code_bench": 53.7,
 				"gpqa_diamond": 75.1,
-				"aime": null,
+				"aime": 49.5,
 				"arc_agi_2": null,
-				"lmarena_hard_elo": null,
-				"bfcl": null,
+				"lmarena_hard_elo": 1430,
+				"bfcl": 59.6,
 				"tau_bench": null,
 				"osworld": null,
 				"webdev_arena_elo": null,
-				"lmarena_creative_elo": null,
+				"lmarena_creative_elo": 1381,
 				"lmarena_if_elo": null,
 				"math_500": null,
 				"gsm8k": null,
-				"lmarena_math_elo": null,
+				"lmarena_math_elo": 1381,
 				"mathvista": null,
 				"mmmu": null,
 				"lmarena_vision_elo": null,
