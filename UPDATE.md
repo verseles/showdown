@@ -25,7 +25,7 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 | **Terminal-Bench**     | https://www.tbench.ai/leaderboard/terminal-bench/2.0                                             | Check the Accuracy column               |
 | **LiveCodeBench**      | https://gso-bench.github.io/leaderboard.html or if not found Search "LiveCodeBench [model name]" | Look for the Opt@1 Score column         |
 | **GPQA Diamond**       | Search "GPQA Diamond [model name]"                                                               | Papers, announcements                   |
-| **AIME 2024**          | Search "AIME 2024 [model name]"                                                                  | Provider announcements                  |
+| **AIME 2025**          | Search "AIME 2025 [model name]"                                                                  | Provider announcements                  |
 | **ARC-AGI-2**          | https://arcprize.org/leaderboard#leaderboard-table                                               | See ARC-AGI-2 instructions below        |
 | **BFCL**               | https://gorilla.cs.berkeley.edu/leaderboard.html                                                 | Overall Acc column                      |
 | **TAU-Bench**          | https://taubench.com/#leaderboard                                                                | "Pass^1" column                         |
@@ -106,7 +106,7 @@ Each model in `data/showdown.json` must follow this structure:
 		"lmarena_coding_elo": 1350,
 		"live_code_bench": 68.0,
 		"gpqa_diamond": 80.0,
-		"aime_2024": 65.0,
+		"aime": 65.0,
 		"arc_agi_2": 5.0,
 		"lmarena_hard_elo": 1320,
 		"bfcl": 78.0,
@@ -166,7 +166,7 @@ Each model in `data/showdown.json` must follow this structure:
 **Reasoning (25% weight):**
 
 - `gpqa_diamond` - GPQA Diamond (%)
-- `aime_2024` - AIME 2024 (%)
+- `aime` - AIME 2025 (%)
 - `arc_agi_2` - ARC-AGI-2 (%)
 - `lmarena_hard_elo` - LMArena Hard (Elo: 1100-1550)
 
@@ -226,7 +226,7 @@ Each model in `data/showdown.json` must follow this structure:
    [ ] LMArena Coding Elo
    [ ] LiveCodeBench score
    [ ] GPQA Diamond score
-   [ ] AIME 2024 score
+   [ ] AIME 2025 score
    [ ] ARC-AGI-2 score
    [ ] LMArena Hard Prompts Elo
    [ ] BFCL score
@@ -357,7 +357,7 @@ Visit: https://openai.com/api/pricing
 		"lmarena_coding_elo": 1375,
 		"live_code_bench": 70.0,
 		"gpqa_diamond": 82.0,
-		"aime_2024": 70.0,
+		"aime": 70.0,
 		"arc_agi_2": null,
 		"lmarena_hard_elo": 1390,
 		"bfcl": 85.0,
