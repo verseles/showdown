@@ -7,10 +7,7 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: 'index.html'
-		}),
-		files: {
-			assets: 'static'
-		}
+		})
 	}
 };
 
