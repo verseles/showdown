@@ -1,13 +1,11 @@
 import { json } from '@sveltejs/kit';
 import simpleGit from 'simple-git';
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import type { RequestHandler } from './$types';
 
-// Resolve path relative to this file's location for reliability
-const __dirname = dirname(fileURLToPath(import.meta.url));
-// Navigate from editor/src/routes/api/git/commit/ to project root
-const REPO_PATH = resolve(__dirname, '../../../../../../');
+// In SvelteKit, process.cwd() returns the directory where the dev server started
+// For editor/, that's /path/to/showdown/editor, so we go up one level for repo root
+const REPO_PATH = join(process.cwd(), '..');
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {

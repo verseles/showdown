@@ -1,18 +1,18 @@
 import { json } from '@sveltejs/kit';
 import { readFile, writeFile } from 'fs/promises';
-import { dirname, join, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import type { RequestHandler } from './$types';
 
-// Resolve path relative to this file's location for reliability
-const __dirname = dirname(fileURLToPath(import.meta.url));
-// Navigate from editor/src/routes/api/data/ to project root's data/showdown.json
-const DATA_PATH = resolve(__dirname, '../../../../../data/showdown.json');
+// In SvelteKit, process.cwd() returns the directory where the dev server started
+// For editor/, that's /path/to/showdown/editor, so we go up one level to find data/
+const DATA_PATH = join(process.cwd(), '..', 'data', 'showdown.json');
 
 export const GET: RequestHandler = async () => {
 	try {
+		console.log('[API] Loading data from:', DATA_PATH);
 		const content = await readFile(DATA_PATH, 'utf-8');
 		const data = JSON.parse(content);
+		console.log('[API] Loaded', data.models?.length, 'models');
 		return json(data);
 	} catch (error) {
 		console.error('Failed to read data:', error);

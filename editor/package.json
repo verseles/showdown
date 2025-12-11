@@ -4,10 +4,11 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "svelte-kit sync && vite dev",
+		"build": "svelte-kit sync && vite build",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"prepare": "svelte-kit sync || true"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.10",
