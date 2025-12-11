@@ -326,7 +326,7 @@
 			},
 			"performance": {
 				"output_speed_tps": 40,
-				"latency_ttft_ms": 1500,
+				"latency_ttft_ms": 1600,
 				"source": "https://artificialanalysis.ai"
 			},
 			"editor_notes": "Extended thinking variant with high reasoning effort. Scores 69 on Artificial Analysis Index. Higher latency and cost but excels on complex reasoning tasks.",
@@ -373,7 +373,7 @@
 				"latency_ttft_ms": 680,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "First model to break 1500 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
+			"editor_notes": "First model to break 1600 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
 			"benchmark_scores": {
 				"swe_bench": 76.2,
 				"terminal_bench": 54.2,
@@ -995,19 +995,19 @@
 				"terminal_bench": 35.7,
 				"lmarena_coding_elo": 1466,
 				"live_code_bench": 53.7,
-				"gpqa_diamond": 75.1,
+				"gpqa_diamond": 71.3,
 				"aime": 49.5,
 				"arc_agi_2": null,
-				"lmarena_hard_elo": 1430,
+				"lmarena_hard_elo": 1433,
 				"bfcl": 59.6,
 				"tau_bench": null,
 				"osworld": null,
 				"webdev_arena_elo": null,
 				"lmarena_creative_elo": 1381,
-				"lmarena_if_elo": null,
+				"lmarena_if_elo": 1380,
 				"math_500": null,
 				"gsm8k": null,
-				"lmarena_math_elo": 1381,
+				"lmarena_math_elo": 1417,
 				"mathvista": null,
 				"mmmu": null,
 				"lmarena_vision_elo": null,
@@ -1040,10 +1040,10 @@
 				"lmarena_coding_elo": 1479,
 				"live_code_bench": 83.0,
 				"gpqa_diamond": 75.1,
-				"aime": null,
+				"aime": 94.5,
 				"arc_agi_2": null,
 				"lmarena_hard_elo": 1448,
-				"bfcl": null,
+				"bfcl": 90,
 				"tau_bench": 93.0,
 				"osworld": null,
 				"webdev_arena_elo": 1350,
@@ -1256,7 +1256,7 @@
 					"type": "percentage",
 					"weight": 0.25,
 					"url": "https://taubench.com/#leaderboard",
-					"description": "API orchestration and multi-step tool use"
+					"description": "τ²-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
 				},
 				{
 					"id": "osworld",
@@ -1291,7 +1291,7 @@
 					"weight": 0.5,
 					"url": "https://lmarena.ai/leaderboard/text/creative-writing",
 					"description": "Human preference on creative writing tasks",
-					"elo_range": { "min": 1100, "max": 1500 }
+					"elo_range": { "min": 1100, "max": 1600 }
 				},
 				{
 					"id": "lmarena_if_elo",
@@ -1300,7 +1300,7 @@
 					"weight": 0.5,
 					"url": "https://lmarena.ai/leaderboard/text/instruction-following",
 					"description": "Human preference on instruction following tasks",
-					"elo_range": { "min": 1100, "max": 1500 }
+					"elo_range": { "min": 1100, "max": 1600 }
 				}
 			]
 		},
@@ -1334,7 +1334,7 @@
 					"weight": 0.2,
 					"url": "https://lmarena.ai/leaderboard/text/math",
 					"description": "Human preference on math tasks",
-					"elo_range": { "min": 1100, "max": 1500 }
+					"elo_range": { "min": 1100, "max": 1600 }
 				}
 			]
 		},
@@ -1402,7 +1402,7 @@
 					"weight": 0.1,
 					"url": "https://lmarena.ai/leaderboard",
 					"description": "Human preference on English tasks",
-					"elo_range": { "min": 1100, "max": 1500 }
+					"elo_range": { "min": 1100, "max": 1600 }
 				},
 				{
 					"id": "lmarena_zh_elo",
