@@ -10,6 +10,7 @@
 	let selectedModelId = $state<string | null>(null);
 	let gridComponent = $state<DataGrid | null>(null);
 	let highlightEmpty = $state(false);
+	let frozenColumns = $state(true);
 	let showColumnSelector = $state(false);
 	let visibleColumns = $state<Set<string>>(new Set());
 	let allColumns = $state<{ id: string; header: string }[]>([]);
@@ -34,6 +35,12 @@
 		const highlightPref = localStorage.getItem('editor-highlight-empty');
 		if (highlightPref === 'true') {
 			highlightEmpty = true;
+		}
+
+		// Load frozen columns preference
+		const frozenPref = localStorage.getItem('editor-frozen-columns');
+		if (frozenPref === 'false') {
+			frozenColumns = false;
 		}
 
 		// Load visible columns preference
@@ -76,6 +83,11 @@
 	function toggleHighlightEmpty() {
 		highlightEmpty = !highlightEmpty;
 		localStorage.setItem('editor-highlight-empty', String(highlightEmpty));
+	}
+
+	function toggleFrozenColumns() {
+		frozenColumns = !frozenColumns;
+		localStorage.setItem('editor-frozen-columns', String(frozenColumns));
 	}
 
 	function handleRowSelected(modelId: string | null) {
@@ -127,6 +139,8 @@
 			onExportCsv={handleExportCsv}
 			{highlightEmpty}
 			onToggleHighlightEmpty={toggleHighlightEmpty}
+			{frozenColumns}
+			onToggleFrozenColumns={toggleFrozenColumns}
 			onShowColumnSelector={handleShowColumnSelector}
 		/>
 
@@ -137,6 +151,7 @@
 					{theme}
 					onRowSelected={handleRowSelected}
 					{highlightEmpty}
+					{frozenColumns}
 					visibleColumns={visibleColumns.size > 0 ? visibleColumns : undefined}
 				/>
 			</div>

@@ -1,23 +1,31 @@
 <script lang="ts">
 	import { Grid } from '@svar-ui/svelte-grid';
-	import { store, updateModel, deleteModel, duplicateModel } from '$lib/stores/data.svelte';
+	import { store, updateModel } from '$lib/stores/data.svelte';
 	import type { FlatModel } from '$lib/types';
+	import ActionCell from './ActionCell.svelte';
 
 	interface Props {
 		theme?: 'light' | 'dark';
 		onRowSelected?: (modelId: string | null) => void;
 		highlightEmpty?: boolean;
 		visibleColumns?: Set<string>;
+		frozenColumns?: boolean;
 	}
 
-	let { theme = 'light', onRowSelected, highlightEmpty = false, visibleColumns }: Props = $props();
+	let {
+		theme = 'light',
+		onRowSelected,
+		highlightEmpty = false,
+		visibleColumns,
+		frozenColumns = true
+	}: Props = $props();
 
 	let api: any = null;
 	let selectedId = $state<string | null>(null);
 
-	// Get unique providers from existing data
-	const providers = $derived(() => {
-		const existing = new Set(store.models.map((m) => m.provider).filter(Boolean));
+	// Get unique providers from existing data for autocomplete
+	const providerOptions = $derived(() => {
+		const existing = store.models.map((m) => m.provider).filter(Boolean);
 		const common = [
 			'Anthropic',
 			'OpenAI',
@@ -31,25 +39,18 @@
 			'Moonshot AI',
 			'Meituan'
 		];
-		common.forEach((p) => existing.add(p));
-		return Array.from(existing).sort();
+		return [...new Set([...existing, ...common])].sort();
 	});
 
 	// Get all column definitions
 	function getAllColumns() {
 		const cols: any[] = [
-			// Actions column (frozen)
+			// Actions column
 			{
 				id: '_actions',
 				header: '',
 				width: 70,
-				frozen: true,
-				template: (_: unknown, row: FlatModel) => {
-					return `<div class="row-actions">
-						<button class="action-btn delete-btn" data-action="delete" data-id="${row.id}" title="Delete">🗑</button>
-						<button class="action-btn duplicate-btn" data-action="duplicate" data-id="${row.id}" title="Duplicate">📋</button>
-					</div>`;
-				}
+				cell: ActionCell
 			},
 			// Model name
 			{
@@ -57,28 +58,27 @@
 				header: 'Model',
 				width: 200,
 				editor: 'text',
-				sort: true,
-				frozen: true,
-				css: (row: FlatModel) => (selectedId === row.id ? 'row-selected' : '')
+				sort: true
 			},
-			// Provider with dynamic options
+			// Provider - use text editor (combo has issues)
 			{
 				id: 'provider',
 				header: 'Provider',
 				width: 120,
-				editor: 'combo',
-				sort: true,
-				options: providers(),
-				suggest: true
+				editor: 'text',
+				sort: true
 			},
-			// Type
+			// Type - use select editor (options must be {id, label} format)
 			{
 				id: 'type',
 				header: 'Type',
 				width: 110,
-				editor: 'combo',
-				sort: true,
-				options: ['proprietary', 'open-source']
+				editor: 'select',
+				options: [
+					{ id: 'proprietary', label: 'Proprietary' },
+					{ id: 'open-source', label: 'Open Source' }
+				],
+				sort: true
 			},
 			// Release date
 			{
@@ -95,8 +95,7 @@
 				width: 85,
 				editor: 'text',
 				sort: true,
-				template: (v: unknown) =>
-					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : '',
+				template: formatPrice,
 				css: (row: FlatModel) => getCellClass(row, 'pricing_input')
 			},
 			{
@@ -105,8 +104,7 @@
 				width: 85,
 				editor: 'text',
 				sort: true,
-				template: (v: unknown) =>
-					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : '',
+				template: formatPrice,
 				css: (row: FlatModel) => getCellClass(row, 'pricing_output')
 			},
 			{
@@ -115,8 +113,7 @@
 				width: 85,
 				editor: 'text',
 				sort: true,
-				template: (v: unknown) =>
-					typeof v === 'number' ? `$${v.toFixed(2)}` : v != null ? String(v) : '',
+				template: formatPrice,
 				css: (row: FlatModel) => getCellClass(row, 'pricing_average')
 			},
 			// Performance
@@ -147,32 +144,8 @@
 					width: 95,
 					editor: 'text',
 					sort: true,
-					categoryUrl: benchmark.url,
-					template: (v: unknown) => {
-						if (v === null || v === undefined) return '';
-						if (typeof v !== 'number') return String(v);
-						if (benchmark.type === 'percentage') {
-							return `${v.toFixed(1)}%`;
-						}
-						return v.toString();
-					},
-					css: (row: FlatModel) => {
-						const value = row[benchmark.id] as number | null;
-						const hasError = store.validationErrors.some(
-							(e) => e.modelId === row.id && e.field === benchmark.id
-						);
-
-						const classes: string[] = [];
-						if (hasError) classes.push('cell-invalid');
-						else if (value === null || value === undefined) {
-							classes.push('cell-null');
-							if (highlightEmpty) classes.push('cell-empty-highlight');
-						} else if (benchmark.type === 'percentage') {
-							if (value >= 90) classes.push('cell-high-score');
-							else if (value < 50) classes.push('cell-low-score');
-						}
-						return classes.join(' ');
-					}
+					template: (v: unknown) => formatBenchmark(v, benchmark.type),
+					css: (row: FlatModel) => getBenchmarkCellClass(row, benchmark)
 				});
 			}
 		}
@@ -189,6 +162,21 @@
 		return cols;
 	}
 
+	// Format price values
+	function formatPrice(v: unknown): string {
+		if (v === null || v === undefined || v === '') return '';
+		if (typeof v === 'number') return `$${v.toFixed(2)}`;
+		return String(v);
+	}
+
+	// Format benchmark values
+	function formatBenchmark(v: unknown, type: string): string {
+		if (v === null || v === undefined) return '';
+		if (typeof v !== 'number') return String(v);
+		if (type === 'percentage') return `${v.toFixed(1)}%`;
+		return v.toString();
+	}
+
 	// Get cell class based on state
 	function getCellClass(row: FlatModel, field: string): string {
 		const value = row[field as keyof FlatModel];
@@ -199,6 +187,29 @@
 			if (highlightEmpty) classes.push('cell-empty-highlight');
 		}
 
+		return classes.join(' ');
+	}
+
+	// Get benchmark cell class
+	function getBenchmarkCellClass(
+		row: FlatModel,
+		benchmark: { id: string; type: string }
+	): string {
+		const value = row[benchmark.id] as number | null;
+		const hasError = store.validationErrors.some(
+			(e) => e.modelId === row.id && e.field === benchmark.id
+		);
+
+		const classes: string[] = [];
+		if (hasError) {
+			classes.push('cell-invalid');
+		} else if (value === null || value === undefined) {
+			classes.push('cell-null');
+			if (highlightEmpty) classes.push('cell-empty-highlight');
+		} else if (benchmark.type === 'percentage') {
+			if (value >= 90) classes.push('cell-high-score');
+			else if (value < 50) classes.push('cell-low-score');
+		}
 		return classes.join(' ');
 	}
 
@@ -222,35 +233,19 @@
 		return urls;
 	});
 
-	// Handle action button clicks (delegated event)
-	function handleGridClick(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		const actionBtn = target.closest('[data-action]') as HTMLElement;
-
-		if (actionBtn) {
-			const action = actionBtn.dataset.action;
-			const id = actionBtn.dataset.id;
-
-			if (action === 'delete' && id) {
-				const model = store.models.find((m) => m.id === id);
-				if (model && confirm(`Delete "${model.name}"? This cannot be undone.`)) {
-					deleteModel(id);
-				}
-			} else if (action === 'duplicate' && id) {
-				duplicateModel(id);
-			}
-		}
-	}
-
 	// Handle double-click to open category URL
 	function handleGridDblClick(event: MouseEvent) {
 		const target = event.target as HTMLElement;
-		const cell = target.closest('[data-col]') as HTMLElement;
-
+		// Try to find the column ID from the cell
+		const cell = target.closest('.wx-cell') as HTMLElement;
 		if (cell) {
-			const colId = cell.dataset.col;
-			if (colId && columnUrls()[colId]) {
-				window.open(columnUrls()[colId], '_blank');
+			// The column index might be in the class or data attribute
+			const colIndex = cell.dataset.col || cell.getAttribute('data-col');
+			if (colIndex) {
+				const url = columnUrls()[colIndex];
+				if (url) {
+					window.open(url, '_blank');
+				}
 			}
 		}
 	}
@@ -259,20 +254,22 @@
 	function init(gridApi: any) {
 		api = gridApi;
 
-		// Handle cell updates
-		api.on('update-cell', (ev: { id: string; key: string; value: any }) => {
-			const { id, key, value } = ev;
+		// Handle cell updates - this is the key event for detecting changes
+		// Note: SVAR Grid uses 'column' not 'key' for the column ID
+		api.on('update-cell', (ev: { id: string; column: string; value: any }) => {
+			const { id, column, value } = ev;
+			console.log('[Grid] Cell updated:', id, column, value);
 
 			// Skip actions column
-			if (key === '_actions') return;
+			if (column === '_actions') return;
 
 			// Parse numeric values
 			let parsedValue = value;
 			if (
-				key.startsWith('pricing_') ||
-				key === 'speed' ||
-				key === 'latency' ||
-				store.categories.some((c) => c.benchmarks.some((b) => b.id === key))
+				column.startsWith('pricing_') ||
+				column === 'speed' ||
+				column === 'latency' ||
+				store.categories.some((c) => c.benchmarks.some((b) => b.id === column))
 			) {
 				if (value === '' || value === null) {
 					parsedValue = null;
@@ -282,7 +279,7 @@
 				}
 			}
 
-			updateModel(id, key, parsedValue);
+			updateModel(id, column, parsedValue);
 		});
 
 		// Handle row selection
@@ -337,10 +334,15 @@
 <div
 	class="grid-wrapper"
 	class:dark={theme === 'dark'}
-	onclick={handleGridClick}
+	class:highlight-empty={highlightEmpty}
 	ondblclick={handleGridDblClick}
 >
-	<Grid data={store.flatModels} columns={columns()} {init} />
+	<Grid
+		data={store.flatModels}
+		columns={columns()}
+		{init}
+		split={frozenColumns ? { left: 2 } : undefined}
+	/>
 </div>
 
 <style>
@@ -370,58 +372,6 @@
 		--wx-border-color: var(--border-color, #3a3b3c);
 	}
 
-	/* Row actions buttons */
-	:global(.row-actions) {
-		display: flex;
-		gap: 4px;
-		justify-content: center;
-		align-items: center;
-	}
-
-	:global(.action-btn) {
-		padding: 2px 6px;
-		font-size: 12px;
-		background: transparent;
-		border: 1px solid var(--border-color, #dee2e6);
-		border-radius: 3px;
-		cursor: pointer;
-		opacity: 0.7;
-		transition: all 0.15s ease;
-	}
-
-	:global(.action-btn:hover) {
-		opacity: 1;
-		background: var(--bg-hover, #f1f3f5);
-	}
-
-	:global(.delete-btn:hover) {
-		background: var(--error-bg, #f8d7da);
-		border-color: var(--error-color, #dc3545);
-	}
-
-	:global(.duplicate-btn:hover) {
-		background: var(--info-bg, #d1ecf1);
-		border-color: var(--info-color, #17a2b8);
-	}
-
-	.dark :global(.action-btn:hover) {
-		background: var(--bg-hover, #1f4068);
-	}
-
-	.dark :global(.delete-btn:hover) {
-		background: rgba(255, 107, 107, 0.2);
-	}
-
-	.dark :global(.duplicate-btn:hover) {
-		background: rgba(77, 171, 247, 0.2);
-	}
-
-	/* Selected row styling */
-	:global(.row-selected) {
-		background-color: var(--accent-color, #0066cc) !important;
-		color: white !important;
-	}
-
 	/* Cell styling */
 	:global(.cell-invalid) {
 		background-color: var(--error-bg, #f8d7da) !important;
@@ -445,11 +395,19 @@
 		background-color: var(--error-bg, #f8d7da) !important;
 	}
 
-	/* Editing cell border highlight */
-	:global(.wx-grid .wx-cell.wx-editing) {
+	/* Selected cell border highlight - use .wx-selected which is the actual class */
+	:global(.wx-cell.wx-selected) {
 		outline: 2px solid var(--accent-color, #0066cc) !important;
 		outline-offset: -1px;
-		box-shadow: 0 0 4px var(--accent-color, #0066cc);
+		box-shadow: 0 0 4px var(--accent-color, #0066cc) !important;
+	}
+
+	/* Also handle editing state */
+	:global(.wx-cell.wx-editing),
+	:global(.wx-cell.wx-focused) {
+		outline: 2px solid var(--accent-color, #0066cc) !important;
+		outline-offset: -1px;
+		box-shadow: 0 0 4px var(--accent-color, #0066cc) !important;
 	}
 
 	.dark :global(.cell-null) {
@@ -470,5 +428,14 @@
 
 	.dark :global(.cell-invalid) {
 		background-color: rgba(255, 107, 107, 0.15) !important;
+	}
+
+	/* Highlight empty mode - make empty cells very visible */
+	.grid-wrapper.highlight-empty :global(.cell-null) {
+		background-color: var(--warning-bg, #fff3cd) !important;
+	}
+
+	.grid-wrapper.highlight-empty.dark :global(.cell-null) {
+		background-color: rgba(252, 196, 25, 0.25) !important;
 	}
 </style>

@@ -21,6 +21,8 @@
 		onExportCsv: () => void;
 		highlightEmpty: boolean;
 		onToggleHighlightEmpty: () => void;
+		frozenColumns: boolean;
+		onToggleFrozenColumns: () => void;
 		onShowColumnSelector: () => void;
 	}
 
@@ -33,6 +35,8 @@
 		onExportCsv,
 		highlightEmpty,
 		onToggleHighlightEmpty,
+		frozenColumns,
+		onToggleFrozenColumns,
 		onShowColumnSelector
 	}: Props = $props();
 
@@ -283,13 +287,17 @@
 			<input type="checkbox" checked={highlightEmpty} onchange={onToggleHighlightEmpty} />
 			Highlight Empty
 		</label>
+		<label class="checkbox-label" title="Freeze first two columns">
+			<input type="checkbox" checked={frozenColumns} onchange={onToggleFrozenColumns} />
+			Freeze Cols
+		</label>
 	</div>
 
 	<div class="toolbar-divider"></div>
 
 	<!-- Export & Theme -->
 	<div class="toolbar-section">
-		<button onclick={onExportCsv} title="Export data as CSV"> Export CSV </button>
+		<button onclick={onExportCsv} class="icon-only" title="Export data as CSV">📥</button>
 		<button onclick={onToggleTheme} class="icon-only" title="Toggle theme">
 			{theme === 'dark' ? '☀️' : '🌙'}
 		</button>
