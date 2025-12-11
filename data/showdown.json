@@ -1,12 +1,12 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T12:15:00Z",
+		"last_update": "2025-12-10T12:30:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
 		{
-			"id": "claude-opus-4-5",
+			"id": "claude-opus-4-5-20251101",
 			"name": "Claude Opus 4.5",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -50,7 +50,7 @@
 			}
 		},
 		{
-			"id": "claude-opus-4-5-thinking",
+			"id": "claude-opus-4-5-20251101-thinking-32k",
 			"name": "Claude Opus 4.5 Thinking",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -94,7 +94,7 @@
 			}
 		},
 		{
-			"id": "claude-sonnet-4-5",
+			"id": "claude-sonnet-4-5-20250929",
 			"name": "Claude Sonnet 4.5",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -138,7 +138,7 @@
 			}
 		},
 		{
-			"id": "claude-sonnet-4-5-thinking",
+			"id": "claude-sonnet-4-5-20250929-thinking-32k",
 			"name": "Claude Sonnet 4.5 Thinking",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -182,7 +182,7 @@
 			}
 		},
 		{
-			"id": "claude-opus-4-1",
+			"id": "claude-opus-4-1-20250805",
 			"name": "Claude Opus 4.1",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -226,7 +226,7 @@
 			}
 		},
 		{
-			"id": "gpt-4o",
+			"id": "gpt-4o-2024-05-13",
 			"name": "GPT-4o",
 			"provider": "OpenAI",
 			"type": "proprietary",
@@ -270,7 +270,7 @@
 			}
 		},
 		{
-			"id": "gpt-5-1",
+			"id": "gpt-5.1",
 			"name": "GPT 5.1",
 			"provider": "OpenAI",
 			"type": "proprietary",
@@ -314,7 +314,7 @@
 			}
 		},
 		{
-			"id": "gpt-5-1-high",
+			"id": "gpt-5.1-high",
 			"name": "GPT 5.1 High",
 			"provider": "OpenAI",
 			"type": "proprietary",
@@ -402,7 +402,7 @@
 			}
 		},
 		{
-			"id": "gemini-2-5-pro",
+			"id": "gemini-2.5-pro",
 			"name": "Gemini 2.5 Pro",
 			"provider": "Google",
 			"type": "proprietary",
@@ -446,7 +446,7 @@
 			}
 		},
 		{
-			"id": "deepseek-v3-1",
+			"id": "deepseek-v3.1",
 			"name": "DeepSeek V3.1",
 			"provider": "DeepSeek",
 			"type": "open-source",
@@ -534,7 +534,7 @@
 			}
 		},
 		{
-			"id": "grok-4-1",
+			"id": "grok-4.1",
 			"name": "Grok 4.1",
 			"provider": "xAI",
 			"type": "proprietary",
@@ -578,7 +578,7 @@
 			}
 		},
 		{
-			"id": "grok-4-1-thinking",
+			"id": "grok-4.1-thinking",
 			"name": "Grok 4.1 Thinking",
 			"provider": "xAI",
 			"type": "proprietary",
@@ -622,7 +622,7 @@
 			}
 		},
 		{
-			"id": "llama-4-maverick",
+			"id": "llama-4-maverick-17b-128e-instruct",
 			"name": "Llama 4 Maverick",
 			"provider": "Meta",
 			"type": "open-source",
@@ -666,7 +666,7 @@
 			}
 		},
 		{
-			"id": "llama-4-scout",
+			"id": "llama-4-scout-17b-16e-instruct",
 			"name": "Llama 4 Scout",
 			"provider": "Meta",
 			"type": "open-source",
@@ -710,7 +710,7 @@
 			}
 		},
 		{
-			"id": "qwen3-235b",
+			"id": "qwen3-235b-a22b-instruct-2507",
 			"name": "Qwen3 235B",
 			"provider": "Alibaba",
 			"type": "open-source",
@@ -842,7 +842,7 @@
 			}
 		},
 		{
-			"id": "o3",
+			"id": "o3-2025-04-16",
 			"name": "OpenAI o3",
 			"provider": "OpenAI",
 			"type": "proprietary",
@@ -886,7 +886,7 @@
 			}
 		},
 		{
-			"id": "gemini-2-5-flash",
+			"id": "gemini-2.5-flash",
 			"name": "Gemini 2.5 Flash",
 			"provider": "Google",
 			"type": "proprietary",
@@ -974,7 +974,7 @@
 			}
 		},
 		{
-			"id": "kimi-k2",
+			"id": "kimi-k2-0711-preview",
 			"name": "Kimi K2",
 			"provider": "Moonshot AI",
 			"type": "open-source",
@@ -1018,7 +1018,7 @@
 			}
 		},
 		{
-			"id": "kimi-k2-thinking",
+			"id": "kimi-k2-thinking-turbo",
 			"name": "Kimi K2 Thinking",
 			"provider": "Moonshot AI",
 			"type": "open-source",
