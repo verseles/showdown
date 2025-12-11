@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.10",
-		"last_update": "2025-12-10T10:50:00Z",
+		"last_update": "2025-12-10T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -369,7 +369,7 @@
 				"average_per_1m": 7.0
 			},
 			"performance": {
-				"output_speed_tps": 145,
+				"output_speed_tps": 128,
 				"latency_ttft_ms": 680,
 				"source": "https://artificialanalysis.ai"
 			},
@@ -380,24 +380,24 @@
 				"lmarena_coding_elo": 1521,
 				"live_code_bench": 78.5,
 				"gpqa_diamond": 91.9,
-				"aime_2024": 86.5,
+				"aime_2024": 95.0,
 				"arc_agi_2": 31.1,
-				"lmarena_hard_elo": 1501,
+				"lmarena_hard_elo": 1504,
 				"bfcl": 82.8,
-				"tau_bench": 58.2,
+				"tau_bench": 85.4,
 				"osworld": 48.5,
-				"webdev_arena_elo": 1338,
-				"lmarena_creative_elo": 1425,
+				"webdev_arena_elo": 1476,
+				"lmarena_creative_elo": 1493,
 				"lmarena_if_elo": 1474,
 				"math_500": 92.8,
 				"gsm8k": 98.2,
-				"lmarena_math_elo": 1425,
+				"lmarena_math_elo": 1480,
 				"mathvista": 78.5,
 				"mmmu": 75.2,
-				"lmarena_vision_elo": 1385,
+				"lmarena_vision_elo": 1314,
 				"mmlu": 92.5,
-				"mmmlu": 88.5,
-				"lmarena_en_elo": 1475,
+				"mmmlu": 91.8,
+				"lmarena_en_elo": 1490,
 				"lmarena_zh_elo": 1405
 			}
 		},
@@ -1205,7 +1205,7 @@
 					"name": "GPQA Diamond",
 					"type": "percentage",
 					"weight": 0.4,
-					"url": "https://github.com/idavidrein/gpqa",
+					"url": "https://artificialanalysis.ai/evaluations/gpqa-diamond",
 					"description": "Graduate-level physics, chemistry, and biology questions"
 				},
 				{
@@ -1221,7 +1221,7 @@
 					"name": "ARC-AGI-2",
 					"type": "percentage",
 					"weight": 0.4,
-					"url": "https://arcprize.org",
+					"url": "https://arcprize.org/leaderboard#leaderboard-table",
 					"description": "ARC-AGI-2 is a contamination-resistant benchmark that tests abstract reasoning and generalization in AI systems."
 				},
 				{
@@ -1229,7 +1229,7 @@
 					"name": "LMArena Hard Prompts",
 					"type": "elo",
 					"weight": 0.2,
-					"url": "https://lmarena.ai/leaderboard",
+					"url": "https://lmarena.ai/pt/leaderboard/text/hard-prompts",
 					"description": "Human preference on challenging reasoning tasks",
 					"elo_range": { "min": 1100, "max": 1550 }
 				}
@@ -1255,7 +1255,7 @@
 					"name": "TAU-Bench",
 					"type": "percentage",
 					"weight": 0.25,
-					"url": "https://github.com/sierra-research/tau-bench",
+					"url": "https://taubench.com/#leaderboard",
 					"description": "API orchestration and multi-step tool use"
 				},
 				{
