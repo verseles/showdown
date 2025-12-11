@@ -31,30 +31,40 @@ export function getBenchmarkScore(model: Model, benchmark: Benchmark): number | 
 }
 
 /**
- * Calculate weighted average for a category
- * Handles null values by renormalizing weights of present benchmarks
+ * Calculate weighted score for a category with a weighted coverage penalty.
+ * Benchmarks with null scores contribute 0 to the sum.
+ * If weighted coverage is less than 50%, the category score is null.
  */
 export function calculateCategoryScore(model: Model, category: Category): number | null {
-	const scores: { score: number; weight: number }[] = [];
+	let weightedSum = 0;
+	let presentWeight = 0;
+	const totalWeight = category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
 
 	for (const benchmark of category.benchmarks) {
 		const score = getBenchmarkScore(model, benchmark);
 		if (score !== null) {
-			scores.push({ score, weight: benchmark.weight });
+			weightedSum += score * benchmark.weight;
+			presentWeight += benchmark.weight;
 		}
 	}
 
 	// If no benchmarks have scores, return null
-	if (scores.length === 0) {
+	if (presentWeight === 0) {
 		return null;
 	}
 
-	// Renormalize weights for present benchmarks
-	const totalWeight = scores.reduce((sum, s) => sum + s.weight, 0);
+	// Calculate weighted coverage. Assumes totalWeight of benchmarks in a category is ~1.0
+	const weightedCoverage = totalWeight > 0 ? presentWeight / totalWeight : 0;
 
-	// Calculate weighted average
-	const weightedSum = scores.reduce((sum, s) => sum + s.score * s.weight, 0);
+	// If weighted coverage is less than 0.5 (50%), return null as there's insufficient data.
+	if (weightedCoverage < 0.5) {
+		return null;
+	}
 
+	// The final score is the weighted sum of present scores.
+	// This inherently penalizes models for missing benchmarks, as they contribute 0.
+	// We divide by totalWeight to normalize the score back to a 0-100 scale,
+	// but since totalWeight is ~1.0, this is equivalent to just returning weightedSum.
 	return weightedSum / totalWeight;
 }
 
@@ -77,8 +87,9 @@ export function getCategoryBreakdown(
 }
 
 /**
- * Calculate overall score from category scores
- * Excludes null categories and renormalizes weights
+ * Calculate overall score from category scores.
+ * Excludes null categories and renormalizes weights.
+ * Returns null if fewer than 4 categories have a valid score.
  */
 export function calculateOverallScore(model: Model, categories: Category[]): number | null {
 	const categoryScores: { score: number; weight: number }[] = [];
@@ -90,13 +101,17 @@ export function calculateOverallScore(model: Model, categories: Category[]): num
 		}
 	}
 
-	// If no categories have scores, return null
-	if (categoryScores.length === 0) {
+	// If fewer than 4 categories have scores, return null
+	if (categoryScores.length < 4) {
 		return null;
 	}
 
 	// Renormalize weights for present categories
 	const totalWeight = categoryScores.reduce((sum, c) => sum + c.weight, 0);
+
+	if (totalWeight === 0) {
+		return null;
+	}
 
 	// Calculate weighted average
 	const weightedSum = categoryScores.reduce((sum, c) => sum + c.score * c.weight, 0);
@@ -169,22 +184,36 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		coverage: calculateBenchmarkCoverage(model, categories)
 	}));
 
-	// Sort by overall score (descending), then alphabetically by name for ties
+	// Sort by:
+	// 1. Overall score (descending)
+	// 2. Benchmark coverage (descending)
+	// 3. Release date (descending)
+	// 4. Name (alphabetical, ascending)
 	modelsWithScores.sort((a, b) => {
-		// Nulls go to the end
-		if (a.overallScore === null && b.overallScore === null) {
-			return a.model.name.localeCompare(b.model.name);
-		}
+		// Null scores go to the end
 		if (a.overallScore === null) return 1;
 		if (b.overallScore === null) return -1;
 
-		// Sort by score descending
+		// 1. Sort by score descending
 		const scoreDiff = b.overallScore - a.overallScore;
 		if (Math.abs(scoreDiff) > 0.001) {
 			return scoreDiff;
 		}
 
-		// Tie-breaker: alphabetical by name
+		// 2. Tie-breaker: benchmark coverage
+		const coverageDiff = b.coverage - a.coverage;
+		if (Math.abs(coverageDiff) > 0.001) {
+			return coverageDiff;
+		}
+
+		// 3. Tie-breaker: release date
+		const dateA = new Date(a.model.release_date).getTime();
+		const dateB = new Date(b.model.release_date).getTime();
+		if (dateA !== dateB) {
+			return dateB - dateA; // Newer first
+		}
+
+		// 4. Tie-breaker: alphabetical by name
 		return a.model.name.localeCompare(b.model.name);
 	});
 
@@ -193,10 +222,12 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	let previousScore: number | null = null;
 
 	return modelsWithScores.map((item, index) => {
-		if (item.overallScore !== previousScore) {
-			currentRank = index + 1;
+		if (item.overallScore !== null) {
+			if (item.overallScore !== previousScore) {
+				currentRank = index + 1;
+			}
+			previousScore = item.overallScore;
 		}
-		previousScore = item.overallScore;
 
 		return {
 			rank: item.overallScore === null ? null : currentRank,
