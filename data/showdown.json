@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2025.12.11",
-		"last_update": "2025-12-11T00:00:00Z",
+		"version": "2025.12.13",
+		"last_update": "2025-12-13T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -355,6 +355,138 @@
 				"mmmlu": 87.5,
 				"lmarena_en_elo": 1464,
 				"lmarena_zh_elo": 1494
+			}
+		},
+		{
+			"id": "gpt-5.2",
+			"name": "GPT 5.2",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-12-11",
+			"pricing": {
+				"input_per_1m": 1.75,
+				"output_per_1m": 14.0,
+				"average_per_1m": 7.875
+			},
+			"performance": {
+				"output_speed_tps": 85,
+				"latency_ttft_ms": 450,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "OpenAI's latest flagship with 256K context. First to score 90%+ on ARC-AGI-1 and 52.9% on ARC-AGI-2. Strong improvements over GPT 5.1 in all categories.",
+			"benchmark_scores": {
+				"swe_bench": 78.0,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1385,
+				"live_code_bench": 72.5,
+				"gpqa_diamond": 90.5,
+				"aime": 92.0,
+				"arc_agi_2": 48.5,
+				"lmarena_hard_elo": 1425,
+				"bfcl": 85.5,
+				"tau_bench": 88.5,
+				"osworld": null,
+				"webdev_arena_elo": 1415,
+				"lmarena_creative_elo": 1405,
+				"lmarena_if_elo": 1455,
+				"math_500": 88.5,
+				"gsm8k": 98.2,
+				"lmarena_math_elo": 1395,
+				"mathvista": 72.5,
+				"mmmu": 70.5,
+				"lmarena_vision_elo": 1295,
+				"mmlu": 93.5,
+				"mmmlu": 87.5,
+				"lmarena_en_elo": 1425,
+				"lmarena_zh_elo": 1365
+			}
+		},
+		{
+			"id": "gpt-5.2-thinking",
+			"name": "GPT 5.2 Thinking",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-12-11",
+			"pricing": {
+				"input_per_1m": 1.75,
+				"output_per_1m": 14.0,
+				"average_per_1m": 7.875
+			},
+			"performance": {
+				"output_speed_tps": 45,
+				"latency_ttft_ms": 1200,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 52.9% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
+			"benchmark_scores": {
+				"swe_bench": 80.0,
+				"terminal_bench": 52.5,
+				"lmarena_coding_elo": 1495,
+				"live_code_bench": 78.5,
+				"gpqa_diamond": 92.4,
+				"aime": 100.0,
+				"arc_agi_2": 52.9,
+				"lmarena_hard_elo": 1475,
+				"bfcl": 88.5,
+				"tau_bench": 98.7,
+				"osworld": 58.5,
+				"webdev_arena_elo": 1465,
+				"lmarena_creative_elo": 1445,
+				"lmarena_if_elo": 1485,
+				"math_500": 94.5,
+				"gsm8k": 99.2,
+				"lmarena_math_elo": 1465,
+				"mathvista": 78.5,
+				"mmmu": 76.5,
+				"lmarena_vision_elo": 1345,
+				"mmlu": 94.5,
+				"mmmlu": 89.5,
+				"lmarena_en_elo": 1485,
+				"lmarena_zh_elo": 1425
+			}
+		},
+		{
+			"id": "gpt-5.2-pro",
+			"name": "GPT 5.2 Pro",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-12-11",
+			"pricing": {
+				"input_per_1m": 15.0,
+				"output_per_1m": 120.0,
+				"average_per_1m": 67.5
+			},
+			"performance": {
+				"output_speed_tps": 28,
+				"latency_ttft_ms": 2800,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Premium tier with highest accuracy. First model to score 93.2% GPQA Diamond and 54.2% ARC-AGI-2 Verified. Peak performance for high-stakes scenarios. 70.9% match on GDPval knowledge tasks.",
+			"benchmark_scores": {
+				"swe_bench": 82.5,
+				"terminal_bench": 55.5,
+				"lmarena_coding_elo": 1525,
+				"live_code_bench": 82.0,
+				"gpqa_diamond": 93.2,
+				"aime": 100.0,
+				"arc_agi_2": 54.2,
+				"lmarena_hard_elo": 1505,
+				"bfcl": 90.5,
+				"tau_bench": 99.2,
+				"osworld": 62.5,
+				"webdev_arena_elo": 1495,
+				"lmarena_creative_elo": 1475,
+				"lmarena_if_elo": 1510,
+				"math_500": 96.5,
+				"gsm8k": 99.5,
+				"lmarena_math_elo": 1495,
+				"mathvista": 82.5,
+				"mmmu": 80.5,
+				"lmarena_vision_elo": 1375,
+				"mmlu": 95.5,
+				"mmmlu": 91.5,
+				"lmarena_en_elo": 1515,
+				"lmarena_zh_elo": 1455
 			}
 		},
 		{
