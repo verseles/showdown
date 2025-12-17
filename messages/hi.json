@@ -23,7 +23,7 @@
 	"aria_show_more": "और दिखाएं",
 
 	"filter_provider": "प्रदाता",
-    "filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "प्रकार",
 	"filter_proprietary": "मालिकाना",
 	"filter_opensource": "ओपन सोर्स",

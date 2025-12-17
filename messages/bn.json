@@ -23,7 +23,7 @@
 	"aria_show_more": "আরও দেখান",
 
 	"filter_provider": "প্রদানকারী",
-    "filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "ধরন",
 	"filter_proprietary": "মালিকানাধীন",
 	"filter_opensource": "ওপেন সোর্স",

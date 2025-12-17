@@ -23,7 +23,7 @@
 	"aria_show_more": "Показать больше",
 
 	"filter_provider": "Провайдер",
-    "filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Тип",
 	"filter_proprietary": "Проприетарный",
 	"filter_opensource": "Открытый исходный код",

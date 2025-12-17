@@ -23,7 +23,7 @@
 	"aria_show_more": "Daha fazla göster",
 
 	"filter_provider": "Sağlayıcı",
-    "filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Tür",
 	"filter_proprietary": "Tescilli",
 	"filter_opensource": "Açık kaynak",
