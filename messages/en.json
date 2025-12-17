@@ -21,6 +21,7 @@
 	"aria_remove_favorite": "Remove from favorites",
 	"aria_show_less": "Show less",
 	"aria_show_more": "Show more",
+	"aria_toggle_sort_order": "Toggle sort order",
 
 	"filter_provider": "Provider",
 	"filter_provider_placeholder": "Select providers",
@@ -76,5 +77,6 @@
 	"footer_data_sourced": "Data sourced from public benchmarks.",
 	"footer_contribute": "Contribute on GitHub",
 
-	"github_star": "Star"
+	"github_star": "Star",
+	"sort_by": "Sort by"
 }
