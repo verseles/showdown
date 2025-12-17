@@ -1,6 +1,7 @@
 # Main Rules
 
 - Everytime you end a task, call the play_notification tool.
+- **Always validate data changes** before committing - run `./precommit.sh` to ensure all validation checks pass.
 
 # For Svelte 5 documentation:
 

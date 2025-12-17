@@ -67,8 +67,9 @@ We aggregate scores from 20+ industry benchmarks, weighted by practical importan
 
 1. Fork this repo
 2. Edit `data/showdown.json`
-3. Submit PR - our CI validates the data automatically
-4. Get merged!
+3. Run `./precommit.sh` to validate your changes
+4. Submit PR - our CI validates the data automatically
+5. Get merged!
 
 ## Tech Stack
 
