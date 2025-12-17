@@ -75,5 +75,6 @@
 	"footer_data_sourced": "Data sourced from public benchmarks.",
 	"footer_contribute": "Contribute on GitHub",
 
-	"github_star": "Star"
+	"github_star": "Star",
+	"sort_by": "Sort by"
 }

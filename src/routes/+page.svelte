@@ -644,6 +644,19 @@
 
 		<!-- Mobile Card View -->
 		<div class="card-view">
+			<div class="mobile-sort">
+				<label for="mobile-sort-select" class="filter-label">{m.sort_by()}</label>
+				<select id="mobile-sort-select" bind:value={sortBy} class="filter-select">
+					<option value="overall">{m.column_rank()}</option>
+					{#each data.categories as category (category.id)}
+						<option value={category.id}>{category.emoji} {category.name}</option>
+					{/each}
+					<option value="price">{m.column_price()}</option>
+					<option value="speed">{m.column_speed()}</option>
+					<option value="latency">{m.column_latency()}</option>
+					<option value="release_date">{m.column_released()}</option>
+				</select>
+			</div>
 			{#each sortedModels as ranked (ranked.model.id)}
 				{@const expanded = isCardExpanded(ranked.model.id)}
 				<article class="model-card" class:expanded>
@@ -1267,6 +1280,22 @@
 	/* Card View (Mobile) */
 	.card-view {
 		display: none;
+	}
+
+	.mobile-sort {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.mobile-sort .filter-label {
+		font-size: 0.875rem;
+		font-weight: 600;
+	}
+
+	.mobile-sort .filter-select {
+		flex: 1;
 	}
 
 	.model-card {
