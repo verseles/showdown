@@ -6,12 +6,56 @@ This document provides detailed instructions for updating `data/showdown.json` w
 
 When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this process:
 
-1. **Search for official benchmark data** using the sources listed below
-2. **Collect all available scores** from each benchmark source
-3. **Get pricing and performance metrics** from provider pages and Artificial Analysis
-4. **Create/update the model entry** following the schema
-5. **Validate locally** with `./precommit.sh`
-6. **Commit and push**
+1. **Check current branch** - If on 'main', create a new branch first
+2. **Search for official benchmark data** using the sources listed below
+3. **Collect all available scores** from each benchmark source
+4. **Get pricing and performance metrics** from provider pages and Artificial Analysis
+5. **Create/update the model entry** following the schema
+6. **Validate locally** with `./precommit.sh`
+7. **Commit changes** and create a PR using `gh` CLI if available
+
+---
+
+## Navigation & Research Guidelines
+
+### Branch Management
+
+If working on the main branch:
+```bash
+# Create and switch to a new branch
+git checkout -b feature/update-model-name
+
+# After making changes and committing
+gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name] with latest benchmark scores"
+```
+
+### Accessing Links & Content
+
+**Priority order for accessing web content:**
+
+1. **Always use the proxy first** - Prefix URLs with `https://r.jina.ai/`
+   - Example: `https://r.jina.ai/https://lmarena.ai/leaderboard/text/coding`
+   - This provides clean, text-only content without heavy rendering
+
+2. **Web Search** - Use `Web Search` tool when you need to find current information
+   - Search for specific benchmark scores
+   - Find official announcements from providers
+   - Locate updated leaderboard data
+
+3. **WebFetch** - Only use if `r.jina.ai` fails or returns incomplete content
+   - Use for simple static content retrieval
+   - Avoid for JavaScript-heavy pages
+
+4. **Browser/Playwright** - Last resort only
+   - Required for dynamic content that can't be accessed otherwise
+   - Should be discouraged whenever possible
+
+### Best Practices
+
+- **Always start with Web Search** when looking for current benchmark data
+- **Use r.jina.ai proxy** for all benchmark URLs listed in this document
+- **Don't rely on cached knowledge** - Always verify current scores
+- **Document sources** in your commit messages when data is hard to find
 
 ---
 
@@ -386,10 +430,21 @@ Visit: https://openai.com/api/pricing
 ### 3. Validate & Commit
 
 ```bash
+# Create feature branch if on main
+git checkout -b feature/add-gpt-5-2-high
+
+# Validate changes
 ./precommit.sh
+
+# Commit and push
 git add data/showdown.json
 git commit -m "Add GPT-5.2 High model"
-git push
+git push -u origin feature/add-gpt-5-2-high
+
+# Create PR using gh CLI (if available)
+gh pr create \
+  --title "Add GPT-5.2 High model" \
+  --body "Update data/showdown.json with GPT-5.2 High model and latest benchmark scores"
 ```
 
 ---
@@ -418,5 +473,9 @@ When updating data:
 4. **Check pricing is current** - Providers often adjust prices
 5. **Validate before committing** - Run `./precommit.sh`
 6. **Update the meta timestamp** - Shows data freshness
+7. **Use Web Search frequently** - Find current benchmark scores and announcements
+8. **Use r.jina.ai proxy for links** - Prefix URLs with `https://r.jina.ai/` before fetching
+9. **Create feature branches** - Never commit directly to main branch
+10. **Create PRs using gh CLI** - Use `gh pr create` when available
 
 If a benchmark score cannot be found after thorough searching, use `null` and note it in the commit message.
