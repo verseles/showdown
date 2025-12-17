@@ -10,7 +10,7 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 2. **Collect all available scores** from each benchmark source
 3. **Get pricing and performance metrics** from provider pages and Artificial Analysis
 4. **Create/update the model entry** following the schema
-5. **Validate locally** with `npm run build`
+5. **Validate locally** with `./precommit.sh`
 6. **Commit and push**
 
 ---
@@ -286,7 +286,10 @@ Each model in `data/showdown.json` must follow this structure:
 Run before committing:
 
 ```bash
-# Full validation suite
+# Full validation suite (recommended)
+./precommit.sh
+
+# Alternative: run each check individually
 npm run lint && npm run check && npm run build
 
 # Quick JSON syntax check
@@ -383,7 +386,7 @@ Visit: https://openai.com/api/pricing
 ### 3. Validate & Commit
 
 ```bash
-npm run build
+./precommit.sh
 git add data/showdown.json
 git commit -m "Add GPT-5.2 High model"
 git push
@@ -413,7 +416,7 @@ When updating data:
 2. **Use `null` for missing data** - Never guess benchmark scores
 3. **Verify Elo scores are current** - LMArena updates frequently
 4. **Check pricing is current** - Providers often adjust prices
-5. **Validate before committing** - Run `npm run build`
+5. **Validate before committing** - Run `./precommit.sh`
 6. **Update the meta timestamp** - Shows data freshness
 
 If a benchmark score cannot be found after thorough searching, use `null` and note it in the commit message.

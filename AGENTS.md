@@ -78,7 +78,7 @@ All translation files are in `/messages/` directory:
 # Main Rules
 
 - Everytime you end a task, call the play_notification tool.
-- **ALWAYS run `./precommit.sh` before committing or after completing tasks**
+- **ALWAYS run `./precommit.sh` before committing or after completing tasks** - this ensures all validation checks pass.
 
 # For Svelte 5 documentation:
 
