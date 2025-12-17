@@ -8,7 +8,11 @@ describe('/+page.svelte', () => {
 		const mockData = {
 			models: [],
 			categories: [],
-			meta: { last_update: new Date().toISOString() }
+			meta: {
+				version: '1.0.0',
+				last_update: new Date().toISOString(),
+				schema_version: '1.0.0'
+			}
 		};
 		render(Page, { props: { data: mockData } });
 
