@@ -23,6 +23,7 @@
 	"aria_show_more": "더 보기",
 
 	"filter_provider": "제공업체",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "유형",
 	"filter_proprietary": "독점",
 	"filter_opensource": "오픈소스",

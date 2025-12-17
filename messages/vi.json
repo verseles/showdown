@@ -23,6 +23,7 @@
 	"aria_show_more": "Hiển thị thêm",
 
 	"filter_provider": "Nhà cung cấp",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Loại",
 	"filter_proprietary": "Độc quyền",
 	"filter_opensource": "Mã nguồn mở",

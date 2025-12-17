@@ -23,6 +23,7 @@
 	"aria_show_more": "Show more",
 
 	"filter_provider": "Provider",
+	"filter_provider_placeholder": "Select providers",
 	"filter_type": "Type",
 	"filter_proprietary": "Proprietary",
 	"filter_opensource": "Open Source",

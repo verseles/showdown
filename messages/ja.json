@@ -23,6 +23,7 @@
 	"aria_show_more": "もっと見る",
 
 	"filter_provider": "プロバイダー",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "タイプ",
 	"filter_proprietary": "プロプライエタリ",
 	"filter_opensource": "オープンソース",

@@ -23,6 +23,7 @@
 	"aria_show_more": "عرض المزيد",
 
 	"filter_provider": "المزود",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "النوع",
 	"filter_proprietary": "مملوك",
 	"filter_opensource": "مفتوح المصدر",

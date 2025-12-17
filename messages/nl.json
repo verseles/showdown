@@ -23,6 +23,7 @@
 	"aria_show_more": "Meer tonen",
 
 	"filter_provider": "Aanbieder",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Type",
 	"filter_proprietary": "Eigendomsrecht",
 	"filter_opensource": "Open source",
