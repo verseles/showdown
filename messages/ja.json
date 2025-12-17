@@ -75,5 +75,6 @@
 	"footer_data_sourced": "データは公開ベンチマークから取得。",
 	"footer_contribute": "GitHubで貢献",
 
-	"github_star": "Star"
+	"github_star": "スター",
+	"sort_by": "並べ替え"
 }

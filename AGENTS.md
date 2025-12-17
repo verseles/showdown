@@ -1,6 +1,84 @@
+# 🚨 CRITICAL PRECOMMIT RULES - MUST FOLLOW 🚨
+
+## ⚠️ MANDATORY: Run Precommit Script
+
+**YOU MUST RUN `./precommit.sh` IN THESE SITUATIONS:**
+
+1. ✅ **BEFORE EVERY COMMIT** - No exceptions!
+2. ✅ **AFTER COMPLETING ANY TASK** - Before marking it as done
+3. ✅ **AFTER ANY CODE CHANGES** - Before pushing to repository
+
+### How to Run:
+
+```bash
+./precommit.sh
+```
+
+### What It Does:
+
+- ✓ Installs dependencies
+- ✓ Runs linter (code quality)
+- ✓ Generates translation files
+- ✓ Performs TypeScript type checking
+- ✓ Builds the project
+- ✓ Validates JSON data integrity
+
+**⚠️ IF PRECOMMIT FAILS:**
+
+- DO NOT commit
+- DO NOT push
+- FIX all errors first
+- Run `./precommit.sh` again
+- Only proceed when ALL checks pass ✓
+
+---
+
+## 🌍 MANDATORY: Translation Requirements
+
+**CRITICAL:** Any changes to user-facing text MUST include translations!
+
+### When Translations Are Required:
+
+- ✓ Adding new UI text, labels, or messages
+- ✓ Modifying existing user-visible text
+- ✓ Creating new features with text content
+- ✓ Error messages, tooltips, or notifications
+
+### Translation Files Location:
+
+All translation files are in `/messages/` directory:
+
+- `en.json` - English (source)
+- `es.json` - Spanish
+- `fr.json` - French
+- `de.json` - German
+- `pt-BR.json` - Brazilian Portuguese
+- `ja.json` - Japanese
+- `zh.json` - Chinese
+- `ko.json` - Korean
+- `ru.json` - Russian
+- `ar.json` - Arabic
+- And 11+ more languages
+
+### Process:
+
+1. Add/modify text in `messages/en.json` first
+2. Update ALL other language files with equivalent translations
+3. Run `./precommit.sh` to regenerate paraglide files
+4. Verify translations are working correctly
+
+**⚠️ DO NOT:**
+
+- Skip translations for "minor" text changes
+- Leave untranslated strings in the codebase
+- Commit changes without updating all language files
+
+---
+
 # Main Rules
 
 - Everytime you end a task, call the play_notification tool.
+- **ALWAYS run `./precommit.sh` before committing or after completing tasks**
 
 # For Svelte 5 documentation:
 

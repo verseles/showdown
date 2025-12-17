@@ -75,5 +75,6 @@
 	"footer_data_sourced": "공개 벤치마크에서 수집된 데이터.",
 	"footer_contribute": "GitHub에서 기여",
 
-	"github_star": "Star"
+	"github_star": "별",
+	"sort_by": "정렬 기준"
 }
