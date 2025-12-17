@@ -967,15 +967,6 @@
 		text-transform: uppercase;
 	}
 
-	.filter-select {
-		padding: var(--spacing-xs) var(--spacing-sm);
-		border: 1px solid var(--border-color);
-		border-radius: 4px;
-		background: var(--bg-primary);
-		color: var(--text-primary);
-		min-width: 120px;
-	}
-
 	.checkbox-group {
 		display: flex;
 		gap: var(--spacing-md);

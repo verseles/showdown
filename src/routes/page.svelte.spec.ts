@@ -14,7 +14,7 @@ describe('/+page.svelte', () => {
 				schema_version: '1.0.0'
 			}
 		};
-		render(Page, { props: { data: mockData } });
+		render(Page, { data: mockData });
 
 		const heading = page.getByRole('heading', { level: 1 });
 		await expect.element(heading).toBeInTheDocument();

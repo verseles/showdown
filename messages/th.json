@@ -23,7 +23,7 @@
 	"aria_show_more": "แสดงเพิ่มเติม",
 
 	"filter_provider": "ผู้ให้บริการ",
-    "filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "ประเภท",
 	"filter_proprietary": "เชิงพาณิชย์",
 	"filter_opensource": "โอเพ่นซอร์ส",
