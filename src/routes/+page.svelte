@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { untrack } from 'svelte';
+	import MultiSelect from 'svelte-multiselect';
 	import type { PageData } from './$types';
 	import type { Category, FilterState, Model } from '$lib/types.js';
 	import {
@@ -272,11 +273,11 @@
 		<div class="filters-bar">
 			<div class="filter-group">
 				<label for="provider-filter">{m.filter_provider()}</label>
-				<select id="provider-filter" multiple bind:value={filters.providers} class="filter-select">
-					{#each providers as provider (provider)}
-						<option value={provider}>{provider}</option>
-					{/each}
-				</select>
+				<MultiSelect
+					bind:selected={filters.providers}
+					options={providers}
+					placeholder={m.filter_provider_placeholder()}
+				/>
 			</div>
 
 			<div class="filter-group">
@@ -1439,6 +1440,28 @@
 
 	.col-price {
 		cursor: help;
+	}
+
+	:global(.multiselect) {
+		--ms-bg: var(--bg-primary);
+		--ms-border-color: var(--border-color);
+		--ms-ring-color: var(--accent-primary);
+		--ms-placeholder-color: var(--text-muted);
+		--ms-option-bg-selected: var(--accent-primary);
+		--ms-dropdown-bg: var(--bg-secondary);
+		--ms-dropdown-border-color: var(--border-color);
+		--ms-tag-bg: var(--accent-primary);
+		--ms-tag-color: white;
+	}
+
+	:global(.multiselect-option.selected) {
+		background: var(--accent-primary);
+		color: white;
+	}
+
+	:global(.multiselect-option.selected.pointed) {
+		background: var(--accent-secondary);
+		color: white;
 	}
 
 	/* Footer */

@@ -23,6 +23,7 @@
 	"aria_show_more": "Visa mer",
 
 	"filter_provider": "Leverantör",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Typ",
 	"filter_proprietary": "Proprietär",
 	"filter_opensource": "Öppen källkod",

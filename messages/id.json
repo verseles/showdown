@@ -23,6 +23,7 @@
 	"aria_show_more": "Tampilkan lebih banyak",
 
 	"filter_provider": "Penyedia",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Tipe",
 	"filter_proprietary": "Proprietari",
 	"filter_opensource": "Open Source",

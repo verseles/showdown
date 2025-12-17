@@ -23,6 +23,7 @@
 	"aria_show_more": "显示更多",
 
 	"filter_provider": "提供商",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "类型",
 	"filter_proprietary": "专有",
 	"filter_opensource": "开源",

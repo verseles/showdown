@@ -23,6 +23,7 @@
 	"aria_show_more": "مزید دکھائیں",
 
 	"filter_provider": "فراہم کنندہ",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "قسم",
 	"filter_proprietary": "ملکیتی",
 	"filter_opensource": "اوپن سورس",

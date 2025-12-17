@@ -23,6 +23,7 @@
 	"aria_show_more": "Mostra di più",
 
 	"filter_provider": "Provider",
+    "filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Tipo",
 	"filter_proprietary": "Proprietario",
 	"filter_opensource": "Open source",
