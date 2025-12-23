@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2025.12.14",
-		"last_update": "2025-12-14T00:00:00Z",
+		"version": "2025.12.23",
+		"last_update": "2025-12-23T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -531,6 +531,94 @@
 				"mmmlu": 91.8,
 				"lmarena_en_elo": 1493,
 				"lmarena_zh_elo": 1520
+			}
+		},
+		{
+			"id": "gemini-3-flash",
+			"name": "Gemini 3 Flash",
+			"provider": "Google",
+			"type": "proprietary",
+			"release_date": "2025-12-17",
+			"pricing": {
+				"input_per_1m": 0.5,
+				"output_per_1m": 3.0,
+				"average_per_1m": 1.75
+			},
+			"performance": {
+				"output_speed_tps": 218,
+				"latency_ttft_ms": 200,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Fastest intelligent model at 218 TPS. Outperforms even Gemini 3 Pro on SWE-Bench (78%) at quarter the cost. 3x faster than 2.5 Pro with 30% fewer tokens. #3 on LMArena overall.",
+			"benchmark_scores": {
+				"swe_bench": 78.0,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1450,
+				"live_code_bench": null,
+				"gpqa_diamond": 90.4,
+				"aime": null,
+				"arc_agi_2": 33.6,
+				"lmarena_hard_elo": 1440,
+				"bfcl": null,
+				"tau_bench": 90.2,
+				"osworld": null,
+				"webdev_arena_elo": 1420,
+				"lmarena_creative_elo": 1460,
+				"lmarena_if_elo": 1450,
+				"math_500": null,
+				"gsm8k": null,
+				"lmarena_math_elo": 1455,
+				"mathvista": null,
+				"mmmu": 81.2,
+				"lmarena_vision_elo": 1380,
+				"mmlu": 88.59,
+				"mmmlu": null,
+				"lmarena_en_elo": 1450,
+				"lmarena_zh_elo": 1400
+			}
+		},
+		{
+			"id": "gemini-3-flash-thinking-minimal",
+			"name": "Gemini 3 Flash Thinking",
+			"provider": "Google",
+			"type": "proprietary",
+			"release_date": "2025-12-17",
+			"pricing": {
+				"input_per_1m": 0.5,
+				"output_per_1m": 3.0,
+				"average_per_1m": 1.75
+			},
+			"performance": {
+				"output_speed_tps": 180,
+				"latency_ttft_ms": 400,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Minimal thinking mode of Gemini 3 Flash. Uses thinking_level parameter for controlled reasoning. Balances speed with enhanced reasoning capability for complex tasks.",
+			"benchmark_scores": {
+				"swe_bench": 78.0,
+				"terminal_bench": null,
+				"lmarena_coding_elo": 1455,
+				"live_code_bench": null,
+				"gpqa_diamond": 91.5,
+				"aime": null,
+				"arc_agi_2": 36.0,
+				"lmarena_hard_elo": 1450,
+				"bfcl": null,
+				"tau_bench": 92.0,
+				"osworld": null,
+				"webdev_arena_elo": 1425,
+				"lmarena_creative_elo": 1465,
+				"lmarena_if_elo": 1455,
+				"math_500": null,
+				"gsm8k": null,
+				"lmarena_math_elo": 1465,
+				"mathvista": null,
+				"mmmu": 82.0,
+				"lmarena_vision_elo": 1385,
+				"mmlu": 89.0,
+				"mmmlu": null,
+				"lmarena_en_elo": 1455,
+				"lmarena_zh_elo": 1410
 			}
 		},
 		{

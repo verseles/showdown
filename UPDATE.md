@@ -21,6 +21,7 @@ When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this pro
 ### Branch Management
 
 If working on the main branch:
+
 ```bash
 # Create and switch to a new branch
 git checkout -b feature/update-model-name
