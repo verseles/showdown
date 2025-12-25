@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Omfattande LLM-rankning och jämförelse",
 	"site_description": "Jämför de bästa AI-språkmodellerna inom kodning, resonemang, agenter och mer. Transparenta rankningar från 20+ benchmarks.",
 	"og_title": "Showdown - LLM-rankning",
 	"og_description": "Transparent AI-modelljämförelse som aggregerar SWE-Bench, GPQA, LMArena och mer.",
-
 	"header_title": "Showdown",
 	"header_tagline": "LLM-rankning",
 	"header_showing": "Visar {count} av {total} modeller",
 	"header_updated": "Uppdaterad: {date}",
-
 	"aria_select_language": "Välj språk",
 	"aria_star_github": "Stjärnmarkera på GitHub",
 	"aria_switch_light": "Byt till ljust läge",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "Ta bort från favoriter",
 	"aria_show_less": "Visa mindre",
 	"aria_show_more": "Visa mer",
-
 	"filter_provider": "Leverantör",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Typ",
@@ -31,7 +27,6 @@
 	"filter_reset": "Återställ",
 	"filter_columns": "Kolumner",
 	"filter_visible_columns": "Synliga kolumner",
-
 	"column_rank": "Rang",
 	"column_rank_score": "Rang och poäng",
 	"column_provider": "Leverantör",
@@ -42,11 +37,9 @@
 	"column_latency": "Latens",
 	"column_released": "Släppt",
 	"column_release_date": "Releasedatum",
-
 	"type_proprietary": "Proprietär",
 	"type_opensource": "Öppen källkod",
 	"type_open": "Öppen",
-
 	"category_coding": "Kodning",
 	"category_reasoning": "Resonemang",
 	"category_agents": "Agenter och verktyg",
@@ -54,7 +47,6 @@
 	"category_math": "Matematik",
 	"category_multimodal": "Multimodal",
 	"category_multilingual": "Flerspråkig",
-
 	"tooltip_weight": "Vikt: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmarks tillgängliga",
 	"tooltip_pricing": "Prissättning: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Genomsnitt",
 	"tooltip_per_1m_tokens": "/ 1M tokens",
 	"tooltip_average_formula": "Genomsnitt = (Indata + Utdata) / 2",
-
 	"card_price_avg": "Pris (snitt)",
 	"card_input": "Indata",
 	"card_output": "Utdata",
@@ -72,9 +63,9 @@
 	"card_released": "Släppt",
 	"card_show_less": "Visa mindre",
 	"card_show_all": "Visa allt",
-
 	"footer_data_sourced": "Data från offentliga benchmarks.",
 	"footer_contribute": "Bidra på GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

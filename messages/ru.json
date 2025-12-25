@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Полный рейтинг и сравнение LLM",
 	"site_description": "Сравните лучшие языковые модели ИИ по программированию, рассуждению, агентам и многому другому. Прозрачный рейтинг по 20+ бенчмаркам.",
 	"og_title": "Showdown - Рейтинг LLM",
 	"og_description": "Прозрачное сравнение моделей ИИ с агрегацией SWE-Bench, GPQA, LMArena и других.",
-
 	"header_title": "Showdown",
 	"header_tagline": "Рейтинг LLM",
 	"header_showing": "Показано {count} из {total} моделей",
 	"header_updated": "Обновлено: {date}",
-
 	"aria_select_language": "Выбрать язык",
 	"aria_star_github": "Поставить звезду на GitHub",
 	"aria_switch_light": "Переключить на светлую тему",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "Удалить из избранного",
 	"aria_show_less": "Показать меньше",
 	"aria_show_more": "Показать больше",
-
 	"filter_provider": "Провайдер",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Тип",
@@ -31,7 +27,6 @@
 	"filter_reset": "Сбросить",
 	"filter_columns": "Столбцы",
 	"filter_visible_columns": "Видимые столбцы",
-
 	"column_rank": "Ранг",
 	"column_rank_score": "Ранг и оценка",
 	"column_provider": "Провайдер",
@@ -42,11 +37,9 @@
 	"column_latency": "Задержка",
 	"column_released": "Выпущено",
 	"column_release_date": "Дата выпуска",
-
 	"type_proprietary": "Проприетарный",
 	"type_opensource": "Открытый исходный код",
 	"type_open": "Открытый",
-
 	"category_coding": "Программирование",
 	"category_reasoning": "Рассуждение",
 	"category_agents": "Агенты и инструменты",
@@ -54,7 +47,6 @@
 	"category_math": "Математика",
 	"category_multimodal": "Мультимодальный",
 	"category_multilingual": "Многоязычный",
-
 	"tooltip_weight": "Вес: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} бенчмарков доступно",
 	"tooltip_pricing": "Цены: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Среднее",
 	"tooltip_per_1m_tokens": "/ 1M токенов",
 	"tooltip_average_formula": "Среднее = (Вход + Выход) / 2",
-
 	"card_price_avg": "Цена (сред.)",
 	"card_input": "Вход",
 	"card_output": "Выход",
@@ -72,9 +63,9 @@
 	"card_released": "Выпущено",
 	"card_show_less": "Свернуть",
 	"card_show_all": "Показать всё",
-
 	"footer_data_sourced": "Данные из публичных бенчмарков.",
 	"footer_contribute": "Внести вклад на GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

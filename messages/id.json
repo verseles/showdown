@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Peringkat dan Perbandingan LLM Komprehensif",
 	"site_description": "Bandingkan model bahasa AI terbaik dalam pengkodean, penalaran, agen, dan lainnya. Peringkat transparan dari 20+ benchmark.",
 	"og_title": "Showdown - Peringkat LLM",
 	"og_description": "Perbandingan model AI transparan yang menggabungkan SWE-Bench, GPQA, LMArena, dan lainnya.",
-
 	"header_title": "Showdown",
 	"header_tagline": "Peringkat LLM",
 	"header_showing": "Menampilkan {count} dari {total} model",
 	"header_updated": "Diperbarui: {date}",
-
 	"aria_select_language": "Pilih bahasa",
 	"aria_star_github": "Beri bintang di GitHub",
 	"aria_switch_light": "Beralih ke mode terang",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "Hapus dari favorit",
 	"aria_show_less": "Tampilkan lebih sedikit",
 	"aria_show_more": "Tampilkan lebih banyak",
-
 	"filter_provider": "Penyedia",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Tipe",
@@ -31,7 +27,6 @@
 	"filter_reset": "Reset",
 	"filter_columns": "Kolom",
 	"filter_visible_columns": "Kolom yang terlihat",
-
 	"column_rank": "Peringkat",
 	"column_rank_score": "Peringkat & Skor",
 	"column_provider": "Penyedia",
@@ -42,11 +37,9 @@
 	"column_latency": "Latensi",
 	"column_released": "Dirilis",
 	"column_release_date": "Tanggal Rilis",
-
 	"type_proprietary": "Proprietari",
 	"type_opensource": "Open Source",
 	"type_open": "Terbuka",
-
 	"category_coding": "Pengkodean",
 	"category_reasoning": "Penalaran",
 	"category_agents": "Agen & Alat",
@@ -54,7 +47,6 @@
 	"category_math": "Matematika",
 	"category_multimodal": "Multimodal",
 	"category_multilingual": "Multibahasa",
-
 	"tooltip_weight": "Bobot: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmark tersedia",
 	"tooltip_pricing": "Harga: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Rata-rata",
 	"tooltip_per_1m_tokens": "/ 1M token",
 	"tooltip_average_formula": "Rata-rata = (Input + Output) / 2",
-
 	"card_price_avg": "Harga (rata-rata)",
 	"card_input": "Input",
 	"card_output": "Output",
@@ -72,9 +63,9 @@
 	"card_released": "Dirilis",
 	"card_show_less": "Tampilkan lebih sedikit",
 	"card_show_all": "Tampilkan semua",
-
 	"footer_data_sourced": "Data bersumber dari benchmark publik.",
 	"footer_contribute": "Berkontribusi di GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }
