@@ -645,6 +645,32 @@
 
 		<!-- Mobile Card View -->
 		<div class="card-view">
+			<div class="card-sort-by">
+				<label for="sort-by-select">{m.sort_by()}</label>
+				<select
+					id="sort-by-select"
+					bind:value={sortBy}
+					class="sort-select"
+					onchange={() => {
+						sortOrder = 'desc';
+					}}
+				>
+					<option value="overall">{m.column_rank()}</option>
+					<option value="name">{m.column_model()}</option>
+					{#each data.categories as category (category.id)}
+						<option value={category.id}>{category.name}</option>
+					{/each}
+					<option value="price">{m.column_price()}</option>
+					<option value="speed">{m.column_speed()}</option>
+				</select>
+				<button
+					class="sort-order-btn"
+					onclick={() => (sortOrder = sortOrder === 'asc' ? 'desc' : 'asc')}
+					aria-label={m.aria_toggle_sort_order()}
+				>
+					{sortOrder === 'asc' ? '▲' : '▼'}
+				</button>
+			</div>
 			{#each sortedModels as ranked (ranked.model.id)}
 				{@const expanded = isCardExpanded(ranked.model.id)}
 				<article class="model-card" class:expanded>
@@ -1259,6 +1285,38 @@
 	/* Card View (Mobile) */
 	.card-view {
 		display: none;
+	}
+
+	.card-sort-by {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.card-sort-by label {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--text-secondary);
+	}
+
+	.sort-select {
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		flex-grow: 1;
+	}
+
+	.sort-order-btn {
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		cursor: pointer;
+		font-size: 1rem;
+		line-height: 1;
 	}
 
 	.model-card {
