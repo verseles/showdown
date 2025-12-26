@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - การจัดอันดับและเปรียบเทียบ LLM อย่างครอบคลุม",
 	"site_description": "เปรียบเทียบโมเดลภาษา AI ที่ดีที่สุดในการเขียนโค้ด การให้เหตุผล เอเจนต์ และอื่นๆ การจัดอันดับที่โปร่งใสจาก 20+ เบนช์มาร์ก",
 	"og_title": "Showdown - การจัดอันดับ LLM",
 	"og_description": "การเปรียบเทียบโมเดล AI อย่างโปร่งใสที่รวบรวม SWE-Bench, GPQA, LMArena และอื่นๆ",
-
 	"header_title": "Showdown",
 	"header_tagline": "การจัดอันดับ LLM",
 	"header_showing": "แสดง {count} จาก {total} โมเดล",
 	"header_updated": "อัปเดต: {date}",
-
 	"aria_select_language": "เลือกภาษา",
 	"aria_star_github": "ให้ดาวบน GitHub",
 	"aria_switch_light": "สลับไปโหมดสว่าง",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "ลบออกจากรายการโปรด",
 	"aria_show_less": "แสดงน้อยลง",
 	"aria_show_more": "แสดงเพิ่มเติม",
-
 	"filter_provider": "ผู้ให้บริการ",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "ประเภท",
@@ -31,7 +27,6 @@
 	"filter_reset": "รีเซ็ต",
 	"filter_columns": "คอลัมน์",
 	"filter_visible_columns": "คอลัมน์ที่มองเห็น",
-
 	"column_rank": "อันดับ",
 	"column_rank_score": "อันดับและคะแนน",
 	"column_provider": "ผู้ให้บริการ",
@@ -42,11 +37,9 @@
 	"column_latency": "ความหน่วง",
 	"column_released": "เปิดตัว",
 	"column_release_date": "วันที่เปิดตัว",
-
 	"type_proprietary": "เชิงพาณิชย์",
 	"type_opensource": "โอเพ่นซอร์ส",
 	"type_open": "เปิด",
-
 	"category_coding": "การเขียนโค้ด",
 	"category_reasoning": "การให้เหตุผล",
 	"category_agents": "เอเจนต์และเครื่องมือ",
@@ -54,7 +47,6 @@
 	"category_math": "คณิตศาสตร์",
 	"category_multimodal": "มัลติโมดัล",
 	"category_multilingual": "หลายภาษา",
-
 	"tooltip_weight": "น้ำหนัก: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} เบนช์มาร์กที่มี",
 	"tooltip_pricing": "ราคา: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "เฉลี่ย",
 	"tooltip_per_1m_tokens": "/ 1M โทเค็น",
 	"tooltip_average_formula": "เฉลี่ย = (อินพุต + เอาต์พุต) / 2",
-
 	"card_price_avg": "ราคา (เฉลี่ย)",
 	"card_input": "อินพุต",
 	"card_output": "เอาต์พุต",
@@ -72,9 +63,9 @@
 	"card_released": "เปิดตัว",
 	"card_show_less": "แสดงน้อยลง",
 	"card_show_all": "แสดงทั้งหมด",
-
 	"footer_data_sourced": "ข้อมูลจากเบนช์มาร์กสาธารณะ",
 	"footer_contribute": "มีส่วนร่วมบน GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

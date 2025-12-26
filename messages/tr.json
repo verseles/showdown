@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Kapsamlı LLM Sıralaması ve Karşılaştırması",
 	"site_description": "Kodlama, muhakeme, ajanlar ve daha fazlasında en iyi AI dil modellerini karşılaştırın. 20+ kıyaslamadan şeffaf sıralamalar.",
 	"og_title": "Showdown - LLM Sıralaması",
 	"og_description": "SWE-Bench, GPQA, LMArena ve daha fazlasını bir araya getiren şeffaf AI model karşılaştırması.",
-
 	"header_title": "Showdown",
 	"header_tagline": "LLM Sıralaması",
 	"header_showing": "{total} modelden {count} tanesi gösteriliyor",
 	"header_updated": "Güncelleme: {date}",
-
 	"aria_select_language": "Dil seçin",
 	"aria_star_github": "GitHub'da yıldız ver",
 	"aria_switch_light": "Açık moda geç",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "Favorilerden çıkar",
 	"aria_show_less": "Daha az göster",
 	"aria_show_more": "Daha fazla göster",
-
 	"filter_provider": "Sağlayıcı",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Tür",
@@ -31,7 +27,6 @@
 	"filter_reset": "Sıfırla",
 	"filter_columns": "Sütunlar",
 	"filter_visible_columns": "Görünür sütunlar",
-
 	"column_rank": "Sıra",
 	"column_rank_score": "Sıra ve Puan",
 	"column_provider": "Sağlayıcı",
@@ -42,11 +37,9 @@
 	"column_latency": "Gecikme",
 	"column_released": "Yayınlandı",
 	"column_release_date": "Yayın tarihi",
-
 	"type_proprietary": "Tescilli",
 	"type_opensource": "Açık kaynak",
 	"type_open": "Açık",
-
 	"category_coding": "Kodlama",
 	"category_reasoning": "Muhakeme",
 	"category_agents": "Ajanlar ve Araçlar",
@@ -54,7 +47,6 @@
 	"category_math": "Matematik",
 	"category_multimodal": "Çok modlu",
 	"category_multilingual": "Çok dilli",
-
 	"tooltip_weight": "Ağırlık: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} kıyaslama mevcut",
 	"tooltip_pricing": "Fiyatlandırma: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Ortalama",
 	"tooltip_per_1m_tokens": "/ 1M token",
 	"tooltip_average_formula": "Ortalama = (Girdi + Çıktı) / 2",
-
 	"card_price_avg": "Fiyat (ort.)",
 	"card_input": "Girdi",
 	"card_output": "Çıktı",
@@ -72,9 +63,9 @@
 	"card_released": "Yayınlandı",
 	"card_show_less": "Daha az göster",
 	"card_show_all": "Tümünü göster",
-
 	"footer_data_sourced": "Veriler halka açık kıyaslamalardan alınmıştır.",
 	"footer_contribute": "GitHub'da katkıda bulunun",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

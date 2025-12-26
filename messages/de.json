@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Umfassende LLM-Rankings und Vergleich",
 	"site_description": "Vergleichen Sie die besten KI-Sprachmodelle in Coding, Reasoning, Agenten und mehr. Transparente Rankings aus über 20 Benchmarks.",
 	"og_title": "Showdown - LLM-Rankings",
 	"og_description": "Transparenter KI-Modell-Vergleich mit SWE-Bench, GPQA, LMArena und mehr.",
-
 	"header_title": "Showdown",
 	"header_tagline": "LLM-Rankings",
 	"header_showing": "Zeige {count} von {total} Modellen",
 	"header_updated": "Aktualisiert: {date}",
-
 	"aria_select_language": "Sprache auswählen",
 	"aria_star_github": "Stern auf GitHub geben",
 	"aria_switch_light": "Zum hellen Modus wechseln",
@@ -21,9 +18,8 @@
 	"aria_remove_favorite": "Aus Favoriten entfernen",
 	"aria_show_less": "Weniger anzeigen",
 	"aria_show_more": "Mehr anzeigen",
-
 	"filter_provider": "Anbieter",
-	"filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "Anbieter auswählen",
 	"filter_type": "Typ",
 	"filter_proprietary": "Proprietär",
 	"filter_opensource": "Open Source",
@@ -31,7 +27,6 @@
 	"filter_reset": "Zurücksetzen",
 	"filter_columns": "Spalten",
 	"filter_visible_columns": "Sichtbare Spalten",
-
 	"column_rank": "Rang",
 	"column_rank_score": "Rang & Punktzahl",
 	"column_provider": "Anbieter",
@@ -42,11 +37,9 @@
 	"column_latency": "Latenz",
 	"column_released": "Veröffentlicht",
 	"column_release_date": "Veröffentlichungsdatum",
-
 	"type_proprietary": "Proprietär",
 	"type_opensource": "Open Source",
 	"type_open": "Offen",
-
 	"category_coding": "Programmierung",
 	"category_reasoning": "Reasoning",
 	"category_agents": "Agenten & Tools",
@@ -54,7 +47,6 @@
 	"category_math": "Mathematik",
 	"category_multimodal": "Multimodal",
 	"category_multilingual": "Mehrsprachig",
-
 	"tooltip_weight": "Gewichtung: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} Benchmarks verfügbar",
 	"tooltip_pricing": "Preise: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Durchschnitt",
 	"tooltip_per_1m_tokens": "/ 1M Tokens",
 	"tooltip_average_formula": "Durchschnitt = (Eingabe + Ausgabe) / 2",
-
 	"card_price_avg": "Preis (Durchschn.)",
 	"card_input": "Eingabe",
 	"card_output": "Ausgabe",
@@ -72,9 +63,9 @@
 	"card_released": "Veröffentlicht",
 	"card_show_less": "Weniger anzeigen",
 	"card_show_all": "Alle anzeigen",
-
 	"footer_data_sourced": "Daten aus öffentlichen Benchmarks.",
 	"footer_contribute": "Auf GitHub beitragen",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "Sortierreihenfolge umschalten",
+	"sort_by": "Sortieren nach"
 }

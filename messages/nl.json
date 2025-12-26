@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Uitgebreide LLM-ranglijsten en vergelijking",
 	"site_description": "Vergelijk de beste AI-taalmodellen in codering, redeneren, agents en meer. Transparante rankings van 20+ benchmarks.",
 	"og_title": "Showdown - LLM-ranglijsten",
 	"og_description": "Transparante AI-modelvergelijking met SWE-Bench, GPQA, LMArena en meer.",
-
 	"header_title": "Showdown",
 	"header_tagline": "LLM-ranglijsten",
 	"header_showing": "{count} van {total} modellen weergeven",
 	"header_updated": "Bijgewerkt: {date}",
-
 	"aria_select_language": "Selecteer taal",
 	"aria_star_github": "Ster op GitHub",
 	"aria_switch_light": "Schakel naar lichte modus",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "Verwijderen uit favorieten",
 	"aria_show_less": "Minder tonen",
 	"aria_show_more": "Meer tonen",
-
 	"filter_provider": "Aanbieder",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "Type",
@@ -31,7 +27,6 @@
 	"filter_reset": "Reset",
 	"filter_columns": "Kolommen",
 	"filter_visible_columns": "Zichtbare kolommen",
-
 	"column_rank": "Rang",
 	"column_rank_score": "Rang en score",
 	"column_provider": "Aanbieder",
@@ -42,11 +37,9 @@
 	"column_latency": "Latentie",
 	"column_released": "Uitgebracht",
 	"column_release_date": "Releasedatum",
-
 	"type_proprietary": "Eigendomsrecht",
 	"type_opensource": "Open source",
 	"type_open": "Open",
-
 	"category_coding": "Coderen",
 	"category_reasoning": "Redeneren",
 	"category_agents": "Agents en tools",
@@ -54,7 +47,6 @@
 	"category_math": "Wiskunde",
 	"category_multimodal": "Multimodaal",
 	"category_multilingual": "Meertalig",
-
 	"tooltip_weight": "Gewicht: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmarks beschikbaar",
 	"tooltip_pricing": "Prijzen: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Gemiddelde",
 	"tooltip_per_1m_tokens": "/ 1M tokens",
 	"tooltip_average_formula": "Gemiddelde = (Invoer + Uitvoer) / 2",
-
 	"card_price_avg": "Prijs (gem.)",
 	"card_input": "Invoer",
 	"card_output": "Uitvoer",
@@ -72,9 +63,9 @@
 	"card_released": "Uitgebracht",
 	"card_show_less": "Minder tonen",
 	"card_show_all": "Alles tonen",
-
 	"footer_data_sourced": "Gegevens afkomstig van openbare benchmarks.",
 	"footer_contribute": "Bijdragen op GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

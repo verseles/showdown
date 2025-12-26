@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - Classements et comparaison complets des LLM",
 	"site_description": "Comparez les meilleurs modèles de langage AI en codage, raisonnement, agents et plus. Classements transparents de plus de 20 benchmarks.",
 	"og_title": "Showdown - Classements des LLM",
 	"og_description": "Comparaison transparente des modèles AI agrégeant SWE-Bench, GPQA, LMArena et plus.",
-
 	"header_title": "Showdown",
 	"header_tagline": "Classements LLM",
 	"header_showing": "Affichage de {count} sur {total} modèles",
 	"header_updated": "Mis à jour : {date}",
-
 	"aria_select_language": "Sélectionner la langue",
 	"aria_star_github": "Mettre une étoile sur GitHub",
 	"aria_switch_light": "Passer en mode clair",
@@ -21,9 +18,8 @@
 	"aria_remove_favorite": "Retirer des favoris",
 	"aria_show_less": "Afficher moins",
 	"aria_show_more": "Afficher plus",
-
 	"filter_provider": "Fournisseur",
-	"filter_provider_placeholder": "[TRANSLATE] Select providers",
+	"filter_provider_placeholder": "Sélectionner des fournisseurs",
 	"filter_type": "Type",
 	"filter_proprietary": "Propriétaire",
 	"filter_opensource": "Open source",
@@ -31,7 +27,6 @@
 	"filter_reset": "Réinitialiser",
 	"filter_columns": "Colonnes",
 	"filter_visible_columns": "Colonnes visibles",
-
 	"column_rank": "Rang",
 	"column_rank_score": "Rang et score",
 	"column_provider": "Fournisseur",
@@ -42,11 +37,9 @@
 	"column_latency": "Latence",
 	"column_released": "Sortie",
 	"column_release_date": "Date de sortie",
-
 	"type_proprietary": "Propriétaire",
 	"type_opensource": "Open source",
 	"type_open": "Ouvert",
-
 	"category_coding": "Programmation",
 	"category_reasoning": "Raisonnement",
 	"category_agents": "Agents et outils",
@@ -54,7 +47,6 @@
 	"category_math": "Mathématiques",
 	"category_multimodal": "Multimodal",
 	"category_multilingual": "Multilingue",
-
 	"tooltip_weight": "Poids : {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmarks disponibles",
 	"tooltip_pricing": "Tarification : {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "Moyenne",
 	"tooltip_per_1m_tokens": "/ 1M tokens",
 	"tooltip_average_formula": "Moyenne = (Entrée + Sortie) / 2",
-
 	"card_price_avg": "Prix (moy.)",
 	"card_input": "Entrée",
 	"card_output": "Sortie",
@@ -72,9 +63,9 @@
 	"card_released": "Sortie",
 	"card_show_less": "Afficher moins",
 	"card_show_all": "Tout afficher",
-
 	"footer_data_sourced": "Données issues de benchmarks publics.",
 	"footer_contribute": "Contribuer sur GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "Basculer l'ordre de tri",
+	"sort_by": "Trier par"
 }

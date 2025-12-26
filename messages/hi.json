@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - व्यापक LLM रैंकिंग और तुलना",
 	"site_description": "कोडिंग, तर्क, एजेंट और अधिक में सर्वश्रेष्ठ AI भाषा मॉडल की तुलना करें। 20+ बेंचमार्क से पारदर्शी रैंकिंग।",
 	"og_title": "Showdown - LLM रैंकिंग",
 	"og_description": "SWE-Bench, GPQA, LMArena और अधिक को एकत्र करते हुए पारदर्शी AI मॉडल तुलना।",
-
 	"header_title": "Showdown",
 	"header_tagline": "LLM रैंकिंग",
 	"header_showing": "{total} में से {count} मॉडल दिखा रहे हैं",
 	"header_updated": "अपडेट: {date}",
-
 	"aria_select_language": "भाषा चुनें",
 	"aria_star_github": "GitHub पर स्टार करें",
 	"aria_switch_light": "लाइट मोड में बदलें",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "पसंदीदा से हटाएं",
 	"aria_show_less": "कम दिखाएं",
 	"aria_show_more": "और दिखाएं",
-
 	"filter_provider": "प्रदाता",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "प्रकार",
@@ -31,7 +27,6 @@
 	"filter_reset": "रीसेट",
 	"filter_columns": "कॉलम",
 	"filter_visible_columns": "दृश्य कॉलम",
-
 	"column_rank": "रैंक",
 	"column_rank_score": "रैंक और स्कोर",
 	"column_provider": "प्रदाता",
@@ -42,11 +37,9 @@
 	"column_latency": "विलंबता",
 	"column_released": "जारी",
 	"column_release_date": "जारी तिथि",
-
 	"type_proprietary": "मालिकाना",
 	"type_opensource": "ओपन सोर्स",
 	"type_open": "ओपन",
-
 	"category_coding": "कोडिंग",
 	"category_reasoning": "तर्क",
 	"category_agents": "एजेंट और टूल्स",
@@ -54,7 +47,6 @@
 	"category_math": "गणित",
 	"category_multimodal": "मल्टीमोडल",
 	"category_multilingual": "बहुभाषी",
-
 	"tooltip_weight": "भार: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} बेंचमार्क उपलब्ध",
 	"tooltip_pricing": "मूल्य निर्धारण: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "औसत",
 	"tooltip_per_1m_tokens": "/ 1M tokens",
 	"tooltip_average_formula": "औसत = (इनपुट + आउटपुट) / 2",
-
 	"card_price_avg": "कीमत (औसत)",
 	"card_input": "इनपुट",
 	"card_output": "आउटपुट",
@@ -72,9 +63,9 @@
 	"card_released": "जारी",
 	"card_show_less": "कम दिखाएं",
 	"card_show_all": "सब दिखाएं",
-
 	"footer_data_sourced": "डेटा सार्वजनिक बेंचमार्क से प्राप्त।",
 	"footer_contribute": "GitHub पर योगदान करें",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }

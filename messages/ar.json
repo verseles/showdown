@@ -1,16 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-
 	"site_title": "Showdown - تصنيفات ومقارنة شاملة لنماذج اللغة الكبيرة",
 	"site_description": "قارن أفضل نماذج اللغة الذكية في البرمجة والتفكير والوكلاء والمزيد. تصنيفات شفافة من أكثر من 20 معيار.",
 	"og_title": "Showdown - تصنيفات LLM",
 	"og_description": "مقارنة شفافة لنماذج الذكاء الاصطناعي تجمع SWE-Bench و GPQA و LMArena والمزيد.",
-
 	"header_title": "Showdown",
 	"header_tagline": "تصنيفات LLM",
 	"header_showing": "عرض {count} من {total} نموذج",
 	"header_updated": "آخر تحديث: {date}",
-
 	"aria_select_language": "اختر اللغة",
 	"aria_star_github": "أضف نجمة على GitHub",
 	"aria_switch_light": "التبديل إلى الوضع الفاتح",
@@ -21,7 +18,6 @@
 	"aria_remove_favorite": "إزالة من المفضلة",
 	"aria_show_less": "عرض أقل",
 	"aria_show_more": "عرض المزيد",
-
 	"filter_provider": "المزود",
 	"filter_provider_placeholder": "[TRANSLATE] Select providers",
 	"filter_type": "النوع",
@@ -31,7 +27,6 @@
 	"filter_reset": "إعادة تعيين",
 	"filter_columns": "الأعمدة",
 	"filter_visible_columns": "الأعمدة المرئية",
-
 	"column_rank": "الترتيب",
 	"column_rank_score": "الترتيب والنتيجة",
 	"column_provider": "المزود",
@@ -42,11 +37,9 @@
 	"column_latency": "زمن الاستجابة",
 	"column_released": "الإصدار",
 	"column_release_date": "تاريخ الإصدار",
-
 	"type_proprietary": "مملوك",
 	"type_opensource": "مفتوح المصدر",
 	"type_open": "مفتوح",
-
 	"category_coding": "البرمجة",
 	"category_reasoning": "التفكير",
 	"category_agents": "الوكلاء والأدوات",
@@ -54,7 +47,6 @@
 	"category_math": "الرياضيات",
 	"category_multimodal": "متعدد الوسائط",
 	"category_multilingual": "متعدد اللغات",
-
 	"tooltip_weight": "الوزن: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} معيار متاح",
 	"tooltip_pricing": "التسعير: {model}",
@@ -63,7 +55,6 @@
 	"tooltip_average": "المتوسط",
 	"tooltip_per_1m_tokens": "/ 1M tokens",
 	"tooltip_average_formula": "المتوسط = (المدخلات + المخرجات) / 2",
-
 	"card_price_avg": "السعر (متوسط)",
 	"card_input": "المدخلات",
 	"card_output": "المخرجات",
@@ -72,9 +63,9 @@
 	"card_released": "الإصدار",
 	"card_show_less": "عرض أقل",
 	"card_show_all": "عرض الكل",
-
 	"footer_data_sourced": "البيانات مصدرها معايير عامة.",
 	"footer_contribute": "ساهم على GitHub",
-
-	"github_star": "Star"
+	"github_star": "Star",
+	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
+	"sort_by": "[TRANSLATE] Sort by"
 }
