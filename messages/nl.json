@@ -46,7 +46,6 @@
 	"category_conversation": "Conversatie",
 	"category_math": "Wiskunde",
 	"category_multimodal": "Multimodaal",
-	"category_multilingual": "Meertalig",
 	"tooltip_weight": "Gewicht: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmarks beschikbaar",
 	"tooltip_pricing": "Prijzen: {model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "Bijdragen op GitHub",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "Kennis"
 }

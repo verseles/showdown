@@ -46,7 +46,6 @@
 	"category_conversation": "Sohbet",
 	"category_math": "Matematik",
 	"category_multimodal": "Çok modlu",
-	"category_multilingual": "Çok dilli",
 	"tooltip_weight": "Ağırlık: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} kıyaslama mevcut",
 	"tooltip_pricing": "Fiyatlandırma: {model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "GitHub'da katkıda bulunun",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "Bilgi"
 }

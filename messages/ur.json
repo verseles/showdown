@@ -46,7 +46,6 @@
 	"category_conversation": "گفتگو",
 	"category_math": "ریاضی",
 	"category_multimodal": "ملٹی موڈل",
-	"category_multilingual": "کثیر لسانی",
 	"tooltip_weight": "وزن: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} بینچ مارکس دستیاب",
 	"tooltip_pricing": "قیمت: {model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "GitHub پر حصہ ڈالیں",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "علم"
 }

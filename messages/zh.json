@@ -46,7 +46,6 @@
 	"category_conversation": "对话",
 	"category_math": "数学",
 	"category_multimodal": "多模态",
-	"category_multilingual": "多语言",
 	"tooltip_weight": "权重：{percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} 个基准测试可用",
 	"tooltip_pricing": "定价：{model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "在GitHub上贡献",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "知识"
 }

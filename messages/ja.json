@@ -46,7 +46,6 @@
 	"category_conversation": "会話",
 	"category_math": "数学",
 	"category_multimodal": "マルチモーダル",
-	"category_multilingual": "多言語",
 	"tooltip_weight": "重み：{percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total}ベンチマーク利用可能",
 	"tooltip_pricing": "料金：{model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "GitHubで貢献",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "知識"
 }

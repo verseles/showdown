@@ -64,23 +64,23 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 
 ### Primary Benchmark Sources
 
-| Benchmark              | URL                                                                                              | What to Search                          |
-| ---------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------- |
-| **SWE-Bench Verified** | https://swebench.com                                                                             | Leaderboard, look for "verified" scores |
-| **Terminal-Bench**     | https://www.tbench.ai/leaderboard/terminal-bench/2.0                                             | Check the Accuracy column               |
-| **LiveCodeBench**      | https://gso-bench.github.io/leaderboard.html or if not found Search "LiveCodeBench [model name]" | Look for the Opt@1 Score column         |
-| **GPQA Diamond**       | Search "GPQA Diamond [model name]"                                                               | Papers, announcements                   |
-| **AIME 2025**          | Search "AIME 2025 [model name]"                                                                  | Provider announcements                  |
-| **ARC-AGI-2**          | https://arcprize.org/leaderboard#leaderboard-table                                               | See ARC-AGI-2 instructions below        |
-| **BFCL**               | https://gorilla.cs.berkeley.edu/leaderboard.html                                                 | Overall Acc column                      |
-| **TAU-Bench**          | https://taubench.com/#leaderboard                                                                | "Pass^1" column                         |
-| **OSWorld**            | https://os-world.github.io                                                                       | "Success Rate (Avg±Std)" column         |
-| **MATH-500**           | Search "[model name] MATH-500"                                                                   | Provider technical reports              |
-| **GSM8K**              | Search "[model name] GSM8K"                                                                      | Provider technical reports              |
-| **MathVista**          | https://mathvista.github.io                                                                      | Leaderboard                             |
-| **MMMU**               | https://mmmu-benchmark.github.io                                                                 | Leaderboard                             |
-| **MMLU**               | Search "[model name] MMLU"                                                                       | Provider technical reports              |
-| **MMMLU**              | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table)     | Papers, evaluations                     |
+| Benchmark                      | URL                                                                                          | What to Search                    |
+| ------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------- |
+| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column                |
+| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy  |
+| **AIDER Polyglot**             | https://aider.chat/docs/leaderboards/                                                        | Overall accuracy across languages |
+| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column               |
+| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column                |
+| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column           |
+| **FrontierMath**               | https://epoch.ai/frontiermath                                                                | Overall accuracy column           |
+| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below  |
+| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column                |
+| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                   |
+| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column   |
+| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports        |
+| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                       |
+| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                       |
+| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations               |
 
 ### LMArena (Chatbot Arena) - Multiple Categories
 
@@ -150,9 +150,11 @@ Each model in `data/showdown.json` must follow this structure:
 		"terminal_bench": 45.0,
 		"lmarena_coding_elo": 1350,
 		"live_code_bench": 68.0,
+		"aider_polyglot": 72.0,
 		"gpqa_diamond": 80.0,
-		"aime": 65.0,
 		"arc_agi_2": 5.0,
+		"livebench": 65.0,
+		"humanity_last_exam": 12.5,
 		"lmarena_hard_elo": 1320,
 		"bfcl": 78.0,
 		"tau_bench": 55.0,
@@ -160,13 +162,16 @@ Each model in `data/showdown.json` must follow this structure:
 		"webdev_arena_elo": 1300,
 		"lmarena_creative_elo": 1340,
 		"lmarena_if_elo": 1380,
+		"ifeval": 78.5,
 		"math_500": 75.0,
-		"gsm8k": 92.0,
+		"aime": 65.0,
 		"lmarena_math_elo": 1310,
+		"frontiermath": 5.0,
 		"mathvista": 60.0,
 		"mmmu": 58.0,
+		"mmmu_pro": 45.0,
 		"lmarena_vision_elo": 1280,
-		"mmlu": 85.0,
+		"mmlu_pro": 75.0,
 		"mmmlu": 78.0,
 		"lmarena_en_elo": 1350,
 		"lmarena_zh_elo": 1290
@@ -207,12 +212,14 @@ Each model in `data/showdown.json` must follow this structure:
 - `terminal_bench` - Terminal-Bench (%)
 - `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1500)
 - `live_code_bench` - LiveCodeBench (%)
+- `aider_polyglot` - AIDER Polyglot (%)
 
 **Reasoning (25% weight):**
 
 - `gpqa_diamond` - GPQA Diamond (%)
-- `aime` - AIME 2025 (%)
 - `arc_agi_2` - ARC-AGI-2 (%)
+- `livebench` - LiveBench (%)
+- `humanity_last_exam` - HLE (%)
 - `lmarena_hard_elo` - LMArena Hard (Elo: 1100-1550)
 
 **Agents & Tools (18% weight):**
@@ -226,22 +233,25 @@ Each model in `data/showdown.json` must follow this structure:
 
 - `lmarena_creative_elo` - LMArena Creative (Elo: 1100-1500)
 - `lmarena_if_elo` - LMArena Instruction Following (Elo: 1100-1500)
+- `ifeval` - IFEval (%)
 
 **Math (10% weight):**
 
 - `math_500` - MATH-500 (%)
-- `gsm8k` - GSM8K (%)
+- `aime` - AIME 2025 (%)
 - `lmarena_math_elo` - LMArena Math (Elo: 1100-1500)
+- `frontiermath` - FrontierMath (%)
 
 **Multimodal (7% weight):**
 
 - `mathvista` - MathVista (%)
 - `mmmu` - MMMU (%)
+- `mmmu_pro` - MMMU-Pro (%)
 - `lmarena_vision_elo` - LMArena Vision (Elo: 1100-1450)
 
-**Multilingual (3% weight):**
+**Knowledge (3% weight):**
 
-- `mmlu` - MMLU (%)
+- `mmlu_pro` - MMLU-Pro (%)
 - `mmmlu` - MMMLU (%)
 - `lmarena_en_elo` - LMArena English (Elo: 1100-1500)
 - `lmarena_zh_elo` - LMArena Chinese (Elo: 1100-1450)

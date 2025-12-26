@@ -46,7 +46,6 @@
 	"category_conversation": "การสนทนา",
 	"category_math": "คณิตศาสตร์",
 	"category_multimodal": "มัลติโมดัล",
-	"category_multilingual": "หลายภาษา",
 	"tooltip_weight": "น้ำหนัก: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} เบนช์มาร์กที่มี",
 	"tooltip_pricing": "ราคา: {model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "มีส่วนร่วมบน GitHub",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "ความรู้"
 }

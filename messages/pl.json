@@ -46,7 +46,6 @@
 	"category_conversation": "Konwersacja",
 	"category_math": "Matematyka",
 	"category_multimodal": "Multimodalny",
-	"category_multilingual": "Wielojęzyczny",
 	"tooltip_weight": "Waga: {percentage}%",
 	"tooltip_benchmarks_available": "{available}/{total} benchmarków dostępnych",
 	"tooltip_pricing": "Cennik: {model}",
@@ -67,5 +66,6 @@
 	"footer_contribute": "Współtwórz na GitHub",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "[TRANSLATE] Toggle sort order",
-	"sort_by": "[TRANSLATE] Sort by"
+	"sort_by": "[TRANSLATE] Sort by",
+	"category_knowledge": "Wiedza"
 }

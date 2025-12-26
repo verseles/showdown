@@ -93,7 +93,7 @@ export interface ColumnVisibility {
 	conversation: boolean;
 	math: boolean;
 	multimodal: boolean;
-	multilingual: boolean;
+	knowledge: boolean;
 	price: boolean;
 	speed: boolean;
 	latency: boolean;

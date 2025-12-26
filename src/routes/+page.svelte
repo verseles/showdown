@@ -70,7 +70,7 @@
 		conversation: true,
 		math: true,
 		multimodal: true,
-		multilingual: true,
+		knowledge: true,
 		price: true,
 		speed: true,
 		latency: false,
