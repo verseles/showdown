@@ -699,14 +699,26 @@
 					</header>
 					<div class="card-body">
 						<h3 class="card-title">{ranked.model.name}</h3>
-						<p class="card-provider">
-							{ranked.model.provider} ·
-							<span class="type-badge" class:proprietary={ranked.model.type === 'proprietary'}>
-								{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_open()}
-							</span>
-						</p>
+						{#if visibleColumns.provider || visibleColumns.type}
+							<p class="card-provider">
+								{#if visibleColumns.provider}
+									{ranked.model.provider}
+								{/if}
+								{#if visibleColumns.provider && visibleColumns.type}
+									·
+								{/if}
+								{#if visibleColumns.type}
+									<span
+										class="type-badge"
+										class:proprietary={ranked.model.type === 'proprietary'}
+									>
+										{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_open()}
+									</span>
+								{/if}
+							</p>
+						{/if}
 						<div class="card-scores">
-							{#each expanded ? data.categories : data.categories.slice(0, 3) as category (category.id)}
+							{#each data.categories .filter((c) => visibleColumns[c.id as keyof typeof visibleColumns]) .slice(0, expanded ? undefined : 3) as category (category.id)}
 								<div class="score-row">
 									<span class="score-label"
 										>{category.emoji} {t('category_' + category.id, category.name)}</span
@@ -717,48 +729,64 @@
 						</div>
 						{#if expanded}
 							<div class="card-details">
-								<div class="detail-row">
-									<span class="detail-label">{m.card_price_avg()}</span>
-									<span class="detail-value"
-										>{formatPrice(ranked.model.pricing.average_per_1m)}</span
-									>
-								</div>
-								<div class="detail-row">
-									<span class="detail-label">{m.card_input()}</span>
-									<span class="detail-value"
-										>${ranked.model.pricing.input_per_1m.toFixed(2)}/1M</span
-									>
-								</div>
-								<div class="detail-row">
-									<span class="detail-label">{m.card_output()}</span>
-									<span class="detail-value"
-										>${ranked.model.pricing.output_per_1m.toFixed(2)}/1M</span
-									>
-								</div>
-								<div class="detail-row">
-									<span class="detail-label">{m.card_speed()}</span>
-									<span class="detail-value"
-										>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
-									>
-								</div>
-								<div class="detail-row">
-									<span class="detail-label">{m.card_latency()}</span>
-									<span class="detail-value">{ranked.model.performance.latency_ttft_ms}ms</span>
-								</div>
-								<div class="detail-row">
-									<span class="detail-label">{m.card_released()}</span>
-									<span class="detail-value"
-										>{new Date(ranked.model.release_date).toLocaleDateString()}</span
-									>
-								</div>
+								{#if visibleColumns.price}
+									<div class="detail-row">
+										<span class="detail-label">{m.card_price_avg()}</span>
+										<span class="detail-value"
+											>{formatPrice(ranked.model.pricing.average_per_1m)}</span
+										>
+									</div>
+									<div class="detail-row">
+										<span class="detail-label">{m.card_input()}</span>
+										<span class="detail-value"
+											>${ranked.model.pricing.input_per_1m.toFixed(2)}/1M</span
+										>
+									</div>
+									<div class="detail-row">
+										<span class="detail-label">{m.card_output()}</span>
+										<span class="detail-value"
+											>${ranked.model.pricing.output_per_1m.toFixed(2)}/1M</span
+										>
+									</div>
+								{/if}
+								{#if visibleColumns.speed}
+									<div class="detail-row">
+										<span class="detail-label">{m.card_speed()}</span>
+										<span class="detail-value"
+											>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+										>
+									</div>
+								{/if}
+								{#if visibleColumns.latency}
+									<div class="detail-row">
+										<span class="detail-label">{m.card_latency()}</span>
+										<span class="detail-value">{ranked.model.performance.latency_ttft_ms}ms</span>
+									</div>
+								{/if}
+								{#if visibleColumns.release_date}
+									<div class="detail-row">
+										<span class="detail-label">{m.card_released()}</span>
+										<span class="detail-value"
+											>{new Date(ranked.model.release_date).toLocaleDateString()}</span
+										>
+									</div>
+								{/if}
 							</div>
 						{:else}
-							<div class="card-footer">
-								<span class="price">{formatPrice(ranked.model.pricing.average_per_1m)}</span>
-								<span class="speed"
-									>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
-								>
-							</div>
+							{#if visibleColumns.price || visibleColumns.speed}
+								<div class="card-footer">
+									{#if visibleColumns.price}
+										<span class="price"
+											>{formatPrice(ranked.model.pricing.average_per_1m)}</span
+										>
+									{/if}
+									{#if visibleColumns.speed}
+										<span class="speed"
+											>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+										>
+									{/if}
+								</div>
+							{/if}
 						{/if}
 						<button
 							class="expand-btn"
