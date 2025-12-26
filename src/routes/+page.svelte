@@ -1114,8 +1114,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-xs);
-		position: relative;
-		z-index: 2000;
 	}
 
 	.filter-group label {
