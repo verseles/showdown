@@ -196,6 +196,40 @@
 		activeTooltip = null;
 	}
 
+	// Mobile score click handler
+	function handleScoreClick(
+		event: MouseEvent,
+		model: Model,
+		category: Category,
+		score: number | null
+	) {
+		event.stopPropagation();
+		const target = event.currentTarget as HTMLElement;
+		const rect = target.getBoundingClientRect();
+
+		// Toggle tooltip: if clicking the same score, hide it
+		if (activeTooltip && activeTooltip.type === 'score') {
+			const currentData = activeTooltip.data as { category: Category; model: Model };
+			if (currentData.category.id === category.id && currentData.model.id === model.id) {
+				activeTooltip = null;
+				return;
+			}
+		}
+
+		// Show tooltip with score breakdown
+		activeTooltip = {
+			type: 'score',
+			data: {
+				category,
+				model,
+				score,
+				breakdown: getCategoryBreakdown(model, category)
+			},
+			x: rect.left + rect.width / 2,
+			y: rect.bottom + 8
+		};
+	}
+
 	// Expanded cards state for mobile view
 	let expandedCards = $state<Set<string>>(new Set());
 
@@ -218,6 +252,29 @@
 		}
 		return defaultValue;
 	}
+
+	// Close tooltip when clicking outside on mobile
+	$effect(() => {
+		if (activeTooltip) {
+			const handleClickOutside = (event: MouseEvent) => {
+				const target = event.target as HTMLElement;
+				// Don't close if clicking on the tooltip itself or a clickable score
+				if (!target.closest('.tooltip') && !target.closest('.clickable-score')) {
+					activeTooltip = null;
+				}
+			};
+
+			// Add a small delay to prevent immediate closing when opening
+			const timeoutId = setTimeout(() => {
+				document.addEventListener('click', handleClickOutside);
+			}, 100);
+
+			return () => {
+				clearTimeout(timeoutId);
+				document.removeEventListener('click', handleClickOutside);
+			};
+		}
+	});
 </script>
 
 <svelte:head>
@@ -718,11 +775,38 @@
 							{#each data.categories
 								.filter((c) => visibleColumns[c.id as keyof typeof visibleColumns])
 								.slice(0, expanded ? undefined : 3) as category (category.id)}
-								<div class="score-row">
+								{@const score = ranked.categoryScores[category.id]}
+								<div
+									class="score-row clickable-score"
+									onclick={(e) => handleScoreClick(e, ranked.model, category, score)}
+									role="button"
+									tabindex="0"
+									onkeydown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											handleScoreClick(e as unknown as MouseEvent, ranked.model, category, score);
+										}
+									}}
+								>
 									<span class="score-label"
 										>{category.emoji} {t('category_' + category.id, category.name)}</span
 									>
-									<span class="score-value">{formatScore(ranked.categoryScores[category.id])}</span>
+									<span class="score-value">
+										{formatScore(score)}
+										<svg
+											class="info-icon"
+											width="14"
+											height="14"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<circle cx="12" cy="12" r="10"></circle>
+											<line x1="12" y1="16" x2="12" y2="12"></line>
+											<line x1="12" y1="8" x2="12.01" y2="8"></line>
+										</svg>
+									</span>
 								</div>
 							{/each}
 						</div>
@@ -1419,8 +1503,36 @@
 		font-size: 0.875rem;
 	}
 
+	.clickable-score {
+		cursor: pointer;
+		padding: var(--spacing-xs);
+		margin: calc(var(--spacing-xs) * -1);
+		border-radius: 6px;
+		transition: background-color 0.2s ease;
+	}
+
+	.clickable-score:hover {
+		background-color: var(--bg-hover);
+	}
+
+	.clickable-score:active {
+		transform: scale(0.98);
+	}
+
 	.score-label {
 		color: var(--text-secondary);
+	}
+
+	.score-value {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-weight: 600;
+	}
+
+	.info-icon {
+		opacity: 0.5;
+		flex-shrink: 0;
 	}
 
 	.card-footer {
