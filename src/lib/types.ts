@@ -14,6 +14,14 @@ export interface Performance {
 	source: string;
 }
 
+export interface ImputedMetadata {
+	original_value: null;
+	imputed_value: number;
+	method: 'category_average';
+	imputed_date: string;
+	note: string;
+}
+
 export interface Model {
 	id: string;
 	name: string;
@@ -24,6 +32,7 @@ export interface Model {
 	performance: Performance;
 	editor_notes: string;
 	benchmark_scores: Record<string, number | null>;
+	imputed_metadata?: Record<string, ImputedMetadata>;
 }
 
 export interface EloRange {

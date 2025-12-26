@@ -132,5 +132,7 @@
 	"bench_description_mmlu_pro": "MMLU aprimorado com foco em raciocínio.",
 	"bench_description_mmmlu": "MMLU multilíngue em 14 idiomas.",
 	"bench_description_lmarena_en_elo": "Preferência humana em tarefas em inglês.",
-	"bench_description_lmarena_zh_elo": "Preferência humana em tarefas em chinês."
+	"bench_description_lmarena_zh_elo": "Preferência humana em tarefas em chinês.",
+	"imputed_indicator_title": "Contém valores estimados",
+	"imputed_notice": "* = Valor estimado (calculado a partir de outros benchmarks nesta categoria)"
 }

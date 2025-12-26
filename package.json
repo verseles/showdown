@@ -14,11 +14,7 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"editor": "cd editor && npm run dev",
-		"editor:install": "cd editor && npm install",
-		"mix:main": "npx repomix  --ignore='editor/,messages/,.github/' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-main.xml",
-		"mix:editor": "npx repomix './editor' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-editor.xml",
-		"mix": "npm run mix:main && npm run mix:editor"
+		"mix": "npx repomix --ignore='messages/,.github/' --truncate-base64 --include-logs --include-logs-count 200 --top-files-len 20 --output=repomix-main.xml"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.0",
@@ -46,7 +42,5 @@
 		"vitest": "^4.0.10",
 		"vitest-browser-svelte": "^2.0.1"
 	},
-	"dependencies": {
-		"svelte-multiselect": "^11.3.0"
-	}
+	"dependencies": {}
 }

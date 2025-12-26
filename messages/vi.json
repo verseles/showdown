@@ -132,5 +132,7 @@
 	"bench_description_mmlu_pro": "Enhanced MMLU with reasoning focus",
 	"bench_description_mmmlu": "Multilingual MMLU across 14 languages",
 	"bench_description_lmarena_en_elo": "Human preference on English tasks",
-	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks"
+	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
+	"imputed_indicator_title": "Chứa giá trị ước tính",
+	"imputed_notice": "* = Giá trị ước tính (được tính từ các tiêu chuẩn khác trong danh mục này)"
 }

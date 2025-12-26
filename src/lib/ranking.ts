@@ -14,6 +14,122 @@ export function normalizeEloScore(elo: number, min: number, max: number): number
 }
 
 /**
+ * Impute missing benchmark scores using category average of the same model.
+ * Creates a new model object with imputed values and metadata tracking.
+ *
+ * Strategy: For each missing benchmark, calculate the average of other benchmarks
+ * in the same category (normalized to 0-100 scale).
+ *
+ * IMPORTANT: Only imputes if at least 50% (ceil) of benchmarks in the category
+ * have real values. Otherwise, leaves as null (old method handles this).
+ *
+ * @param model - The model to impute
+ * @param categories - All benchmark categories
+ * @returns New model with imputed scores and metadata
+ */
+export function imputeMissingScores(model: Model, categories: Category[]): Model {
+	// Create a copy of the model to avoid mutation
+	const imputedModel: Model = {
+		...model,
+		benchmark_scores: { ...model.benchmark_scores },
+		imputed_metadata: model.imputed_metadata ? { ...model.imputed_metadata } : {}
+	};
+
+	const today = new Date().toISOString().split('T')[0];
+
+	// Build a map: benchmark_id -> category for quick lookup
+	const benchmarkToCategory = new Map<string, Category>();
+	for (const category of categories) {
+		for (const benchmark of category.benchmarks) {
+			benchmarkToCategory.set(benchmark.id, category);
+		}
+	}
+
+	// Find all missing benchmarks
+	for (const [benchmarkId, score] of Object.entries(model.benchmark_scores)) {
+		if (score !== null) continue; // Skip non-null values
+
+		const category = benchmarkToCategory.get(benchmarkId);
+		if (!category) continue; // Skip if category not found
+
+		// Count total benchmarks in category
+		const totalBenchmarks = category.benchmarks.length;
+
+		// Count how many benchmarks have real values (including the missing one we're checking)
+		let realValuesCount = 0;
+		for (const benchmark of category.benchmarks) {
+			const rawScore = model.benchmark_scores[benchmark.id];
+			if (rawScore !== null && rawScore !== undefined) {
+				realValuesCount++;
+			}
+		}
+
+		// Only impute if we have at least 50% (ceil) of benchmarks with real values
+		// Example: 5 benchmarks total, need at least 3 real values (ceil(5/2) = 3)
+		const minRequiredReal = Math.ceil(totalBenchmarks / 2);
+		if (realValuesCount < minRequiredReal) {
+			// Not enough real data, skip imputation (old method will handle this)
+			continue;
+		}
+
+		// Get all OTHER benchmarks in the same category (excluding the current missing one)
+		const categoryBenchmarks = category.benchmarks.filter((b) => b.id !== benchmarkId);
+
+		// Collect normalized scores from the same category
+		const availableScores: number[] = [];
+		for (const benchmark of categoryBenchmarks) {
+			const rawScore = model.benchmark_scores[benchmark.id];
+			if (rawScore !== null && rawScore !== undefined) {
+				// Normalize if needed
+				let normalizedScore = rawScore;
+				if (benchmark.type === 'elo' && benchmark.elo_range) {
+					normalizedScore = normalizeEloScore(
+						rawScore,
+						benchmark.elo_range.min,
+						benchmark.elo_range.max
+					);
+				}
+				availableScores.push(normalizedScore);
+			}
+		}
+
+		// Sanity check: should have at least 1 other score due to minRequiredReal check
+		if (availableScores.length === 0) continue;
+
+		// Calculate average of available scores in the category
+		const average = availableScores.reduce((sum, s) => sum + s, 0) / availableScores.length;
+
+		// Find the benchmark to check if we need to denormalize for Elo types
+		const currentBenchmark = category.benchmarks.find((b) => b.id === benchmarkId);
+		if (!currentBenchmark) continue;
+
+		// Store the imputed value (keep it normalized in 0-100 scale for percentage types,
+		// or denormalize back to Elo scale for Elo types)
+		let imputedValue = average;
+
+		if (currentBenchmark.type === 'elo' && currentBenchmark.elo_range) {
+			// Denormalize back to Elo scale for storage
+			const { min, max } = currentBenchmark.elo_range;
+			imputedValue = (average / 100) * (max - min) + min;
+		}
+
+		// Update the benchmark score
+		imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+
+		// Store metadata about the imputation
+		imputedModel.imputed_metadata![benchmarkId] = {
+			original_value: null,
+			imputed_value: imputedValue,
+			method: 'category_average',
+			imputed_date: today,
+			note: `Estimated from ${availableScores.length} other benchmark${availableScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`
+		};
+	}
+
+	return imputedModel;
+}
+
+/**
  * Get benchmark score, normalized if Elo type
  */
 export function getBenchmarkScore(model: Model, benchmark: Benchmark): number | null {
@@ -176,8 +292,11 @@ export function calculateBenchmarkCoverage(model: Model, categories: Category[])
  * Rank all models and return sorted array with positions
  */
 export function rankModels(models: Model[], categories: Category[]): RankedModel[] {
-	// Calculate scores for all models
-	const modelsWithScores = models.map((model) => ({
+	// First, impute missing scores for all models
+	const imputedModels = models.map((model) => imputeMissingScores(model, categories));
+
+	// Calculate scores for all models (using imputed values)
+	const modelsWithScores = imputedModels.map((model) => ({
 		model,
 		overallScore: calculateOverallScore(model, categories),
 		categoryScores: getAllCategoryScores(model, categories),

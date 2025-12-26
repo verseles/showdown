@@ -258,6 +258,92 @@ Each model in `data/showdown.json` must follow this structure:
 
 ---
 
+## Imputed (Estimated) Values
+
+### What Are Imputed Values?
+
+**Issue #29** identified a fairness problem: models with missing benchmark scores were getting artificially inflated rankings compared to models with complete data. To address this, the system now **automatically estimates missing values** using a conservative methodology.
+
+### How Imputation Works
+
+When a benchmark score is missing (`null`):
+
+1. **Find the category** the missing benchmark belongs to (e.g., Coding, Math)
+2. **Calculate the average** of all OTHER benchmarks in that same category for that specific model
+3. **Use that average** as an estimated value (normalized to 0-100 scale)
+4. **Store metadata** tracking that this value was estimated, not real
+
+**Example:** If Claude Opus 4.5 Thinking is missing AIDER Polyglot (Coding category):
+
+- Other Coding scores: SWE-Bench (80.9), Terminal-Bench (59.3), LMArena Coding (87.4), LiveCodeBench (75.5)
+- Average: (80.9 + 59.3 + 87.4 + 75.5) / 4 = **75.8**
+- AIDER estimated as 75.8 (or equivalent Elo if applicable)
+
+### Metadata Tracking
+
+All imputed values are tracked in the `imputed_metadata` field:
+
+```json
+{
+	"benchmark_scores": {
+		"aider_polyglot": 75.8, // This was estimated
+		"swe_bench": 80.9 // This is real data
+	},
+	"imputed_metadata": {
+		"aider_polyglot": {
+			"original_value": null,
+			"imputed_value": 75.8,
+			"method": "category_average",
+			"imputed_date": "2025-12-26",
+			"note": "Estimated from 4 other benchmarks in Coding category (avg: 75.80)"
+		}
+	}
+}
+```
+
+### Visual Indicators
+
+In the UI:
+
+- **Asterisk (\*)** appears next to category scores with estimated values
+- **Yellow highlighting** in tooltips shows which specific benchmarks were estimated
+- **Hover text** explains the estimation method
+
+### Important: Replace Estimated Values When Real Data Becomes Available
+
+**⚠️ CRITICAL:** Imputed values are **temporary placeholders** only. When real benchmark data becomes available:
+
+1. **Update** `benchmark_scores` with the actual value
+2. **Remove** the entry from `imputed_metadata`
+3. **Commit** with message: `"Update [model]: Replace estimated [benchmark] with real data"`
+
+**Example:**
+
+```json
+// BEFORE (estimated):
+{
+  "benchmark_scores": { "aider_polyglot": 75.8 },
+  "imputed_metadata": { "aider_polyglot": { ... } }
+}
+
+// AFTER (real data available):
+{
+  "benchmark_scores": { "aider_polyglot": 93.3 },
+  "imputed_metadata": {}  // Removed!
+}
+```
+
+### For AI Assistants
+
+When updating model data:
+
+1. **Check `imputed_metadata`** for any estimated values
+2. **Search for real data** for those benchmarks
+3. **Replace estimates** with real data when found
+4. **Only add to `imputed_metadata`** if you're intentionally marking a value as estimated (rare - the system does this automatically)
+
+---
+
 ## Step-by-Step Update Process
 
 ### Adding a New Model
