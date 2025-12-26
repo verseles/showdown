@@ -26,3 +26,6 @@ vite.config.ts.timestamp-*
 
 # Paraglide generated files
 /src/lib/paraglide/
+
+# Logs
+*.log

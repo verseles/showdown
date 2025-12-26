@@ -1007,6 +1007,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-xs);
+		position: relative;
 	}
 
 	.filter-group label {
@@ -1524,6 +1525,10 @@
 		--ms-dropdown-border-color: var(--border-color);
 		--ms-tag-bg: var(--accent-primary);
 		--ms-tag-color: white;
+	}
+
+	:global(.multiselect-dropdown) {
+		z-index: 101;
 	}
 
 	:global(.multiselect-option.selected) {
