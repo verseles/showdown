@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.26",
-		"last_update": "2025-12-26T02:33:30Z",
+		"last_update": "2025-12-26T18:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -33,10 +33,10 @@
 				"ifeval": null,
 				"live_code_bench": 72.3,
 				"livebench": null,
-				"lmarena_coding_elo": 1385,
+				"lmarena_coding_elo": 1515,
 				"lmarena_creative_elo": 1455,
 				"lmarena_en_elo": 1476,
-				"lmarena_hard_elo": 1420,
+				"lmarena_hard_elo": 1493,
 				"lmarena_if_elo": 1471,
 				"lmarena_math_elo": 1380,
 				"lmarena_vision_elo": 1189,
@@ -82,10 +82,10 @@
 				"ifeval": null,
 				"live_code_bench": 75.5,
 				"livebench": null,
-				"lmarena_coding_elo": 1537,
+				"lmarena_coding_elo": 1540,
 				"lmarena_creative_elo": 1454,
 				"lmarena_en_elo": 1486,
-				"lmarena_hard_elo": 1495,
+				"lmarena_hard_elo": 1502,
 				"lmarena_if_elo": 1475,
 				"lmarena_math_elo": 1468,
 				"lmarena_vision_elo": 1210,
@@ -100,7 +100,7 @@
 				"swe_bench": 80.9,
 				"tau_bench": 93.6,
 				"terminal_bench": 59.3,
-				"webdev_arena_elo": 1522
+				"webdev_arena_elo": 1520
 			}
 		},
 		{
@@ -131,10 +131,10 @@
 				"ifeval": 88.5,
 				"live_code_bench": 74.5,
 				"livebench": 82,
-				"lmarena_coding_elo": 1392,
+				"lmarena_coding_elo": 1506,
 				"lmarena_creative_elo": 1380,
 				"lmarena_en_elo": 1375,
-				"lmarena_hard_elo": 1365,
+				"lmarena_hard_elo": 1474,
 				"lmarena_if_elo": 1452,
 				"lmarena_math_elo": 1355,
 				"lmarena_vision_elo": 1295,
@@ -180,10 +180,10 @@
 				"ifeval": 91,
 				"live_code_bench": 77.2,
 				"livebench": 85,
-				"lmarena_coding_elo": 1398,
+				"lmarena_coding_elo": 1525,
 				"lmarena_creative_elo": 1395,
 				"lmarena_en_elo": 1431,
-				"lmarena_hard_elo": 1431,
+				"lmarena_hard_elo": 1485,
 				"lmarena_if_elo": 1457,
 				"lmarena_math_elo": 1405,
 				"lmarena_vision_elo": 1335,
@@ -198,7 +198,7 @@
 				"swe_bench": 82,
 				"tau_bench": 62.5,
 				"terminal_bench": 63.5,
-				"webdev_arena_elo": 1396
+				"webdev_arena_elo": 1393
 			}
 		},
 		{
@@ -440,7 +440,7 @@
 				"mmmu": 70.5,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": 78,
+				"swe_bench": 80.0,
 				"tau_bench": 88.5,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1398
@@ -560,7 +560,7 @@
 				"latency_ttft_ms": 680,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "First model to break 1600 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
+			"editor_notes": "First model to break 1500 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
 			"benchmark_scores": {
 				"aider_polyglot": 82.2,
 				"aime": 95,
@@ -572,10 +572,10 @@
 				"ifeval": null,
 				"live_code_bench": 78.5,
 				"livebench": null,
-				"lmarena_coding_elo": 1521,
+				"lmarena_coding_elo": 1520,
 				"lmarena_creative_elo": 1493,
 				"lmarena_en_elo": 1493,
-				"lmarena_hard_elo": 1504,
+				"lmarena_hard_elo": 1505,
 				"lmarena_if_elo": 1474,
 				"lmarena_math_elo": 1480,
 				"lmarena_vision_elo": 1309,
@@ -590,7 +590,7 @@
 				"swe_bench": 76.2,
 				"tau_bench": 85.4,
 				"terminal_bench": 54.2,
-				"webdev_arena_elo": 1479
+				"webdev_arena_elo": 1478
 			}
 		},
 		{
@@ -869,7 +869,7 @@
 				"lmarena_coding_elo": 1375,
 				"lmarena_creative_elo": 1424,
 				"lmarena_en_elo": 1465,
-				"lmarena_hard_elo": 1475,
+				"lmarena_hard_elo": 1477,
 				"lmarena_if_elo": 1435,
 				"lmarena_math_elo": 1455,
 				"lmarena_vision_elo": null,
@@ -915,10 +915,10 @@
 				"ifeval": null,
 				"live_code_bench": 74.5,
 				"livebench": null,
-				"lmarena_coding_elo": 1392,
+				"lmarena_coding_elo": 1508,
 				"lmarena_creative_elo": 1445,
 				"lmarena_en_elo": 1483,
-				"lmarena_hard_elo": 1495,
+				"lmarena_hard_elo": 1490,
 				"lmarena_if_elo": 1442,
 				"lmarena_math_elo": 1475,
 				"lmarena_vision_elo": null,
