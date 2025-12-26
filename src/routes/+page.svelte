@@ -1188,7 +1188,7 @@
 		border-radius: 8px;
 		box-shadow: var(--shadow-lg);
 		min-width: 200px;
-		z-index: 100;
+		z-index: 1000;
 	}
 
 	.dropdown-header {
@@ -1263,7 +1263,7 @@
 		color: var(--text-secondary);
 		position: sticky;
 		top: 0;
-		z-index: 10;
+		z-index: 2;
 	}
 
 	.sortable {
@@ -1321,7 +1321,12 @@
 		position: sticky;
 		left: 0;
 		background: inherit;
-		z-index: 5;
+		z-index: 1;
+	}
+
+	/* Sticky column headers need higher z-index to stay above everything in table */
+	th.sticky-col {
+		z-index: 3;
 	}
 
 	.col-fav {
@@ -1659,6 +1664,8 @@
 		--ms-dropdown-border-color: var(--border-color);
 		--ms-tag-bg: var(--accent-primary);
 		--ms-tag-color: white;
+		position: relative;
+		z-index: 1000;
 	}
 
 	:global(.multiselect-option.selected) {
@@ -1669,6 +1676,13 @@
 	:global(.multiselect-option.selected.pointed) {
 		background: var(--accent-secondary);
 		color: white;
+	}
+
+	/* Ensure multiselect dropdown appears above sticky columns */
+	:global(.multiselect .options),
+	:global(.multiselect ul) {
+		z-index: 2001 !important;
+		position: relative;
 	}
 
 	/* Footer */
