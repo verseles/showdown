@@ -688,7 +688,7 @@
 										<span class="score-value">
 											{formatScore(score)}
 											{#if hasImputedValues}
-												<span class="imputed-indicator" title="Contains estimated values">*</span>
+												<span class="imputed-indicator" title={m.imputed_indicator_title()}>*</span>
 											{/if}
 										</span>
 									</td>
@@ -806,7 +806,7 @@
 									<span class="score-value">
 										{formatScore(score)}{#if hasImputedValues}<span
 												class="imputed-indicator"
-												title="Contains estimated values">*</span
+												title={m.imputed_indicator_title()}>*</span
 											>{/if}
 										<svg
 											class="info-icon"
@@ -968,7 +968,7 @@
 				</p>
 				{#if scoreData.model.imputed_metadata && Object.keys(scoreData.model.imputed_metadata).some( (id) => scoreData.category.benchmarks.find((b) => b.id === id) )}
 					<p class="imputed-notice">
-						<em>* = Estimated value (calculated from other benchmarks in this category)</em>
+						<em>{m.imputed_notice()}</em>
 					</p>
 				{/if}
 			</div>
@@ -1719,6 +1719,12 @@
 		--ms-tag-bg: var(--accent-primary);
 		--ms-tag-color: white;
 		position: relative;
+		z-index: 1; /* Low z-index when closed */
+	}
+
+	/* High z-index only when multiselect is open/focused */
+	:global(.multiselect:focus-within),
+	:global(.multiselect.open) {
 		z-index: 1000;
 	}
 

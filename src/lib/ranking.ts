@@ -20,6 +20,9 @@ export function normalizeEloScore(elo: number, min: number, max: number): number
  * Strategy: For each missing benchmark, calculate the average of other benchmarks
  * in the same category (normalized to 0-100 scale).
  *
+ * IMPORTANT: Only imputes if at least 50% (ceil) of benchmarks in the category
+ * have real values. Otherwise, leaves as null (old method handles this).
+ *
  * @param model - The model to impute
  * @param categories - All benchmark categories
  * @returns New model with imputed scores and metadata
@@ -49,6 +52,26 @@ export function imputeMissingScores(model: Model, categories: Category[]): Model
 		const category = benchmarkToCategory.get(benchmarkId);
 		if (!category) continue; // Skip if category not found
 
+		// Count total benchmarks in category
+		const totalBenchmarks = category.benchmarks.length;
+
+		// Count how many benchmarks have real values (including the missing one we're checking)
+		let realValuesCount = 0;
+		for (const benchmark of category.benchmarks) {
+			const rawScore = model.benchmark_scores[benchmark.id];
+			if (rawScore !== null && rawScore !== undefined) {
+				realValuesCount++;
+			}
+		}
+
+		// Only impute if we have at least 50% (ceil) of benchmarks with real values
+		// Example: 5 benchmarks total, need at least 3 real values (ceil(5/2) = 3)
+		const minRequiredReal = Math.ceil(totalBenchmarks / 2);
+		if (realValuesCount < minRequiredReal) {
+			// Not enough real data, skip imputation (old method will handle this)
+			continue;
+		}
+
 		// Get all OTHER benchmarks in the same category (excluding the current missing one)
 		const categoryBenchmarks = category.benchmarks.filter((b) => b.id !== benchmarkId);
 
@@ -70,7 +93,7 @@ export function imputeMissingScores(model: Model, categories: Category[]): Model
 			}
 		}
 
-		// Only impute if we have at least 1 other score in the category
+		// Sanity check: should have at least 1 other score due to minRequiredReal check
 		if (availableScores.length === 0) continue;
 
 		// Calculate average of available scores in the category

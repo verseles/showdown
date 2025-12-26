@@ -272,6 +272,112 @@ describe('imputeMissingScores', () => {
 		expect(imputed.imputed_metadata).toBeDefined();
 	});
 
+	it('should NOT impute if less than 50% of benchmarks have real values', () => {
+		const bench1: Benchmark = {
+			id: 'bench1',
+			name: 'Benchmark 1',
+			type: 'percentage',
+			weight: 0.25,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const bench2: Benchmark = {
+			id: 'bench2',
+			name: 'Benchmark 2 (missing)',
+			type: 'percentage',
+			weight: 0.25,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const bench3: Benchmark = {
+			id: 'bench3',
+			name: 'Benchmark 3 (missing)',
+			type: 'percentage',
+			weight: 0.25,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const bench4: Benchmark = {
+			id: 'bench4',
+			name: 'Benchmark 4 (missing)',
+			type: 'percentage',
+			weight: 0.25,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [bench1, bench2, bench3, bench4]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				bench1: 80, // Only 1 of 4 benchmarks (25% < 50%)
+				bench2: null as unknown as number,
+				bench3: null as unknown as number,
+				bench4: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category]);
+
+		// Should NOT impute since only 25% of benchmarks have real values (need 50%)
+		// ceil(4/2) = 2 required, only have 1
+		expect(imputed.benchmark_scores.bench2).toBeNull();
+		expect(imputed.benchmark_scores.bench3).toBeNull();
+		expect(imputed.benchmark_scores.bench4).toBeNull();
+		expect(imputed.imputed_metadata).toEqual({});
+	});
+
+	it('should impute if exactly 50% of benchmarks have real values', () => {
+		const bench1: Benchmark = {
+			id: 'bench1',
+			name: 'Benchmark 1',
+			type: 'percentage',
+			weight: 0.5,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const bench2: Benchmark = {
+			id: 'bench2',
+			name: 'Benchmark 2 (missing)',
+			type: 'percentage',
+			weight: 0.5,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [bench1, bench2]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				bench1: 80, // 1 of 2 benchmarks (50%)
+				bench2: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category]);
+
+		// SHOULD impute since 50% of benchmarks have real values
+		// ceil(2/2) = 1 required, we have 1
+		expect(imputed.benchmark_scores.bench2).toBe(80);
+		expect(imputed.imputed_metadata!.bench2).toBeDefined();
+	});
+
 	it('should handle multiple categories correctly', () => {
 		const category1: Category = {
 			id: 'cat1',
