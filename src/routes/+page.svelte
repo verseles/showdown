@@ -83,7 +83,7 @@
 	// Track if localStorage has been loaded
 	let isInitialized = $state(false);
 
-	// Load favorites and column visibility from localStorage (only once on mount)
+	// Load state from localStorage (only once on mount)
 	onMount(() => {
 		const storedFavorites = localStorage.getItem('favorites');
 		if (storedFavorites) {
@@ -123,6 +123,38 @@
 				};
 			}
 		}
+
+		// Load sort preferences
+		const storedSortBy = localStorage.getItem('sortBy');
+		if (storedSortBy) {
+			sortBy = storedSortBy;
+		}
+		const storedSortOrder = localStorage.getItem('sortOrder');
+		if (storedSortOrder && (storedSortOrder === 'asc' || storedSortOrder === 'desc')) {
+			sortOrder = storedSortOrder;
+		}
+
+		// Load filters
+		const storedFilters = localStorage.getItem('filters');
+		if (storedFilters) {
+			try {
+				filters = { ...filters, ...JSON.parse(storedFilters) };
+			} catch {
+				// Invalid JSON, use default
+			}
+		}
+
+		// Load expanded cards
+		const storedExpandedCards = localStorage.getItem('expandedCards');
+		if (storedExpandedCards) {
+			try {
+				const cardsArray = JSON.parse(storedExpandedCards);
+				expandedCards = new Set(cardsArray);
+			} catch {
+				// Invalid JSON, use default
+			}
+		}
+
 		isInitialized = true;
 	});
 
@@ -140,6 +172,35 @@
 		if (isInitialized) {
 			untrack(() => {
 				localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+			});
+		}
+	});
+
+	// Save sort preferences to localStorage (only after initialization)
+	$effect(() => {
+		if (isInitialized) {
+			untrack(() => {
+				localStorage.setItem('sortBy', sortBy);
+				localStorage.setItem('sortOrder', sortOrder);
+			});
+		}
+	});
+
+	// Save filters to localStorage (only after initialization)
+	$effect(() => {
+		if (isInitialized) {
+			untrack(() => {
+				localStorage.setItem('filters', JSON.stringify(filters));
+			});
+		}
+	});
+
+	// Save expanded cards to localStorage (only after initialization)
+	$effect(() => {
+		if (isInitialized) {
+			untrack(() => {
+				const cardsArray = Array.from(expandedCards);
+				localStorage.setItem('expandedCards', JSON.stringify(cardsArray));
 			});
 		}
 	});
