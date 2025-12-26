@@ -17,6 +17,7 @@
 	} from '$lib/ranking.js';
 	import * as m from '$lib/paraglide/messages.js';
 	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
+	import ScoreTooltip from '$lib/components/ScoreTooltip.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -199,7 +200,19 @@
 	// Expanded cards state for mobile view
 	let expandedCards = $state<Set<string>>(new Set());
 
-	function toggleCardExpanded(modelId: string) {
+	// Mobile tooltip state
+	let activeMobileTooltipId = $state<string | null>(null);
+
+	function toggleMobileTooltip(modelId: string, categoryId: string) {
+		const tooltipId = `${modelId}-${categoryId}`;
+		if (activeMobileTooltipId === tooltipId) {
+			activeMobileTooltipId = null;
+		} else {
+			activeMobileTooltipId = tooltipId;
+		}
+	}
+
+	function toggleCardExpanded(modelId:string) {
 		if (expandedCards.has(modelId)) {
 			expandedCards = new Set([...expandedCards].filter((id) => id !== modelId));
 		} else {
@@ -707,12 +720,33 @@
 						</p>
 						<div class="card-scores">
 							{#each expanded ? data.categories : data.categories.slice(0, 3) as category (category.id)}
-								<div class="score-row">
+								{@const tooltipId = `${ranked.model.id}-${category.id}`}
+								<div
+									class="score-row"
+									onclick={() => toggleMobileTooltip(ranked.model.id, category.id)}
+									onkeydown={(e) =>
+										e.key === 'Enter' && toggleMobileTooltip(ranked.model.id, category.id)}
+									tabindex="0"
+									aria-expanded={activeMobileTooltipId === tooltipId}
+								>
 									<span class="score-label"
 										>{category.emoji} {t('category_' + category.id, category.name)}</span
 									>
 									<span class="score-value">{formatScore(ranked.categoryScores[category.id])}</span>
 								</div>
+								{#if activeMobileTooltipId === tooltipId}
+									<div class="mobile-tooltip-content">
+										<ScoreTooltip
+											data={{
+												category,
+												model: ranked.model,
+												score: ranked.categoryScores[category.id],
+												breakdown: getCategoryBreakdown(ranked.model, category)
+											}}
+											{t}
+										/>
+									</div>
+								{/if}
 							{/each}
 						</div>
 						{#if expanded}
@@ -798,49 +832,7 @@
 				</p>
 			</div>
 		{:else if activeTooltip.type === 'score'}
-			{@const scoreData = activeTooltip.data as {
-				category: Category;
-				model: { name: string };
-				score: number | null;
-				breakdown: {
-					benchmark: { id: string; name: string; url: string; description: string };
-					rawScore: number | null;
-					normalizedScore: number | null;
-				}[];
-			}}
-			<div class="tooltip-header">
-				{t('category_' + scoreData.category.id, scoreData.category.name)}: {formatScore(
-					scoreData.score
-				)}
-			</div>
-			<div class="tooltip-body">
-				<ul class="benchmark-list">
-					{#each scoreData.breakdown as item (item.benchmark.id)}
-						<li>
-							<span
-								class="benchmark-name"
-								title={t('bench_description_' + item.benchmark.id, item.benchmark.description)}
-								>{t('bench_' + item.benchmark.id, item.benchmark.name)}</span
-							>
-							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>
-							<a
-								href={item.benchmark.url}
-								target="_blank"
-								rel="external noopener noreferrer"
-								class="benchmark-link"
-							>
-								🔗
-							</a>
-						</li>
-					{/each}
-				</ul>
-				<p class="benchmark-count">
-					{m.tooltip_benchmarks_available({
-						available: scoreData.breakdown.filter((b) => b.normalizedScore !== null).length,
-						total: scoreData.breakdown.length
-					})}
-				</p>
-			</div>
+			<ScoreTooltip data={activeTooltip.data} {t} />
 		{:else if activeTooltip.type === 'price'}
 			{@const model = activeTooltip.data as Model}
 			<div class="tooltip-header">{m.tooltip_pricing({ model: model.name })}</div>
@@ -1394,6 +1386,26 @@
 		display: flex;
 		justify-content: space-between;
 		font-size: 0.875rem;
+		padding: var(--spacing-xs);
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background var(--transition-fast);
+	}
+
+	.score-row:hover {
+		background: var(--bg-tertiary);
+	}
+
+	.score-row[aria-expanded='true'] {
+		background: var(--bg-tertiary);
+	}
+
+	.mobile-tooltip-content {
+		padding: var(--spacing-sm);
+		background: var(--bg-primary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		margin: var(--spacing-xs) 0;
 	}
 
 	.score-label {
