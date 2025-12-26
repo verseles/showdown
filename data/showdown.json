@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.23",
-		"last_update": "2025-12-23T00:00:00Z",
+		"last_update": "2025-12-23T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -553,28 +553,28 @@
 			"benchmark_scores": {
 				"swe_bench": 78.0,
 				"terminal_bench": null,
-				"lmarena_coding_elo": 1450,
+				"lmarena_coding_elo": 1505,
 				"live_code_bench": null,
 				"gpqa_diamond": 90.4,
 				"aime": null,
 				"arc_agi_2": 33.6,
-				"lmarena_hard_elo": 1440,
+				"lmarena_hard_elo": 1489,
 				"bfcl": null,
 				"tau_bench": 90.2,
 				"osworld": null,
-				"webdev_arena_elo": 1420,
-				"lmarena_creative_elo": 1460,
-				"lmarena_if_elo": 1450,
+				"webdev_arena_elo": 1465,
+				"lmarena_creative_elo": 1463,
+				"lmarena_if_elo": 1456,
 				"math_500": null,
 				"gsm8k": null,
-				"lmarena_math_elo": 1455,
+				"lmarena_math_elo": 1480,
 				"mathvista": null,
 				"mmmu": 81.2,
-				"lmarena_vision_elo": 1380,
+				"lmarena_vision_elo": 1284,
 				"mmlu": 88.59,
 				"mmmlu": null,
-				"lmarena_en_elo": 1450,
-				"lmarena_zh_elo": 1400
+				"lmarena_en_elo": 1476,
+				"lmarena_zh_elo": 1523
 			}
 		},
 		{
@@ -597,28 +597,28 @@
 			"benchmark_scores": {
 				"swe_bench": 78.0,
 				"terminal_bench": null,
-				"lmarena_coding_elo": 1455,
+				"lmarena_coding_elo": 1497,
 				"live_code_bench": null,
 				"gpqa_diamond": 91.5,
 				"aime": null,
 				"arc_agi_2": 36.0,
-				"lmarena_hard_elo": 1450,
+				"lmarena_hard_elo": 1481,
 				"bfcl": null,
 				"tau_bench": 92.0,
 				"osworld": null,
-				"webdev_arena_elo": 1425,
-				"lmarena_creative_elo": 1465,
-				"lmarena_if_elo": 1455,
+				"webdev_arena_elo": 1381,
+				"lmarena_creative_elo": 1438,
+				"lmarena_if_elo": 1443,
 				"math_500": null,
 				"gsm8k": null,
-				"lmarena_math_elo": 1465,
+				"lmarena_math_elo": 1474,
 				"mathvista": null,
 				"mmmu": 82.0,
-				"lmarena_vision_elo": 1385,
+				"lmarena_vision_elo": 1268,
 				"mmlu": 89.0,
 				"mmmlu": null,
-				"lmarena_en_elo": 1455,
-				"lmarena_zh_elo": 1410
+				"lmarena_en_elo": 1464,
+				"lmarena_zh_elo": 1506
 			}
 		},
 		{
