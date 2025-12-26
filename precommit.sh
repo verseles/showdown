@@ -87,11 +87,27 @@ if (Math.abs(totalWeight - 1) > 0.01) {
   throw new Error('Category weights do not sum to 1: ' + totalWeight);
 }
 
+// Validate benchmark weights within each category sum to ~1
+for (const cat of categories) {
+  const benchWeight = cat.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+  if (Math.abs(benchWeight - 1) > 0.01) {
+    throw new Error('Benchmark weights in category ' + cat.id + ' do not sum to 1: ' + benchWeight);
+  }
+}
+
 // Validate benchmark IDs in models exist in categories
 const benchmarkIds = new Set();
 for (const cat of categories) {
   for (const bench of cat.benchmarks) {
     benchmarkIds.add(bench.id);
+  }
+}
+
+// Validate new required benchmarks exist in categories
+const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'ifeval', 'mmlu_pro'];
+for (const req of requiredBenchmarks) {
+  if (!benchmarkIds.has(req)) {
+    throw new Error('Required benchmark missing from categories: ' + req);
   }
 }
 

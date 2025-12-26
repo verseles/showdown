@@ -286,3 +286,81 @@ describe('getUniqueProviders', () => {
 		expect(providers).toEqual(['Anthropic', 'OpenAI']);
 	});
 });
+
+describe('Benchmark Modernization 2025', () => {
+	it('should handle Knowledge category (renamed from multilingual)', () => {
+		const knowledgeCategory: Category = {
+			id: 'knowledge',
+			name: 'Knowledge',
+			emoji: '🧠',
+			weight: 0.03,
+			description: 'Knowledge assessment',
+			benchmarks: [
+				{
+					id: 'mmlu_pro',
+					name: 'MMLU-Pro',
+					type: 'percentage',
+					weight: 0.4,
+					url: '',
+					description: ''
+				},
+				{ id: 'mmmlu', name: 'MMMLU', type: 'percentage', weight: 0.4, url: '', description: '' }
+			]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: { mmlu_pro: 80, mmmlu: 75 }
+		};
+
+		const score = calculateCategoryScore(model, knowledgeCategory);
+		expect(score).toBe(77.5);
+	});
+
+	it('should handle Reasoning with LiveBench and HLE', () => {
+		const reasoningCategory: Category = {
+			id: 'reasoning',
+			name: 'Reasoning',
+			emoji: '🧠',
+			weight: 0.25,
+			description: 'Reasoning tests',
+			benchmarks: [
+				{
+					id: 'gpqa_diamond',
+					name: 'GPQA',
+					type: 'percentage',
+					weight: 0.4,
+					url: '',
+					description: ''
+				},
+				{
+					id: 'livebench',
+					name: 'LiveBench',
+					type: 'percentage',
+					weight: 0.1,
+					url: '',
+					description: ''
+				},
+				{
+					id: 'humanity_last_exam',
+					name: 'HLE',
+					type: 'percentage',
+					weight: 0.05,
+					url: '',
+					description: ''
+				}
+			]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: { gpqa_diamond: 90, livebench: 70, humanity_last_exam: 20 }
+		};
+
+		const score = calculateCategoryScore(model, reasoningCategory);
+		// Sum of available weights = 0.4 + 0.1 + 0.05 = 0.55
+		// Weighted sum = 90*0.4 + 70*0.1 + 20*0.05 = 36 + 7 + 1 = 44
+		// Final = 44 / 0.55 = 80
+		expect(score).toBeCloseTo(80);
+	});
+});

@@ -70,7 +70,7 @@
 		conversation: true,
 		math: true,
 		multimodal: true,
-		multilingual: true,
+		knowledge: true,
 		price: true,
 		speed: true,
 		latency: false,
@@ -209,6 +209,14 @@
 
 	function isCardExpanded(modelId: string): boolean {
 		return expandedCards.has(modelId);
+	}
+
+	function t(key: string, defaultValue: string): string {
+		const message = m[key as keyof typeof m];
+		if (typeof message === 'function') {
+			return (message as () => string)();
+		}
+		return defaultValue;
 	}
 </script>
 
@@ -381,7 +389,7 @@
 											}}
 										/>
 										{category.emoji}
-										{category.name}
+										{t('category_' + category.id, category.name)}
 									</label>
 								{/each}
 								<hr />
@@ -487,7 +495,9 @@
 									<div class="th-content">
 										<span class="category-header">
 											<span class="emoji">{category.emoji}</span>
-											<span class="category-name">{category.name}</span>
+											<span class="category-name"
+												>{t('category_' + category.id, category.name)}</span
+											>
 										</span>
 										<span class="sort-icon">{getSortIcon(category.id)}</span>
 									</div>
@@ -658,7 +668,7 @@
 					<option value="overall">{m.column_rank()}</option>
 					<option value="name">{m.column_model()}</option>
 					{#each data.categories as category (category.id)}
-						<option value={category.id}>{category.name}</option>
+						<option value={category.id}>{t('category_' + category.id, category.name)}</option>
 					{/each}
 					<option value="price">{m.column_price()}</option>
 					<option value="speed">{m.column_speed()}</option>
@@ -698,7 +708,9 @@
 						<div class="card-scores">
 							{#each expanded ? data.categories : data.categories.slice(0, 3) as category (category.id)}
 								<div class="score-row">
-									<span class="score-label">{category.emoji} {category.name}</span>
+									<span class="score-label"
+										>{category.emoji} {t('category_' + category.id, category.name)}</span
+									>
 									<span class="score-value">{formatScore(ranked.categoryScores[category.id])}</span>
 								</div>
 							{/each}
@@ -775,9 +787,12 @@
 			</div>
 		{:else if activeTooltip.type === 'category'}
 			{@const category = activeTooltip.data as Category}
-			<div class="tooltip-header">{category.emoji} {category.name}</div>
+			<div class="tooltip-header">
+				{category.emoji}
+				{t('category_' + category.id, category.name)}
+			</div>
 			<div class="tooltip-body">
-				<p>{category.description}</p>
+				<p>{t('category_description_' + category.id, category.description)}</p>
 				<p class="tooltip-weight">
 					{m.tooltip_weight({ percentage: (category.weight * 100).toFixed(0) })}
 				</p>
@@ -788,17 +803,25 @@
 				model: { name: string };
 				score: number | null;
 				breakdown: {
-					benchmark: { id: string; name: string; url: string };
+					benchmark: { id: string; name: string; url: string; description: string };
 					rawScore: number | null;
 					normalizedScore: number | null;
 				}[];
 			}}
-			<div class="tooltip-header">{scoreData.category.name}: {formatScore(scoreData.score)}</div>
+			<div class="tooltip-header">
+				{t('category_' + scoreData.category.id, scoreData.category.name)}: {formatScore(
+					scoreData.score
+				)}
+			</div>
 			<div class="tooltip-body">
 				<ul class="benchmark-list">
 					{#each scoreData.breakdown as item (item.benchmark.id)}
 						<li>
-							<span class="benchmark-name">{item.benchmark.name}</span>
+							<span
+								class="benchmark-name"
+								title={t('bench_description_' + item.benchmark.id, item.benchmark.description)}
+								>{t('bench_' + item.benchmark.id, item.benchmark.name)}</span
+							>
 							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>
 							<a
 								href={item.benchmark.url}
