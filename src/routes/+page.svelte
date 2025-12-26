@@ -708,17 +708,16 @@
 									·
 								{/if}
 								{#if visibleColumns.type}
-									<span
-										class="type-badge"
-										class:proprietary={ranked.model.type === 'proprietary'}
-									>
+									<span class="type-badge" class:proprietary={ranked.model.type === 'proprietary'}>
 										{ranked.model.type === 'proprietary' ? m.type_proprietary() : m.type_open()}
 									</span>
 								{/if}
 							</p>
 						{/if}
 						<div class="card-scores">
-							{#each data.categories .filter((c) => visibleColumns[c.id as keyof typeof visibleColumns]) .slice(0, expanded ? undefined : 3) as category (category.id)}
+							{#each data.categories
+								.filter((c) => visibleColumns[c.id as keyof typeof visibleColumns])
+								.slice(0, expanded ? undefined : 3) as category (category.id)}
 								<div class="score-row">
 									<span class="score-label"
 										>{category.emoji} {t('category_' + category.id, category.name)}</span
@@ -772,21 +771,17 @@
 									</div>
 								{/if}
 							</div>
-						{:else}
-							{#if visibleColumns.price || visibleColumns.speed}
-								<div class="card-footer">
-									{#if visibleColumns.price}
-										<span class="price"
-											>{formatPrice(ranked.model.pricing.average_per_1m)}</span
-										>
-									{/if}
-									{#if visibleColumns.speed}
-										<span class="speed"
-											>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
-										>
-									{/if}
-								</div>
-							{/if}
+						{:else if visibleColumns.price || visibleColumns.speed}
+							<div class="card-footer">
+								{#if visibleColumns.price}
+									<span class="price">{formatPrice(ranked.model.pricing.average_per_1m)}</span>
+								{/if}
+								{#if visibleColumns.speed}
+									<span class="speed"
+										>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+									>
+								{/if}
+							</div>
 						{/if}
 						<button
 							class="expand-btn"
