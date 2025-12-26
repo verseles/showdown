@@ -13,7 +13,7 @@ const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
 	{
-		ignores: ['plugins/message-format.js', 'editor/**']
+		ignores: ['plugins/message-format.js']
 	},
 	js.configs.recommended,
 	...ts.configs.recommended,

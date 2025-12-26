@@ -50,8 +50,10 @@ We aggregate scores from 20+ industry benchmarks, weighted by practical importan
 
 - Percentage benchmarks used directly
 - Elo scores normalized to 0-100
-- Missing data? We renormalize weights fairly
+- Missing data? We **estimate** using category averages (marked with \* in UI)
 - Final score = weighted average across categories
+
+> **Note:** To ensure fair comparisons, missing benchmark scores are automatically estimated using the average of other benchmarks in the same category for that model. Estimated values are clearly marked with an asterisk (\*) and should be replaced with real data when available. See [UPDATE.md](UPDATE.md#imputed-estimated-values) for details.
 
 ## Contributing
 

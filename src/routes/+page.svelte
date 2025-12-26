@@ -669,6 +669,10 @@
 							{#each data.categories as category (category.id)}
 								{#if visibleColumns[category.id as keyof typeof visibleColumns]}
 									{@const score = ranked.categoryScores[category.id]}
+									{@const breakdown = getCategoryBreakdown(ranked.model, category)}
+									{@const hasImputedValues =
+										ranked.model.imputed_metadata &&
+										category.benchmarks.some((b) => ranked.model.imputed_metadata?.[b.id])}
 									<td
 										class="col-score"
 										class:top-score={isTopScore(score, topScores.categories[category.id])}
@@ -677,11 +681,16 @@
 												category,
 												model: ranked.model,
 												score,
-												breakdown: getCategoryBreakdown(ranked.model, category)
+												breakdown
 											})}
 										onmouseleave={hideTooltip}
 									>
-										<span class="score-value">{formatScore(score)}</span>
+										<span class="score-value">
+											{formatScore(score)}
+											{#if hasImputedValues}
+												<span class="imputed-indicator" title="Contains estimated values">*</span>
+											{/if}
+										</span>
 									</td>
 								{/if}
 							{/each}
@@ -776,6 +785,9 @@
 								.filter((c) => visibleColumns[c.id as keyof typeof visibleColumns])
 								.slice(0, expanded ? undefined : 3) as category (category.id)}
 								{@const score = ranked.categoryScores[category.id]}
+								{@const hasImputedValues =
+									ranked.model.imputed_metadata &&
+									category.benchmarks.some((b) => ranked.model.imputed_metadata?.[b.id])}
 								<div
 									class="score-row clickable-score"
 									onclick={(e) => handleScoreClick(e, ranked.model, category, score)}
@@ -792,7 +804,10 @@
 										>{category.emoji} {t('category_' + category.id, category.name)}</span
 									>
 									<span class="score-value">
-										{formatScore(score)}
+										{formatScore(score)}{#if hasImputedValues}<span
+												class="imputed-indicator"
+												title="Contains estimated values">*</span
+											>{/if}
 										<svg
 											class="info-icon"
 											width="14"
@@ -907,7 +922,7 @@
 		{:else if activeTooltip.type === 'score'}
 			{@const scoreData = activeTooltip.data as {
 				category: Category;
-				model: { name: string };
+				model: Model;
 				score: number | null;
 				breakdown: {
 					benchmark: { id: string; name: string; url: string; description: string };
@@ -923,11 +938,15 @@
 			<div class="tooltip-body">
 				<ul class="benchmark-list">
 					{#each scoreData.breakdown as item (item.benchmark.id)}
-						<li>
+						{@const isImputed = scoreData.model.imputed_metadata?.[item.benchmark.id]}
+						<li class:imputed-benchmark={isImputed}>
 							<span
 								class="benchmark-name"
 								title={t('bench_description_' + item.benchmark.id, item.benchmark.description)}
-								>{t('bench_' + item.benchmark.id, item.benchmark.name)}</span
+								>{t('bench_' + item.benchmark.id, item.benchmark.name)}{#if isImputed}<span
+										class="imputed-marker"
+										title={isImputed.note}>*</span
+									>{/if}</span
 							>
 							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>
 							<a
@@ -947,6 +966,11 @@
 						total: scoreData.breakdown.length
 					})}
 				</p>
+				{#if scoreData.model.imputed_metadata && Object.keys(scoreData.model.imputed_metadata).some( (id) => scoreData.category.benchmarks.find((b) => b.id === id) )}
+					<p class="imputed-notice">
+						<em>* = Estimated value (calculated from other benchmarks in this category)</em>
+					</p>
+				{/if}
 			</div>
 		{:else if activeTooltip.type === 'price'}
 			{@const model = activeTooltip.data as Model}
@@ -1614,6 +1638,36 @@
 	.benchmark-count {
 		font-size: 0.75rem;
 		color: var(--text-muted);
+	}
+
+	.imputed-indicator {
+		color: var(--accent-warning, #f59e0b);
+		font-weight: bold;
+		font-size: 0.9em;
+		margin-left: 2px;
+		cursor: help;
+	}
+
+	.imputed-marker {
+		color: var(--accent-warning, #f59e0b);
+		font-weight: bold;
+		margin-left: 2px;
+		cursor: help;
+	}
+
+	.imputed-benchmark {
+		background: rgba(245, 158, 11, 0.1);
+		border-radius: 4px;
+		padding: 2px 4px;
+	}
+
+	.imputed-notice {
+		font-size: 0.7rem;
+		color: var(--accent-warning, #f59e0b);
+		font-style: italic;
+		margin-top: var(--spacing-xs);
+		border-top: 1px solid var(--border-light);
+		padding-top: var(--spacing-xs);
 	}
 
 	.price-breakdown {

@@ -10,7 +10,8 @@ import {
 	formatScore,
 	formatPrice,
 	formatSpeed,
-	getUniqueProviders
+	getUniqueProviders,
+	imputeMissingScores
 } from './ranking.js';
 import type { Model, Category, Benchmark } from './types.js';
 
@@ -105,6 +106,244 @@ describe('getBenchmarkScore', () => {
 		};
 		const score = getBenchmarkScore(modelWithNull, mockBenchmark);
 		expect(score).toBeNull();
+	});
+});
+
+describe('imputeMissingScores', () => {
+	it('should impute missing percentage benchmark using category average', () => {
+		const benchmark1: Benchmark = {
+			id: 'bench1',
+			name: 'Benchmark 1',
+			type: 'percentage',
+			weight: 0.4,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const benchmark2: Benchmark = {
+			id: 'bench2',
+			name: 'Benchmark 2',
+			type: 'percentage',
+			weight: 0.3,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+		const benchmark3: Benchmark = {
+			id: 'bench3',
+			name: 'Benchmark 3 (missing)',
+			type: 'percentage',
+			weight: 0.3,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+
+		const category: Category = {
+			id: 'test',
+			name: 'Test Category',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [benchmark1, benchmark2, benchmark3]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				bench1: 80,
+				bench2: 60,
+				bench3: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category]);
+
+		// Average of 80 and 60 = 70
+		expect(imputed.benchmark_scores.bench3).toBe(70);
+		expect(imputed.imputed_metadata).toBeDefined();
+		expect(imputed.imputed_metadata!.bench3).toBeDefined();
+		expect(imputed.imputed_metadata!.bench3.imputed_value).toBe(70);
+		expect(imputed.imputed_metadata!.bench3.method).toBe('category_average');
+	});
+
+	it('should impute missing Elo benchmark using normalized category average', () => {
+		const bench1: Benchmark = {
+			id: 'elo1',
+			name: 'Elo 1',
+			type: 'elo',
+			weight: 0.5,
+			url: 'https://test.com',
+			description: 'Test',
+			elo_range: { min: 1000, max: 1500 }
+		};
+		const bench2: Benchmark = {
+			id: 'elo2',
+			name: 'Elo 2 (missing)',
+			type: 'elo',
+			weight: 0.5,
+			url: 'https://test.com',
+			description: 'Test',
+			elo_range: { min: 1000, max: 1500 }
+		};
+
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [bench1, bench2]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				elo1: 1250, // Normalized: 50
+				elo2: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category]);
+
+		// elo1 normalized = (1250-1000)/(1500-1000)*100 = 50
+		// Average = 50
+		// Denormalized back: 50/100 * (1500-1000) + 1000 = 1250
+		expect(imputed.benchmark_scores.elo2).toBe(1250);
+		expect(imputed.imputed_metadata!.elo2.imputed_value).toBe(1250);
+	});
+
+	it('should not impute if no other benchmarks available in category', () => {
+		const bench1: Benchmark = {
+			id: 'lone_bench',
+			name: 'Lone Benchmark',
+			type: 'percentage',
+			weight: 1.0,
+			url: 'https://test.com',
+			description: 'Test'
+		};
+
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [bench1]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				lone_bench: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category]);
+
+		// Should remain null since no other benchmarks
+		expect(imputed.benchmark_scores.lone_bench).toBeNull();
+		expect(imputed.imputed_metadata).toEqual({});
+	});
+
+	it('should not mutate original model', () => {
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [mockBenchmark, mockEloBenchmark]
+		};
+
+		const original: Model = {
+			...mockModel,
+			benchmark_scores: {
+				test_bench: 80,
+				test_elo: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(original, [category]);
+
+		// Original should be unchanged
+		expect(original.benchmark_scores.test_elo).toBeNull();
+		expect(original.imputed_metadata).toBeUndefined();
+
+		// Imputed should have the value
+		expect(imputed.benchmark_scores.test_elo).not.toBeNull();
+		expect(imputed.imputed_metadata).toBeDefined();
+	});
+
+	it('should handle multiple categories correctly', () => {
+		const category1: Category = {
+			id: 'cat1',
+			name: 'Category 1',
+			emoji: '1️⃣',
+			weight: 0.5,
+			description: 'Test',
+			benchmarks: [
+				{
+					id: 'cat1_bench1',
+					name: 'Cat1 Bench1',
+					type: 'percentage',
+					weight: 0.5,
+					url: 'https://test.com',
+					description: 'Test'
+				},
+				{
+					id: 'cat1_bench2',
+					name: 'Cat1 Bench2 (missing)',
+					type: 'percentage',
+					weight: 0.5,
+					url: 'https://test.com',
+					description: 'Test'
+				}
+			]
+		};
+
+		const category2: Category = {
+			id: 'cat2',
+			name: 'Category 2',
+			emoji: '2️⃣',
+			weight: 0.5,
+			description: 'Test',
+			benchmarks: [
+				{
+					id: 'cat2_bench1',
+					name: 'Cat2 Bench1',
+					type: 'percentage',
+					weight: 0.5,
+					url: 'https://test.com',
+					description: 'Test'
+				},
+				{
+					id: 'cat2_bench2',
+					name: 'Cat2 Bench2 (missing)',
+					type: 'percentage',
+					weight: 0.5,
+					url: 'https://test.com',
+					description: 'Test'
+				}
+			]
+		};
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: {
+				cat1_bench1: 90,
+				cat1_bench2: null as unknown as number,
+				cat2_bench1: 50,
+				cat2_bench2: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(model, [category1, category2]);
+
+		// cat1_bench2 should be imputed from cat1_bench1 (90)
+		expect(imputed.benchmark_scores.cat1_bench2).toBe(90);
+
+		// cat2_bench2 should be imputed from cat2_bench1 (50)
+		expect(imputed.benchmark_scores.cat2_bench2).toBe(50);
+
+		expect(Object.keys(imputed.imputed_metadata!)).toHaveLength(2);
 	});
 });
 
