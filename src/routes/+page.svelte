@@ -1188,7 +1188,7 @@
 		border-radius: 8px;
 		box-shadow: var(--shadow-lg);
 		min-width: 200px;
-		z-index: 100;
+		z-index: 1000;
 	}
 
 	.dropdown-header {
@@ -1437,6 +1437,8 @@
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		flex-grow: 1;
+		position: relative;
+		z-index: 1000;
 	}
 
 	.sort-order-btn {
@@ -1659,6 +1661,8 @@
 		--ms-dropdown-border-color: var(--border-color);
 		--ms-tag-bg: var(--accent-primary);
 		--ms-tag-color: white;
+		position: relative;
+		z-index: 1000;
 	}
 
 	:global(.multiselect-option.selected) {
