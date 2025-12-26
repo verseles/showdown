@@ -42,7 +42,5 @@
 		"vitest": "^4.0.10",
 		"vitest-browser-svelte": "^2.0.1"
 	},
-	"dependencies": {
-		"svelte-multiselect": "^11.3.0"
-	}
+	"dependencies": {}
 }

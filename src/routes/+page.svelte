@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { untrack } from 'svelte';
-	import MultiSelect from 'svelte-multiselect';
+	import SimpleMultiSelect from '$lib/components/SimpleMultiSelect.svelte';
 	import type { PageData } from './$types';
 	import type { Category, FilterState, Model } from '$lib/types.js';
 	import {
@@ -338,7 +338,7 @@
 		<div class="filters-bar">
 			<div class="filter-group">
 				<label for="provider-filter">{m.filter_provider()}</label>
-				<MultiSelect
+				<SimpleMultiSelect
 					bind:selected={filters.providers}
 					options={providers}
 					placeholder={m.filter_provider_placeholder()}
@@ -1706,43 +1706,6 @@
 
 	.col-price {
 		cursor: help;
-	}
-
-	:global(.multiselect) {
-		--ms-bg: var(--bg-primary);
-		--ms-border-color: var(--border-color);
-		--ms-ring-color: var(--accent-primary);
-		--ms-placeholder-color: var(--text-muted);
-		--ms-option-bg-selected: var(--accent-primary);
-		--ms-dropdown-bg: var(--bg-secondary);
-		--ms-dropdown-border-color: var(--border-color);
-		--ms-tag-bg: var(--accent-primary);
-		--ms-tag-color: white;
-		position: relative;
-		z-index: 1; /* Low z-index when closed */
-	}
-
-	/* High z-index only when multiselect is open/focused */
-	:global(.multiselect:focus-within),
-	:global(.multiselect.open) {
-		z-index: 1000;
-	}
-
-	:global(.multiselect-option.selected) {
-		background: var(--accent-primary);
-		color: white;
-	}
-
-	:global(.multiselect-option.selected.pointed) {
-		background: var(--accent-secondary);
-		color: white;
-	}
-
-	/* Ensure multiselect dropdown appears above sticky columns */
-	:global(.multiselect .options),
-	:global(.multiselect ul) {
-		z-index: 2001 !important;
-		position: relative;
 	}
 
 	/* Footer */
