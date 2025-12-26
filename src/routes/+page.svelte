@@ -212,7 +212,7 @@
 		}
 	}
 
-	function toggleCardExpanded(modelId:string) {
+	function toggleCardExpanded(modelId: string) {
 		if (expandedCards.has(modelId)) {
 			expandedCards = new Set([...expandedCards].filter((id) => id !== modelId));
 		} else {
@@ -832,7 +832,19 @@
 				</p>
 			</div>
 		{:else if activeTooltip.type === 'score'}
-			<ScoreTooltip data={activeTooltip.data} {t} />
+			<ScoreTooltip
+				data={activeTooltip.data as {
+					category: Category;
+					model: { name: string };
+					score: number | null;
+					breakdown: {
+						benchmark: { id: string; name: string; url: string; description: string };
+						rawScore: number | null;
+						normalizedScore: number | null;
+					}[];
+				}}
+				{t}
+			/>
 		{:else if activeTooltip.type === 'price'}
 			{@const model = activeTooltip.data as Model}
 			<div class="tooltip-header">{m.tooltip_pricing({ model: model.name })}</div>
