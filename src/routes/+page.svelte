@@ -1442,8 +1442,6 @@
 		background: var(--bg-secondary);
 		color: var(--text-primary);
 		flex-grow: 1;
-		position: relative;
-		z-index: 1000;
 	}
 
 	.sort-order-btn {
