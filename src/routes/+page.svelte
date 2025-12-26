@@ -41,8 +41,8 @@
 		return m.aria_switch_system();
 	}
 
-	// Sorting state
-	let sortBy = $state('overall');
+	// Sorting state - Default to Coding category (best to worst)
+	let sortBy = $state('coding');
 	let sortOrder = $state<'asc' | 'desc'>('desc');
 
 	// Filter state
@@ -99,6 +99,28 @@
 				visibleColumns = { ...visibleColumns, ...JSON.parse(storedColumns) };
 			} catch {
 				// Invalid JSON, use default
+			}
+		} else {
+			// No stored preferences - show all columns on mobile
+			const isMobile = window.innerWidth < 768;
+			if (isMobile) {
+				visibleColumns = {
+					rank: true,
+					provider: true,
+					model: true,
+					type: true,
+					coding: true,
+					reasoning: true,
+					agents: true,
+					conversation: true,
+					math: true,
+					multimodal: true,
+					knowledge: true,
+					price: true,
+					speed: true,
+					latency: true,
+					release_date: true
+				};
 			}
 		}
 		isInitialized = true;
