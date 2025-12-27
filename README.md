@@ -3,6 +3,8 @@
 > **Which AI model is actually the best?** We aggregate 20+ benchmarks so you don't have to.
 
 [![Live Site](https://img.shields.io/badge/Live-showdown.best-blue)](https://showdown.best)
+[![CI](https://github.com/verseles/showdown/actions/workflows/validate.yml/badge.svg)](https://github.com/verseles/showdown/actions/workflows/validate.yml)
+[![Cloudflare Pages](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
 [![License](https://img.shields.io/badge/License-AGPL--3.0-green)](LICENSE)
 
 ## What is Showdown?
