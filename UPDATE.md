@@ -630,11 +630,7 @@ When updating data:
 8. **Use r.jina.ai proxy for links** - Prefix URLs with `https://r.jina.ai/` before fetching
 9. **Create feature branches** - Never commit directly to main branch
 10. **Create PRs using gh CLI** - Use `gh pr create` when available
-11. **Thinking Models Rule**:
-    - If base model has `null` and thinking model has value → apply thinking value to base
-    - If only ONE value is reported (no thinking/base specified) → DON'T apply to both automatically
-    - If both already have values → DON'T modify (assume different measurements)
-12. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
-13. **Update meta.version and meta.last_update** whenever making data changes
+11. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
+12. **Update meta.version and meta.last_update** whenever making data changes
 
 If a benchmark score cannot be found after thorough searching, use `null` and note it in the commit message.
