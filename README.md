@@ -34,7 +34,7 @@ npm run dev
 
 ## How Rankings Work
 
-We aggregate scores from 20+ industry benchmarks, weighted by practical importance:
+We aggregate scores from 25+ industry benchmarks, weighted by practical importance:
 
 | Category       | Weight | What it measures                                 |
 | -------------- | ------ | ------------------------------------------------ |
@@ -86,9 +86,11 @@ Rankings aggregate data from trusted sources:
 
 - [SWE-Bench](https://swebench.com) - Real GitHub issue resolution
 - [GPQA](https://github.com/idavidrein/gpqa) - PhD-level questions
+- [LiveBench](https://livebench.ai) - Contamination-resistant, monthly-updated benchmarks
 - [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling
 - [LMArena](https://lmarena.ai/leaderboard) - Human preferences
 - [Artificial Analysis](https://artificialanalysis.ai) - Speed metrics
+- And 15+ more academic benchmarks
 
 ## License
 

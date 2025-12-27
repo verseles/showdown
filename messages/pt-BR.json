@@ -111,7 +111,7 @@
 	"bench_description_aider_polyglot": "Benchmark de programação multilíngue testando geração e edição de código.",
 	"bench_description_gpqa_diamond": "Questões de física, química e biologia de nível de pós-graduação.",
 	"bench_description_arc_agi_2": "Teste de raciocínio abstrato e generalização resistente à contaminação.",
-	"bench_description_livebench": "Benchmark atualizado continuamente e resistente à contaminação.",
+	"bench_description_livebench": "Continuously updated benchmark resistant to contamination (global average)",
 	"bench_description_humanity_last_exam": "Questões de nível de doutorado em mais de 100 domínios.",
 	"bench_description_lmarena_hard_elo": "Preferência humana em tarefas de raciocínio desafiadoras.",
 	"bench_description_bfcl": "Precisão de chamada de função em vários idiomas.",
@@ -134,5 +134,13 @@
 	"bench_description_lmarena_en_elo": "Preferência humana em tarefas em inglês.",
 	"bench_description_lmarena_zh_elo": "Preferência humana em tarefas em chinês.",
 	"imputed_indicator_title": "Contém valores estimados",
-	"imputed_notice": "* = Valor estimado (calculado a partir de outros benchmarks nesta categoria)"
+	"imputed_notice": "* = Valor estimado (calculado a partir de outros benchmarks nesta categoria)",
+	"bench_livebench_coding": "LiveBench Coding",
+	"bench_livebench_data_analysis": "LiveBench Data Analysis",
+	"bench_livebench_math": "LiveBench Math",
+	"bench_livebench_reasoning": "LiveBench Reasoning",
+	"bench_description_livebench_coding": "Agentic coding tasks with real GitHub libraries using Mini-SWE-Agent",
+	"bench_description_livebench_data_analysis": "Data manipulation: table reformatting, joins, and type annotation",
+	"bench_description_livebench_math": "Recent math competitions including IMO, USAMO, and harder AMPS",
+	"bench_description_livebench_reasoning": "Theory of mind, zebra puzzles, and spatial reasoning tasks"
 }

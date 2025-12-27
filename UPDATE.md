@@ -2,6 +2,96 @@
 
 This document provides detailed instructions for updating `data/showdown.json` with new models or updated benchmark scores.
 
+## 🆕 Recent Changes (December 2025)
+
+### LiveBench Subcategories Added
+
+**Date:** 2025-12-27
+
+**Summary:** LiveBench has been expanded from a single global benchmark to include 4 subcategory-specific benchmarks for more granular evaluation.
+
+**New Benchmarks Added:**
+
+| Benchmark ID              | Category       | Weight | Description                                                        |
+| ------------------------- | -------------- | ------ | ------------------------------------------------------------------ |
+| `livebench_reasoning`     | Reasoning      | 15%    | Theory of mind, zebra puzzles, spatial reasoning (monthly updates) |
+| `livebench_coding`        | Coding         | 15%    | Agentic coding with Mini-SWE-Agent, real GitHub libraries          |
+| `livebench_math`          | Math           | 20%    | Recent competitions (IMO, USAMO, AMPS)                             |
+| `livebench_data_analysis` | Agents & Tools | 15%    | Table reformatting, joins, type annotation with Kaggle datasets    |
+
+**Original `livebench` benchmark:**
+
+- Now serves as **fallback** for models without subcategory scores
+- Weight reduced from 10% → 5% in Reasoning category
+- Description updated to indicate "(global average fallback)"
+
+**Weight Adjustments:**
+
+<details>
+<summary>Reasoning Category (25% total weight)</summary>
+
+- `gpqa_diamond`: 40% → 35%
+- `arc_agi_2`: 30% (unchanged)
+- `livebench_reasoning`: NEW 15%
+- `livebench`: 10% → 5% (fallback)
+- `humanity_last_exam`: 5% (unchanged)
+- `lmarena_hard_elo`: 15% → 10%
+
+</details>
+
+<details>
+<summary>Coding Category (25% total weight)</summary>
+
+- `swe_bench`: 45% → 40%
+- `terminal_bench`: 5% (unchanged)
+- `lmarena_coding_elo`: 25% → 20%
+- `livebench_coding`: NEW 15%
+- `live_code_bench`: 15% → 12%
+- `aider_polyglot`: 10% → 8%
+
+</details>
+
+<details>
+<summary>Math Category (10% total weight)</summary>
+
+- `math_500`: 50% → 40%
+- `aime`: 20% (unchanged)
+- `livebench_math`: NEW 20%
+- `lmarena_math_elo`: 20% → 12%
+- `frontiermath`: 10% → 8%
+
+</details>
+
+<details>
+<summary>Agents & Tools Category (18% total weight)</summary>
+
+- `bfcl`: 30% → 27%
+- `tau_bench`: 25% → 23%
+- `osworld`: 25% → 20%
+- `livebench_data_analysis`: NEW 15%
+- `webdev_arena_elo`: 20% → 15%
+
+</details>
+
+**Why This Change:**
+
+1. **Contamination Resistance:** LiveBench updates monthly with new questions from recent sources (papers, competitions, news)
+2. **Granular Insights:** Subcategories reveal domain-specific strengths (e.g., excellent at math but average at data analysis)
+3. **Better Coverage:** Reduces reliance on estimated scores when detailed data is available
+4. **Academic Validation:** Accepted as ICLR 2025 Spotlight paper
+
+**Data Collection:**
+
+When updating model data, collect LiveBench subcategory scores from:
+
+- **Official Source:** https://livebench.ai (requires manual extraction from leaderboard)
+- **Fallback:** Use global `livebench` score if subcategories unavailable
+- Set subcategory fields to `null` if only global average is available
+
+**All Models Updated:** All 35 models in `data/showdown.json` now have the 4 new benchmark fields (set to `null` pending data collection).
+
+---
+
 ## Quick Reference for AI Assistants
 
 When asked to update data (e.g., "Add GPT-5.2 to the rankings"), follow this process:
@@ -64,23 +154,23 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 
 ### Primary Benchmark Sources
 
-| Benchmark                      | URL                                                                                          | What to Search                    |
-| ------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------- |
-| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column                |
-| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy  |
-| **AIDER Polyglot**             | https://aider.chat/docs/leaderboards/                                                        | Overall accuracy across languages |
-| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column               |
-| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column                |
-| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column           |
-| **FrontierMath**               | https://epoch.ai/frontiermath                                                                | Overall accuracy column           |
-| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below  |
-| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column                |
-| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                   |
-| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column   |
-| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports        |
-| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                       |
-| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                       |
-| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations               |
+| Benchmark                      | URL                                                                                          | What to Search                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc (global) + subcategory scores (Reasoning, Coding, Math, Data Analysis) |
+| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy                                                   |
+| **AIDER Polyglot**             | https://aider.chat/docs/leaderboards/                                                        | Overall accuracy across languages                                                  |
+| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column                                                                |
+| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column                                                                 |
+| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column                                                            |
+| **FrontierMath**               | https://epoch.ai/frontiermath                                                                | Overall accuracy column                                                            |
+| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below                                                   |
+| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column                                                                 |
+| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                                                                    |
+| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column                                                    |
+| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports                                                         |
+| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                                                                        |
+| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                                                                        |
+| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations                                                                |
 
 ### LMArena (Chatbot Arena) - Multiple Categories
 
@@ -211,6 +301,7 @@ Each model in `data/showdown.json` must follow this structure:
 - `swe_bench` - SWE-Bench Verified (%)
 - `terminal_bench` - Terminal-Bench (%)
 - `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1500)
+- `livebench_coding` - LiveBench Coding (%)
 - `live_code_bench` - LiveCodeBench (%)
 - `aider_polyglot` - AIDER Polyglot (%)
 
@@ -218,7 +309,8 @@ Each model in `data/showdown.json` must follow this structure:
 
 - `gpqa_diamond` - GPQA Diamond (%)
 - `arc_agi_2` - ARC-AGI-2 (%)
-- `livebench` - LiveBench (%)
+- `livebench_reasoning` - LiveBench Reasoning (%)
+- `livebench` - LiveBench Global Average (%) - _fallback_
 - `humanity_last_exam` - HLE (%)
 - `lmarena_hard_elo` - LMArena Hard (Elo: 1100-1550)
 
@@ -227,6 +319,7 @@ Each model in `data/showdown.json` must follow this structure:
 - `bfcl` - Berkeley Function Calling (%)
 - `tau_bench` - TAU-Bench (%)
 - `osworld` - OSWorld (%)
+- `livebench_data_analysis` - LiveBench Data Analysis (%)
 - `webdev_arena_elo` - WebDev Arena (Elo: 1100-1450)
 
 **Conversation (12% weight):**
@@ -239,6 +332,7 @@ Each model in `data/showdown.json` must follow this structure:
 
 - `math_500` - MATH-500 (%)
 - `aime` - AIME 2025 (%)
+- `livebench_math` - LiveBench Math (%)
 - `lmarena_math_elo` - LMArena Math (Elo: 1100-1500)
 - `frontiermath` - FrontierMath (%)
 

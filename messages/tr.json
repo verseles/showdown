@@ -111,7 +111,7 @@
 	"bench_description_aider_polyglot": "Multilingual coding benchmark testing code generation and editing",
 	"bench_description_gpqa_diamond": "Graduate-level physics, chemistry, and biology questions",
 	"bench_description_arc_agi_2": "ARC-AGI-2: Abstract reasoning and generalization test",
-	"bench_description_livebench": "Continuously updated benchmark resistant to contamination",
+	"bench_description_livebench": "Continuously updated benchmark resistant to contamination (global average)",
 	"bench_description_humanity_last_exam": "Humanity's Last Exam: PhD-level questions across 100+ domains",
 	"bench_description_lmarena_hard_elo": "Human preference on challenging reasoning tasks",
 	"bench_description_bfcl": "Function calling accuracy across multiple languages",
@@ -134,5 +134,13 @@
 	"bench_description_lmarena_en_elo": "Human preference on English tasks",
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Tahmini değerler içerir",
-	"imputed_notice": "* = Tahmini değer (bu kategorideki diğer kıyaslamalardan hesaplanmıştır)"
+	"imputed_notice": "* = Tahmini değer (bu kategorideki diğer kıyaslamalardan hesaplanmıştır)",
+	"bench_livebench_coding": "LiveBench Coding",
+	"bench_livebench_data_analysis": "LiveBench Data Analysis",
+	"bench_livebench_math": "LiveBench Math",
+	"bench_livebench_reasoning": "LiveBench Reasoning",
+	"bench_description_livebench_coding": "Agentic coding tasks with real GitHub libraries using Mini-SWE-Agent",
+	"bench_description_livebench_data_analysis": "Data manipulation: table reformatting, joins, and type annotation",
+	"bench_description_livebench_math": "Recent math competitions including IMO, USAMO, and harder AMPS",
+	"bench_description_livebench_reasoning": "Theory of mind, zebra puzzles, and spatial reasoning tasks"
 }
