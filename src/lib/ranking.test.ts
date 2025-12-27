@@ -469,20 +469,30 @@ describe('calculateCategoryScore', () => {
 		expect(score).toBeNull();
 	});
 
-	it('should renormalize weights when some benchmarks are missing', () => {
+	it('should penalize missing benchmarks by counting them as zero', () => {
 		const modelPartial: Model = {
 			...mockModel,
 			benchmark_scores: { test_bench: 80 }
 		};
 		const score = calculateCategoryScore(modelPartial, mockCategory);
-		// Only test_bench available, so score should be 80
-		expect(score).toBe(80);
+		// test_bench (weight 0.5) has score 80, test_elo (weight 0.5) is missing
+		// presentWeight = 0.5, totalWeight = 1.0, coverage = 50% (exactly threshold)
+		// weightedSum = 80 * 0.5 = 40, score = 40 / 1.0 = 40
+		expect(score).toBe(40);
 	});
 });
 
 describe('calculateOverallScore', () => {
-	it('should calculate weighted average of categories', () => {
-		const categories: Category[] = [mockCategory];
+	it('should calculate weighted average of categories when 4+ categories present', () => {
+		// Need 4 categories minimum for overall score
+		const cat1: Category = { ...mockCategory, id: 'cat1', weight: 0.25 };
+		const cat2: Category = { ...mockCategory, id: 'cat2', weight: 0.25 };
+		const cat3: Category = { ...mockCategory, id: 'cat3', weight: 0.25 };
+		const cat4: Category = { ...mockCategory, id: 'cat4', weight: 0.25 };
+		const categories: Category[] = [cat1, cat2, cat3, cat4];
+
+		// Model with scores for all benchmarks in mockCategory (test_bench=80, test_elo=1100)
+		// Each category score = (80 * 0.5 + 50 * 0.5) / 1.0 = 65
 		const score = calculateOverallScore(mockModel, categories);
 		expect(score).toBe(65);
 	});
@@ -500,6 +510,13 @@ describe('calculateOverallScore', () => {
 
 describe('rankModels', () => {
 	it('should rank models by overall score', () => {
+		// Need 4 categories for overall score to be calculated
+		const cat1: Category = { ...mockCategory, id: 'cat1', weight: 0.25 };
+		const cat2: Category = { ...mockCategory, id: 'cat2', weight: 0.25 };
+		const cat3: Category = { ...mockCategory, id: 'cat3', weight: 0.25 };
+		const cat4: Category = { ...mockCategory, id: 'cat4', weight: 0.25 };
+		const categories: Category[] = [cat1, cat2, cat3, cat4];
+
 		const model1: Model = {
 			...mockModel,
 			id: 'model1',
@@ -510,7 +527,6 @@ describe('rankModels', () => {
 			id: 'model2',
 			benchmark_scores: { test_bench: 70, test_elo: 900 }
 		};
-		const categories: Category[] = [mockCategory];
 
 		const ranked = rankModels([model2, model1], categories);
 
@@ -521,9 +537,15 @@ describe('rankModels', () => {
 	});
 
 	it('should handle models with null scores', () => {
+		// Need 4 categories for overall score
+		const cat1: Category = { ...mockCategory, id: 'cat1', weight: 0.25 };
+		const cat2: Category = { ...mockCategory, id: 'cat2', weight: 0.25 };
+		const cat3: Category = { ...mockCategory, id: 'cat3', weight: 0.25 };
+		const cat4: Category = { ...mockCategory, id: 'cat4', weight: 0.25 };
+		const categories: Category[] = [cat1, cat2, cat3, cat4];
+
 		const model1: Model = { ...mockModel, id: 'model1' };
 		const modelNoScores: Model = { ...mockModel, id: 'model2', benchmark_scores: {} };
-		const categories: Category[] = [mockCategory];
 
 		const ranked = rankModels([modelNoScores, model1], categories);
 

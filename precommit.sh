@@ -5,6 +5,10 @@
 # ========================================
 # This script runs all CI checks locally before committing
 # It ensures code quality and prevents CI failures
+# 
+# Usage:
+#   ./precommit.sh         # Check only mode
+#   ./precommit.sh --fix   # Auto-fix formatting issues
 # ========================================
 
 set -e  # Exit on any error
@@ -14,24 +18,41 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m' # No Color
+
+# Parse arguments
+FIX_MODE=false
+if [[ "$1" == "--fix" ]] || [[ "$1" == "-f" ]]; then
+    FIX_MODE=true
+fi
 
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}   PRECOMMIT VALIDATION - STARTING      ${NC}"
+if $FIX_MODE; then
+    echo -e "${BLUE}   PRECOMMIT VALIDATION - FIX MODE      ${NC}"
+else
+    echo -e "${BLUE}   PRECOMMIT VALIDATION - STARTING      ${NC}"
+fi
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
+
+# Track total time
+TOTAL_START=$(date +%s)
 
 # Function to print step header
 print_step() {
+    STEP_START=$(date +%s)
     echo ""
     echo -e "${YELLOW}▶ Step $1: $2${NC}"
     echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 }
 
-# Function to print success
+# Function to print success with time
 print_success() {
-    echo -e "${GREEN}✓ $1${NC}"
+    local STEP_END=$(date +%s)
+    local ELAPSED=$((STEP_END - STEP_START))
+    echo -e "${GREEN}✓ $1${NC} ${CYAN}(${ELAPSED}s)${NC}"
 }
 
 # Function to print error
@@ -40,32 +61,45 @@ print_error() {
 }
 
 # Step 1: Install dependencies
-print_step "1/6" "Installing dependencies"
+print_step "1/7" "Installing dependencies"
 npm ci
 print_success "Dependencies installed"
 
-# Step 2: Lint
-print_step "2/6" "Running linter"
-npm run lint
-print_success "Linting passed"
+# Step 2: Format (fix or check)
+print_step "2/7" "Checking/Fixing code formatting"
+if $FIX_MODE; then
+    npx prettier --write .
+    print_success "Formatting fixed"
+else
+    npm run lint
+    print_success "Linting passed"
+fi
 
 # Step 3: Generate Paraglide files (i18n)
-print_step "3/6" "Generating Paraglide translation files"
+print_step "3/7" "Generating Paraglide translation files"
 npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide
 print_success "Translation files generated"
 
 # Step 4: Type check
-print_step "4/6" "Running TypeScript type check"
+print_step "4/7" "Running TypeScript type check"
 npm run check
 print_success "Type check passed"
 
 # Step 5: Build
-print_step "5/6" "Building project"
+print_step "5/7" "Building project"
 npm run build
 print_success "Build successful"
 
-# Step 6: Validate JSON data
-print_step "6/6" "Validating JSON data"
+# Step 6: Run tests (if configured)
+print_step "6/7" "Running tests"
+if npm run test 2>/dev/null; then
+    print_success "Tests passed"
+else
+    echo -e "${CYAN}ℹ No tests configured or tests skipped${NC}"
+fi
+
+# Step 7: Validate JSON data
+print_step "7/7" "Validating JSON data"
 node -e "
 const data = require('./data/showdown.json');
 const models = data.models;
@@ -95,7 +129,7 @@ for (const cat of categories) {
   }
 }
 
-// Validate benchmark IDs in models exist in categories
+// Collect all valid benchmark IDs from categories
 const benchmarkIds = new Set();
 for (const cat of categories) {
   for (const bench of cat.benchmarks) {
@@ -104,13 +138,14 @@ for (const cat of categories) {
 }
 
 // Validate new required benchmarks exist in categories
-const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'ifeval', 'mmlu_pro'];
+const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'ifeval', 'mmlu_pro', 'simpleqa'];
 for (const req of requiredBenchmarks) {
   if (!benchmarkIds.has(req)) {
     throw new Error('Required benchmark missing from categories: ' + req);
   }
 }
 
+// Validate benchmark IDs in models exist in categories
 for (const model of models) {
   for (const benchId of Object.keys(model.benchmark_scores)) {
     if (!benchmarkIds.has(benchId)) {
@@ -119,9 +154,29 @@ for (const model of models) {
   }
 }
 
+// Validate imputed_metadata references valid benchmarks
+for (const model of models) {
+  if (model.imputed_metadata) {
+    for (const benchId of Object.keys(model.imputed_metadata)) {
+      if (!benchmarkIds.has(benchId)) {
+        throw new Error('Unknown imputed benchmark ' + benchId + ' in model ' + model.id);
+      }
+      // Validate imputed_metadata structure
+      const meta = model.imputed_metadata[benchId];
+      if (meta.imputed_value === undefined) {
+        throw new Error('imputed_metadata missing imputed_value for ' + benchId + ' in model ' + model.id);
+      }
+    }
+  }
+}
+
 console.log('Validation passed: ' + models.length + ' models, ' + categories.length + ' categories');
 "
 print_success "JSON validation passed"
+
+# Calculate total time
+TOTAL_END=$(date +%s)
+TOTAL_ELAPSED=$((TOTAL_END - TOTAL_START))
 
 # All checks passed
 echo ""
@@ -129,5 +184,5 @@ echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━
 echo -e "${GREEN}   ✓ ALL CHECKS PASSED SUCCESSFULLY     ${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "${GREEN}✓ Your code is ready to commit!${NC}"
+echo -e "${GREEN}✓ Your code is ready to commit!${NC} ${CYAN}(Total: ${TOTAL_ELAPSED}s)${NC}"
 echo ""
