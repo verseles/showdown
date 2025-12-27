@@ -56,7 +56,43 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 - **Always start with Web Search** when looking for current benchmark data
 - **Use r.jina.ai proxy** for all benchmark URLs listed in this document
 - **Don't rely on cached knowledge** - Always verify current scores
-- **Document sources** in your commit messages when data is hard to find
+- **Cross-validate data sources** - Never rely on a single source. Verify in at least 2-3 authoritative sources before applying corrections
+- **Document ALL sources consulted** in commit messages when data is hard to find
+
+---
+
+## Critical Benchmarks (Most Important!)
+
+### 🏆 SWE-Bench Verified - Gold Standard for Coding
+- **URL**: https://swebench.com
+- **What it measures**: Real-world GitHub issue resolution from popular Python repositories
+- **Why it matters**: Most reliable indicator of actual coding capability in production environments
+- **Look for**: "Overall Acc" or "Verified" column
+- **Context**: This is THE benchmark that matters for coding work
+
+### 🧠 ARC-AGI-2 - Most Important for Reasoning
+- **URL**: https://arcprize.org/leaderboard#leaderboard-table
+- **What it measures**: Abstract reasoning and generalization (contamination-resistant)
+- **Why it matters**: Best indicator of true reasoning vs pattern matching
+- **How to read**: Look for "ARC-AGI-2" column (not ARC-AGI-1)
+- **Prioritize**: Entries where `System Type` == `CoT` (Chain of Thought)
+- **Context**: Scores typically range from 5-55%. Higher is dramatically better.
+
+---
+
+## Trustworthy Data Sources (Always Verify These First!)
+
+**PRIORITY ORDER:**
+
+1. **LMArena** (lmarena.ai) - Real-time human preference votes, updated continuously
+2. **LiveBench** (livebench.ai) - Continuously updated benchmark with 21 diverse tasks resistant to contamination
+3. **SWE-Bench Verified** (swebench.com) - Gold standard for coding performance on real-world GitHub issues
+4. **ARC-AGI-2** (arcprize.org) - Most important benchmark for abstract reasoning capability
+5. **Provider Official Announcements** (OpenAI, Google, Anthropic, Meta) - Official press releases and technical reports
+
+⚠️ **Warning:** Some models have history of data manipulation or outdated scores:
+- **Llama 4 Maverick**: Benchmark manipulation controversy reported by The Verge (April 2025)
+- Always cross-verify with multiple sources for models with suspicious data history
 
 ---
 
@@ -411,6 +447,7 @@ When updating model data:
      "schema_version": "1.0"
    }
    ```
+   ⚠️ **Critical:** Always update both `version` and `last_update` timestamp when modifying model data to show data freshness.
 
 ### Updating an Existing Model
 
@@ -422,12 +459,12 @@ When updating model data:
 
 ## Validation
 
-### Local Validation
+### Local Validation (Gatekeeper)
 
-Run before committing:
+Run **BEFORE** committing - this is your final gatekeeper:
 
 ```bash
-# Full validation suite (recommended)
+# Full validation suite (recommended) - MUST RUN
 ./precommit.sh
 
 # Alternative: run each check individually
@@ -436,6 +473,13 @@ npm run lint && npm run check && npm run build
 # Quick JSON syntax check
 node -e "require('./data/showdown.json')"
 ```
+
+⚠️ **CRITICAL:** If `./precommit.sh` fails:
+- DO NOT commit
+- DO NOT push
+- FIX all errors first
+- Run `./precommit.sh` again
+- Only proceed when ALL checks pass ✓
 
 ### CI Pipeline Validation
 
@@ -535,13 +579,25 @@ git checkout -b feature/add-gpt-5-2-high
 
 # Commit and push
 git add data/showdown.json
-git commit -m "Add GPT-5.2 High model"
+git commit -m "Add GPT-5.2 High model
+
+Sources verified:
+- LMArena leaderboard (lmarena.ai)
+- OpenAI official announcement
+- SWE-Bench verified scores (swebench.com)
+- ARC-AGI-2 leaderboard (arcprize.org)"
 git push -u origin feature/add-gpt-5-2-high
 
 # Create PR using gh CLI (if available)
 gh pr create \
   --title "Add GPT-5.2 High model" \
-  --body "Update data/showdown.json with GPT-5.2 High model and latest benchmark scores"
+  --body "Update data/showdown.json with GPT-5.2 High model and latest benchmark scores
+
+## Sources Verified
+- LMArena leaderboard (lmarena.ai)
+- OpenAI official announcement
+- SWE-Bench verified scores (swebench.com)
+- ARC-AGI-2 leaderboard (arcprize.org)"
 ```
 
 ---
@@ -568,12 +624,13 @@ When updating data:
 2. **Use `null` for missing data** - Never guess benchmark scores
 3. **Verify Elo scores are current** - LMArena updates frequently
 4. **Check pricing is current** - Providers often adjust prices
-5. **Validate before committing** - Run `./precommit.sh`
+5. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
 6. **Update the meta timestamp** - Shows data freshness
 7. **Use Web Search frequently** - Find current benchmark scores and announcements
 8. **Use r.jina.ai proxy for links** - Prefix URLs with `https://r.jina.ai/` before fetching
 9. **Create feature branches** - Never commit directly to main branch
 10. **Create PRs using gh CLI** - Use `gh pr create` when available
 11. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
+12. **Update meta.version and meta.last_update** whenever making data changes
 
 If a benchmark score cannot be found after thorough searching, use `null` and note it in the commit message.
