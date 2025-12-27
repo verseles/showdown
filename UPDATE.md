@@ -64,6 +64,7 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 ## Critical Benchmarks (Most Important!)
 
 ### 🏆 SWE-Bench Verified - Gold Standard for Coding
+
 - **URL**: https://swebench.com
 - **What it measures**: Real-world GitHub issue resolution from popular Python repositories
 - **Why it matters**: Most reliable indicator of actual coding capability in production environments
@@ -71,6 +72,7 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 - **Context**: This is THE benchmark that matters for coding work
 
 ### 🧠 ARC-AGI-2 - Most Important for Reasoning
+
 - **URL**: https://arcprize.org/leaderboard#leaderboard-table
 - **What it measures**: Abstract reasoning and generalization (contamination-resistant)
 - **Why it matters**: Best indicator of true reasoning vs pattern matching
@@ -91,6 +93,7 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 5. **Provider Official Announcements** (OpenAI, Google, Anthropic, Meta) - Official press releases and technical reports
 
 ⚠️ **Warning:** Some models have history of data manipulation or outdated scores:
+
 - **Llama 4 Maverick**: Benchmark manipulation controversy reported by The Verge (April 2025)
 - Always cross-verify with multiple sources for models with suspicious data history
 
@@ -108,7 +111,7 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 | **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column               |
 | **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column                |
 | **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column           |
-| **FrontierMath**               | https://epoch.ai/frontiermath                                                                | Overall accuracy column           |
+| **FrontierMath**               | https://epoch.ai/benchmarks/frontiermath                                                     | Leaderboard tab                   |
 | **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below  |
 | **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column                |
 | **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                   |
@@ -475,6 +478,7 @@ node -e "require('./data/showdown.json')"
 ```
 
 ⚠️ **CRITICAL:** If `./precommit.sh` fails:
+
 - DO NOT commit
 - DO NOT push
 - FIX all errors first
