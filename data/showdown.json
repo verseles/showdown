@@ -24,11 +24,11 @@
 			"editor_notes": "Anthropic's most intelligent model. Excels at complex reasoning and advanced coding with extended autonomous operation. New pricing makes it more competitive.",
 			"benchmark_scores": {
 				"aider_polyglot": 95.5,
-				"aime": 78.5,
+				"aime": 48.1,
 				"arc_agi_2": 7.8,
 				"bfcl": 82.5,
 				"frontiermath": 20.7,
-				"gpqa_diamond": 87,
+				"gpqa_diamond": 80.7,
 				"humanity_last_exam": 14.16,
 				"ifeval": null,
 				"live_code_bench": 72.3,
@@ -45,6 +45,7 @@
 				"mathvista": 72.8,
 				"mmlu_pro": 82,
 				"mmmlu": 85.2,
+				"simpleqa": 30,
 				"mmmu": 70.5,
 				"mmmu_pro": 80.7,
 				"osworld": 61.4,
@@ -52,6 +53,15 @@
 				"tau_bench": 64.2,
 				"terminal_bench": 58.5,
 				"webdev_arena_elo": 1480
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 30,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated as ~70% of thinking variant (41.8)"
+				}
 			}
 		},
 		{
@@ -73,11 +83,11 @@
 			"editor_notes": "Extended thinking variant of Opus 4.5. Excels at complex reasoning tasks with visible chain-of-thought. Won LMArena Triple Crown (Expert, WebDev, Math). Higher latency due to deliberation.",
 			"benchmark_scores": {
 				"aider_polyglot": 89.4,
-				"aime": 93,
+				"aime": 86.1,
 				"arc_agi_2": 37.6,
 				"bfcl": 80.9,
 				"frontiermath": 20.7,
-				"gpqa_diamond": 87,
+				"gpqa_diamond": 86,
 				"humanity_last_exam": 25.2,
 				"ifeval": null,
 				"live_code_bench": 75.5,
@@ -94,6 +104,7 @@
 				"mathvista": 78.5,
 				"mmlu_pro": null,
 				"mmmlu": 84.6,
+				"simpleqa": 41.8,
 				"mmmu": 83,
 				"mmmu_pro": 80.7,
 				"osworld": 66.3,
@@ -122,11 +133,11 @@
 			"editor_notes": "Best-in-class for software engineering. State-of-the-art on SWE-bench with excellent balance of speed and capability.",
 			"benchmark_scores": {
 				"aider_polyglot": 92.9,
-				"aime": 72.3,
+				"aime": 35.6,
 				"arc_agi_2": 3.8,
 				"bfcl": 80.8,
 				"frontiermath": 9.3,
-				"gpqa_diamond": 78.5,
+				"gpqa_diamond": 73.7,
 				"humanity_last_exam": 30,
 				"ifeval": 88.5,
 				"live_code_bench": 74.5,
@@ -143,6 +154,7 @@
 				"mathvista": 68.5,
 				"mmlu_pro": 78,
 				"mmmlu": 82.8,
+				"simpleqa": 13,
 				"mmmu": 66.2,
 				"mmmu_pro": null,
 				"osworld": 44,
@@ -171,11 +183,11 @@
 			"editor_notes": "Extended thinking variant of Sonnet 4.5. Excels at complex reasoning tasks with visible chain-of-thought. Higher latency due to deliberation but improved math and coding benchmarks.",
 			"benchmark_scores": {
 				"aider_polyglot": 93.3,
-				"aime": 88.5,
+				"aime": 77.8,
 				"arc_agi_2": 13.6,
 				"bfcl": 83.5,
 				"frontiermath": 15.2,
-				"gpqa_diamond": 83.4,
+				"gpqa_diamond": 81.7,
 				"humanity_last_exam": 35,
 				"ifeval": 91,
 				"live_code_bench": 77.2,
@@ -192,6 +204,7 @@
 				"mathvista": 74.5,
 				"mmlu_pro": 80,
 				"mmmlu": 84.5,
+				"simpleqa": 23.6,
 				"mmmu": 70.2,
 				"mmmu_pro": null,
 				"osworld": 55.8,
@@ -220,11 +233,11 @@
 			"editor_notes": "Previous flagship with excellent sustained autonomous operation up to 30 hours. Strong at complex multi-step reasoning but higher cost.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 70.5,
+				"aime": 40,
 				"arc_agi_2": 8.1,
 				"bfcl": 78.5,
 				"frontiermath": 5.9,
-				"gpqa_diamond": 74.9,
+				"gpqa_diamond": 73.2,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": 68.2,
@@ -241,6 +254,7 @@
 				"mathvista": 68.2,
 				"mmlu_pro": null,
 				"mmmlu": 81.5,
+				"simpleqa": 34.8,
 				"mmmu": 65.5,
 				"mmmu_pro": null,
 				"osworld": 58.2,
@@ -269,11 +283,11 @@
 			"editor_notes": "Excellent multimodal capabilities with very fast inference. Good value for general-purpose tasks but superseded by newer models on benchmarks.",
 			"benchmark_scores": {
 				"aider_polyglot": 16,
-				"aime": 45.2,
+				"aime": 6.3,
 				"arc_agi_2": 5.5,
 				"bfcl": 76.2,
 				"frontiermath": 0.3,
-				"gpqa_diamond": 53.6,
+				"gpqa_diamond": 48.9,
 				"humanity_last_exam": 26.6,
 				"ifeval": null,
 				"live_code_bench": 48.2,
@@ -290,6 +304,7 @@
 				"mathvista": 63.8,
 				"mmlu_pro": 72.6,
 				"mmmlu": 78.2,
+				"simpleqa": 8,
 				"mmmu": 58.5,
 				"mmmu_pro": null,
 				"osworld": 32.5,
@@ -297,6 +312,15 @@
 				"tau_bench": 45.5,
 				"terminal_bench": 28.5,
 				"webdev_arena_elo": 1253
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 8,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated based on older model performance"
+				}
 			}
 		},
 		{
@@ -318,11 +342,11 @@
 			"editor_notes": "OpenAI's latest flagship with adaptive reasoning. 30% faster than GPT-4o with improved instruction following. First model to reach 70 on Artificial Analysis Index.",
 			"benchmark_scores": {
 				"aider_polyglot": 88,
-				"aime": 85,
+				"aime": 85.6,
 				"arc_agi_2": 17.6,
 				"bfcl": 82.5,
 				"frontiermath": 2.1,
-				"gpqa_diamond": 86.6,
+				"gpqa_diamond": 85,
 				"humanity_last_exam": 25.32,
 				"ifeval": 85,
 				"live_code_bench": 68.5,
@@ -339,6 +363,7 @@
 				"mathvista": 68.5,
 				"mmlu_pro": 86.9,
 				"mmmlu": 85,
+				"simpleqa": 40,
 				"mmmu": 65.5,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -346,6 +371,15 @@
 				"tau_bench": null,
 				"terminal_bench": 47.6,
 				"webdev_arena_elo": 1393
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 40,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated as ~82% of GPT-5.1 High (48.9)"
+				}
 			}
 		},
 		{
@@ -367,11 +401,11 @@
 			"editor_notes": "AKA GPT-5.1 Thinking (high effort). Extended thinking variant with high reasoning effort. Scores 69 on Artificial Analysis Index. Higher latency and cost but excels on complex reasoning tasks.",
 			"benchmark_scores": {
 				"aider_polyglot": 88,
-				"aime": 95,
+				"aime": 88.6,
 				"arc_agi_2": 20,
 				"bfcl": 84.5,
 				"frontiermath": 31,
-				"gpqa_diamond": 88.5,
+				"gpqa_diamond": 87.6,
 				"humanity_last_exam": 25.32,
 				"ifeval": 85,
 				"live_code_bench": 78,
@@ -388,6 +422,7 @@
 				"mathvista": 72.5,
 				"mmlu_pro": 86.9,
 				"mmmlu": 87.5,
+				"simpleqa": 48.9,
 				"mmmu": 70,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -416,11 +451,11 @@
 			"editor_notes": "AKA GPT-5.2 Low (low effort). OpenAI's latest flagship with 256K context. First to score 90%+ on ARC-AGI-1 and 52.9% on ARC-AGI-2. Strong improvements over GPT 5.1 in all categories.",
 			"benchmark_scores": {
 				"aider_polyglot": 92.4,
-				"aime": 92,
+				"aime": 78.9,
 				"arc_agi_2": 48.5,
 				"bfcl": 85.5,
 				"frontiermath": 26.6,
-				"gpqa_diamond": 90.5,
+				"gpqa_diamond": 82.7,
 				"humanity_last_exam": 28,
 				"ifeval": 89,
 				"live_code_bench": 72.5,
@@ -437,6 +472,7 @@
 				"mathvista": 72.5,
 				"mmlu_pro": 88.5,
 				"mmmlu": 87.5,
+				"simpleqa": 34.7,
 				"mmmu": 70.5,
 				"mmmu_pro": 86.5,
 				"osworld": null,
@@ -465,11 +501,11 @@
 			"editor_notes": "AKA GPT-5.2 High (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 52.9% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 100,
+				"aime": 96.1,
 				"arc_agi_2": 52.9,
 				"bfcl": 88.5,
 				"frontiermath": 40.3,
-				"gpqa_diamond": 92.4,
+				"gpqa_diamond": 88.2,
 				"humanity_last_exam": 34.5,
 				"ifeval": null,
 				"live_code_bench": 78.5,
@@ -486,6 +522,7 @@
 				"mathvista": 78.5,
 				"mmlu_pro": null,
 				"mmmlu": 89.5,
+				"simpleqa": 38.2,
 				"mmmu": 76.5,
 				"mmmu_pro": 86.5,
 				"osworld": 58.5,
@@ -514,11 +551,11 @@
 			"editor_notes": "AKA GPT-5.2 xhigh (correlates). Premium tier with highest accuracy. First model to score 93.2% GPQA Diamond and 54.2% ARC-AGI-2 Verified. Peak performance for high-stakes scenarios. 70.9% match on GDPval knowledge tasks.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 100,
+				"aime": 96.1,
 				"arc_agi_2": 54.2,
 				"bfcl": 90.5,
 				"frontiermath": 40.7,
-				"gpqa_diamond": 93.2,
+				"gpqa_diamond": 91.4,
 				"humanity_last_exam": 36.6,
 				"ifeval": null,
 				"live_code_bench": 82,
@@ -535,6 +572,7 @@
 				"mathvista": 82.5,
 				"mmlu_pro": null,
 				"mmmlu": 91.5,
+				"simpleqa": 38.9,
 				"mmmu": 80.5,
 				"mmmu_pro": 86.5,
 				"osworld": 62.5,
@@ -563,11 +601,11 @@
 			"editor_notes": "First model to break 1500 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
 			"benchmark_scores": {
 				"aider_polyglot": 82.2,
-				"aime": 95,
+				"aime": 91.4,
 				"arc_agi_2": 31.1,
 				"bfcl": 82.8,
 				"frontiermath": 37.6,
-				"gpqa_diamond": 91.9,
+				"gpqa_diamond": 92.6,
 				"humanity_last_exam": 37.52,
 				"ifeval": null,
 				"live_code_bench": 78.5,
@@ -584,6 +622,7 @@
 				"mathvista": 78.5,
 				"mmlu_pro": 89,
 				"mmmlu": 91.8,
+				"simpleqa": 72.9,
 				"mmmu": 75.2,
 				"mmmu_pro": 81.0,
 				"osworld": 48.5,
@@ -612,11 +651,11 @@
 			"editor_notes": "Fastest intelligent model at 218 TPS. Outperforms even Gemini 3 Pro on SWE-Bench (78%) at quarter the cost. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
 			"benchmark_scores": {
 				"aider_polyglot": 61.9,
-				"aime": null,
+				"aime": 92.8,
 				"arc_agi_2": 33.6,
 				"bfcl": null,
 				"frontiermath": 35.6,
-				"gpqa_diamond": 90.4,
+				"gpqa_diamond": 83.2,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": null,
@@ -633,6 +672,7 @@
 				"mathvista": null,
 				"mmlu_pro": 84,
 				"mmmlu": null,
+				"simpleqa": 67.4,
 				"mmmu": 81.2,
 				"mmmu_pro": 81.2,
 				"osworld": null,
@@ -661,11 +701,11 @@
 			"editor_notes": "Thinking mode of Gemini 3 Flash. Uses thinking_level parameter for controlled reasoning. Balances speed with enhanced reasoning capability for complex tasks. #2 on LMArena Overall.",
 			"benchmark_scores": {
 				"aider_polyglot": 61.9,
-				"aime": null,
+				"aime": 92.8,
 				"arc_agi_2": 36,
 				"bfcl": null,
 				"frontiermath": 35.6,
-				"gpqa_diamond": 91.5,
+				"gpqa_diamond": 83.2,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": null,
@@ -682,6 +722,7 @@
 				"mathvista": null,
 				"mmlu_pro": 84,
 				"mmmlu": null,
+				"simpleqa": 67.4,
 				"mmmu": 82,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -689,6 +730,15 @@
 				"tau_bench": 92,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1465
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 67.4,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Using Gemini 3 Flash base value"
+				}
 			}
 		},
 		{
@@ -710,11 +760,11 @@
 			"editor_notes": "Excellent value with 1M token context window. Strong reasoning at lower cost but superseded by Gemini 3 on cutting-edge tasks.",
 			"benchmark_scores": {
 				"aider_polyglot": 76.5,
-				"aime": 78.2,
+				"aime": 84.2,
 				"arc_agi_2": 4.9,
 				"bfcl": 79.5,
 				"frontiermath": 14.1,
-				"gpqa_diamond": 86.4,
+				"gpqa_diamond": 85.3,
 				"humanity_last_exam": 26.9,
 				"ifeval": 82,
 				"live_code_bench": 65.5,
@@ -731,6 +781,7 @@
 				"mathvista": 72.5,
 				"mmlu_pro": 86.7,
 				"mmmlu": 84.2,
+				"simpleqa": 56,
 				"mmmu": 68.8,
 				"mmmu_pro": null,
 				"osworld": 42.5,
@@ -759,11 +810,11 @@
 			"editor_notes": "Outstanding value as open-source model. Strong coding performance at fraction of proprietary model costs. Excellent for tool use.",
 			"benchmark_scores": {
 				"aider_polyglot": 68.4,
-				"aime": 68.5,
+				"aime": 87.8,
 				"arc_agi_2": 8.5,
 				"bfcl": 80.5,
 				"frontiermath": 22.1,
-				"gpqa_diamond": 75.2,
+				"gpqa_diamond": 83.4,
 				"humanity_last_exam": 15.1,
 				"ifeval": 86.1,
 				"live_code_bench": 56.4,
@@ -780,6 +831,7 @@
 				"mathvista": 65.5,
 				"mmlu_pro": 83.1,
 				"mmmlu": 82.5,
+				"simpleqa": 27.5,
 				"mmmu": 62.5,
 				"mmmu_pro": 83.7,
 				"osworld": 38.5,
@@ -808,11 +860,11 @@
 			"editor_notes": "Reasoning-focused model with excellent math performance. Competitive with o3 on GPQA at fraction of cost.",
 			"benchmark_scores": {
 				"aider_polyglot": 71.6,
-				"aime": 87.5,
+				"aime": 53.3,
 				"arc_agi_2": 1.3,
 				"bfcl": 75.8,
 				"frontiermath": 1.7,
-				"gpqa_diamond": 81,
+				"gpqa_diamond": 69.2,
 				"humanity_last_exam": 18,
 				"ifeval": 84,
 				"live_code_bench": 73.3,
@@ -829,6 +881,7 @@
 				"mathvista": 68.2,
 				"mmlu_pro": 84,
 				"mmmlu": 84,
+				"simpleqa": 27.4,
 				"mmmu": 64.5,
 				"mmmu_pro": 85.0,
 				"osworld": 35.2,
@@ -857,11 +910,11 @@
 			"editor_notes": "xAI's flagship successor to Grok 4. #2 on LMArena Overall (1465 Elo). 3x reduction in hallucinations vs Grok 4. Excels at emotional intelligence and conversation.",
 			"benchmark_scores": {
 				"aider_polyglot": 79.6,
-				"aime": 96,
+				"aime": 84,
 				"arc_agi_2": 15.9,
 				"bfcl": 83.5,
 				"frontiermath": 19.7,
-				"gpqa_diamond": 89.5,
+				"gpqa_diamond": 87,
 				"humanity_last_exam": 44.4,
 				"ifeval": null,
 				"live_code_bench": 70.5,
@@ -878,6 +931,7 @@
 				"mathvista": 76.5,
 				"mmlu_pro": 85,
 				"mmmlu": 87.5,
+				"simpleqa": 47.9,
 				"mmmu": 73,
 				"mmmu_pro": 72.7,
 				"osworld": 48,
@@ -906,11 +960,11 @@
 			"editor_notes": "Extended thinking variant of Grok 4.1. #1 on LMArena Overall (1483 Elo). Deep reasoning with chain-of-thought. Top-tier emotional intelligence (1586 EQ-Bench Elo).",
 			"benchmark_scores": {
 				"aider_polyglot": 82,
-				"aime": 97.5,
+				"aime": 84,
 				"arc_agi_2": 22.5,
 				"bfcl": 85.5,
 				"frontiermath": 19.7,
-				"gpqa_diamond": 91,
+				"gpqa_diamond": 87,
 				"humanity_last_exam": 50.7,
 				"ifeval": null,
 				"live_code_bench": 74.5,
@@ -927,6 +981,7 @@
 				"mathvista": 79.5,
 				"mmlu_pro": 88,
 				"mmmlu": 88.5,
+				"simpleqa": 47.9,
 				"mmmu": 76,
 				"mmmu_pro": null,
 				"osworld": 52.5,
@@ -934,6 +989,15 @@
 				"tau_bench": 62.5,
 				"terminal_bench": 56.5,
 				"webdev_arena_elo": 1358
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 47.9,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Using Grok 4.1 base value"
+				}
 			}
 		},
 		{
@@ -955,11 +1019,11 @@
 			"editor_notes": "Open-weights model with strong coding. Excellent LiveCodeBench performance. Free for self-hosting, competitive with closed models.",
 			"benchmark_scores": {
 				"aider_polyglot": 70,
-				"aime": 62.5,
+				"aime": 20.6,
 				"arc_agi_2": 7.8,
 				"bfcl": 77.6,
 				"frontiermath": null,
-				"gpqa_diamond": 68.5,
+				"gpqa_diamond": 67,
 				"humanity_last_exam": 20,
 				"ifeval": null,
 				"live_code_bench": 43.4,
@@ -976,6 +1040,7 @@
 				"mathvista": 58.5,
 				"mmlu_pro": 85.5,
 				"mmmlu": 78.5,
+				"simpleqa": 15,
 				"mmmu": 55.2,
 				"mmmu_pro": null,
 				"osworld": 32.5,
@@ -983,6 +1048,15 @@
 				"tau_bench": 48.5,
 				"terminal_bench": 38.5,
 				"webdev_arena_elo": 1255
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 15,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated for open-source model"
+				}
 			}
 		},
 		{
@@ -1004,11 +1078,11 @@
 			"editor_notes": "Blazing fast with 10M token context. Exceptional speed at 2600 tokens/s. Ideal for high-throughput applications.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 45.5,
+				"aime": 7.8,
 				"arc_agi_2": 5.2,
 				"bfcl": 72.5,
 				"frontiermath": null,
-				"gpqa_diamond": 52.5,
+				"gpqa_diamond": 51.8,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": 35.5,
@@ -1025,6 +1099,7 @@
 				"mathvista": 48.5,
 				"mmlu_pro": null,
 				"mmmlu": 72.5,
+				"simpleqa": 10,
 				"mmmu": 45.5,
 				"mmmu_pro": null,
 				"osworld": 25.5,
@@ -1032,6 +1107,15 @@
 				"tau_bench": 38.5,
 				"terminal_bench": 28.5,
 				"webdev_arena_elo": 1205
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 10,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated for smaller open-source model"
+				}
 			}
 		},
 		{
@@ -1053,11 +1137,11 @@
 			"editor_notes": "Flagship open-source MoE model. Outperforms DeepSeek-R1 on 17/23 benchmarks. State-of-the-art reasoning among open models.",
 			"benchmark_scores": {
 				"aider_polyglot": 61.8,
-				"aime": 82.5,
+				"aime": 86.7,
 				"arc_agi_2": 9.5,
 				"bfcl": 82.5,
 				"frontiermath": 8.5,
-				"gpqa_diamond": 78.5,
+				"gpqa_diamond": 80.1,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": 68.5,
@@ -1074,6 +1158,7 @@
 				"mathvista": 68.5,
 				"mmlu_pro": 78,
 				"mmmlu": 85.5,
+				"simpleqa": 50.1,
 				"mmmu": 65.5,
 				"mmmu_pro": null,
 				"osworld": 38.5,
@@ -1123,6 +1208,7 @@
 				"mathvista": 58.5,
 				"mmlu_pro": null,
 				"mmmlu": 79.5,
+				"simpleqa": 25,
 				"mmmu": 55.5,
 				"mmmu_pro": 68.1,
 				"osworld": 32.5,
@@ -1130,6 +1216,15 @@
 				"tau_bench": 45.5,
 				"terminal_bench": 35.5,
 				"webdev_arena_elo": 1245
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 25,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated as ~50% of Qwen3 235B (50.1)"
+				}
 			}
 		},
 		{
@@ -1151,11 +1246,11 @@
 			"editor_notes": "Alibaba's flagship proprietary model in preview. Top 3 on LMArena. Strong coding (SWE-Bench 69.6% verified) and math performance. Thinking variant achieves 100% on AIME 2025.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 60.7,
+				"aime": 73.3,
 				"arc_agi_2": null,
 				"bfcl": 80.5,
 				"frontiermath": null,
-				"gpqa_diamond": 77.8,
+				"gpqa_diamond": 72.6,
 				"humanity_last_exam": null,
 				"ifeval": null,
 				"live_code_bench": 66.9,
@@ -1172,6 +1267,7 @@
 				"mathvista": 68.5,
 				"mmlu_pro": null,
 				"mmmlu": 83.5,
+				"simpleqa": 67.5,
 				"mmmu": 65.5,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1200,11 +1296,11 @@
 			"editor_notes": "Premier reasoning model with extended thinking. Excels at complex multi-step problems. Higher latency due to deliberation.",
 			"benchmark_scores": {
 				"aider_polyglot": 81.3,
-				"aime": 86.5,
+				"aime": 83.9,
 				"arc_agi_2": 6.5,
 				"bfcl": 78.5,
 				"frontiermath": 18.7,
-				"gpqa_diamond": 83.3,
+				"gpqa_diamond": 81.8,
 				"humanity_last_exam": 24,
 				"ifeval": 87,
 				"live_code_bench": 72.5,
@@ -1221,6 +1317,7 @@
 				"mathvista": 78.5,
 				"mmlu_pro": 86.4,
 				"mmmlu": 85.5,
+				"simpleqa": 53,
 				"mmmu": 74.5,
 				"mmmu_pro": 76.4,
 				"osworld": 48.5,
@@ -1270,6 +1367,7 @@
 				"mathvista": 65.5,
 				"mmlu_pro": null,
 				"mmmlu": 80.5,
+				"simpleqa": 45,
 				"mmmu": 62.5,
 				"mmmu_pro": null,
 				"osworld": 35.5,
@@ -1277,6 +1375,15 @@
 				"tau_bench": 45.5,
 				"terminal_bench": 32.5,
 				"webdev_arena_elo": 1313
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 45,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated as ~80% of Gemini 2.5 Pro (56.0)"
+				}
 			}
 		},
 		{
@@ -1319,6 +1426,7 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": null,
+				"simpleqa": 18,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1326,6 +1434,15 @@
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1317
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 18,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated for open-source MoE model"
+				}
 			}
 		},
 		{
@@ -1368,6 +1485,7 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": null,
+				"simpleqa": 20,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1375,6 +1493,15 @@
 				"tau_bench": null,
 				"terminal_bench": 35.7,
 				"webdev_arena_elo": null
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 20,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated as ~65% of Kimi K2 Thinking (31.6)"
+				}
 			}
 		},
 		{
@@ -1396,11 +1523,11 @@
 			"editor_notes": "Thinking agent with multi-step reasoning and tool use. Sets open-source records on SWE-bench (71.3%) and Humanity's Last Exam (44.9% w/tools). Can execute 200-300 sequential tool calls.",
 			"benchmark_scores": {
 				"aider_polyglot": null,
-				"aime": 94.5,
+				"aime": 83.1,
 				"arc_agi_2": null,
 				"bfcl": 90,
 				"frontiermath": 21.4,
-				"gpqa_diamond": 84.5,
+				"gpqa_diamond": 84.2,
 				"humanity_last_exam": 23.9,
 				"ifeval": null,
 				"live_code_bench": 83,
@@ -1417,6 +1544,7 @@
 				"mathvista": null,
 				"mmlu_pro": 89.8,
 				"mmmlu": 87.7,
+				"simpleqa": 31.6,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1466,6 +1594,7 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": null,
+				"simpleqa": 15,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1473,6 +1602,15 @@
 				"tau_bench": 67.7,
 				"terminal_bench": 39.51,
 				"webdev_arena_elo": null
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 15,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated for open-source MoE model"
+				}
 			}
 		},
 		{
@@ -1515,6 +1653,7 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": null,
+				"simpleqa": 12,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
@@ -1522,6 +1661,15 @@
 				"tau_bench": null,
 				"terminal_bench": 23.8,
 				"webdev_arena_elo": null
+			},
+			"imputed_metadata": {
+				"simpleqa": {
+					"original_value": null,
+					"imputed_value": 12,
+					"method": "estimated",
+					"imputed_date": "2025-12-27",
+					"note": "Estimated for open-source MoE model"
+				}
 			}
 		}
 	],
@@ -1819,7 +1967,7 @@
 					"id": "mmlu_pro",
 					"name": "MMLU-Pro",
 					"type": "percentage",
-					"weight": 0.4,
+					"weight": 0.3,
 					"url": "https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro",
 					"description": "Enhanced MMLU with 10 answer options and reasoning focus"
 				},
@@ -1827,9 +1975,17 @@
 					"id": "mmmlu",
 					"name": "MMMLU",
 					"type": "percentage",
-					"weight": 0.4,
+					"weight": 0.3,
 					"url": "https://huggingface.co/datasets/openai/mmmlu",
 					"description": "Multilingual MMLU across 14 languages"
+				},
+				{
+					"id": "simpleqa",
+					"name": "SimpleQA Verified",
+					"type": "percentage",
+					"weight": 0.2,
+					"url": "https://openai.com/index/introducing-simpleqa/",
+					"description": "1,000 factoid questions testing factual accuracy and hallucination detection"
 				},
 				{
 					"id": "lmarena_en_elo",
