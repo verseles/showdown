@@ -72,7 +72,7 @@
 			},
 			"editor_notes": "Extended thinking variant of Opus 4.5. Excels at complex reasoning tasks with visible chain-of-thought. Won LMArena Triple Crown (Expert, WebDev, Math). Higher latency due to deliberation.",
 			"benchmark_scores": {
-				"aider_polyglot": null,
+				"aider_polyglot": 89.4,
 				"aime": 93,
 				"arc_agi_2": 37.6,
 				"bfcl": 80.9,
