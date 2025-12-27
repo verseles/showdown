@@ -146,7 +146,7 @@
 				"mmmu": 66.2,
 				"mmmu_pro": null,
 				"osworld": 44,
-				"swe_bench": 82,
+				"swe_bench": 77.2,
 				"tau_bench": 58.5,
 				"terminal_bench": 62.1,
 				"webdev_arena_elo": 1387
@@ -195,7 +195,7 @@
 				"mmmu": 70.2,
 				"mmmu_pro": null,
 				"osworld": 55.8,
-				"swe_bench": 82,
+				"swe_bench": 77.2,
 				"tau_bench": 62.5,
 				"terminal_bench": 63.5,
 				"webdev_arena_elo": 1393
