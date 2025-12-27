@@ -1,12 +1,73 @@
 /**
  * Core ranking calculation engine for Showdown
  * Handles normalization, weighted averages, and null-safe scoring logic
+ *
+ * ## Design Philosophy
+ *
+ * ### Missing Benchmark Handling
+ * Models with missing benchmarks are intentionally **penalized** rather than having
+ * their weights renormalized. This encourages complete benchmark coverage and prevents
+ * models with only favorable benchmarks from gaming the system.
+ *
+ * - Missing benchmarks contribute **0** to the weighted sum
+ * - Category score = weightedSum / totalWeight (not presentWeight)
+ * - This means a model missing 50% of benchmarks in a category could score ~50% of
+ *   what it would score with complete data
+ *
+ * ### Minimum Coverage Requirements
+ * - **Category scores** require at least 50% weighted coverage to be valid
+ * - **Overall scores** require at least 4 categories with valid scores
+ * - These thresholds prevent unreliable rankings from incomplete data
+ *
+ * ### Imputation Strategy
+ * When imputation is enabled, missing benchmarks are estimated using the category
+ * average of other benchmarks the model has in the same category. This only applies
+ * when at least 50% of benchmarks in the category have real values.
  */
 
 import type { Model, Category, Benchmark, RankedModel } from './types.js';
 
+// ============================================
+// Configuration Constants
+// ============================================
+
 /**
- * Normalize an Elo score to a 0-100 scale
+ * Minimum weighted coverage required for a category score to be valid.
+ * If a model has less than this coverage in a category, the category score is null.
+ * Value of 0.5 means at least 50% of benchmark weights must have scores.
+ */
+export const MIN_CATEGORY_COVERAGE = 0.5;
+
+/**
+ * Minimum number of categories with valid scores required for overall score.
+ * If a model has scores in fewer categories, the overall score is null.
+ * This prevents unfair rankings from models with very incomplete data.
+ */
+export const MIN_CATEGORIES_FOR_OVERALL = 4;
+
+/**
+ * Minimum proportion of benchmarks (by count) required for imputation.
+ * Only impute missing values if at least this proportion have real data.
+ * Uses Math.ceil(totalBenchmarks * MIN_IMPUTATION_COVERAGE) as threshold.
+ */
+export const MIN_IMPUTATION_COVERAGE = 0.5;
+
+/**
+ * Valid methods for imputation in imputed_metadata
+ */
+export const VALID_IMPUTATION_METHODS = [
+	'category_average',
+	'cross_model_average',
+	'estimated',
+	'manual'
+] as const;
+
+/**
+ * Normalize an Elo score to a 0-100 scale.
+ * @param elo - The raw Elo score
+ * @param min - Minimum expected Elo in the range
+ * @param max - Maximum expected Elo in the range
+ * @returns Normalized score between 0-100
  */
 export function normalizeEloScore(elo: number, min: number, max: number): number {
 	if (max === min) return 50; // Avoid division by zero
@@ -173,7 +234,7 @@ export function calculateCategoryScore(model: Model, category: Category): number
 	const weightedCoverage = totalWeight > 0 ? presentWeight / totalWeight : 0;
 
 	// If weighted coverage is less than 0.5 (50%), return null as there's insufficient data.
-	if (weightedCoverage < 0.5) {
+	if (weightedCoverage < MIN_CATEGORY_COVERAGE) {
 		return null;
 	}
 
@@ -218,7 +279,7 @@ export function calculateOverallScore(model: Model, categories: Category[]): num
 	}
 
 	// If fewer than 4 categories have scores, return null
-	if (categoryScores.length < 4) {
+	if (categoryScores.length < MIN_CATEGORIES_FOR_OVERALL) {
 		return null;
 	}
 

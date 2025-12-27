@@ -155,6 +155,7 @@ for (const model of models) {
 }
 
 // Validate imputed_metadata references valid benchmarks
+const validMethods = ['category_average', 'cross_model_average', 'estimated', 'manual'];
 for (const model of models) {
   if (model.imputed_metadata) {
     for (const benchId of Object.keys(model.imputed_metadata)) {
@@ -165,6 +166,14 @@ for (const model of models) {
       const meta = model.imputed_metadata[benchId];
       if (meta.imputed_value === undefined) {
         throw new Error('imputed_metadata missing imputed_value for ' + benchId + ' in model ' + model.id);
+      }
+      // Validate imputed_value is a number
+      if (typeof meta.imputed_value !== 'number' || isNaN(meta.imputed_value)) {
+        throw new Error('imputed_value must be a valid number for ' + benchId + ' in model ' + model.id);
+      }
+      // Validate method if present
+      if (meta.method && !validMethods.includes(meta.method)) {
+        throw new Error('Invalid imputation method \"' + meta.method + '\" for ' + benchId + ' in model ' + model.id + '. Valid: ' + validMethods.join(', '));
       }
     }
   }

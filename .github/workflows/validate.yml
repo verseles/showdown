@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main]
 
+# Cancel redundant runs on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -16,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -33,6 +38,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Run tests
+        run: npm run test:unit -- --run
+        continue-on-error: true
 
       - name: Validate JSON data
         run: |
@@ -57,7 +66,15 @@ jobs:
               throw new Error('Category weights do not sum to 1: ' + totalWeight);
             }
 
-            // Validate benchmark IDs in models exist in categories
+            // Validate benchmark weights within each category sum to ~1
+            for (const cat of categories) {
+              const benchWeight = cat.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+              if (Math.abs(benchWeight - 1) > 0.01) {
+                throw new Error('Benchmark weights in category ' + cat.id + ' do not sum to 1: ' + benchWeight);
+              }
+            }
+
+            // Collect all valid benchmark IDs from categories
             const benchmarkIds = new Set();
             for (const cat of categories) {
               for (const bench of cat.benchmarks) {
@@ -65,10 +82,41 @@ jobs:
               }
             }
 
+            // Validate new required benchmarks exist in categories
+            const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'ifeval', 'mmlu_pro', 'simpleqa'];
+            for (const req of requiredBenchmarks) {
+              if (!benchmarkIds.has(req)) {
+                throw new Error('Required benchmark missing from categories: ' + req);
+              }
+            }
+
+            // Validate benchmark IDs in models exist in categories
             for (const model of models) {
               for (const benchId of Object.keys(model.benchmark_scores)) {
                 if (!benchmarkIds.has(benchId)) {
                   throw new Error('Unknown benchmark ' + benchId + ' in model ' + model.id);
+                }
+              }
+            }
+
+            // Validate imputed_metadata references valid benchmarks
+            const validMethods = ['category_average', 'cross_model_average', 'estimated', 'manual'];
+            for (const model of models) {
+              if (model.imputed_metadata) {
+                for (const benchId of Object.keys(model.imputed_metadata)) {
+                  if (!benchmarkIds.has(benchId)) {
+                    throw new Error('Unknown imputed benchmark ' + benchId + ' in model ' + model.id);
+                  }
+                  const meta = model.imputed_metadata[benchId];
+                  if (meta.imputed_value === undefined) {
+                    throw new Error('imputed_metadata missing imputed_value for ' + benchId + ' in model ' + model.id);
+                  }
+                  if (typeof meta.imputed_value !== 'number' || isNaN(meta.imputed_value)) {
+                    throw new Error('imputed_value must be a valid number for ' + benchId + ' in model ' + model.id);
+                  }
+                  if (meta.method && !validMethods.includes(meta.method)) {
+                    throw new Error('Invalid imputation method \"' + meta.method + '\" for ' + benchId + ' in model ' + model.id);
+                  }
                 }
               }
             }
