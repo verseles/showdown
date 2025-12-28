@@ -1252,6 +1252,48 @@ describe('imputeMissingScores with superior_of', () => {
 		expect(metadata.benchmarks_used).toBe(1);
 	});
 
+	it('should cascade through superior_of chain to find values', () => {
+		// Simulates: pro -> thinking -> base chain
+		// base has aider_polyglot, thinking doesn't, pro doesn't
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			name: 'Base Model',
+			benchmark_scores: { bench1: 80, bench2: 70 } // Has bench2
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			name: 'Thinking Model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number } // Missing bench2
+		};
+
+		const proModel: Model = {
+			...mockModel,
+			id: 'pro-model',
+			name: 'Pro Model',
+			superior_of: 'thinking-model',
+			benchmark_scores: { bench1: 92, bench2: null as unknown as number } // Missing bench2
+		};
+
+		const imputed = imputeMissingScores(
+			proModel,
+			[testCategory],
+			[baseModel, thinkingModel, proModel]
+		);
+
+		// pro looks at thinking for bench2 -> null
+		// Cascades to base -> 70
+		// Ratio based on pro vs thinking: 92/88 = 1.045
+		// Imputed = 70 * 1.045 = ~73.2
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(73.2, 0);
+		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
+		expect(imputed.imputed_metadata!.bench2.superior_of_model).toBe('base-model');
+		expect(imputed.imputed_metadata!.bench2.note).toContain('via');
+	});
+
 	it('should not mutate original model when using superior_of', () => {
 		const baseModel: Model = {
 			...mockModel,
