@@ -390,7 +390,7 @@
 			},
 			"editor_notes": "OpenAI's latest flagship with adaptive reasoning. 30% faster than GPT-4o with improved instruction following. First model to reach 70 on Artificial Analysis Index.",
 			"benchmark_scores": {
-				"aider_polyglot": 88,
+				"aider_polyglot": null,
 				"aime": 85.6,
 				"arc_agi_2": 17.6,
 				"bfcl": 82.5,
@@ -458,7 +458,7 @@
 			},
 			"editor_notes": "AKA GPT-5.1 Thinking (high effort). Extended thinking variant with high reasoning effort. Scores 69 on Artificial Analysis Index. Higher latency and cost but excels on complex reasoning tasks.",
 			"benchmark_scores": {
-				"aider_polyglot": 88,
+				"aider_polyglot": null,
 				"aime": 88.6,
 				"arc_agi_2": 20,
 				"bfcl": 84.5,
@@ -522,7 +522,7 @@
 			},
 			"editor_notes": "AKA GPT-5.2 Low (low effort). OpenAI's latest flagship with 256K context. First to score 90%+ on ARC-AGI-1 and 52.9% on ARC-AGI-2. Strong improvements over GPT 5.1 in all categories.",
 			"benchmark_scores": {
-				"aider_polyglot": 92.4,
+				"aider_polyglot": null,
 				"aime": 78.9,
 				"arc_agi_2": 48.5,
 				"bfcl": 85.5,
