@@ -7,8 +7,9 @@
 # It ensures code quality and prevents CI failures
 # 
 # Usage:
-#   ./precommit.sh         # Check only mode
-#   ./precommit.sh --fix   # Auto-fix formatting issues
+#   ./precommit.sh              # Check only mode
+#   ./precommit.sh --fix        # Auto-fix formatting issues
+#   ./precommit.sh --write      # Alias for --fix
 # ========================================
 
 set -e  # Exit on any error
@@ -23,7 +24,7 @@ NC='\033[0m' # No Color
 
 # Parse arguments
 FIX_MODE=false
-if [[ "$1" == "--fix" ]] || [[ "$1" == "-f" ]]; then
+if [[ "$1" == "--fix" ]] || [[ "$1" == "-f" ]] || [[ "$1" == "--write" ]] || [[ "$1" == "-w" ]]; then
     FIX_MODE=true
 fi
 
