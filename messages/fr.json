@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Contient des valeurs estimées",
 	"imputed_notice": "* = Valeur estimée (calculée à partir d'autres benchmarks dans cette catégorie)",
+	"superior_imputed_notice": "* = Estimé comme supérieur au modèle de base (vert)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

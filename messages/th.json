@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "มีค่าประมาณการ",
 	"imputed_notice": "* = ค่าประมาณการ (คำนวณจากเกณฑ์มาตรฐานอื่นๆ ในหมวดนี้)",
+	"superior_imputed_notice": "* = ประมาณว่าเหนือกว่าโมเดลพื้นฐาน (สีเขียว)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

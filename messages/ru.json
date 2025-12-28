@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Содержит расчетные значения",
 	"imputed_notice": "* = Расчетное значение (вычислено на основе других тестов в этой категории)",
+	"superior_imputed_notice": "* = Оценивается как превосходящая базовую модель (зелёный)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

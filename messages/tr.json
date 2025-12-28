@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Tahmini değerler içerir",
 	"imputed_notice": "* = Tahmini değer (bu kategorideki diğer kıyaslamalardan hesaplanmıştır)",
+	"superior_imputed_notice": "* = Temel modelden üstün olarak tahmin edildi (yeşil)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "يحتوي على قيم مقدرة",
 	"imputed_notice": "* = قيمة مقدرة (محسوبة من معايير أخرى في هذه الفئة)",
+	"superior_imputed_notice": "* = مقدرة كمتفوقة على النموذج الأساسي (أخضر)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

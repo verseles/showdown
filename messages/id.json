@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Berisi nilai perkiraan",
 	"imputed_notice": "* = Nilai perkiraan (dihitung dari tolok ukur lain dalam kategori ini)",
+	"superior_imputed_notice": "* = Diperkirakan lebih unggul dari model dasar (hijau)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

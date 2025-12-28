@@ -135,6 +135,7 @@
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "अनुमानित मान शामिल हैं",
 	"imputed_notice": "* = अनुमानित मान (इस श्रेणी में अन्य बेंचमार्क से गणना की गई)",
+	"superior_imputed_notice": "* = आधार मॉडल से बेहतर अनुमानित (हरा)",
 	"bench_livebench_reasoning": "LiveBench Reasoning",
 	"bench_livebench_coding": "LiveBench Coding",
 	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",

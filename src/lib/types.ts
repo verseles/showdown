@@ -17,9 +17,13 @@ export interface Performance {
 export interface ImputedMetadata {
 	original_value: null;
 	imputed_value: number;
-	method: 'category_average';
+	method: 'category_average' | 'superior_of';
 	imputed_date: string;
 	note: string;
+	/** ID of the inferior model (only when method='superior_of') */
+	superior_of_model?: string;
+	/** Calculated superiority ratio (only when method='superior_of') */
+	superiority_ratio?: number;
 }
 
 export interface Model {
@@ -28,6 +32,10 @@ export interface Model {
 	provider: string;
 	type: 'proprietary' | 'open-source';
 	release_date: string;
+	/** ID of the base model this is superior to (for thinking/enhanced variants) */
+	superior_of?: string;
+	/** Alternative names for this model (for benchmark matching) */
+	aka?: string[];
 	pricing: Pricing;
 	performance: Performance;
 	editor_notes: string;
