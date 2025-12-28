@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.28",
-		"last_update": "2025-12-28T03:53:53.514Z",
+		"last_update": "2025-12-28T12:00:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -369,6 +369,64 @@
 					"imputed_date": "2025-12-27",
 					"note": "Estimated based on older model performance"
 				}
+			}
+		},
+		{
+			"id": "gpt-5-high",
+			"name": "GPT-5 High",
+			"aka": ["gpt-5-high", "gpt-5-high-effort", "gpt5-high"],
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-10-15",
+			"pricing": {
+				"input_per_1m": 1.25,
+				"output_per_1m": 10,
+				"average_per_1m": 5.625
+			},
+			"performance": {
+				"output_speed_tps": 40,
+				"latency_ttft_ms": 1600,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "High-reasoning variant of GPT-5. Excellent performance on AIME 2025 (94.6%) and GPQA Diamond (85.7%).",
+			"benchmark_scores": {
+				"aider_polyglot": null,
+				"aime": 94.6,
+				"arc_agi_2": 65.7,
+				"bfcl": null,
+				"frontiermath": 26.3,
+				"gpqa_diamond": 85.7,
+				"humanity_last_exam": null,
+				"ifeval": null,
+				"live_code_bench": null,
+				"livebench": null,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": null,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": 84.2,
+				"mmmu_pro": null,
+				"osworld": null,
+				"swe_bench": 72.8,
+				"tau_bench": null,
+				"terminal_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
