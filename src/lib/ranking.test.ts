@@ -11,7 +11,11 @@ import {
 	formatPrice,
 	formatSpeed,
 	getUniqueProviders,
-	imputeMissingScores
+	imputeMissingScores,
+	calculateSuperiorityRatio,
+	MIN_SUPERIORITY_RATIO,
+	MAX_SUPERIORITY_RATIO,
+	DEFAULT_SUPERIORITY_RATIO
 } from './ranking.js';
 import type { Model, Category, Benchmark } from './types.js';
 
@@ -729,5 +733,558 @@ describe('Benchmark Modernization 2025', () => {
 		// Weighted sum = 90*0.4 + 70*0.1 + 20*0.05 = 36 + 7 + 1 = 44
 		// Final = 44 / 0.55 = 80
 		expect(score).toBeCloseTo(80);
+	});
+});
+
+// ============================================
+// calculateSuperiorityRatio Tests
+// ============================================
+
+describe('calculateSuperiorityRatio', () => {
+	const benchPercent1: Benchmark = {
+		id: 'percent1',
+		name: 'Percent 1',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const benchPercent2: Benchmark = {
+		id: 'percent2',
+		name: 'Percent 2',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const benchElo: Benchmark = {
+		id: 'elo1',
+		name: 'Elo 1',
+		type: 'elo',
+		weight: 0.5,
+		url: '',
+		description: '',
+		elo_range: { min: 1000, max: 1500 }
+	};
+
+	const testCategory: Category = {
+		id: 'test',
+		name: 'Test',
+		emoji: '🧪',
+		weight: 1.0,
+		description: 'Test',
+		benchmarks: [benchPercent1, benchPercent2, benchElo]
+	};
+
+	it('should calculate ratio correctly for percentage benchmarks', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 80, percent2: 60 }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent1: 88, percent2: 66 } // 10% better on both
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// 88/80 = 1.1, 66/60 = 1.1 => average = 1.1
+		expect(ratio).toBeCloseTo(1.1);
+	});
+
+	it('should clamp ratio to MIN when calculated ratio is too low', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 80, percent2: 80 }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent1: 80, percent2: 80.5 } // Only 0.625% better
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// (1.0 + 1.00625) / 2 = ~1.003 => clamped to MIN_SUPERIORITY_RATIO (1.02)
+		expect(ratio).toBe(MIN_SUPERIORITY_RATIO);
+	});
+
+	it('should clamp ratio to MAX when calculated ratio is too high', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 50, percent2: 50 }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent1: 75, percent2: 75 } // 50% better
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// 75/50 = 1.5 => clamped to MAX_SUPERIORITY_RATIO (1.2)
+		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+	});
+
+	it('should return DEFAULT when no shared benchmarks exist', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 80 }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent2: 85 } // No overlap
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		expect(ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+	});
+
+	it('should handle Elo benchmarks by normalizing before ratio', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { elo1: 1200 } // normalized: (1200-1000)/(1500-1000)*100 = 40
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { elo1: 1300 } // normalized: (1300-1000)/(1500-1000)*100 = 60
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// 60/40 = 1.5 => clamped to MAX
+		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+	});
+
+	it('should ignore benchmarks where superior is worse (ratio < 1.0)', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 80, percent2: 70 }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent1: 72, percent2: 84 } // worse on percent1, 20% better on percent2
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// percent1: 72/80 = 0.9 (ignored), percent2: 84/70 = 1.2
+		// Only 84/70 = 1.2 is used => clamped to MAX (1.2)
+		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+	});
+
+	it('should skip benchmarks where base has zero or null values', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { percent1: 0, percent2: null as unknown as number }
+		};
+
+		const superiorModel: Model = {
+			...mockModel,
+			id: 'superior',
+			benchmark_scores: { percent1: 80, percent2: 90 }
+		};
+
+		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		// No valid comparisons => DEFAULT
+		expect(ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+	});
+});
+
+// ============================================
+// imputeMissingScores with superior_of Tests
+// ============================================
+
+describe('imputeMissingScores with superior_of', () => {
+	const bench1: Benchmark = {
+		id: 'bench1',
+		name: 'Benchmark 1',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const bench2: Benchmark = {
+		id: 'bench2',
+		name: 'Benchmark 2',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const benchElo: Benchmark = {
+		id: 'elo_bench',
+		name: 'Elo Benchmark',
+		type: 'elo',
+		weight: 0.5,
+		url: '',
+		description: '',
+		elo_range: { min: 1000, max: 1500 }
+	};
+
+	const testCategory: Category = {
+		id: 'test',
+		name: 'Test',
+		emoji: '🧪',
+		weight: 1.0,
+		description: 'Test',
+		benchmarks: [bench1, bench2, benchElo]
+	};
+
+	it('should impute missing benchmark using superior_of relationship', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			name: 'Base Model',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			name: 'Thinking Model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number } // 10% better on bench1
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		// Ratio: 88/80 = 1.1, imputed bench2 = 70 * 1.1 = 77
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(77);
+		expect(imputed.imputed_metadata).toBeDefined();
+		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
+		expect(imputed.imputed_metadata!.bench2.superior_of_model).toBe('base-model');
+		expect(imputed.imputed_metadata!.bench2.superiority_ratio).toBeCloseTo(1.1);
+	});
+
+	it('should cap percentage values at 100', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			benchmark_scores: { bench1: 95, bench2: 92 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 99, bench2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		// Ratio: 99/95 = ~1.042, imputed bench2 = 92 * 1.042 = ~95.9
+		// But if ratio was higher (e.g., 1.2), 92 * 1.2 = 110.4 => capped at 100
+		expect(imputed.benchmark_scores.bench2).toBeLessThanOrEqual(100);
+	});
+
+	it('should cap Elo values at elo_range.max', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			benchmark_scores: { elo_bench: 1450 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			superior_of: 'base-model',
+			benchmark_scores: {
+				bench1: 85, // shared benchmark for ratio calculation
+				elo_bench: null as unknown as number
+			}
+		};
+
+		// Also add bench1 to base for ratio calc
+		baseModel.benchmark_scores.bench1 = 80;
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		// Ratio: 85/80 = 1.0625
+		// imputed elo = 1450 * 1.0625 = 1540.625 => capped at 1500
+		expect(imputed.benchmark_scores.elo_bench).toBe(1500);
+	});
+
+	it('should prioritize superior_of over category_average', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			benchmark_scores: { bench1: 80, bench2: 60 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number } // Missing bench2
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		// Should use superior_of (method: 'superior_of'), not category_average
+		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
+
+		// If it had used category_average, it would be 88 (same as bench1)
+		// But with superior_of ratio 1.1, it should be 66
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(66);
+	});
+
+	it('should fall back to category_average when base model lacks data', () => {
+		// Use a category with only 2 benchmarks so 1 value = 50% coverage
+		const simpleBench1: Benchmark = {
+			id: 'simple1',
+			name: 'Simple 1',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleBench2: Benchmark = {
+			id: 'simple2',
+			name: 'Simple 2',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleCategory: Category = {
+			id: 'simple',
+			name: 'Simple',
+			emoji: '🧪',
+			weight: 1.0,
+			description: 'Test',
+			benchmarks: [simpleBench1, simpleBench2]
+		};
+
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			benchmark_scores: { simple1: 80 } // Missing simple2
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			superior_of: 'base-model',
+			benchmark_scores: { simple1: 88, simple2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(
+			thinkingModel,
+			[simpleCategory],
+			[baseModel, thinkingModel]
+		);
+
+		// Cannot use superior_of for simple2 (base doesn't have it)
+		// Falls back to category_average using simple1 value (88)
+		// With 2 benchmarks, 1 value = 50% coverage (ceil(2/2)=1)
+		expect(imputed.benchmark_scores.simple2).toBe(88);
+		expect(imputed.imputed_metadata!.simple2.method).toBe('category_average');
+	});
+
+	it('should handle missing superior_of model gracefully', () => {
+		// Use a category with only 2 benchmarks so 1 value = 50% coverage
+		const simpleBench1: Benchmark = {
+			id: 'simple1',
+			name: 'Simple 1',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleBench2: Benchmark = {
+			id: 'simple2',
+			name: 'Simple 2',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleCategory: Category = {
+			id: 'simple',
+			name: 'Simple',
+			emoji: '🧪',
+			weight: 1.0,
+			description: 'Test',
+			benchmarks: [simpleBench1, simpleBench2]
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			superior_of: 'non-existent-model', // Model not in allModels
+			benchmark_scores: { simple1: 88, simple2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [simpleCategory], [thinkingModel]);
+
+		// Superior model not found, should fall back to category_average
+		// With 2 benchmarks, 1 value = 50% coverage (ceil(2/2)=1)
+		expect(imputed.benchmark_scores.simple2).toBe(88);
+		expect(imputed.imputed_metadata!.simple2.method).toBe('category_average');
+	});
+
+	it('should store complete metadata for superior_of imputation', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'claude-base',
+			name: 'Claude Base',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'claude-thinking',
+			name: 'Claude Thinking',
+			superior_of: 'claude-base',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		const metadata = imputed.imputed_metadata!.bench2;
+
+		expect(metadata.original_value).toBeNull();
+		expect(metadata.imputed_value).toBeCloseTo(77);
+		expect(metadata.method).toBe('superior_of');
+		expect(metadata.imputed_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+		expect(metadata.note).toContain('Claude Base');
+		expect(metadata.note).toContain('ratio');
+		expect(metadata.superior_of_model).toBe('claude-base');
+		expect(metadata.superiority_ratio).toBeCloseTo(1.1);
+	});
+
+	it('should not mutate original model when using superior_of', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const original: Model = {
+			...mockModel,
+			id: 'thinking',
+			superior_of: 'base',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(original, [testCategory], [baseModel, original]);
+
+		// Original should be unchanged
+		expect(original.benchmark_scores.bench2).toBeNull();
+		expect(original.imputed_metadata).toBeUndefined();
+
+		// Imputed should have values
+		expect(imputed.benchmark_scores.bench2).not.toBeNull();
+		expect(imputed.imputed_metadata).toBeDefined();
+	});
+});
+
+// ============================================
+// rankModels integration with superior_of Tests
+// ============================================
+
+describe('rankModels with superior_of integration', () => {
+	const bench1: Benchmark = {
+		id: 'bench1',
+		name: 'Benchmark 1',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const bench2: Benchmark = {
+		id: 'bench2',
+		name: 'Benchmark 2',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const createCategory = (id: string): Category => ({
+		id,
+		name: `Category ${id}`,
+		emoji: '🧪',
+		weight: 0.25,
+		description: 'Test',
+		benchmarks: [bench1, bench2]
+	});
+
+	// Need 4 categories for overall score
+	const categories = [
+		createCategory('cat1'),
+		createCategory('cat2'),
+		createCategory('cat3'),
+		createCategory('cat4')
+	];
+
+	it('should rank superior model higher when using imputed values', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			name: 'Base Model',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			name: 'Thinking Model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const ranked = rankModels([baseModel, thinkingModel], categories);
+
+		// Thinking model should be ranked higher (imputed bench2 = 70 * 1.1 = 77)
+		// Thinking: (88 + 77) / 2 = 82.5 per category
+		// Base: (80 + 70) / 2 = 75 per category
+		expect(ranked[0].model.id).toBe('thinking-model');
+		expect(ranked[1].model.id).toBe('base-model');
+	});
+
+	it('should include imputed_metadata in ranked model', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking',
+			superior_of: 'base',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const ranked = rankModels([baseModel, thinkingModel], categories);
+
+		const rankedThinking = ranked.find((r) => r.model.id === 'thinking')!;
+
+		expect(rankedThinking.model.imputed_metadata).toBeDefined();
+		expect(rankedThinking.model.imputed_metadata!.bench2).toBeDefined();
+		expect(rankedThinking.model.imputed_metadata!.bench2.method).toBe('superior_of');
 	});
 });
