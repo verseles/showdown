@@ -481,12 +481,24 @@ If Opus 4.5 has ifeval=88.5:
 → Thinking ifeval = 88.5 × 1.20 = 100 (capped at 100%)
 ```
 
+### Confidence Levels
+
+Each imputed value includes a confidence indicator based on how many benchmarks were used:
+
+| Benchmarks Used | Confidence | Icon | Meaning                                   |
+| --------------- | ---------- | ---- | ----------------------------------------- |
+| 0-2             | Low        | ⚠    | Few data points, less reliable estimate   |
+| 3-5             | Medium     | ◐    | Moderate data points, reasonable estimate |
+| 6+              | High       | ✓    | Many data points, reliable estimate       |
+
 ### Visual Indicators
 
-In the UI, superior-imputed values are shown with:
+In the UI, imputed values are shown with:
 
-- **Green asterisk (\*)** next to the score
-- **Green highlighting** in tooltips
+- **Green asterisk (\*)** next to the score (superior_of method)
+- **Amber asterisk (\*)** for category_average method
+- **Confidence icon** (⚠/◐/✓) after the asterisk
+- **Green/amber highlighting** in tooltips
 - **Distinct notice** explaining the estimation method
 
 ### Models with superior_of Relationships

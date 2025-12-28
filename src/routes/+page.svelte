@@ -962,6 +962,12 @@
 					{#each scoreData.breakdown as item (item.benchmark.id)}
 						{@const isImputed = scoreData.model.imputed_metadata?.[item.benchmark.id]}
 						{@const isSuperiorImputed = isImputed?.method === 'superior_of'}
+						{@const confidenceIcon =
+							isImputed?.confidence === 'high'
+								? '✓'
+								: isImputed?.confidence === 'medium'
+									? '◐'
+									: '⚠'}
 						<li
 							class:imputed-benchmark={isImputed && !isSuperiorImputed}
 							class:superior-imputed={isSuperiorImputed}
@@ -972,7 +978,10 @@
 								>{t('bench_' + item.benchmark.id, item.benchmark.name)}{#if isImputed}<span
 										class="imputed-marker"
 										class:superior-marker={isSuperiorImputed}
-										title={isImputed.note}>*</span
+										title={isImputed.note +
+											(isImputed.confidence
+												? ` [${t('confidence_' + isImputed.confidence, isImputed.confidence)} confidence, ${isImputed.benchmarks_used} benchmarks]`
+												: '')}>*{confidenceIcon}</span
 									>{/if}</span
 							>
 							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>

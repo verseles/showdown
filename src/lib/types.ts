@@ -14,6 +14,8 @@ export interface Performance {
 	source: string;
 }
 
+export type ImputationConfidence = 'low' | 'medium' | 'high';
+
 export interface ImputedMetadata {
 	original_value: null;
 	imputed_value: number;
@@ -24,6 +26,10 @@ export interface ImputedMetadata {
 	superior_of_model?: string;
 	/** Calculated superiority ratio (only when method='superior_of') */
 	superiority_ratio?: number;
+	/** Confidence level based on data used for estimation */
+	confidence?: ImputationConfidence;
+	/** Number of benchmarks used to calculate the estimate */
+	benchmarks_used?: number;
 }
 
 export interface Model {

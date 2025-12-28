@@ -155,7 +155,7 @@ for (const model of models) {
 }
 
 // Validate imputed_metadata references valid benchmarks
-const validMethods = ['category_average', 'cross_model_average', 'estimated', 'manual'];
+const validMethods = ['category_average', 'superior_of', 'cross_model_average', 'estimated', 'manual'];
 for (const model of models) {
   if (model.imputed_metadata) {
     for (const benchId of Object.keys(model.imputed_metadata)) {
@@ -176,6 +176,46 @@ for (const model of models) {
         throw new Error('Invalid imputation method \"' + meta.method + '\" for ' + benchId + ' in model ' + model.id + '. Valid: ' + validMethods.join(', '));
       }
     }
+  }
+}
+
+// Validate superior_of relationships
+const modelIds = new Set(models.map(m => m.id));
+
+// Check that superior_of references exist
+for (const model of models) {
+  if (model.superior_of) {
+    if (!modelIds.has(model.superior_of)) {
+      throw new Error('Model ' + model.id + ' has superior_of referencing non-existent model: ' + model.superior_of);
+    }
+    // Cannot reference itself
+    if (model.superior_of === model.id) {
+      throw new Error('Model ' + model.id + ' cannot be superior_of itself');
+    }
+  }
+}
+
+// Detect cycles in superior_of chains (A -> B -> C -> A)
+function detectCycle(modelId, visited, path) {
+  if (path.has(modelId)) {
+    const cycle = [...path, modelId].join(' -> ');
+    throw new Error('Cycle detected in superior_of chain: ' + cycle);
+  }
+  if (visited.has(modelId)) return;
+
+  const model = models.find(m => m.id === modelId);
+  if (!model || !model.superior_of) return;
+
+  visited.add(modelId);
+  path.add(modelId);
+  detectCycle(model.superior_of, visited, path);
+  path.delete(modelId);
+}
+
+const visited = new Set();
+for (const model of models) {
+  if (model.superior_of && !visited.has(model.id)) {
+    detectCycle(model.id, visited, new Set());
   }
 }
 

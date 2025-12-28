@@ -13,6 +13,7 @@ import {
 	getUniqueProviders,
 	imputeMissingScores,
 	calculateSuperiorityRatio,
+	getConfidenceLevel,
 	MIN_SUPERIORITY_RATIO,
 	MAX_SUPERIORITY_RATIO,
 	DEFAULT_SUPERIORITY_RATIO
@@ -737,6 +738,30 @@ describe('Benchmark Modernization 2025', () => {
 });
 
 // ============================================
+// getConfidenceLevel Tests
+// ============================================
+
+describe('getConfidenceLevel', () => {
+	it('should return low for 0-2 benchmarks', () => {
+		expect(getConfidenceLevel(0)).toBe('low');
+		expect(getConfidenceLevel(1)).toBe('low');
+		expect(getConfidenceLevel(2)).toBe('low');
+	});
+
+	it('should return medium for 3-5 benchmarks', () => {
+		expect(getConfidenceLevel(3)).toBe('medium');
+		expect(getConfidenceLevel(4)).toBe('medium');
+		expect(getConfidenceLevel(5)).toBe('medium');
+	});
+
+	it('should return high for 6+ benchmarks', () => {
+		expect(getConfidenceLevel(6)).toBe('high');
+		expect(getConfidenceLevel(10)).toBe('high');
+		expect(getConfidenceLevel(20)).toBe('high');
+	});
+});
+
+// ============================================
 // calculateSuperiorityRatio Tests
 // ============================================
 
@@ -791,9 +816,10 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 88, percent2: 66 } // 10% better on both
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// 88/80 = 1.1, 66/60 = 1.1 => average = 1.1
-		expect(ratio).toBeCloseTo(1.1);
+		expect(result.ratio).toBeCloseTo(1.1);
+		expect(result.benchmarksUsed).toBe(2);
 	});
 
 	it('should clamp ratio to MIN when calculated ratio is too low', () => {
@@ -809,9 +835,10 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 80, percent2: 80.5 } // Only 0.625% better
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// (1.0 + 1.00625) / 2 = ~1.003 => clamped to MIN_SUPERIORITY_RATIO (1.02)
-		expect(ratio).toBe(MIN_SUPERIORITY_RATIO);
+		expect(result.ratio).toBe(MIN_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(2);
 	});
 
 	it('should clamp ratio to MAX when calculated ratio is too high', () => {
@@ -827,9 +854,10 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 75, percent2: 75 } // 50% better
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// 75/50 = 1.5 => clamped to MAX_SUPERIORITY_RATIO (1.2)
-		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(2);
 	});
 
 	it('should return DEFAULT when no shared benchmarks exist', () => {
@@ -845,8 +873,9 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent2: 85 } // No overlap
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
-		expect(ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(0);
 	});
 
 	it('should handle Elo benchmarks by normalizing before ratio', () => {
@@ -862,9 +891,10 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { elo1: 1300 } // normalized: (1300-1000)/(1500-1000)*100 = 60
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// 60/40 = 1.5 => clamped to MAX
-		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(1);
 	});
 
 	it('should ignore benchmarks where superior is worse (ratio < 1.0)', () => {
@@ -880,10 +910,11 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 72, percent2: 84 } // worse on percent1, 20% better on percent2
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// percent1: 72/80 = 0.9 (ignored), percent2: 84/70 = 1.2
 		// Only 84/70 = 1.2 is used => clamped to MAX (1.2)
-		expect(ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(1); // Only percent2 was used
 	});
 
 	it('should skip benchmarks where base has zero or null values', () => {
@@ -899,9 +930,10 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 80, percent2: 90 }
 		};
 
-		const ratio = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
 		// No valid comparisons => DEFAULT
-		expect(ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
+		expect(result.benchmarksUsed).toBe(0);
 	});
 });
 
@@ -1172,6 +1204,52 @@ describe('imputeMissingScores with superior_of', () => {
 		expect(metadata.note).toContain('ratio');
 		expect(metadata.superior_of_model).toBe('claude-base');
 		expect(metadata.superiority_ratio).toBeCloseTo(1.1);
+		expect(metadata.confidence).toBe('low'); // Only 1 shared benchmark
+		expect(metadata.benchmarks_used).toBe(1);
+	});
+
+	it('should include confidence in category_average imputation', () => {
+		// Use a category with only 2 benchmarks so 1 value = 50% coverage
+		const simpleBench1: Benchmark = {
+			id: 'simple1',
+			name: 'Simple 1',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleBench2: Benchmark = {
+			id: 'simple2',
+			name: 'Simple 2',
+			type: 'percentage',
+			weight: 0.5,
+			url: '',
+			description: ''
+		};
+
+		const simpleCategory: Category = {
+			id: 'simple',
+			name: 'Simple',
+			emoji: '🧪',
+			weight: 1.0,
+			description: 'Test',
+			benchmarks: [simpleBench1, simpleBench2]
+		};
+
+		const model: Model = {
+			...mockModel,
+			id: 'test-model',
+			benchmark_scores: { simple1: 88, simple2: null as unknown as number }
+		};
+
+		const imputed = imputeMissingScores(model, [simpleCategory], [model]);
+
+		const metadata = imputed.imputed_metadata!.simple2;
+
+		expect(metadata.method).toBe('category_average');
+		expect(metadata.confidence).toBe('low'); // Only 1 benchmark used
+		expect(metadata.benchmarks_used).toBe(1);
 	});
 
 	it('should not mutate original model when using superior_of', () => {

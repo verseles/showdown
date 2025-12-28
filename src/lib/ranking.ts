@@ -25,7 +25,7 @@
  * when at least 50% of benchmarks in the category have real values.
  */
 
-import type { Model, Category, Benchmark, RankedModel } from './types.js';
+import type { Model, Category, Benchmark, RankedModel, ImputationConfidence } from './types.js';
 
 // ============================================
 // Configuration Constants
@@ -79,6 +79,18 @@ export const MAX_SUPERIORITY_RATIO = 1.2;
 export const DEFAULT_SUPERIORITY_RATIO = 1.05;
 
 /**
+ * Get confidence level based on number of benchmarks used
+ * - 1-2 benchmarks: low confidence
+ * - 3-5 benchmarks: medium confidence
+ * - 6+ benchmarks: high confidence
+ */
+export function getConfidenceLevel(benchmarksUsed: number): ImputationConfidence {
+	if (benchmarksUsed <= 2) return 'low';
+	if (benchmarksUsed <= 5) return 'medium';
+	return 'high';
+}
+
+/**
  * Normalize an Elo score to a 0-100 scale.
  * @param elo - The raw Elo score
  * @param min - Minimum expected Elo in the range
@@ -88,6 +100,11 @@ export const DEFAULT_SUPERIORITY_RATIO = 1.05;
 export function normalizeEloScore(elo: number, min: number, max: number): number {
 	if (max === min) return 50; // Avoid division by zero
 	return ((elo - min) / (max - min)) * 100;
+}
+
+export interface SuperiorityResult {
+	ratio: number;
+	benchmarksUsed: number;
 }
 
 /**
@@ -103,13 +120,13 @@ export function normalizeEloScore(elo: number, min: number, max: number): number
  * @param superiorModel - The enhanced/thinking model
  * @param inferiorModel - The base model
  * @param categories - All benchmark categories
- * @returns Superiority ratio between MIN and MAX
+ * @returns Object with ratio and number of benchmarks used
  */
 export function calculateSuperiorityRatio(
 	superiorModel: Model,
 	inferiorModel: Model,
 	categories: Category[]
-): number {
+): SuperiorityResult {
 	const ratios: number[] = [];
 
 	for (const category of categories) {
@@ -150,14 +167,16 @@ export function calculateSuperiorityRatio(
 
 	// If no shared benchmarks, use default ratio
 	if (ratios.length === 0) {
-		return DEFAULT_SUPERIORITY_RATIO;
+		return { ratio: DEFAULT_SUPERIORITY_RATIO, benchmarksUsed: 0 };
 	}
 
 	// Calculate average ratio
 	const avgRatio = ratios.reduce((a, b) => a + b, 0) / ratios.length;
 
 	// Clamp to [MIN, MAX]
-	return Math.min(MAX_SUPERIORITY_RATIO, Math.max(MIN_SUPERIORITY_RATIO, avgRatio));
+	const clampedRatio = Math.min(MAX_SUPERIORITY_RATIO, Math.max(MIN_SUPERIORITY_RATIO, avgRatio));
+
+	return { ratio: clampedRatio, benchmarksUsed: ratios.length };
 }
 
 /**
@@ -207,7 +226,8 @@ export function imputeMissingScores(
 	if (model.superior_of && allModels.length > 0) {
 		const inferiorModel = allModels.find((m) => m.id === model.superior_of);
 		if (inferiorModel) {
-			const ratio = calculateSuperiorityRatio(model, inferiorModel, categories);
+			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(model, inferiorModel, categories);
+			const confidence = getConfidenceLevel(benchmarksUsed);
 
 			// Find missing benchmarks that the inferior model has
 			for (const [benchmarkId, score] of Object.entries(model.benchmark_scores)) {
@@ -242,7 +262,9 @@ export function imputeMissingScores(
 					imputed_date: today,
 					note: `Estimated as superior to ${inferiorModel.name} (ratio: ${ratio.toFixed(3)}, base: ${inferiorValue.toFixed(1)})`,
 					superior_of_model: model.superior_of,
-					superiority_ratio: ratio
+					superiority_ratio: ratio,
+					confidence,
+					benchmarks_used: benchmarksUsed
 				};
 
 				imputedViaSuperior.add(benchmarkId);
@@ -322,13 +344,18 @@ export function imputeMissingScores(
 		// Update the benchmark score
 		imputedModel.benchmark_scores[benchmarkId] = imputedValue;
 
+		// Calculate confidence for category_average
+		const categoryConfidence = getConfidenceLevel(availableScores.length);
+
 		// Store metadata about the imputation
 		imputedModel.imputed_metadata![benchmarkId] = {
 			original_value: null,
 			imputed_value: imputedValue,
 			method: 'category_average',
 			imputed_date: today,
-			note: `Estimated from ${availableScores.length} other benchmark${availableScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`
+			note: `Estimated from ${availableScores.length} other benchmark${availableScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`,
+			confidence: categoryConfidence,
+			benchmarks_used: availableScores.length
 		};
 	}
 

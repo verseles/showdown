@@ -75,10 +75,62 @@ All translation files are in `/messages/` directory:
 
 ---
 
+## 📁 Key Files & Architecture
+
+### Core Data Files
+
+| File                 | Purpose                                       |
+| -------------------- | --------------------------------------------- |
+| `data/showdown.json` | All models, benchmarks, and categories        |
+| `src/lib/types.ts`   | TypeScript interfaces for all data structures |
+| `src/lib/ranking.ts` | Core ranking/imputation logic (~800 lines)    |
+| `UPDATE.md`          | Comprehensive guide for updating model data   |
+
+### When Making Changes
+
+1. **New benchmark/category**: Update `types.ts` → `ranking.ts` → `showdown.json` → translations
+2. **New model field**: Update `types.ts` → JSON validation in `precommit.sh` → `showdown.json`
+3. **UI changes**: Update `+page.svelte` → Add translations for all 21 languages
+4. **Algorithm changes**: Update `ranking.ts` → Add tests in `ranking.test.ts`
+
+---
+
+## 🧮 Imputation System (superior_of)
+
+### Business Rules
+
+- **superior_of**: Links "thinking" variants to their base model
+- **Ratio calculation**: Uses shared benchmarks to estimate superiority (clamped 1.02-1.20)
+- **Confidence levels**: Low (0-2 benchmarks), Medium (3-5), High (6+)
+- **Validation**: Cycle detection and reference validation in `precommit.sh`
+
+### Visual Indicators
+
+| Icon | Meaning                    |
+| ---- | -------------------------- |
+| \*⚠  | Low confidence estimate    |
+| \*◐  | Medium confidence estimate |
+| \*✓  | High confidence estimate   |
+| 🟢   | superior_of method (green) |
+| 🟡   | category_average (amber)   |
+
+---
+
+## ✅ Testing Requirements
+
+- **Always run tests** before committing: `npm test`
+- **Add tests** for any new functions in `ranking.ts`
+- **Test coverage** should include edge cases (null values, empty arrays, clamping)
+- **56+ tests** currently in `src/lib/ranking.test.ts`
+
+---
+
 # Main Rules
 
 - Everytime you end a task, call the play_notification tool.
 - **ALWAYS run `./precommit.sh` before committing or after completing tasks** - this ensures all validation checks pass.
+- **Read UPDATE.md** before adding/updating model data - it contains the complete workflow
+- **Test first** - Run `npm test` to understand the current test coverage before making changes
 
 # For Svelte 5 documentation:
 
