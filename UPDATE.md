@@ -446,9 +446,9 @@ Each model can have an `aka` (also known as) array containing alternative names 
 
 ```json
 {
-  "id": "gpt-5.2",
-  "name": "GPT 5.2",
-  "aka": ["gpt-5.2-low", "gpt-5.2-low-effort", "gpt-5.2-medium", "gpt-5.2-medium-effort", "gpt-5-2"],
+  "id": "gpt-5.2-high",
+  "name": "GPT 5.2 High",
+  "aka": ["gpt-5.2-thinking", "gpt-5.2-high-effort", "gpt-5-2-thinking", "gpt-5-2-high"],
   ...
 }
 ```
@@ -471,7 +471,7 @@ When searching for benchmark data:
 | -------------------------- | ------------------------------------- |
 | `Claude Opus 4.5`          | claude-opus-4-5-20251101              |
 | `claude-opus-4-5-thinking` | claude-opus-4-5-20251101-thinking-32k |
-| `gpt-5.2-low`              | gpt-5.2                               |
+| `gpt-5.2-thinking`         | gpt-5.2-high                          |
 | `GPT-5.2 xhigh`            | gpt-5.2-pro                           |
 | `Gemini 3 Flash`           | gemini-3-flash                        |
 
@@ -556,9 +556,10 @@ In the UI, imputed values are shown with:
 | --------------------------------------- | -------------------------- |
 | claude-opus-4-5-20251101-thinking-32k   | claude-opus-4-5-20251101   |
 | claude-sonnet-4-5-20250929-thinking-32k | claude-sonnet-4-5-20250929 |
-| gpt-5.1-high                            | gpt-5.1                    |
-| gpt-5.2-thinking                        | gpt-5.2                    |
-| gpt-5.2-pro                             | gpt-5.2-thinking           |
+| gpt-5-high                              | gpt-4o-2024-05-13          |
+| gpt-5.1-high                            | gpt-5-high                 |
+| gpt-5.2-high                            | gpt-5.1-high               |
+| gpt-5.2-pro                             | gpt-5.2-high               |
 | gemini-3-flash-thinking                 | gemini-3-flash             |
 | grok-4.1-thinking                       | grok-4.1                   |
 | kimi-k2-thinking-turbo                  | kimi-k2-0905-preview       |
