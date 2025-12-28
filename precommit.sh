@@ -7,9 +7,7 @@
 # It ensures code quality and prevents CI failures
 # 
 # Usage:
-#   ./precommit.sh              # Check only mode
-#   ./precommit.sh --fix        # Auto-fix formatting issues
-#   ./precommit.sh --write      # Alias for --fix
+#   ./precommit.sh    # Auto-fixes formatting and validates everything
 # ========================================
 
 set -e  # Exit on any error
@@ -22,19 +20,9 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Parse arguments
-FIX_MODE=false
-if [[ "$1" == "--fix" ]] || [[ "$1" == "-f" ]] || [[ "$1" == "--write" ]] || [[ "$1" == "-w" ]]; then
-    FIX_MODE=true
-fi
-
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-if $FIX_MODE; then
-    echo -e "${BLUE}   PRECOMMIT VALIDATION - FIX MODE      ${NC}"
-else
-    echo -e "${BLUE}   PRECOMMIT VALIDATION - STARTING      ${NC}"
-fi
+echo -e "${BLUE}   PRECOMMIT VALIDATION - STARTING      ${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
@@ -66,15 +54,10 @@ print_step "1/7" "Installing dependencies"
 npm ci
 print_success "Dependencies installed"
 
-# Step 2: Format (fix or check)
-print_step "2/7" "Checking/Fixing code formatting"
-if $FIX_MODE; then
-    npx prettier --write .
-    print_success "Formatting fixed"
-else
-    npm run lint
-    print_success "Linting passed"
-fi
+# Step 2: Auto-fix formatting
+print_step "2/7" "Fixing code formatting"
+npx prettier --write .
+print_success "Formatting fixed"
 
 # Step 3: Generate Paraglide files (i18n)
 print_step "3/7" "Generating Paraglide translation files"
