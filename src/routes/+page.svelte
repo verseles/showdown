@@ -961,13 +961,27 @@
 				<ul class="benchmark-list">
 					{#each scoreData.breakdown as item (item.benchmark.id)}
 						{@const isImputed = scoreData.model.imputed_metadata?.[item.benchmark.id]}
-						<li class:imputed-benchmark={isImputed}>
+						{@const isSuperiorImputed = isImputed?.method === 'superior_of'}
+						{@const confidenceIcon =
+							isImputed?.confidence === 'high'
+								? '✓'
+								: isImputed?.confidence === 'medium'
+									? '◐'
+									: '⚠'}
+						<li
+							class:imputed-benchmark={isImputed && !isSuperiorImputed}
+							class:superior-imputed={isSuperiorImputed}
+						>
 							<span
 								class="benchmark-name"
 								title={t('bench_description_' + item.benchmark.id, item.benchmark.description)}
 								>{t('bench_' + item.benchmark.id, item.benchmark.name)}{#if isImputed}<span
 										class="imputed-marker"
-										title={isImputed.note}>*</span
+										class:superior-marker={isSuperiorImputed}
+										title={isImputed.note +
+											(isImputed.confidence
+												? ` [${t('confidence_' + isImputed.confidence, isImputed.confidence)} confidence, ${isImputed.benchmarks_used} benchmarks]`
+												: '')}>*{confidenceIcon}</span
 									>{/if}</span
 							>
 							<span class="benchmark-score">{formatScore(item.normalizedScore)}</span>
@@ -989,9 +1003,23 @@
 					})}
 				</p>
 				{#if scoreData.model.imputed_metadata && Object.keys(scoreData.model.imputed_metadata).some( (id) => scoreData.category.benchmarks.find((b) => b.id === id) )}
-					<p class="imputed-notice">
-						<em>{m.imputed_notice()}</em>
-					</p>
+					{@const categoryImputedMeta = Object.entries(scoreData.model.imputed_metadata).filter(
+						([id]) => scoreData.category.benchmarks.find((b) => b.id === id)
+					)}
+					{@const hasSuperior = categoryImputedMeta.some(
+						([, meta]) => meta.method === 'superior_of'
+					)}
+					{@const hasAverage = categoryImputedMeta.some(
+						([, meta]) => meta.method === 'category_average'
+					)}
+					<div class="imputed-notice">
+						{#if hasSuperior}
+							<p class="superior-notice"><em>{m.superior_imputed_notice()}</em></p>
+						{/if}
+						{#if hasAverage}
+							<p><em>{m.imputed_notice()}</em></p>
+						{/if}
+					</div>
 				{/if}
 			</div>
 		{:else if activeTooltip.type === 'price'}
@@ -1683,6 +1711,17 @@
 		padding: 2px 4px;
 	}
 
+	/* Superior imputed values - more reliable, green */
+	.superior-imputed {
+		background: rgba(34, 197, 94, 0.1);
+		border-radius: 4px;
+		padding: 2px 4px;
+	}
+
+	.superior-marker {
+		color: var(--accent-success, #22c55e) !important;
+	}
+
 	.imputed-notice {
 		font-size: 0.7rem;
 		color: var(--accent-warning, #f59e0b);
@@ -1690,6 +1729,14 @@
 		margin-top: var(--spacing-xs);
 		border-top: 1px solid var(--border-light);
 		padding-top: var(--spacing-xs);
+	}
+
+	.imputed-notice p {
+		margin: 0;
+	}
+
+	.imputed-notice .superior-notice {
+		color: var(--accent-success, #22c55e);
 	}
 
 	.price-breakdown {

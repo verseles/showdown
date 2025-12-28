@@ -52,10 +52,18 @@ We aggregate scores from 20+ industry benchmarks, weighted by practical importan
 
 - Percentage benchmarks used directly
 - Elo scores normalized to 0-100
-- Missing data? We **estimate** using category averages (marked with \* in UI)
+- Missing data? We **estimate** using smart imputation (marked with \* in UI)
 - Final score = weighted average across categories
 
-> **Note:** To ensure fair comparisons, missing benchmark scores are automatically estimated using the average of other benchmarks in the same category for that model. Estimated values are clearly marked with an asterisk (\*) and should be replaced with real data when available. See [UPDATE.md](UPDATE.md#imputed-estimated-values) for details.
+### Imputation Methods
+
+When benchmark data is missing, we use two estimation methods:
+
+1. **Superior Model Imputation** (green \*): For "thinking" variants, we calculate their expected superiority over the base model using benchmarks where both have real data, then apply that ratio to missing benchmarks. More reliable since it's based on real performance differences.
+
+2. **Category Average** (yellow \*): Falls back to averaging other benchmarks in the same category. Less reliable but ensures all models can be compared.
+
+> **Note:** Estimated values are clearly marked and should be replaced with real data when available. See [UPDATE.md](UPDATE.md#imputed-estimated-values) for details.
 
 ## Contributing
 

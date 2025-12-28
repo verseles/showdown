@@ -170,6 +170,8 @@ Each model in `data/showdown.json` must follow this structure:
 {
 	"id": "model-id-lowercase-with-dashes",
 	"name": "Model Display Name",
+	"aka": ["alternative-name-1", "alternative-name-2"],
+	"superior_of": "base-model-id",
 	"provider": "Provider Name",
 	"type": "proprietary",
 	"release_date": "2025-01-15",
@@ -220,21 +222,23 @@ Each model in `data/showdown.json` must follow this structure:
 
 ### Field Requirements
 
-| Field                          | Required | Type        | Notes                                 |
-| ------------------------------ | -------- | ----------- | ------------------------------------- |
-| `id`                           | Yes      | string      | Lowercase, dashes, unique             |
-| `name`                         | Yes      | string      | Display name                          |
-| `provider`                     | Yes      | string      | Anthropic, OpenAI, Google, Meta, etc. |
-| `type`                         | Yes      | string      | `"proprietary"` or `"open-source"`    |
-| `release_date`                 | Yes      | string      | ISO date `YYYY-MM-DD`                 |
-| `pricing.input_per_1m`         | Yes      | number      | USD per 1M input tokens               |
-| `pricing.output_per_1m`        | Yes      | number      | USD per 1M output tokens              |
-| `pricing.average_per_1m`       | Yes      | number      | `(input + output) / 2`                |
-| `performance.output_speed_tps` | Yes      | number      | Tokens per second                     |
-| `performance.latency_ttft_ms`  | Yes      | number      | Time to first token (ms)              |
-| `performance.source`           | Yes      | string      | URL to source                         |
-| `editor_notes`                 | Yes      | string      | 1-2 sentence description              |
-| `benchmark_scores.*`           | Partial  | number/null | Use `null` if unavailable             |
+| Field                          | Required | Type        | Notes                                    |
+| ------------------------------ | -------- | ----------- | ---------------------------------------- |
+| `id`                           | Yes      | string      | Lowercase, dashes, unique                |
+| `name`                         | Yes      | string      | Display name                             |
+| `aka`                          | No       | string[]    | Alternative names for matching           |
+| `superior_of`                  | No       | string      | ID of base model (for thinking variants) |
+| `provider`                     | Yes      | string      | Anthropic, OpenAI, Google, Meta, etc.    |
+| `type`                         | Yes      | string      | `"proprietary"` or `"open-source"`       |
+| `release_date`                 | Yes      | string      | ISO date `YYYY-MM-DD`                    |
+| `pricing.input_per_1m`         | Yes      | number      | USD per 1M input tokens                  |
+| `pricing.output_per_1m`        | Yes      | number      | USD per 1M output tokens                 |
+| `pricing.average_per_1m`       | Yes      | number      | `(input + output) / 2`                   |
+| `performance.output_speed_tps` | Yes      | number      | Tokens per second                        |
+| `performance.latency_ttft_ms`  | Yes      | number      | Time to first token (ms)                 |
+| `performance.source`           | Yes      | string      | URL to source                            |
+| `editor_notes`                 | Yes      | string      | 1-2 sentence description                 |
+| `benchmark_scores.*`           | Partial  | number/null | Use `null` if unavailable                |
 
 ### Benchmark Score Ranges
 
@@ -380,6 +384,135 @@ When updating model data:
 2. **Search for real data** for those benchmarks
 3. **Replace estimates** with real data when found
 4. **Only add to `imputed_metadata`** if you're intentionally marking a value as estimated (rare - the system does this automatically)
+
+---
+
+## Model Name Matching (aka field)
+
+### What is the `aka` Field?
+
+Each model can have an `aka` (also known as) array containing alternative names used in benchmarks, papers, or announcements. This helps AI assistants correctly match benchmark data to the right model.
+
+**Example:**
+
+```json
+{
+  "id": "gpt-5.2",
+  "name": "GPT 5.2",
+  "aka": ["gpt-5.2-low", "gpt-5.2-low-effort", "gpt-5.2-medium", "gpt-5.2-medium-effort", "gpt-5-2"],
+  ...
+}
+```
+
+### How to Use aka for Matching
+
+When searching for benchmark data:
+
+1. **Direct Match**: Check if the model name matches `id`, `name`, or any value in `aka`
+2. **Fuzzy Match**: For names not in `aka`, apply these transformations:
+   - Remove version dates (e.g., `20251101` → ``)
+   - Replace `-` with `.` and vice versa
+   - Remove spaces and normalize case
+   - Strip prefixes like "claude-", "gpt-", "gemini-"
+   - Match partial names (e.g., `opus-4.5` matches `claude-opus-4-5`)
+
+### Examples
+
+| Search Term                | Matches Model ID                      |
+| -------------------------- | ------------------------------------- |
+| `Claude Opus 4.5`          | claude-opus-4-5-20251101              |
+| `claude-opus-4-5-thinking` | claude-opus-4-5-20251101-thinking-32k |
+| `gpt-5.2-low`              | gpt-5.2                               |
+| `GPT-5.2 xhigh`            | gpt-5.2-pro                           |
+| `Gemini 3 Flash`           | gemini-3-flash                        |
+
+### Adding New aka Values
+
+When you encounter a new alternative name for a model:
+
+1. Add it to the `aka` array in `data/showdown.json`
+2. Keep names lowercase with dashes
+3. Include common variations:
+   - With/without version numbers
+   - With/without thinking/reasoning suffix
+   - Official API names vs marketing names
+
+---
+
+## Superior Model Relationships (superior_of field)
+
+### What is the `superior_of` Field?
+
+The `superior_of` field indicates that a model is an enhanced version of another (base) model. This is used for "thinking" or "reasoning" variants that are expected to perform better than their base versions.
+
+**Example:**
+
+```json
+{
+  "id": "claude-opus-4-5-20251101-thinking-32k",
+  "name": "Claude Opus 4.5 Thinking",
+  "superior_of": "claude-opus-4-5-20251101",
+  ...
+}
+```
+
+### How Superior Imputation Works
+
+When a superior model has missing benchmark values and its base model has real data:
+
+1. **Calculate superiority ratio**: Average of (superior_score / base_score) across all benchmarks where BOTH have real values
+2. **Apply ratio**: Missing value = base_value × superiority_ratio
+3. **Limit**: Ratio is clamped between 1.02 (2%) and 1.20 (20%)
+4. **Cap**: Result is capped at 100% for percentage benchmarks
+
+**Example:**
+
+```
+Claude Opus 4.5:          gpqa=80.7, aime=48.1
+Claude Opus 4.5 Thinking: gpqa=86.0, aime=86.1, ifeval=NULL
+
+Superiority ratios:
+- gpqa: 86.0/80.7 = 1.066 (6.6%)
+- aime: 86.1/48.1 = 1.79 (capped at 1.20)
+
+Average ratio: 1.133 (capped at 1.20)
+
+If Opus 4.5 has ifeval=88.5:
+→ Thinking ifeval = 88.5 × 1.20 = 100 (capped at 100%)
+```
+
+### Confidence Levels
+
+Each imputed value includes a confidence indicator based on how many benchmarks were used:
+
+| Benchmarks Used | Confidence | Icon | Meaning                                   |
+| --------------- | ---------- | ---- | ----------------------------------------- |
+| 0-2             | Low        | ⚠    | Few data points, less reliable estimate   |
+| 3-5             | Medium     | ◐    | Moderate data points, reasonable estimate |
+| 6+              | High       | ✓    | Many data points, reliable estimate       |
+
+### Visual Indicators
+
+In the UI, imputed values are shown with:
+
+- **Green asterisk (\*)** next to the score (superior_of method)
+- **Amber asterisk (\*)** for category_average method
+- **Confidence icon** (⚠/◐/✓) after the asterisk
+- **Green/amber highlighting** in tooltips
+- **Distinct notice** explaining the estimation method
+
+### Models with superior_of Relationships
+
+| Superior Model                          | Base Model (superior_of)   |
+| --------------------------------------- | -------------------------- |
+| claude-opus-4-5-20251101-thinking-32k   | claude-opus-4-5-20251101   |
+| claude-sonnet-4-5-20250929-thinking-32k | claude-sonnet-4-5-20250929 |
+| gpt-5.1-high                            | gpt-5.1                    |
+| gpt-5.2-thinking                        | gpt-5.2                    |
+| gpt-5.2-pro                             | gpt-5.2-thinking           |
+| gemini-3-flash-thinking                 | gemini-3-flash             |
+| grok-4.1-thinking                       | grok-4.1                   |
+| kimi-k2-thinking-turbo                  | kimi-k2-0905-preview       |
 
 ---
 

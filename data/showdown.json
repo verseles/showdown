@@ -8,6 +8,7 @@
 		{
 			"id": "claude-opus-4-5-20251101",
 			"name": "Claude Opus 4.5",
+			"aka": ["claude-opus-4-5", "claude-opus-4.5", "claude-4.5-opus", "opus-4.5"],
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-11-24",
@@ -74,6 +75,8 @@
 		{
 			"id": "claude-opus-4-5-20251101-thinking-32k",
 			"name": "Claude Opus 4.5 Thinking",
+			"aka": ["claude-opus-4.5-thinking", "claude-opus-4-5-thinking", "opus-4.5-thinking"],
+			"superior_of": "claude-opus-4-5-20251101",
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-11-24",
@@ -131,6 +134,7 @@
 		{
 			"id": "claude-sonnet-4-5-20250929",
 			"name": "Claude Sonnet 4.5",
+			"aka": ["claude-sonnet-4-5", "claude-sonnet-4.5", "sonnet-4.5"],
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-09-29",
@@ -188,6 +192,8 @@
 		{
 			"id": "claude-sonnet-4-5-20250929-thinking-32k",
 			"name": "Claude Sonnet 4.5 Thinking",
+			"aka": ["claude-sonnet-4.5-thinking", "claude-sonnet-4-5-thinking", "sonnet-4.5-thinking"],
+			"superior_of": "claude-sonnet-4-5-20250929",
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-09-29",
@@ -368,6 +374,7 @@
 		{
 			"id": "gpt-5.1",
 			"name": "GPT 5.1",
+			"aka": ["gpt-5-1", "gpt5.1", "gpt51"],
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-11-12",
@@ -434,6 +441,8 @@
 		{
 			"id": "gpt-5.1-high",
 			"name": "GPT 5.1 High",
+			"aka": ["gpt-5.1-thinking", "gpt-5-1-high", "gpt5.1-high", "gpt-5.1-high-effort"],
+			"superior_of": "gpt-5.1",
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-11-12",
@@ -491,6 +500,13 @@
 		{
 			"id": "gpt-5.2",
 			"name": "GPT 5.2",
+			"aka": [
+				"gpt-5.2-low",
+				"gpt-5.2-low-effort",
+				"gpt-5.2-medium",
+				"gpt-5.2-medium-effort",
+				"gpt-5-2"
+			],
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-12-11",
@@ -548,6 +564,8 @@
 		{
 			"id": "gpt-5.2-thinking",
 			"name": "GPT 5.2 Thinking",
+			"aka": ["gpt-5.2-high", "gpt-5.2-high-effort", "gpt-5-2-thinking", "gpt-5-2-high"],
+			"superior_of": "gpt-5.2",
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-12-11",
@@ -605,6 +623,8 @@
 		{
 			"id": "gpt-5.2-pro",
 			"name": "GPT 5.2 Pro",
+			"aka": ["gpt-5.2-xhigh", "gpt-5.2-correlates", "gpt-5-2-pro", "gpt-5-2-xhigh"],
+			"superior_of": "gpt-5.2-thinking",
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-12-11",
@@ -662,6 +682,7 @@
 		{
 			"id": "gemini-3-pro",
 			"name": "Gemini 3 Pro",
+			"aka": ["gemini-3.0-pro", "gemini3-pro"],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-11-18",
@@ -719,6 +740,7 @@
 		{
 			"id": "gemini-3-flash",
 			"name": "Gemini 3 Flash",
+			"aka": ["gemini-3.0-flash", "gemini3-flash"],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-12-17",
@@ -776,6 +798,8 @@
 		{
 			"id": "gemini-3-flash-thinking",
 			"name": "Gemini 3 Flash Thinking",
+			"aka": ["gemini-3-flash-thinking-mode", "gemini3-flash-thinking"],
+			"superior_of": "gemini-3-flash",
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-12-17",
@@ -1013,6 +1037,7 @@
 		{
 			"id": "grok-4.1",
 			"name": "Grok 4.1",
+			"aka": ["grok-4-1", "grok4.1"],
 			"provider": "xAI",
 			"type": "proprietary",
 			"release_date": "2025-11-17",
@@ -1070,6 +1095,8 @@
 		{
 			"id": "grok-4.1-thinking",
 			"name": "Grok 4.1 Thinking",
+			"aka": ["grok-4.1-think", "grok-4-1-thinking", "grok4.1-thinking"],
+			"superior_of": "grok-4.1",
 			"provider": "xAI",
 			"type": "proprietary",
 			"release_date": "2025-11-17",
@@ -1637,6 +1664,7 @@
 		{
 			"id": "kimi-k2-0905-preview",
 			"name": "Kimi K2",
+			"aka": ["kimi-k2", "kimi-k2-preview", "k2-0905"],
 			"provider": "Moonshot AI",
 			"type": "open-source",
 			"release_date": "2025-09-05",
@@ -1703,6 +1731,8 @@
 		{
 			"id": "kimi-k2-thinking-turbo",
 			"name": "Kimi K2 Thinking",
+			"aka": ["kimi-k2-thinking", "k2-thinking", "kimi-k2-think"],
+			"superior_of": "kimi-k2-0905-preview",
 			"provider": "Moonshot AI",
 			"type": "open-source",
 			"release_date": "2025-11-06",
