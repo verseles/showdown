@@ -139,12 +139,7 @@ This document tracks the development progress of Showdown. Features are organize
 
 ## Phase 11: Editor Tools
 
-- [ ] Web-based data editor
-- [ ] Authentication for editors
-- [ ] PR generation from editor
-- [ ] Bulk import tool
-- [ ] Data validation preview
-- [ ] Changelog generation
+> Made but removed as not needed
 
 ## Phase 12: Community
 
