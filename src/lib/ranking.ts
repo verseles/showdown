@@ -69,14 +69,22 @@ export const VALID_IMPUTATION_METHODS = [
 export const MIN_SUPERIORITY_RATIO = 1.02;
 
 /**
- * Maximum superiority ratio (20% improvement maximum)
+ * Maximum superiority ratio (10% improvement maximum)
+ * Reduced from 1.20 to 1.10 to avoid artificially inflated imputed values
  */
-export const MAX_SUPERIORITY_RATIO = 1.2;
+export const MAX_SUPERIORITY_RATIO = 1.1;
 
 /**
  * Default superiority ratio when no shared benchmarks exist (5% improvement)
  */
 export const DEFAULT_SUPERIORITY_RATIO = 1.05;
+
+/**
+ * Maximum percentage for imputed values via superior_of method.
+ * Prevents artificially perfect scores (100%) from imputation.
+ * Set to 95% to ensure imputed values don't exceed realistic maximums.
+ */
+export const MAX_IMPUTED_PERCENTAGE = 95;
 
 /**
  * Get confidence level based on number of benchmarks used
@@ -280,8 +288,10 @@ export function imputeMissingScores(
 				let imputedValue = sourceValue * ratio;
 
 				// Limit to maximum possible value
+				// For percentage benchmarks, cap at MAX_IMPUTED_PERCENTAGE (95%) to avoid
+				// artificially perfect scores from imputation
 				if (benchmark.type === 'percentage') {
-					imputedValue = Math.min(100, imputedValue);
+					imputedValue = Math.min(MAX_IMPUTED_PERCENTAGE, imputedValue);
 				} else if (benchmark.type === 'elo' && benchmark.elo_range) {
 					imputedValue = Math.min(benchmark.elo_range.max, imputedValue);
 				}
