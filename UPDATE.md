@@ -38,14 +38,14 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
    - Example: `https://r.jina.ai/https://lmarena.ai/leaderboard/text/coding`
    - This provides clean, text-only content without heavy rendering
 
-2. **Web Search** - Use `Web Search` tool when you need to find current information
+2. **If r.jina.ai fails** - Try the direct URL with WebFetch
+   - Sometimes the proxy may timeout or return errors
+   - Fall back to direct access: `https://lmarena.ai/leaderboard/text/coding`
+
+3. **If direct URL fails** - Use Web Search as final fallback
    - Search for specific benchmark scores
    - Find official announcements from providers
    - Locate updated leaderboard data
-
-3. **WebFetch** - Only use if `r.jina.ai` fails or returns incomplete content
-   - Use for simple static content retrieval
-   - Avoid for JavaScript-heavy pages
 
 4. **Browser/Playwright** - Last resort only
    - Required for dynamic content that can't be accessed otherwise
@@ -56,8 +56,57 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 - **Always start with Web Search** when looking for current benchmark data
 - **Use r.jina.ai proxy** for all benchmark URLs listed in this document
 - **Don't rely on cached knowledge** - Always verify current scores
-- **Cross-validate data sources** - Never rely on a single source. Verify in at least 2-3 authoritative sources before applying corrections
 - **Document ALL sources consulted** in commit messages when data is hard to find
+
+### 🚨 CRITICAL: Data Verification Requirements
+
+**MANDATORY TWO-SOURCE MINIMUM:**
+
+You **MUST** verify data from at least **TWO independent sources** before adding or updating any value. Acceptable combinations:
+
+✅ **Valid verification combinations:**
+
+- 1 website + 1 Web Search result
+- 2 different websites
+- 2 different Web Search queries
+- Official provider announcement + benchmark leaderboard
+- Technical paper + leaderboard
+
+❌ **Invalid (single source only):**
+
+- Only one website
+- Only one Web Search
+- Cached knowledge without verification
+
+**⚠️ BETTER NULL THAN WRONG:**
+
+**It is ALWAYS preferable to use `null` (missing value) than to add incorrect data.**
+
+- If you cannot find **TWO independent sources** confirming the same value → use `null`
+- If sources contradict each other → use `null` and document in commit message
+- If data seems outdated or suspicious → use `null` and investigate further
+- When in doubt → use `null`
+
+**Why this matters:**
+
+- Incorrect data damages the integrity of all rankings
+- Users rely on this data for critical decisions
+- One wrong value can cascade through imputation system
+- `null` values are safely handled by the ranking algorithm
+
+**Example commit message for uncertain data:**
+
+```
+Update GPT-5.2 benchmarks - partial data only
+
+Sources verified (2+ sources each):
+- SWE-Bench: 78.5% (OpenAI blog + swebench.com leaderboard)
+- GPQA: 82.0% (Technical report + LMArena)
+
+Unable to verify (set to null):
+- Terminal-Bench: No official data found
+- TAU-Bench: Conflicting values (45% vs 62%), needs clarification
+```
 
 ---
 
@@ -757,17 +806,23 @@ gh pr create \
 
 When updating data:
 
-1. **Always search multiple sources** - Don't rely on cached knowledge
-2. **Use `null` for missing data** - Never guess benchmark scores
-3. **Verify Elo scores are current** - LMArena updates frequently
-4. **Check pricing is current** - Providers often adjust prices
-5. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
-6. **Update the meta timestamp** - Shows data freshness
-7. **Use Web Search frequently** - Find current benchmark scores and announcements
-8. **Use r.jina.ai proxy for links** - Prefix URLs with `https://r.jina.ai/` before fetching
-9. **Create feature branches** - Never commit directly to main branch
-10. **Create PRs using gh CLI** - Use `gh pr create` when available
-11. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
-12. **Update meta.version and meta.last_update** whenever making data changes
+1. **🚨 MANDATORY: Verify with TWO sources minimum** - Never add/update data from a single source
+2. **🚨 BETTER NULL THAN WRONG** - If you can't verify with 2+ sources, use `null`
+3. **Always search multiple sources** - Don't rely on cached knowledge
+4. **Use `null` for missing data** - Never guess benchmark scores
+5. **Fallback strategy for URLs:**
+   - First: Try `https://r.jina.ai/[URL]`
+   - Second: If fails, try direct URL with WebFetch
+   - Third: If fails, use Web Search
+6. **Verify Elo scores are current** - LMArena updates frequently
+7. **Check pricing is current** - Providers often adjust prices
+8. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
+9. **Update the meta timestamp** - Shows data freshness
+10. **Use Web Search frequently** - Find current benchmark scores and announcements
+11. **Create feature branches** - Never commit directly to main branch
+12. **Create PRs using gh CLI** - Use `gh pr create` when available
+13. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
+14. **Update meta.version and meta.last_update** whenever making data changes
+15. **Document all sources** - Include URLs in commit messages, especially for hard-to-find data
 
-If a benchmark score cannot be found after thorough searching, use `null` and note it in the commit message.
+**Remember:** Data integrity is paramount. One incorrect value can corrupt rankings for all models. When in doubt, use `null` and document why in the commit message.
