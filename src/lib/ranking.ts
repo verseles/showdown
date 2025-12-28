@@ -222,19 +222,54 @@ export function imputeMissingScores(
 	// Track which benchmarks were imputed via superior_of (to skip in category_average)
 	const imputedViaSuperior = new Set<string>();
 
-	// STEP 1: Try superior_of imputation first
+	// Helper: Walk up the superior_of chain to find a model with the benchmark value
+	function findAncestorWithValue(
+		benchmarkId: string,
+		startModelId: string | undefined,
+		maxDepth = 5
+	): { model: Model; value: number } | null {
+		let currentId = startModelId;
+		let depth = 0;
+		while (currentId && depth < maxDepth) {
+			const ancestorModel = allModels.find((m) => m.id === currentId);
+			if (!ancestorModel) break;
+
+			const value = ancestorModel.benchmark_scores[benchmarkId];
+			if (value != null) {
+				return { model: ancestorModel, value };
+			}
+
+			currentId = ancestorModel.superior_of;
+			depth++;
+		}
+		return null;
+	}
+
+	// STEP 1: Try superior_of imputation first (with cascade lookup)
 	if (model.superior_of && allModels.length > 0) {
 		const inferiorModel = allModels.find((m) => m.id === model.superior_of);
 		if (inferiorModel) {
 			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(model, inferiorModel, categories);
 			const confidence = getConfidenceLevel(benchmarksUsed);
 
-			// Find missing benchmarks that the inferior model has
+			// Find missing benchmarks
 			for (const [benchmarkId, score] of Object.entries(model.benchmark_scores)) {
 				if (score !== null) continue; // Skip non-null values
 
-				const inferiorValue = inferiorModel.benchmark_scores[benchmarkId];
-				if (inferiorValue == null) continue; // Inferior doesn't have it either
+				// Try direct inferior first, then cascade up the chain
+				let sourceModel = inferiorModel;
+				let sourceValue = inferiorModel.benchmark_scores[benchmarkId];
+
+				if (sourceValue == null) {
+					// Cascade: look up the chain for an ancestor with this value
+					const ancestor = findAncestorWithValue(benchmarkId, inferiorModel.superior_of, 4);
+					if (ancestor) {
+						sourceModel = ancestor.model;
+						sourceValue = ancestor.value;
+					}
+				}
+
+				if (sourceValue == null) continue; // No ancestor has it either
 
 				const benchmarkInfo = benchmarkById.get(benchmarkId);
 				if (!benchmarkInfo) continue;
@@ -242,7 +277,7 @@ export function imputeMissingScores(
 				const { benchmark } = benchmarkInfo;
 
 				// Calculate imputed value using superiority ratio
-				let imputedValue = inferiorValue * ratio;
+				let imputedValue = sourceValue * ratio;
 
 				// Limit to maximum possible value
 				if (benchmark.type === 'percentage') {
@@ -254,14 +289,17 @@ export function imputeMissingScores(
 				// Update the benchmark score
 				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
 
+				// Note which model was the source
+				const cascadeNote = sourceModel.id !== inferiorModel.id ? ` (via ${sourceModel.name})` : '';
+
 				// Store metadata about the imputation
 				imputedModel.imputed_metadata![benchmarkId] = {
 					original_value: null,
 					imputed_value: imputedValue,
 					method: 'superior_of',
 					imputed_date: today,
-					note: `Estimated as superior to ${inferiorModel.name} (ratio: ${ratio.toFixed(3)}, base: ${inferiorValue.toFixed(1)})`,
-					superior_of_model: model.superior_of,
+					note: `Estimated as superior to ${sourceModel.name}${cascadeNote} (ratio: ${ratio.toFixed(3)}, base: ${sourceValue.toFixed(1)})`,
+					superior_of_model: sourceModel.id,
 					superiority_ratio: ratio,
 					confidence,
 					benchmarks_used: benchmarksUsed
