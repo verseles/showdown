@@ -134,5 +134,12 @@
 	"bench_description_lmarena_en_elo": "Human preference on English tasks",
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "অনুমানিত মান রয়েছে",
-	"imputed_notice": "* = অনুমানিত মান (এই বিভাগের অন্যান্য বেঞ্চমার্ক থেকে গণনা করা)"
+	"imputed_notice": "* = অনুমানিত মান (এই বিভাগের অন্যান্য বেঞ্চমার্ক থেকে গণনা করা)",
+	"bench_livebench_reasoning": "LiveBench Reasoning",
+	"bench_livebench_coding": "LiveBench Coding",
+	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",
+	"bench_livebench_math": "LiveBench Math",
+	"bench_livebench_data_analysis": "LiveBench Data Analysis",
+	"bench_livebench_language": "LiveBench Language",
+	"bench_livebench_if": "LiveBench IF"
 }

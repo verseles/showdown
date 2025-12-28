@@ -134,5 +134,12 @@
 	"bench_description_lmarena_en_elo": "Human preference on English tasks",
 	"bench_description_lmarena_zh_elo": "Human preference on Chinese tasks",
 	"imputed_indicator_title": "Содержит расчетные значения",
-	"imputed_notice": "* = Расчетное значение (вычислено на основе других тестов в этой категории)"
+	"imputed_notice": "* = Расчетное значение (вычислено на основе других тестов в этой категории)",
+	"bench_livebench_reasoning": "LiveBench Reasoning",
+	"bench_livebench_coding": "LiveBench Coding",
+	"bench_livebench_agentic_coding": "LiveBench Agentic Coding",
+	"bench_livebench_math": "LiveBench Math",
+	"bench_livebench_data_analysis": "LiveBench Data Analysis",
+	"bench_livebench_language": "LiveBench Language",
+	"bench_livebench_if": "LiveBench IF"
 }

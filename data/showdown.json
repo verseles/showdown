@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2025.12.27",
-		"last_update": "2025-12-27T00:00:00Z",
+		"last_update": "2025-12-27T21:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -52,7 +52,14 @@
 				"swe_bench": 80.9,
 				"tau_bench": 64.2,
 				"terminal_bench": 58.5,
-				"webdev_arena_elo": 1480
+				"webdev_arena_elo": 1480,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -111,7 +118,14 @@
 				"swe_bench": 80.9,
 				"tau_bench": 93.6,
 				"terminal_bench": 59.3,
-				"webdev_arena_elo": 1520
+				"webdev_arena_elo": 1520,
+				"livebench_reasoning": 80.09,
+				"livebench_coding": 79.65,
+				"livebench_agentic_coding": 63.33,
+				"livebench_math": 94.52,
+				"livebench_data_analysis": 71.98,
+				"livebench_language": 81.26,
+				"livebench_if": 62.55
 			}
 		},
 		{
@@ -161,7 +175,14 @@
 				"swe_bench": 77.2,
 				"tau_bench": 58.5,
 				"terminal_bench": 62.1,
-				"webdev_arena_elo": 1387
+				"webdev_arena_elo": 1387,
+				"livebench_reasoning": 42.29,
+				"livebench_coding": 76.07,
+				"livebench_agentic_coding": 48.33,
+				"livebench_math": 80.83,
+				"livebench_data_analysis": 67.34,
+				"livebench_language": 76,
+				"livebench_if": 23.52
 			}
 		},
 		{
@@ -211,7 +232,14 @@
 				"swe_bench": 77.2,
 				"tau_bench": 62.5,
 				"terminal_bench": 63.5,
-				"webdev_arena_elo": 1393
+				"webdev_arena_elo": 1393,
+				"livebench_reasoning": 77.59,
+				"livebench_coding": 80.36,
+				"livebench_agentic_coding": 53.33,
+				"livebench_math": 90.08,
+				"livebench_data_analysis": 71.76,
+				"livebench_language": 76.45,
+				"livebench_if": 53.35
 			}
 		},
 		{
@@ -261,7 +289,14 @@
 				"swe_bench": 74.5,
 				"tau_bench": 62.8,
 				"terminal_bench": 54.2,
-				"webdev_arena_elo": 1335
+				"webdev_arena_elo": 1335,
+				"livebench_reasoning": 40.89,
+				"livebench_coding": 76.07,
+				"livebench_agentic_coding": 53.33,
+				"livebench_math": 80.44,
+				"livebench_data_analysis": 66.95,
+				"livebench_language": 76.75,
+				"livebench_if": 25.92
 			}
 		},
 		{
@@ -311,7 +346,14 @@
 				"swe_bench": 30.8,
 				"tau_bench": 45.5,
 				"terminal_bench": 28.5,
-				"webdev_arena_elo": 1253
+				"webdev_arena_elo": 1253,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -370,7 +412,14 @@
 				"swe_bench": 76.3,
 				"tau_bench": null,
 				"terminal_bench": 47.6,
-				"webdev_arena_elo": 1393
+				"webdev_arena_elo": 1393,
+				"livebench_reasoning": 26.81,
+				"livebench_coding": 77.48,
+				"livebench_agentic_coding": 28.33,
+				"livebench_math": 58.35,
+				"livebench_data_analysis": 64.14,
+				"livebench_language": 53.84,
+				"livebench_if": 23.5
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -429,7 +478,14 @@
 				"swe_bench": 76.3,
 				"tau_bench": null,
 				"terminal_bench": 47.6,
-				"webdev_arena_elo": 1393
+				"webdev_arena_elo": 1393,
+				"livebench_reasoning": 78.79,
+				"livebench_coding": 72.49,
+				"livebench_agentic_coding": 53.33,
+				"livebench_math": 93.53,
+				"livebench_data_analysis": 72.07,
+				"livebench_language": 79.26,
+				"livebench_if": 63.9
 			}
 		},
 		{
@@ -476,10 +532,17 @@
 				"mmmu": 70.5,
 				"mmmu_pro": 86.5,
 				"osworld": null,
-				"swe_bench": 80.0,
+				"swe_bench": 80,
 				"tau_bench": 88.5,
 				"terminal_bench": null,
-				"webdev_arena_elo": 1398
+				"webdev_arena_elo": 1398,
+				"livebench_reasoning": 42.8,
+				"livebench_coding": 76.45,
+				"livebench_agentic_coding": 40,
+				"livebench_math": 75.33,
+				"livebench_data_analysis": 68.78,
+				"livebench_language": 49.97,
+				"livebench_if": 27.2
 			}
 		},
 		{
@@ -529,7 +592,14 @@
 				"swe_bench": 80,
 				"tau_bench": 98.7,
 				"terminal_bench": 52.5,
-				"webdev_arena_elo": 1440
+				"webdev_arena_elo": 1440,
+				"livebench_reasoning": 83.21,
+				"livebench_coding": 76.07,
+				"livebench_agentic_coding": 51.67,
+				"livebench_math": 93.55,
+				"livebench_data_analysis": 72.79,
+				"livebench_language": 79.81,
+				"livebench_if": 61.77
 			}
 		},
 		{
@@ -579,7 +649,14 @@
 				"swe_bench": 82.5,
 				"tau_bench": 99.2,
 				"terminal_bench": 55.5,
-				"webdev_arena_elo": 1484
+				"webdev_arena_elo": 1484,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -624,12 +701,19 @@
 				"mmmlu": 91.8,
 				"simpleqa": 72.9,
 				"mmmu": 75.2,
-				"mmmu_pro": 81.0,
+				"mmmu_pro": 81,
 				"osworld": 48.5,
 				"swe_bench": 76.2,
 				"tau_bench": 85.4,
 				"terminal_bench": 54.2,
-				"webdev_arena_elo": 1478
+				"webdev_arena_elo": 1478,
+				"livebench_reasoning": 77.42,
+				"livebench_coding": 74.6,
+				"livebench_agentic_coding": 55,
+				"livebench_math": 94.12,
+				"livebench_data_analysis": 74.91,
+				"livebench_language": 84.62,
+				"livebench_if": 65.85
 			}
 		},
 		{
@@ -679,7 +763,14 @@
 				"swe_bench": 78,
 				"tau_bench": 90.2,
 				"terminal_bench": null,
-				"webdev_arena_elo": 1381
+				"webdev_arena_elo": 1381,
+				"livebench_reasoning": 74.55,
+				"livebench_coding": 73.9,
+				"livebench_agentic_coding": 40,
+				"livebench_math": 93.57,
+				"livebench_data_analysis": 74.74,
+				"livebench_language": 84.56,
+				"livebench_if": 74.86
 			}
 		},
 		{
@@ -729,7 +820,14 @@
 				"swe_bench": 78,
 				"tau_bench": 92,
 				"terminal_bench": null,
-				"webdev_arena_elo": 1465
+				"webdev_arena_elo": 1465,
+				"livebench_reasoning": 74.55,
+				"livebench_coding": 73.9,
+				"livebench_agentic_coding": 40,
+				"livebench_math": 93.57,
+				"livebench_data_analysis": 74.74,
+				"livebench_language": 84.56,
+				"livebench_if": 74.86
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -788,7 +886,14 @@
 				"swe_bench": 63.8,
 				"tau_bench": 52.8,
 				"terminal_bench": 45.2,
-				"webdev_arena_elo": 1315
+				"webdev_arena_elo": 1315,
+				"livebench_reasoning": 70.81,
+				"livebench_coding": 75.69,
+				"livebench_agentic_coding": 33.33,
+				"livebench_math": 83.09,
+				"livebench_data_analysis": 71.5,
+				"livebench_language": 75.5,
+				"livebench_if": 33.07
 			}
 		},
 		{
@@ -838,7 +943,14 @@
 				"swe_bench": 66,
 				"tau_bench": 55.2,
 				"terminal_bench": 31.3,
-				"webdev_arena_elo": 1285
+				"webdev_arena_elo": 1285,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -883,12 +995,19 @@
 				"mmmlu": 84,
 				"simpleqa": 27.4,
 				"mmmu": 64.5,
-				"mmmu_pro": 85.0,
+				"mmmu_pro": 85,
 				"osworld": 35.2,
 				"swe_bench": 57.6,
 				"tau_bench": 48.5,
 				"terminal_bench": 42.5,
-				"webdev_arena_elo": 1265
+				"webdev_arena_elo": 1265,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -938,7 +1057,14 @@
 				"swe_bench": 76.5,
 				"tau_bench": 58.5,
 				"terminal_bench": 54,
-				"webdev_arena_elo": 1335
+				"webdev_arena_elo": 1335,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -988,7 +1114,14 @@
 				"swe_bench": 75,
 				"tau_bench": 62.5,
 				"terminal_bench": 56.5,
-				"webdev_arena_elo": 1358
+				"webdev_arena_elo": 1358,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1047,7 +1180,14 @@
 				"swe_bench": 58.5,
 				"tau_bench": 48.5,
 				"terminal_bench": 38.5,
-				"webdev_arena_elo": 1255
+				"webdev_arena_elo": 1255,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1106,7 +1246,14 @@
 				"swe_bench": 42.5,
 				"tau_bench": 38.5,
 				"terminal_bench": 28.5,
-				"webdev_arena_elo": 1205
+				"webdev_arena_elo": 1205,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1165,7 +1312,14 @@
 				"swe_bench": 62.5,
 				"tau_bench": 52.5,
 				"terminal_bench": 45.5,
-				"webdev_arena_elo": 1295
+				"webdev_arena_elo": 1295,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -1215,7 +1369,14 @@
 				"swe_bench": 52.5,
 				"tau_bench": 45.5,
 				"terminal_bench": 35.5,
-				"webdev_arena_elo": 1245
+				"webdev_arena_elo": 1245,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1274,7 +1435,14 @@
 				"swe_bench": 69.6,
 				"tau_bench": 74.8,
 				"terminal_bench": 36.3,
-				"webdev_arena_elo": 1305
+				"webdev_arena_elo": 1305,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -1324,7 +1492,14 @@
 				"swe_bench": 71.7,
 				"tau_bench": 55.5,
 				"terminal_bench": 58.5,
-				"webdev_arena_elo": 1315
+				"webdev_arena_elo": 1315,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -1351,7 +1526,7 @@
 				"bfcl": 74.5,
 				"frontiermath": null,
 				"gpqa_diamond": 72.5,
-				"humanity_last_exam": 11.0,
+				"humanity_last_exam": 11,
 				"ifeval": null,
 				"live_code_bench": 52.5,
 				"livebench": null,
@@ -1374,7 +1549,14 @@
 				"swe_bench": 48.5,
 				"tau_bench": 45.5,
 				"terminal_bench": 32.5,
-				"webdev_arena_elo": 1313
+				"webdev_arena_elo": 1313,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1433,7 +1615,14 @@
 				"swe_bench": 69.4,
 				"tau_bench": null,
 				"terminal_bench": null,
-				"webdev_arena_elo": 1317
+				"webdev_arena_elo": 1317,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1463,7 +1652,7 @@
 			},
 			"editor_notes": "Open-source MoE model (1T total, 32B active) with strong agentic performance. Competitive with Claude Sonnet 4 on SWE-bench at fraction of cost. 256K context window.",
 			"benchmark_scores": {
-				"aider_polyglot": 60.0,
+				"aider_polyglot": 60,
 				"aime": 49.5,
 				"arc_agi_2": null,
 				"bfcl": 59.6,
@@ -1492,7 +1681,14 @@
 				"swe_bench": 69.2,
 				"tau_bench": null,
 				"terminal_bench": 35.7,
-				"webdev_arena_elo": null
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1551,7 +1747,14 @@
 				"swe_bench": 71.3,
 				"tau_bench": 93,
 				"terminal_bench": 47.1,
-				"webdev_arena_elo": 1346
+				"webdev_arena_elo": 1346,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -1601,7 +1804,14 @@
 				"swe_bench": 60.4,
 				"tau_bench": 67.7,
 				"terminal_bench": 39.51,
-				"webdev_arena_elo": null
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1660,7 +1870,14 @@
 				"swe_bench": 55,
 				"tau_bench": null,
 				"terminal_bench": 23.8,
-				"webdev_arena_elo": null
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -1685,7 +1902,7 @@
 					"id": "swe_bench",
 					"name": "SWE-Bench Verified",
 					"type": "percentage",
-					"weight": 0.45,
+					"weight": 0.42,
 					"url": "https://swebench.com",
 					"description": "Real-world GitHub issue resolution from popular Python repositories"
 				},
@@ -1701,7 +1918,7 @@
 					"id": "lmarena_coding_elo",
 					"name": "LMArena Coding",
 					"type": "elo",
-					"weight": 0.25,
+					"weight": 0.2,
 					"url": "https://lmarena.ai/leaderboard/text/coding",
 					"description": "Human preference votes on coding tasks",
 					"elo_range": {
@@ -1721,9 +1938,17 @@
 					"id": "aider_polyglot",
 					"name": "AIDER Polyglot",
 					"type": "percentage",
-					"weight": 0.1,
+					"weight": 0.08,
 					"url": "https://aider.chat/docs/leaderboards/",
 					"description": "Multilingual coding benchmark testing code generation and editing"
+				},
+				{
+					"id": "livebench_coding",
+					"name": "LiveBench Coding",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Monthly-updated coding tasks resistant to contamination (LeetCode-style problems)"
 				}
 			]
 		},
@@ -1752,11 +1977,19 @@
 				},
 				{
 					"id": "livebench",
-					"name": "LiveBench",
+					"name": "LiveBench Global",
+					"type": "percentage",
+					"weight": 0.05,
+					"url": "https://livebench.ai",
+					"description": "Continuously updated benchmark with 21 diverse tasks resistant to contamination (fallback)"
+				},
+				{
+					"id": "livebench_reasoning",
+					"name": "LiveBench Reasoning",
 					"type": "percentage",
 					"weight": 0.1,
 					"url": "https://livebench.ai",
-					"description": "Continuously updated benchmark with 21 diverse tasks resistant to contamination"
+					"description": "Monthly-updated reasoning tasks: theory of mind, zebra puzzles, spatial reasoning"
 				},
 				{
 					"id": "humanity_last_exam",
@@ -1770,7 +2003,7 @@
 					"id": "lmarena_hard_elo",
 					"name": "LMArena Hard Prompts",
 					"type": "elo",
-					"weight": 0.15,
+					"weight": 0.1,
 					"url": "https://lmarena.ai/leaderboard/text/hard-prompts",
 					"description": "Human preference on challenging reasoning tasks",
 					"elo_range": {
@@ -1791,7 +2024,7 @@
 					"id": "bfcl",
 					"name": "Berkeley Function Calling (BFCL)",
 					"type": "percentage",
-					"weight": 0.3,
+					"weight": 0.25,
 					"url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
 					"description": "Function calling accuracy across multiple languages"
 				},
@@ -1799,7 +2032,7 @@
 					"id": "tau_bench",
 					"name": "TAU-Bench",
 					"type": "percentage",
-					"weight": 0.25,
+					"weight": 0.2,
 					"url": "https://taubench.com/#leaderboard",
 					"description": "τ²-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
 				},
@@ -1807,7 +2040,7 @@
 					"id": "osworld",
 					"name": "OSWorld",
 					"type": "percentage",
-					"weight": 0.25,
+					"weight": 0.2,
 					"url": "https://os-world.github.io",
 					"description": "Computer control and GUI interaction tasks"
 				},
@@ -1815,13 +2048,29 @@
 					"id": "webdev_arena_elo",
 					"name": "WebDev Arena",
 					"type": "elo",
-					"weight": 0.2,
+					"weight": 0.15,
 					"url": "https://web.lmarena.ai/leaderboard",
 					"description": "Web development task completion",
 					"elo_range": {
 						"min": 1100,
 						"max": 1600
 					}
+				},
+				{
+					"id": "livebench_agentic_coding",
+					"name": "LiveBench Agentic Coding",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Agentic coding with Mini-SWE-Agent for autonomous code completion"
+				},
+				{
+					"id": "livebench_data_analysis",
+					"name": "LiveBench Data Analysis",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Table operations, joins, and type annotation tasks"
 				}
 			]
 		},
@@ -1860,9 +2109,17 @@
 					"id": "ifeval",
 					"name": "IFEval",
 					"type": "percentage",
-					"weight": 0.3,
+					"weight": 0.2,
 					"url": "https://github.com/google-research/google-research/tree/master/instruction_following_eval",
 					"description": "Programmatically verifiable instruction following evaluation"
+				},
+				{
+					"id": "livebench_if",
+					"name": "LiveBench IF",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Monthly-updated instruction following evaluation resistant to contamination"
 				}
 			]
 		},
@@ -1877,7 +2134,7 @@
 					"id": "math_500",
 					"name": "MATH-500",
 					"type": "percentage",
-					"weight": 0.5,
+					"weight": 0.42,
 					"url": "https://github.com/hendrycks/math",
 					"description": "Competition mathematics problems"
 				},
@@ -1905,9 +2162,17 @@
 					"id": "frontiermath",
 					"name": "FrontierMath",
 					"type": "percentage",
-					"weight": 0.1,
+					"weight": 0.08,
 					"url": "https://epoch.ai/frontiermath",
 					"description": "Research-level mathematics problems designed by experts"
+				},
+				{
+					"id": "livebench_math",
+					"name": "LiveBench Math",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Monthly-updated math from recent competitions (IMO, USAMO, AMPS)"
 				}
 			]
 		},
@@ -1991,7 +2256,7 @@
 					"id": "lmarena_en_elo",
 					"name": "LMArena English",
 					"type": "elo",
-					"weight": 0.1,
+					"weight": 0.05,
 					"url": "https://lmarena.ai/leaderboard",
 					"description": "Human preference on English tasks",
 					"elo_range": {
@@ -2003,13 +2268,21 @@
 					"id": "lmarena_zh_elo",
 					"name": "LMArena Chinese",
 					"type": "elo",
-					"weight": 0.1,
+					"weight": 0.05,
 					"url": "https://lmarena.ai/leaderboard",
 					"description": "Human preference on Chinese tasks",
 					"elo_range": {
 						"min": 1100,
 						"max": 1600
 					}
+				},
+				{
+					"id": "livebench_language",
+					"name": "LiveBench Language",
+					"type": "percentage",
+					"weight": 0.1,
+					"url": "https://livebench.ai",
+					"description": "Monthly-updated language understanding tasks across multiple domains"
 				}
 			]
 		}
