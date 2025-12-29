@@ -1611,7 +1611,7 @@
 			"benchmark_scores": {
 				"aider_polyglot": 60,
 				"aime": 49.5,
-				"arc_agi_2": null,
+				"arc_agi_2": 2.5,
 				"bfcl": 59.6,
 				"frontiermath": null,
 				"gpqa_diamond": 71.3,
@@ -1660,7 +1660,7 @@
 		{
 			"id": "kimi-k2-thinking-turbo",
 			"name": "Kimi K2 Thinking",
-			"aka": ["kimi-k2-thinking", "k2-thinking", "kimi-k2-think"],
+			"aka": ["kimi-k2-thinking", "k2-thinking", "kimi-k2-think", "kimi-k2-thinking-turbo"],
 			"superior_of": "kimi-k2-0905-preview",
 			"provider": "Moonshot AI",
 			"type": "open-source",
@@ -1679,7 +1679,7 @@
 			"benchmark_scores": {
 				"aider_polyglot": null,
 				"aime": 83.1,
-				"arc_agi_2": null,
+				"arc_agi_2": 2.5,
 				"bfcl": 90,
 				"frontiermath": 21.4,
 				"gpqa_diamond": 84.2,
