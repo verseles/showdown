@@ -38,6 +38,8 @@ export interface Model {
 	provider: string;
 	type: 'proprietary' | 'open-source';
 	release_date: string;
+	/** If true, model is excluded from rankings and display */
+	disabled?: boolean;
 	/** ID of the base model this is superior to (for thinking/enhanced variants) */
 	superior_of?: string;
 	/** Alternative names for this model (for benchmark matching) */

@@ -147,6 +147,7 @@
 	// Computed values
 	let rankedModels = $derived(rankModels(data.models, data.categories));
 	let topScores = $derived(findTopScores(rankedModels, data.categories));
+	let activeModelsCount = $derived(data.models.filter((m) => !m.disabled).length);
 
 	let filteredModels = $derived(
 		filterModels(rankedModels, {
@@ -344,7 +345,7 @@
 			</div>
 			<div class="header-meta">
 				<span class="model-count">
-					{m.header_showing({ count: sortedModels.length, total: data.models.length })}
+					{m.header_showing({ count: sortedModels.length, total: activeModelsCount })}
 				</span>
 				<span class="last-update">
 					{m.header_updated({ date: new Date(data.meta.last_update).toLocaleDateString() })}

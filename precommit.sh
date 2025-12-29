@@ -97,6 +97,10 @@ for (const model of models) {
   if (!model.benchmark_scores) {
     throw new Error('Model missing benchmark_scores: ' + model.id);
   }
+  // Validate disabled field type if present
+  if (model.disabled !== undefined && typeof model.disabled !== 'boolean') {
+    throw new Error('disabled must be a boolean in model: ' + model.id);
+  }
 }
 
 // Validate category weights sum to 1

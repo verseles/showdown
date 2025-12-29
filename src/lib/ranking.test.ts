@@ -1408,3 +1408,109 @@ describe('rankModels with superior_of integration', () => {
 		expect(rankedThinking.model.imputed_metadata!.bench2.method).toBe('superior_of');
 	});
 });
+
+describe('rankModels with disabled models', () => {
+	const bench1: Benchmark = {
+		id: 'bench1',
+		name: 'Benchmark 1',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const bench2: Benchmark = {
+		id: 'bench2',
+		name: 'Benchmark 2',
+		type: 'percentage',
+		weight: 0.5,
+		url: '',
+		description: ''
+	};
+
+	const createCategory = (id: string): Category => ({
+		id,
+		name: `Category ${id}`,
+		emoji: '🧪',
+		weight: 0.25,
+		description: 'Test',
+		benchmarks: [bench1, bench2]
+	});
+
+	const categories = [
+		createCategory('cat1'),
+		createCategory('cat2'),
+		createCategory('cat3'),
+		createCategory('cat4')
+	];
+
+	it('should exclude disabled models from ranking results', () => {
+		const activeModel: Model = {
+			...mockModel,
+			id: 'active-model',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const disabledModel: Model = {
+			...mockModel,
+			id: 'disabled-model',
+			disabled: true,
+			benchmark_scores: { bench1: 90, bench2: 85 }
+		};
+
+		const ranked = rankModels([activeModel, disabledModel], categories);
+
+		expect(ranked).toHaveLength(1);
+		expect(ranked[0].model.id).toBe('active-model');
+	});
+
+	it('should still use disabled models for superior_of imputation', () => {
+		const disabledBase: Model = {
+			...mockModel,
+			id: 'base-disabled',
+			disabled: true,
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const activeThinking: Model = {
+			...mockModel,
+			id: 'thinking-active',
+			superior_of: 'base-disabled',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const ranked = rankModels([disabledBase, activeThinking], categories);
+
+		expect(ranked).toHaveLength(1);
+		expect(ranked[0].model.id).toBe('thinking-active');
+		expect(ranked[0].model.benchmark_scores.bench2).toBeCloseTo(77);
+		expect(ranked[0].model.imputed_metadata?.bench2?.method).toBe('superior_of');
+	});
+
+	it('should handle models with disabled: false as active', () => {
+		const explicitlyActive: Model = {
+			...mockModel,
+			id: 'explicit-active',
+			disabled: false,
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const ranked = rankModels([explicitlyActive], categories);
+
+		expect(ranked).toHaveLength(1);
+		expect(ranked[0].model.id).toBe('explicit-active');
+	});
+
+	it('should handle models without disabled field as active', () => {
+		const implicitlyActive: Model = {
+			...mockModel,
+			id: 'implicit-active',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const ranked = rankModels([implicitlyActive], categories);
+
+		expect(ranked).toHaveLength(1);
+		expect(ranked[0].model.id).toBe('implicit-active');
+	});
+});

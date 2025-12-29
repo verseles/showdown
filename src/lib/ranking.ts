@@ -584,12 +584,15 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		coverage: calculateBenchmarkCoverage(model, categories)
 	}));
 
+	// Filter out disabled models (imputation already used ALL models for superior_of lookup)
+	const activeModels = modelsWithScores.filter((item) => !item.model.disabled);
+
 	// Sort by:
 	// 1. Overall score (descending)
 	// 2. Benchmark coverage (descending)
 	// 3. Release date (descending)
 	// 4. Name (alphabetical, ascending)
-	modelsWithScores.sort((a, b) => {
+	activeModels.sort((a, b) => {
 		// Null scores go to the end
 		if (a.overallScore === null) return 1;
 		if (b.overallScore === null) return -1;
@@ -621,7 +624,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	let currentRank = 1;
 	let previousScore: number | null = null;
 
-	return modelsWithScores.map((item, index) => {
+	return activeModels.map((item, index) => {
 		if (item.overallScore !== null) {
 			if (item.overallScore !== previousScore) {
 				currentRank = index + 1;
