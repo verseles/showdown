@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2025.12.30",
-		"last_update": "2025-12-30T00:00:00.000Z",
+		"version": "2025.12.31",
+		"last_update": "2025-12-31T00:00:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -70,6 +70,122 @@
 					"imputed_date": "2025-12-27",
 					"note": "Estimated as ~70% of thinking variant (41.8)"
 				}
+			}
+		},
+		{
+			"id": "glm-4-7",
+			"name": "GLM 4.7",
+			"aka": ["glm-4.7", "glm-4.7-thinking"],
+			"provider": "Z.ai",
+			"type": "open-source",
+			"release_date": "2025-12-22",
+			"pricing": {
+				"input_per_1m": 0.6,
+				"output_per_1m": 2.2,
+				"average_per_1m": 1.4
+			},
+			"performance": {
+				"output_speed_tps": 120,
+				"latency_ttft_ms": 800,
+				"source": "https://llm-stats.com"
+			},
+			"editor_notes": "Zhipu AI's flagship model with advanced reasoning and agentic capabilities. Thinks before acting. #1 Open Model on WebDev Arena. Beats Claude Sonnet 4.5 on LiveCodeBench.",
+			"benchmark_scores": {
+				"aider_polyglot": null,
+				"aime": 95.7,
+				"arc_agi_2": null,
+				"bfcl": null,
+				"frontiermath": null,
+				"gpqa_diamond": 85.7,
+				"humanity_last_exam": 24.8,
+				"ifeval": null,
+				"live_code_bench": 84.9,
+				"livebench": null,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": 84.3,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"swe_bench": 73.8,
+				"tau_bench": 87.4,
+				"terminal_bench": 41.0,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
+			}
+		},
+		{
+			"id": "glm-4-6",
+			"name": "GLM 4.6",
+			"aka": ["glm-4.6", "glm-4.6-turbo"],
+			"provider": "Z.ai",
+			"type": "open-source",
+			"release_date": "2025-09-30",
+			"pricing": {
+				"input_per_1m": 0.45,
+				"output_per_1m": 1.8,
+				"average_per_1m": 1.13
+			},
+			"performance": {
+				"output_speed_tps": 100,
+				"latency_ttft_ms": 300,
+				"source": "https://ai-sdk.dev"
+			},
+			"editor_notes": "Strong open-source model with 200K context. Excellent tool use and reasoning capabilities. Competitive with Claude Sonnet 4.",
+			"benchmark_scores": {
+				"aider_polyglot": null,
+				"aime": 93.9,
+				"arc_agi_2": null,
+				"bfcl": null,
+				"frontiermath": null,
+				"gpqa_diamond": 81.0,
+				"humanity_last_exam": 17.2,
+				"ifeval": null,
+				"live_code_bench": 82.8,
+				"livebench": null,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": 83.2,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"swe_bench": 68.0,
+				"tau_bench": 75.2,
+				"terminal_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
