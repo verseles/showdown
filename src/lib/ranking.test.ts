@@ -1254,7 +1254,7 @@ describe('imputeMissingScores with superior_of', () => {
 
 	it('should cascade through superior_of chain to find values', () => {
 		// Simulates: pro -> thinking -> base chain
-		// base has aider_polyglot, thinking doesn't, pro doesn't
+		// base has bench2, thinking doesn't, pro doesn't
 		const baseModel: Model = {
 			...mockModel,
 			id: 'base-model',

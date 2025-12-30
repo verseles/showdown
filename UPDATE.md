@@ -152,23 +152,22 @@ Unable to verify (set to null):
 
 ### Primary Benchmark Sources
 
-| Benchmark                      | URL                                                                                          | What to Search                    |
-| ------------------------------ | -------------------------------------------------------------------------------------------- | --------------------------------- |
-| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column                |
-| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy  |
-| **AIDER Polyglot**             | https://aider.chat/docs/leaderboards/                                                        | Overall accuracy across languages |
-| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column               |
-| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column                |
-| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column           |
-| **FrontierMath**               | https://epoch.ai/benchmarks/frontiermath                                                     | Leaderboard tab                   |
-| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below  |
-| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column                |
-| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                   |
-| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column   |
-| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports        |
-| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                       |
-| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                       |
-| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations               |
+| Benchmark                      | URL                                                                                          | What to Search                   |
+| ------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column               |
+| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy |
+| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column              |
+| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column               |
+| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column          |
+| **FrontierMath**               | https://epoch.ai/benchmarks/frontiermath                                                     | Leaderboard tab                  |
+| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below |
+| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column               |
+| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                  |
+| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column  |
+| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports       |
+| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                      |
+| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                      |
+| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations              |
 
 ### LMArena (Chatbot Arena) - Multiple Categories
 
@@ -240,7 +239,6 @@ Each model in `data/showdown.json` must follow this structure:
 		"terminal_bench": 45.0,
 		"lmarena_coding_elo": 1350,
 		"live_code_bench": 68.0,
-		"aider_polyglot": 72.0,
 		"gpqa_diamond": 80.0,
 		"arc_agi_2": 5.0,
 		"livebench": 65.0,
@@ -304,7 +302,6 @@ Each model in `data/showdown.json` must follow this structure:
 - `terminal_bench` - Terminal-Bench (%)
 - `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1500)
 - `live_code_bench` - LiveCodeBench (%)
-- `aider_polyglot` - AIDER Polyglot (%)
 
 **Reasoning (25% weight):**
 
@@ -365,11 +362,11 @@ When a benchmark score is missing (`null`):
 3. **Use that average** as an estimated value (normalized to 0-100 scale)
 4. **Store metadata** tracking that this value was estimated, not real
 
-**Example:** If Claude Opus 4.5 Thinking is missing AIDER Polyglot (Coding category):
+**Example:** If Claude Opus 4.5 Thinking is missing Terminal-Bench (Coding category):
 
-- Other Coding scores: SWE-Bench (80.9), Terminal-Bench (59.3), LMArena Coding (87.4), LiveCodeBench (75.5)
-- Average: (80.9 + 59.3 + 87.4 + 75.5) / 4 = **75.8**
-- AIDER estimated as 75.8 (or equivalent Elo if applicable)
+- Other Coding scores: SWE-Bench (80.9), LMArena Coding (87.4), LiveCodeBench (75.5)
+- Average: (80.9 + 87.4 + 75.5) / 3 = **81.3**
+- Terminal-Bench estimated as 81.3
 
 ### Metadata Tracking
 
@@ -378,16 +375,16 @@ All imputed values are tracked in the `imputed_metadata` field:
 ```json
 {
 	"benchmark_scores": {
-		"aider_polyglot": 75.8, // This was estimated
+		"terminal_bench": 81.3, // This was estimated
 		"swe_bench": 80.9 // This is real data
 	},
 	"imputed_metadata": {
-		"aider_polyglot": {
+		"terminal_bench": {
 			"original_value": null,
-			"imputed_value": 75.8,
+			"imputed_value": 81.3,
 			"method": "category_average",
 			"imputed_date": "2025-12-26",
-			"note": "Estimated from 4 other benchmarks in Coding category (avg: 75.80)"
+			"note": "Estimated from 3 other benchmarks in Coding category (avg: 81.30)"
 		}
 	}
 }
@@ -414,13 +411,13 @@ In the UI:
 ```json
 // BEFORE (estimated):
 {
-  "benchmark_scores": { "aider_polyglot": 75.8 },
-  "imputed_metadata": { "aider_polyglot": { ... } }
+  "benchmark_scores": { "terminal_bench": 81.3 },
+  "imputed_metadata": { "terminal_bench": { ... } }
 }
 
 // AFTER (real data available):
 {
-  "benchmark_scores": { "aider_polyglot": 93.3 },
+  "benchmark_scores": { "terminal_bench": 85.5 },
   "imputed_metadata": {}  // Removed!
 }
 ```
