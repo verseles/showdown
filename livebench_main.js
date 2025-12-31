@@ -20804,20 +20804,18 @@
 								(n(e), r(e), a(e), i(e), o(e));
 							});
 				};
-			(a
-				.createRoot(document.getElementById('root'))
-				.render(
-					(0, ri.jsx)(t.StrictMode, {
-						children: (0, ri.jsx)(we, {
-							children: (0, ri.jsxs)(ge, {
-								children: [
-									(0, ri.jsx)(he, { path: '/', element: (0, ri.jsx)(ii, {}) }),
-									(0, ri.jsx)(he, { path: '/details', element: (0, ri.jsx)(mo, {}) })
-								]
-							})
+			(a.createRoot(document.getElementById('root')).render(
+				(0, ri.jsx)(t.StrictMode, {
+					children: (0, ri.jsx)(we, {
+						children: (0, ri.jsxs)(ge, {
+							children: [
+								(0, ri.jsx)(he, { path: '/', element: (0, ri.jsx)(ii, {}) }),
+								(0, ri.jsx)(he, { path: '/details', element: (0, ri.jsx)(mo, {}) })
+							]
 						})
 					})
-				),
+				})
+			),
 				go());
 		})());
 })();

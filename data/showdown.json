@@ -733,7 +733,7 @@
 			"editor_notes": "Thinking mode of Gemini 3 Flash. Uses thinking_level parameter for controlled reasoning. Balances speed with enhanced reasoning capability for complex tasks. #2 on LMArena Overall.",
 			"benchmark_scores": {
 				"aime": 92.8,
-				"arc_agi_2": 36,
+				"arc_agi_2": 33.6,
 				"bfcl": null,
 				"frontiermath": 35.6,
 				"gpqa_diamond": 83.2,
