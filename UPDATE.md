@@ -155,7 +155,6 @@ Unable to verify (set to null):
 | Benchmark                      | URL                                                                                          | What to Search                   |
 | ------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
 | **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column               |
-| **IFEval**                     | https://github.com/google-research/google-research/tree/master/instruction_following_eval    | Use Prompt-level strict accuracy |
 | **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column              |
 | **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column               |
 | **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column          |
@@ -250,7 +249,6 @@ Each model in `data/showdown.json` must follow this structure:
 		"webdev_arena_elo": 1300,
 		"lmarena_creative_elo": 1340,
 		"lmarena_if_elo": 1380,
-		"ifeval": 78.5,
 		"math_500": 75.0,
 		"aime": 65.0,
 		"lmarena_math_elo": 1310,
@@ -322,7 +320,6 @@ Each model in `data/showdown.json` must follow this structure:
 
 - `lmarena_creative_elo` - LMArena Creative (Elo: 1100-1500)
 - `lmarena_if_elo` - LMArena Instruction Following (Elo: 1100-1500)
-- `ifeval` - IFEval (%)
 
 **Math (10% weight):**
 
@@ -515,7 +512,6 @@ When a superior model has missing benchmark values and its base model has real d
 
 ```
 Claude Opus 4.5:          gpqa=80.7, aime=48.1
-Claude Opus 4.5 Thinking: gpqa=86.0, aime=86.1, ifeval=NULL
 
 Superiority ratios:
 - gpqa: 86.0/80.7 = 1.066 (6.6%)
@@ -523,8 +519,6 @@ Superiority ratios:
 
 Average ratio: 1.133 (capped at 1.20)
 
-If Opus 4.5 has ifeval=88.5:
-→ Thinking ifeval = 88.5 × 1.20 = 100 (capped at 100%)
 ```
 
 ### Confidence Levels
