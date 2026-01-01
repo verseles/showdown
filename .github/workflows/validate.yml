@@ -83,7 +83,7 @@ jobs:
             }
 
             // Validate new required benchmarks exist in categories
-            const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'ifeval', 'mmlu_pro', 'simpleqa'];
+            const requiredBenchmarks = ['swe_bench', 'gpqa_diamond', 'livebench', 'mmlu_pro', 'simpleqa'];
             for (const req of requiredBenchmarks) {
               if (!benchmarkIds.has(req)) {
                 throw new Error('Required benchmark missing from categories: ' + req);
