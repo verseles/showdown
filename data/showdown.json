@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.03",
-		"last_update": "2026-01-03T03:33:00.000Z",
+		"last_update": "2026-01-03T15:36:27.879766Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1206,7 +1206,7 @@
 				"gpqa_diamond": 80.1,
 				"humanity_last_exam": null,
 				"live_code_bench": 68.5,
-				"livebench": null,
+				"livebench": 77.1,
 				"lmarena_coding_elo": 1470,
 				"lmarena_creative_elo": 1379,
 				"lmarena_en_elo": 1365,
@@ -1261,7 +1261,7 @@
 				"gpqa_diamond": 65.5,
 				"humanity_last_exam": null,
 				"live_code_bench": 55.5,
-				"livebench": null,
+				"livebench": 74.9,
 				"lmarena_coding_elo": 1405,
 				"lmarena_creative_elo": 1304,
 				"lmarena_en_elo": 1305,
@@ -1498,7 +1498,7 @@
 				"frontiermath": null,
 				"gpqa_diamond": 78,
 				"humanity_last_exam": null,
-				"live_code_bench": null,
+				"live_code_bench": 83.0,
 				"livebench": null,
 				"lmarena_coding_elo": 1376,
 				"lmarena_creative_elo": 1332,
@@ -1564,7 +1564,7 @@
 				"gpqa_diamond": 71.3,
 				"humanity_last_exam": null,
 				"live_code_bench": 53.7,
-				"livebench": null,
+				"livebench": 76.4,
 				"lmarena_coding_elo": 1465,
 				"lmarena_creative_elo": 1381,
 				"lmarena_en_elo": null,
@@ -1760,7 +1760,7 @@
 				"lmarena_zh_elo": 1426,
 				"math_500": 93.6,
 				"mathvista": null,
-				"mmlu_pro": null,
+				"mmlu_pro": 73.1,
 				"mmmlu": null,
 				"simpleqa": 12,
 				"mmmu": null,
@@ -1793,7 +1793,7 @@
 		{
 			"id": "coding",
 			"name": "Coding",
-			"emoji": "💻",
+			"emoji": "\ud83d\udcbb",
 			"weight": 0.25,
 			"description": "Measures ability to write, edit, and debug code across multiple programming languages. Includes real-world GitHub issue resolution and competitive programming.",
 			"benchmarks": [
@@ -1846,7 +1846,7 @@
 		{
 			"id": "reasoning",
 			"name": "Reasoning",
-			"emoji": "🧠",
+			"emoji": "\ud83e\udde0",
 			"weight": 0.25,
 			"description": "Complex problem-solving and PhD-level questions in science, mathematics, and logical reasoning.",
 			"benchmarks": [
@@ -1907,7 +1907,7 @@
 		{
 			"id": "agents",
 			"name": "Agents & Tools",
-			"emoji": "🤖",
+			"emoji": "\ud83e\udd16",
 			"weight": 0.18,
 			"description": "Function calling, computer use, and tool integration capabilities for autonomous operation.",
 			"benchmarks": [
@@ -1925,7 +1925,7 @@
 					"type": "percentage",
 					"weight": 0.2,
 					"url": "https://taubench.com/#leaderboard",
-					"description": "τ²-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
+					"description": "\u03c4\u00b2-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
 				},
 				{
 					"id": "osworld",
@@ -1968,7 +1968,7 @@
 		{
 			"id": "conversation",
 			"name": "Conversation",
-			"emoji": "💬",
+			"emoji": "\ud83d\udcac",
 			"weight": 0.12,
 			"description": "Creative writing, instruction following, and conversational quality.",
 			"benchmarks": [
@@ -2009,7 +2009,7 @@
 		{
 			"id": "math",
 			"name": "Math",
-			"emoji": "🔢",
+			"emoji": "\ud83d\udd22",
 			"weight": 0.1,
 			"description": "Mathematical problem solving from elementary to competition level.",
 			"benchmarks": [
@@ -2062,7 +2062,7 @@
 		{
 			"id": "multimodal",
 			"name": "Multimodal",
-			"emoji": "👁️",
+			"emoji": "\ud83d\udc41\ufe0f",
 			"weight": 0.07,
 			"description": "Vision and text understanding, including charts, diagrams, and images.",
 			"benchmarks": [
@@ -2107,7 +2107,7 @@
 		{
 			"id": "knowledge",
 			"name": "Knowledge",
-			"emoji": "🧠",
+			"emoji": "\ud83e\udde0",
 			"weight": 0.03,
 			"description": "Knowledge assessment across subjects and languages.",
 			"benchmarks": [
