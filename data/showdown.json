@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.03",
-		"last_update": "2026-01-03T15:36:27.879766Z",
+		"version": "2026.01.04",
+		"last_update": "2026-01-04T16:00:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -511,7 +511,7 @@
 				"lmarena_zh_elo": 1468,
 				"math_500": 94.5,
 				"mathvista": 78.5,
-				"mmlu_pro": null,
+				"mmlu_pro": 86.2,
 				"mmmlu": 89.5,
 				"simpleqa": 38.2,
 				"mmmu": 76.5,
@@ -625,7 +625,7 @@
 				"lmarena_zh_elo": 1518,
 				"math_500": 92.8,
 				"mathvista": 78.5,
-				"mmlu_pro": 89,
+				"mmlu_pro": 90.1,
 				"mmmlu": 91.8,
 				"simpleqa": 72.9,
 				"mmmu": 75.2,
@@ -681,7 +681,7 @@
 				"lmarena_zh_elo": 1530,
 				"math_500": null,
 				"mathvista": null,
-				"mmlu_pro": 84,
+				"mmlu_pro": 88.6,
 				"mmmlu": null,
 				"simpleqa": 67.4,
 				"mmmu": 81.2,
@@ -738,7 +738,7 @@
 				"lmarena_zh_elo": 1530,
 				"math_500": null,
 				"mathvista": null,
-				"mmlu_pro": 84,
+				"mmlu_pro": 88.6,
 				"mmmlu": null,
 				"simpleqa": 67.4,
 				"mmmu": 82,
