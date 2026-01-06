@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.08",
-		"last_update": "2026-01-08T12:00:00.000Z",
+		"last_update": "2026-01-08T14:00:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -491,7 +491,7 @@
 				"latency_ttft_ms": 1200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "AKA GPT-5.2 Thinking (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 52.9% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
+			"editor_notes": "AKA GPT-5.2 Thinking (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 43.3% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
 			"benchmark_scores": {
 				"aime": 96.1,
 				"arc_agi_2": 43.3,
@@ -612,12 +612,12 @@
 				"bfcl": 82.8,
 				"frontiermath": 37.6,
 				"gpqa_diamond": 91.9,
-				"humanity_last_exam": 37.52,
+				"humanity_last_exam": 37.5,
 				"live_code_bench": 78.5,
 				"livebench": 75.22,
 				"lmarena_coding_elo": 1519,
 				"lmarena_creative_elo": 1489,
-				"lmarena_en_elo": 1490,
+				"lmarena_en_elo": 1494,
 				"lmarena_hard_elo": 1503,
 				"lmarena_if_elo": 1474,
 				"lmarena_math_elo": 1478,
