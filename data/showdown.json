@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.04",
-		"last_update": "2026-01-04T18:00:00.000Z",
+		"version": "2026.01.07",
+		"last_update": "2026-01-07T12:00:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -38,7 +38,7 @@
 				"lmarena_hard_elo": 1493,
 				"lmarena_if_elo": 1474,
 				"lmarena_math_elo": 1468,
-				"lmarena_vision_elo": 1189,
+				"lmarena_vision_elo": 1188,
 				"lmarena_zh_elo": 1484,
 				"math_500": 88.5,
 				"mathvista": 72.8,
@@ -403,7 +403,7 @@
 				"mmmu": 84.2,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": 72.8,
+				"swe_bench": 78.7,
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1398,
