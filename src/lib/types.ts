@@ -19,7 +19,7 @@ export type ImputationConfidence = 'low' | 'medium' | 'high';
 export interface ImputedMetadata {
 	original_value: null;
 	imputed_value: number;
-	method: 'category_average' | 'superior_of';
+	method: 'category_average' | 'superior_of' | 'inferior_of';
 	imputed_date: string;
 	note: string;
 	/** ID of the inferior model (only when method='superior_of') */

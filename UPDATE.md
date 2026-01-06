@@ -555,6 +555,69 @@ In the UI, imputed values are shown with:
 | grok-4.1-thinking                       | grok-4.1                   |
 | kimi-k2-thinking-turbo                  | kimi-k2-0905-preview       |
 
+### 🚨 CRITICAL: SWE-Bench Score Attribution for Thinking Models
+
+**Default Rule:** When a benchmark source reports a SINGLE score for a model family (e.g., "Gemini 3 Flash: 78%") without distinguishing variants, that score **IS FROM THE THINKING MODEL**. Always assign it to the thinking variant.
+
+**Why?** Benchmark leaderboards test models at maximum capability, which means thinking/reasoning mode enabled. The reported score reflects the thinking variant's performance, not the base model.
+
+**Problem:** Many benchmark sources (especially SWE-Bench Verified) report only a single score for a model family, but that score typically comes from the **thinking/reasoning variant**, not the base model. Using the same score for both is **unfair** and inflates the base model's ranking.
+
+**Solution:** The ranking system now has **automatic `inferior_of` imputation**. When a BASE model is missing a benchmark value but its THINKING variant (the model with `superior_of` pointing to it) has a value, the system automatically calculates:
+
+```
+base_score = thinking_score × 0.90 (INFERIOR_OF_RATIO)
+```
+
+**What AI Assistants Should Do:**
+
+1. **Assign the reported score to the THINKING model** - this is where it belongs
+2. **Leave the BASE model's benchmark as `null`** - don't copy the same value
+3. **The system will automatically impute** the base model's score at 90% of the thinking score
+4. **Document this** in commit messages
+
+**Practical Example:**
+
+| Source Reports                   | How to Enter in showdown.json                             |
+| -------------------------------- | --------------------------------------------------------- |
+| "Gemini 3 Flash Preview: 78%"    | `gemini-3-flash-thinking.swe_bench`: 78.0                 |
+| (SWE-Bench Verified leaderboard) | `gemini-3-flash.swe_bench`: `null` (auto-imputed to 70.2) |
+
+**Why this matters:**
+
+- SWE-Bench and similar benchmarks test models with extended thinking/reasoning enabled
+- The base model without thinking capabilities performs significantly worse
+- Without this adjustment, non-thinking models appear equal to thinking models, which is misleading
+- This ensures fair comparison: users can see the real performance difference
+
+**When to use manual hardcoding instead:**
+
+- ✅ When you have **independent, verified scores** for both variants → use real values
+- ✅ When the source **explicitly distinguishes** between base and thinking → use real values
+- ❌ When only ONE score is reported for a model family → let `inferior_of` auto-impute
+
+**Imputation Methods Summary:**
+
+| Method             | Direction       | When Used                                 | Ratio       |
+| ------------------ | --------------- | ----------------------------------------- | ----------- |
+| `superior_of`      | Base → Thinking | Thinking model missing value, base has it | × 1.02-1.10 |
+| `inferior_of`      | Thinking → Base | Base model missing value, thinking has it | × 0.90      |
+| `category_average` | Same category   | Neither superior/inferior has value       | avg         |
+
+**Commit message example:**
+
+```
+Update Gemini 3 Flash models
+
+SWE-Bench Verified:
+- gemini-3-flash-thinking: 78.0% (from swebench.com leaderboard)
+- gemini-3-flash: null (will be auto-imputed to 70.2% via inferior_of)
+
+Note: SWE-Bench reports 78% for "Gemini 3 Flash Preview" which uses
+thinking mode. Base model left as null for automatic inferior_of
+imputation per UPDATE.md guidelines.
+```
+
 ---
 
 ## Step-by-Step Update Process

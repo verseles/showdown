@@ -647,7 +647,7 @@
 		{
 			"id": "gemini-3-flash",
 			"name": "Gemini 3 Flash",
-			"aka": ["gemini-3.0-flash", "gemini3-flash"],
+			"aka": ["gemini-3.0-flash", "gemini3-flash", "gemini-3-flash-non-thinking"],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-12-17",
@@ -661,7 +661,7 @@
 				"latency_ttft_ms": 200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Fastest intelligent model at 218 TPS. Outperforms even Gemini 3 Pro on SWE-Bench (78%) at quarter the cost. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
+			"editor_notes": "Fastest intelligent model at 218 TPS. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
 			"benchmark_scores": {
 				"aime": 92.8,
 				"arc_agi_2": 33.6,
@@ -687,7 +687,7 @@
 				"mmmu": 81.2,
 				"mmmu_pro": 81.2,
 				"osworld": null,
-				"swe_bench": 78.0,
+				"swe_bench": 70.2,
 				"tau_bench": 90.2,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1454,
@@ -703,7 +703,7 @@
 		{
 			"id": "gemini-3-flash-thinking",
 			"name": "Gemini 3 Flash Thinking",
-			"aka": ["gemini-3-flash-thinking-mode", "gemini3-flash-thinking"],
+			"aka": ["gemini-3-flash-thinking-mode", "gemini3-flash-thinking", "gemini-3-flash-preview"],
 			"superior_of": "gemini-3-flash",
 			"provider": "Google",
 			"type": "proprietary",
@@ -718,7 +718,7 @@
 				"latency_ttft_ms": 400,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Thinking mode of Gemini 3 Flash. Uses thinking_level parameter for controlled reasoning. Balances speed with enhanced reasoning capability for complex tasks. #2 on LMArena Overall.",
+			"editor_notes": "Thinking mode of Gemini 3 Flash. Outperforms even Gemini 3 Pro on SWE-Bench (78%) at quarter the cost. Uses thinking_level parameter for controlled reasoning. #2 on LMArena Overall.",
 			"benchmark_scores": {
 				"aime": 92.8,
 				"arc_agi_2": 36,

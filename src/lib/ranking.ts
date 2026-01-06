@@ -58,6 +58,7 @@ export const MIN_IMPUTATION_COVERAGE = 0.5;
 export const VALID_IMPUTATION_METHODS = [
 	'category_average',
 	'superior_of',
+	'inferior_of',
 	'cross_model_average',
 	'estimated',
 	'manual'
@@ -78,6 +79,13 @@ export const MAX_SUPERIORITY_RATIO = 1.1;
  * Default superiority ratio when no shared benchmarks exist (5% improvement)
  */
 export const DEFAULT_SUPERIORITY_RATIO = 1.05;
+
+/**
+ * Ratio used when imputing BASE model scores from THINKING model values.
+ * Base models without thinking are expected to perform ~10% worse.
+ * Example: If thinking model has 78% on SWE-Bench, base gets 78 × 0.90 = 70.2%
+ */
+export const INFERIOR_OF_RATIO = 0.9;
 
 /**
  * Maximum percentage for imputed values via superior_of method.
@@ -405,6 +413,43 @@ export function imputeMissingScores(
 			confidence: categoryConfidence,
 			benchmarks_used: availableScores.length
 		};
+	}
+
+	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
+	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
+	if (!model.superior_of && allModels.length > 0) {
+		const superiorModel = allModels.find((m) => m.superior_of === model.id);
+		if (superiorModel) {
+			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
+				if (score !== null) continue; // Skip non-null values
+
+				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
+				if (superiorValue == null) continue;
+
+				const benchmarkInfo = benchmarkById.get(benchmarkId);
+				if (!benchmarkInfo) continue;
+
+				const { benchmark } = benchmarkInfo;
+
+				let imputedValue = superiorValue * INFERIOR_OF_RATIO;
+
+				if (benchmark.type === 'elo' && benchmark.elo_range) {
+					imputedValue = Math.max(benchmark.elo_range.min, imputedValue);
+				}
+
+				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+
+				imputedModel.imputed_metadata![benchmarkId] = {
+					original_value: null,
+					imputed_value: imputedValue,
+					method: 'inferior_of',
+					imputed_date: today,
+					note: `Estimated as base of ${superiorModel.name} (${superiorValue.toFixed(1)} × ${INFERIOR_OF_RATIO})`,
+					confidence: 'medium',
+					benchmarks_used: 1
+				};
+			}
+		}
 	}
 
 	return imputedModel;
