@@ -132,6 +132,7 @@
 			"id": "claude-sonnet-4-5-20250929",
 			"name": "Claude Sonnet 4.5",
 			"aka": ["claude-sonnet-4-5", "claude-sonnet-4.5", "sonnet-4.5"],
+			"inferior_of": "claude-sonnet-4-5-20250929-thinking-32k",
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-09-29",
