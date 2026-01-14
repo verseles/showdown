@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.14",
-		"last_update": "2026-01-14T22:00:00.000Z",
+		"last_update": "2026-01-14T23:55:00.000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -35,8 +35,8 @@
 				"livebench": 65.01,
 				"lmarena_coding_elo": 1520,
 				"lmarena_creative_elo": 1460,
-				"lmarena_en_elo": 1478,
-				"lmarena_hard_elo": 1498,
+				"lmarena_en_elo": 1467,
+				"lmarena_hard_elo": 1494,
 				"lmarena_if_elo": 1479,
 				"lmarena_math_elo": 1467,
 				"lmarena_vision_elo": 1188,
@@ -362,67 +362,68 @@
 			}
 		},
 		{
-			"id": "gpt-5-high",
-			"name": "GPT-5 High",
-			"aka": ["gpt-5-high", "gpt-5-high-effort", "gpt5-high"],
+			"id": "gpt-4.5-preview-2025-02-27",
+			"name": "GPT-4.5",
+			"aka": ["gpt-4.5", "gpt-4.5-preview"],
 			"superior_of": "gpt-4o-2024-05-13",
 			"provider": "OpenAI",
 			"type": "proprietary",
-			"release_date": "2025-10-15",
+			"release_date": "2025-02-27",
 			"pricing": {
-				"input_per_1m": 1.25,
-				"output_per_1m": 10,
-				"average_per_1m": 5.625
+				"input_per_1m": 3,
+				"output_per_1m": 12,
+				"average_per_1m": 7.5
 			},
 			"performance": {
-				"output_speed_tps": 40,
-				"latency_ttft_ms": 1600,
+				"output_speed_tps": 85,
+				"latency_ttft_ms": 450,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "High-reasoning variant of GPT-5. Excellent performance on AIME 2025 (94.6%) and GPQA Diamond (85.7%).",
+			"editor_notes": "Significant upgrade over 4o with improved factual accuracy and reasoning. Leading in factual accuracy on SimpleQA during release.",
 			"benchmark_scores": {
-				"aime": 94.6,
-				"arc_agi_2": 9.9,
-				"bfcl": null,
-				"frontiermath": 26.3,
-				"gpqa_diamond": 85.7,
-				"humanity_last_exam": 26.3,
-				"live_code_bench": null,
-				"livebench": null,
-				"lmarena_coding_elo": 1470,
-				"lmarena_creative_elo": 1381,
+				"aime": 75,
+				"arc_agi_2": 7.5,
+				"bfcl": 78.5,
+				"gpqa_diamond": 65,
+				"lmarena_en_elo": 1448,
+				"lmarena_coding_elo": 1459,
+				"simpleqa": 25,
+				"mmmu": 74.4,
+				"mmmlu": 85.1
+			}
+		},
+		{
+			"id": "gpt-5.1",
+			"name": "GPT 5.1",
+			"aka": ["gpt-5.1-base", "gpt-5.1-chat"],
+			"superior_of": "gpt-4.5-preview-2025-02-27",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-11-12",
+			"pricing": {
+				"input_per_1m": 1.5,
+				"output_per_1m": 6,
+				"average_per_1m": 3.75
+			},
+			"performance": {
+				"output_speed_tps": 120,
+				"latency_ttft_ms": 250,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "OpenAI's late 2025 standard model. Strong performance across coding and math with significantly improved speed over GPT-5.",
+			"benchmark_scores": {
+				"swe_bench": 76.3,
+				"aime": 94,
 				"lmarena_en_elo": 1441,
-				"lmarena_hard_elo": 1448,
-				"lmarena_if_elo": 1411,
-				"lmarena_math_elo": 1439,
-				"lmarena_vision_elo": 1210,
-				"lmarena_zh_elo": 1455,
-				"math_500": null,
-				"mathvista": null,
-				"mmlu_pro": null,
-				"mmmlu": null,
-				"simpleqa": null,
-				"mmmu": 84.2,
-				"mmmu_pro": null,
-				"osworld": null,
-				"swe_bench": 78.7,
-				"tau_bench": null,
-				"terminal_bench": null,
-				"webdev_arena_elo": 1398,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"lmarena_coding_elo": 1480,
+				"livebench": 72.39
 			}
 		},
 		{
 			"id": "gpt-5.1-high",
 			"name": "GPT 5.1 High",
 			"aka": ["gpt-5.1-thinking", "gpt-5-1-high", "gpt5.1-high", "gpt-5.1-high-effort"],
-			"superior_of": "gpt-5-high",
+			"superior_of": "gpt-5.1",
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-11-12",
@@ -479,6 +480,7 @@
 			"id": "gpt-5.2",
 			"name": "GPT 5.2",
 			"aka": ["gpt-5.2-instant", "gpt-5.2-small"],
+			"superior_of": "gpt-5.1-high",
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-12-11",
@@ -701,7 +703,7 @@
 				"livebench": 73.74,
 				"lmarena_coding_elo": 1502,
 				"lmarena_creative_elo": 1466,
-				"lmarena_en_elo": 1473,
+				"lmarena_en_elo": 1471,
 				"lmarena_hard_elo": 1487,
 				"lmarena_if_elo": 1445,
 				"lmarena_math_elo": 1471,
@@ -1377,9 +1379,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 25,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated as ~50% of Qwen3 235B (50.1)"
 				}
 			}
@@ -1607,9 +1609,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 45,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated as ~80% of Gemini 2.5 Pro (56.0)"
 				}
 			}
@@ -1671,9 +1673,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 18,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated for open-source MoE model"
 				}
 			}
@@ -1736,9 +1738,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 20,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated as ~65% of Kimi K2 Thinking (31.6)"
 				}
 			}
@@ -1857,9 +1859,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 15,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated for open-source MoE model"
 				}
 			}
@@ -1921,9 +1923,9 @@
 			"imputed_metadata": {
 				"simpleqa": {
 					"original_value": null,
+					"imputed_date": "2025-12-27",
 					"imputed_value": 12,
 					"method": "estimated",
-					"imputed_date": "2025-12-27",
 					"note": "Estimated for open-source MoE model"
 				}
 			}
