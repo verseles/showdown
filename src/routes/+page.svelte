@@ -403,6 +403,16 @@
 			</div>
 
 			<div class="filter-group">
+				<label for="date-range-filter">{m.filter_date_range()}</label>
+				<select id="date-range-filter" bind:value={filters.dateRange} class="filter-select">
+					<option value="all">{m.filter_date_all()}</option>
+					<option value="30d">{m.filter_date_30d()}</option>
+					<option value="90d">{m.filter_date_90d()}</option>
+					<option value="180d">{m.filter_date_180d()}</option>
+				</select>
+			</div>
+
+			<div class="filter-group">
 				<label class="checkbox-label">
 					<input type="checkbox" bind:checked={filters.favoritesOnly} />
 					{m.filter_favorites_only()}
@@ -1196,6 +1206,16 @@
 		font-weight: 600;
 		color: var(--text-muted);
 		text-transform: uppercase;
+	}
+
+	.filter-select {
+		padding: var(--spacing-xs) var(--spacing-sm);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		font-size: 0.875rem;
+		min-width: 140px;
 	}
 
 	.checkbox-group {
