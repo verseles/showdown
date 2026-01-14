@@ -268,6 +268,39 @@
 		return expandedCards.has(modelId);
 	}
 
+	let jsonLd = $derived({
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: m.site_title(),
+		description: m.site_description(),
+		mainEntity: {
+			'@type': 'ItemList',
+			itemListElement: sortedModels.slice(0, 10).map((ranked, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				item: {
+					'@type': 'SoftwareApplication',
+					name: ranked.model.name,
+					applicationCategory: 'AI Model',
+					operatingSystem: 'All',
+					offers: {
+						'@type': 'Offer',
+						price: ranked.model.pricing.average_per_1m,
+						priceCurrency: 'USD',
+						description: 'Price per 1M tokens (average)'
+					},
+					aggregateRating: {
+						'@type': 'AggregateRating',
+						ratingValue: ranked.overallScore?.toFixed(1) ?? '0',
+						reviewCount: Object.keys(ranked.model.benchmark_scores).length,
+						bestRating: '100',
+						worstRating: '0'
+					}
+				}
+			}))
+		}
+	});
+
 	function t(key: string, defaultValue: string): string {
 		const message = m[key as keyof typeof m];
 		if (typeof message === 'function') {
@@ -308,6 +341,7 @@
 	<meta property="og:url" content="https://showdown.best" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={m.og_title()} />
+	{@html `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`}
 </svelte:head>
 
 <header class="header">

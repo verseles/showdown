@@ -72,7 +72,7 @@ This document tracks the development progress of Showdown. Features are organize
 - [x] Sitemap.xml generation
 - [x] Robots.txt
 - [x] Cloudflare Pages deployment
-- [ ] Structured data (JSON-LD)
+- [x] Structured data (JSON-LD)
 - [ ] Performance monitoring
 
 ## Phase 8: DevOps & Quality
