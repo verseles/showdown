@@ -80,6 +80,9 @@
 	// Column settings dropdown state
 	let showColumnSettings = $state(false);
 
+	// Export menu dropdown state
+	let showExportMenu = $state(false);
+
 	// Track if localStorage has been loaded
 	let isInitialized = $state(false);
 
@@ -276,6 +279,62 @@
 		return defaultValue;
 	}
 
+	function exportData(format: 'csv' | 'json') {
+		const dataToExport = sortedModels.map((item) => {
+			// Flatten the structure for CSV
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const flat: any = {
+				rank: item.rank,
+				provider: item.model.provider,
+				model: item.model.name,
+				type: item.model.type,
+				overall_score: item.overallScore,
+				price_input: item.model.pricing.input_per_1m,
+				price_output: item.model.pricing.output_per_1m,
+				price_average: item.model.pricing.average_per_1m,
+				speed: item.model.performance.output_speed_tps,
+				latency: item.model.performance.latency_ttft_ms,
+				release_date: item.model.release_date
+			};
+
+			// Add category scores
+			for (const [catId, score] of Object.entries(item.categoryScores)) {
+				flat[`score_${catId}`] = score;
+			}
+
+			return flat;
+		});
+
+		if (format === 'json') {
+			const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `showdown-data-${new Date().toISOString().split('T')[0]}.json`;
+			a.click();
+			URL.revokeObjectURL(url);
+		} else {
+			// CSV implementation
+			if (dataToExport.length === 0) return;
+			const headers = Object.keys(dataToExport[0]);
+			const csvContent = [
+				headers.join(','),
+				...dataToExport.map((row) =>
+					headers.map((fieldName) => JSON.stringify(row[fieldName])).join(',')
+				)
+			].join('\n');
+
+			const blob = new Blob([csvContent], { type: 'text/csv' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `showdown-data-${new Date().toISOString().split('T')[0]}.csv`;
+			a.click();
+			URL.revokeObjectURL(url);
+		}
+		showExportMenu = false;
+	}
+
 	// Close tooltip when clicking outside on mobile
 	$effect(() => {
 		if (activeTooltip) {
@@ -435,6 +494,27 @@
 				>
 					{m.filter_reset()}
 				</button>
+
+				<div class="export-wrapper">
+					<button
+						class="export-btn"
+						type="button"
+						onclick={() => (showExportMenu = !showExportMenu)}
+						aria-expanded={showExportMenu}
+					>
+						{m.action_export()}
+					</button>
+					{#if showExportMenu}
+						<div class="export-menu">
+							<button class="export-option" onclick={() => exportData('csv')}
+								>{m.action_export_csv()}</button
+							>
+							<button class="export-option" onclick={() => exportData('json')}
+								>{m.action_export_json()}</button
+							>
+						</div>
+					{/if}
+				</div>
 
 				<div class="column-settings-wrapper">
 					<button
@@ -1251,6 +1331,58 @@
 
 	.reset-btn:hover {
 		background: var(--border-color);
+	}
+
+	/* Export Button */
+	.export-wrapper {
+		position: relative;
+	}
+
+	.export-btn {
+		padding: var(--spacing-xs) var(--spacing-md);
+		background: var(--bg-tertiary);
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		color: var(--text-primary);
+		cursor: pointer;
+		font-size: 0.875rem;
+		transition: background var(--transition-fast);
+	}
+
+	.export-btn:hover {
+		background: var(--border-color);
+	}
+
+	.export-menu {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: var(--spacing-xs);
+		background: var(--bg-primary);
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		box-shadow: var(--shadow-lg);
+		min-width: 150px;
+		z-index: 1000;
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-xs);
+	}
+
+	.export-option {
+		background: none;
+		border: none;
+		padding: var(--spacing-sm);
+		text-align: left;
+		cursor: pointer;
+		border-radius: 4px;
+		font-size: 0.875rem;
+		color: var(--text-primary);
+		transition: background var(--transition-fast);
+	}
+
+	.export-option:hover {
+		background: var(--bg-secondary);
 	}
 
 	/* Column Settings */
