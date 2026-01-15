@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.14",
-		"last_update": "2026-01-14T15:47:08.000Z",
+		"last_update": "2026-01-15T03:42:31.616Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -174,7 +174,7 @@
 				"osworld": 61.4,
 				"swe_bench": 77.2,
 				"tau_bench": 58.5,
-				"terminal_bench": 50.0,
+				"terminal_bench": 50,
 				"webdev_arena_elo": 1387,
 				"livebench_reasoning": 42.29,
 				"livebench_coding": 76.07,
@@ -529,7 +529,7 @@
 			"editor_notes": "AKA GPT-5.2 Thinking (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 43.3% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
 			"benchmark_scores": {
 				"aime": 100,
-				"arc_agi_2": 52.9,
+				"arc_agi_2": 43.3,
 				"bfcl": 88.5,
 				"frontiermath": 40.3,
 				"gpqa_diamond": 92.4,
@@ -642,7 +642,7 @@
 			"editor_notes": "First model to break 1500 Elo on LMArena. Exceptional at algorithmic/competitive programming with breakthrough reasoning performance.",
 			"benchmark_scores": {
 				"aime": 95,
-				"arc_agi_2": 54.0,
+				"arc_agi_2": 54,
 				"bfcl": 82.8,
 				"frontiermath": 37.6,
 				"gpqa_diamond": 91.9,
@@ -959,7 +959,7 @@
 				"webdev_arena_elo": 1290,
 				"livebench_reasoning": 77.17,
 				"livebench_coding": 64.62,
-				"livebench_agentic_coding": 40.0,
+				"livebench_agentic_coding": 40,
 				"livebench_math": 85.03,
 				"livebench_data_analysis": 70.8,
 				"livebench_language": 70.41,
@@ -1527,12 +1527,12 @@
 				"humanity_last_exam": null,
 				"live_code_bench": 82.7,
 				"livebench": 75.76,
-				"lmarena_coding_elo": 1416,
+				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
-				"lmarena_en_elo": 1365,
-				"lmarena_hard_elo": 1370,
+				"lmarena_en_elo": 1381,
+				"lmarena_hard_elo": 1400,
 				"lmarena_if_elo": null,
-				"lmarena_math_elo": 1386,
+				"lmarena_math_elo": 1410,
 				"lmarena_vision_elo": null,
 				"lmarena_zh_elo": null,
 				"math_500": 87,
@@ -1777,7 +1777,7 @@
 				"humanity_last_exam": 23.9,
 				"live_code_bench": 83,
 				"livebench": 64.2,
-				"lmarena_coding_elo": 1484,
+				"lmarena_coding_elo": 1485,
 				"lmarena_creative_elo": 1399,
 				"lmarena_en_elo": 1447,
 				"lmarena_hard_elo": 1451,
@@ -1939,7 +1939,7 @@
 		{
 			"id": "coding",
 			"name": "Coding",
-			"emoji": "\ud83d\udcbb",
+			"emoji": "💻",
 			"weight": 0.25,
 			"description": "Measures ability to write, edit, and debug code across multiple programming languages. Includes real-world GitHub issue resolution and competitive programming.",
 			"benchmarks": [
@@ -1992,7 +1992,7 @@
 		{
 			"id": "reasoning",
 			"name": "Reasoning",
-			"emoji": "\ud83e\udde0",
+			"emoji": "🧠",
 			"weight": 0.25,
 			"description": "Complex problem-solving and PhD-level questions in science, mathematics, and logical reasoning.",
 			"benchmarks": [
@@ -2053,7 +2053,7 @@
 		{
 			"id": "agents",
 			"name": "Agents & Tools",
-			"emoji": "\ud83e\udd16",
+			"emoji": "🤖",
 			"weight": 0.18,
 			"description": "Function calling, computer use, and tool integration capabilities for autonomous operation.",
 			"benchmarks": [
@@ -2071,7 +2071,7 @@
 					"type": "percentage",
 					"weight": 0.2,
 					"url": "https://taubench.com/#leaderboard",
-					"description": "\u03c4\u00b2-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
+					"description": "τ²-bench evaluates AI agents in dual-control environments where both agent and user actively collaborate using tools to solve shared problems."
 				},
 				{
 					"id": "osworld",
@@ -2114,7 +2114,7 @@
 		{
 			"id": "conversation",
 			"name": "Conversation",
-			"emoji": "\ud83d\udcac",
+			"emoji": "💬",
 			"weight": 0.12,
 			"description": "Creative writing, instruction following, and conversational quality.",
 			"benchmarks": [
@@ -2155,7 +2155,7 @@
 		{
 			"id": "math",
 			"name": "Math",
-			"emoji": "\ud83d\udd22",
+			"emoji": "🔢",
 			"weight": 0.1,
 			"description": "Mathematical problem solving from elementary to competition level.",
 			"benchmarks": [
@@ -2208,7 +2208,7 @@
 		{
 			"id": "multimodal",
 			"name": "Multimodal",
-			"emoji": "\ud83d\udc41\ufe0f",
+			"emoji": "👁️",
 			"weight": 0.07,
 			"description": "Vision and text understanding, including charts, diagrams, and images.",
 			"benchmarks": [
@@ -2253,7 +2253,7 @@
 		{
 			"id": "knowledge",
 			"name": "Knowledge",
-			"emoji": "\ud83e\udde0",
+			"emoji": "🧠",
 			"weight": 0.03,
 			"description": "Knowledge assessment across subjects and languages.",
 			"benchmarks": [
