@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.15",
-		"last_update": "2026-01-15T15:40:46.486358Z",
+		"version": "2026.01.16",
+		"last_update": "2026-01-16T04:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -319,7 +319,7 @@
 				"arc_agi_2": 5.5,
 				"bfcl": 76.2,
 				"frontiermath": 0.3,
-				"gpqa_diamond": 48.9,
+				"gpqa_diamond": 49.9,
 				"humanity_last_exam": 26.6,
 				"live_code_bench": 48.2,
 				"livebench": null,
@@ -335,7 +335,7 @@
 				"mathvista": 63.8,
 				"mmlu_pro": 72.6,
 				"mmmlu": 78.2,
-				"simpleqa": 8,
+				"simpleqa": 39.0,
 				"mmmu": 58.5,
 				"mmmu_pro": null,
 				"osworld": 32.5,
@@ -351,15 +351,7 @@
 				"livebench_language": null,
 				"livebench_if": null
 			},
-			"imputed_metadata": {
-				"simpleqa": {
-					"original_value": null,
-					"imputed_value": 8,
-					"method": "estimated",
-					"imputed_date": "2025-12-27",
-					"note": "Estimated based on older model performance"
-				}
-			}
+			"imputed_metadata": {}
 		},
 		{
 			"id": "gpt-4.5-preview-2025-02-27",
@@ -384,17 +376,18 @@
 				"aime": 75,
 				"arc_agi_2": 7.5,
 				"bfcl": 78.5,
-				"gpqa_diamond": 65,
+				"gpqa_diamond": 69.5,
 				"lmarena_en_elo": 1448,
 				"lmarena_coding_elo": 1459,
-				"simpleqa": 25,
+				"simpleqa": 62.5,
 				"mmmu": 74.4,
 				"mmmlu": 85.1,
 				"lmarena_hard_elo": 1439,
 				"lmarena_math_elo": 1414,
 				"lmarena_vision_elo": 1226,
 				"lmarena_creative_elo": 1437,
-				"lmarena_if_elo": 1435
+				"lmarena_if_elo": 1435,
+				"math_500": 87.1
 			}
 		},
 		{
@@ -1471,7 +1464,7 @@
 				"arc_agi_2": 6.5,
 				"bfcl": 78.5,
 				"frontiermath": 18.7,
-				"gpqa_diamond": 81.8,
+				"gpqa_diamond": 82.8,
 				"humanity_last_exam": 24,
 				"live_code_bench": 72.5,
 				"livebench": 79,
@@ -1483,11 +1476,11 @@
 				"lmarena_math_elo": 1454,
 				"lmarena_vision_elo": 1217,
 				"lmarena_zh_elo": 1459,
-				"math_500": 95.8,
+				"math_500": 97.8,
 				"mathvista": 78.5,
 				"mmlu_pro": 86.4,
 				"mmmlu": 85.5,
-				"simpleqa": 53,
+				"simpleqa": 49.4,
 				"mmmu": 74.5,
 				"mmmu_pro": 76.4,
 				"osworld": 48.5,
@@ -1527,7 +1520,7 @@
 				"arc_agi_2": 6,
 				"bfcl": null,
 				"frontiermath": 32,
-				"gpqa_diamond": 79.7,
+				"gpqa_diamond": 77.2,
 				"humanity_last_exam": null,
 				"live_code_bench": 82.7,
 				"livebench": 75.76,
@@ -1539,11 +1532,11 @@
 				"lmarena_math_elo": 1410,
 				"lmarena_vision_elo": null,
 				"lmarena_zh_elo": null,
-				"math_500": 87,
+				"math_500": 97.9,
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": null,
-				"simpleqa": 22.8,
+				"simpleqa": 13.8,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
