@@ -47,6 +47,7 @@
 
 	// Filter state
 	let filters = $state<FilterState>({
+		searchQuery: '',
 		providers: [],
 		types: [],
 		priceRange: [0, 100],
@@ -418,6 +419,28 @@
 	<div class="container">
 		<!-- Filters Bar -->
 		<div class="filters-bar">
+			<div class="filter-group search-group">
+				<label for="search-filter">{m.filter_search_placeholder()}</label>
+				<div class="search-input-wrapper">
+					<input
+						id="search-filter"
+						type="text"
+						bind:value={filters.searchQuery}
+						placeholder={m.filter_search_placeholder()}
+						class="search-input"
+					/>
+					{#if filters.searchQuery}
+						<button
+							class="clear-search-btn"
+							onclick={() => (filters.searchQuery = '')}
+							aria-label="Clear search"
+						>
+							×
+						</button>
+					{/if}
+				</div>
+			</div>
+
 			<div class="filter-group">
 				<label for="provider-filter">{m.filter_provider()}</label>
 				<SimpleMultiSelect
@@ -483,6 +506,7 @@
 					class="reset-btn"
 					onclick={() => {
 						filters = {
+							searchQuery: '',
 							providers: [],
 							types: [],
 							priceRange: [0, 100],
@@ -1296,6 +1320,53 @@
 		color: var(--text-primary);
 		font-size: 0.875rem;
 		min-width: 140px;
+	}
+
+	.search-group {
+		flex-grow: 1;
+		min-width: 200px;
+	}
+
+	.search-input-wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	.search-input {
+		width: 100%;
+		padding: var(--spacing-xs) var(--spacing-sm);
+		padding-right: 30px; /* Space for clear button */
+		border: 1px solid var(--border-color);
+		border-radius: 4px;
+		background: var(--bg-secondary);
+		color: var(--text-primary);
+		font-size: 0.875rem;
+	}
+
+	.search-input:focus {
+		outline: none;
+		border-color: var(--accent-primary);
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+	}
+
+	.clear-search-btn {
+		position: absolute;
+		right: 8px;
+		background: none;
+		border: none;
+		color: var(--text-muted);
+		font-size: 1.25rem;
+		cursor: pointer;
+		padding: 0;
+		line-height: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.clear-search-btn:hover {
+		color: var(--text-primary);
 	}
 
 	.checkbox-group {

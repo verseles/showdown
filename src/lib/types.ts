@@ -94,6 +94,7 @@ export interface RankedModel {
 }
 
 export interface FilterState {
+	searchQuery: string;
 	providers: string[];
 	types: string[];
 	priceRange: [number, number];
