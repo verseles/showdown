@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.15",
-		"last_update": "2026-01-15T15:40:46.486358Z",
+		"version": "2026.01.16",
+		"last_update": "2026-01-16T16:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -701,9 +701,9 @@
 			},
 			"editor_notes": "Fastest intelligent model at 218 TPS. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
 			"benchmark_scores": {
-				"aime": 92.8,
+				"aime": null,
 				"arc_agi_2": 33.6,
-				"bfcl": null,
+				"bfcl": 92.8,
 				"frontiermath": 35.6,
 				"gpqa_diamond": 90.4,
 				"humanity_last_exam": 33.7,
@@ -760,7 +760,7 @@
 			"benchmark_scores": {
 				"aime": 92.8,
 				"arc_agi_2": 33.6,
-				"bfcl": null,
+				"bfcl": 92.8,
 				"frontiermath": 35.6,
 				"gpqa_diamond": 83.2,
 				"humanity_last_exam": 43.5,
