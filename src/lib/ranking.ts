@@ -808,6 +808,7 @@ export function sortModels(
 export function filterModels(
 	rankedModels: RankedModel[],
 	filters: {
+		searchQuery?: string;
 		providers?: string[];
 		types?: string[];
 		priceRange?: [number, number];
@@ -819,6 +820,16 @@ export function filterModels(
 ): RankedModel[] {
 	return rankedModels.filter((ranked) => {
 		const model = ranked.model;
+
+		// Search query filter
+		if (filters.searchQuery) {
+			const query = filters.searchQuery.toLowerCase().trim();
+			if (query) {
+				const matchesName = model.name.toLowerCase().includes(query);
+				const matchesProvider = model.provider.toLowerCase().includes(query);
+				if (!matchesName && !matchesProvider) return false;
+			}
+		}
 
 		// Provider filter
 		if (filters.providers && filters.providers.length > 0) {

@@ -19,6 +19,7 @@
 	"aria_show_less": "Show less",
 	"aria_show_more": "Show more",
 	"aria_toggle_sort_order": "Toggle sort order",
+	"filter_search_placeholder": "Search models...",
 	"filter_provider": "Provider",
 	"filter_provider_placeholder": "Select providers",
 	"filter_type": "Type",
