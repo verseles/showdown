@@ -827,7 +827,8 @@ export function filterModels(
 		if (query) {
 			const matchesName = model.name.toLowerCase().includes(query);
 			const matchesProvider = model.provider.toLowerCase().includes(query);
-			if (!matchesName && !matchesProvider) return false;
+			const matchesAka = model.aka?.some((alias) => alias.toLowerCase().includes(query));
+			if (!matchesName && !matchesProvider && !matchesAka) return false;
 		}
 
 		// Provider filter
