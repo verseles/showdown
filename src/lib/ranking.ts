@@ -639,13 +639,18 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	// 4. Name (alphabetical, ascending)
 	activeModels.sort((a, b) => {
 		// Null scores go to the end
-		if (a.overallScore === null) return 1;
-		if (b.overallScore === null) return -1;
-
-		// 1. Sort by score descending
-		const scoreDiff = b.overallScore - a.overallScore;
-		if (Math.abs(scoreDiff) > 0.001) {
-			return scoreDiff;
+		if (a.overallScore === null && b.overallScore === null) {
+			// Fall through to tie-breakers
+		} else if (a.overallScore === null) {
+			return 1;
+		} else if (b.overallScore === null) {
+			return -1;
+		} else {
+			// 1. Sort by score descending
+			const scoreDiff = b.overallScore - a.overallScore;
+			if (Math.abs(scoreDiff) > 0.001) {
+				return scoreDiff;
+			}
 		}
 
 		// 2. Tie-breaker: benchmark coverage
