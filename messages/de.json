@@ -66,7 +66,7 @@
 	"footer_contribute": "Auf GitHub beitragen",
 	"github_star": "Star",
 	"aria_toggle_sort_order": "Sortierreihenfolge umschalten",
-	"filter_search_placeholder": "[TRANSLATE] Search models...",
+	"filter_search_placeholder": "Modelle suchen...",
 	"sort_by": "Sortieren nach",
 	"category_knowledge": "Wissen",
 	"bench_swe": "SWE-Bench Verifiziert",
@@ -144,9 +144,9 @@
 	"bench_livebench_data_analysis": "LiveBench Data Analysis",
 	"bench_livebench_language": "LiveBench Language",
 	"bench_livebench_if": "LiveBench IF",
-	"filter_date_range": "[TRANSLATE] Release Date",
-	"filter_date_all": "[TRANSLATE] All time",
-	"filter_date_30d": "[TRANSLATE] Last 30 days",
-	"filter_date_90d": "[TRANSLATE] Last 90 days",
-	"filter_date_180d": "[TRANSLATE] Last 6 months"
+	"filter_date_range": "Veröffentlichungsdatum",
+	"filter_date_all": "Alle Zeit",
+	"filter_date_30d": "Letzte 30 Tage",
+	"filter_date_90d": "Letzte 90 Tage",
+	"filter_date_180d": "Letzte 6 Monate"
 }
