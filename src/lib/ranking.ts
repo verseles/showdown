@@ -818,17 +818,16 @@ export function filterModels(
 		favoriteIds?: string[];
 	}
 ): RankedModel[] {
+	const query = filters.searchQuery?.toLowerCase().trim();
+
 	return rankedModels.filter((ranked) => {
 		const model = ranked.model;
 
 		// Search query filter
-		if (filters.searchQuery) {
-			const query = filters.searchQuery.toLowerCase().trim();
-			if (query) {
-				const matchesName = model.name.toLowerCase().includes(query);
-				const matchesProvider = model.provider.toLowerCase().includes(query);
-				if (!matchesName && !matchesProvider) return false;
-			}
+		if (query) {
+			const matchesName = model.name.toLowerCase().includes(query);
+			const matchesProvider = model.provider.toLowerCase().includes(query);
+			if (!matchesName && !matchesProvider) return false;
 		}
 
 		// Provider filter
