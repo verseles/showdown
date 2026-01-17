@@ -611,6 +611,32 @@ describe('filterModels', () => {
 		expect(filtered).toHaveLength(1);
 		expect(filtered[0].model.id).toBe('model1');
 	});
+
+	it('should filter by aka (alternative names)', () => {
+		const model1: Model = {
+			...mockModel,
+			id: 'model1',
+			name: 'Original Name',
+			aka: ['Alias Name']
+		};
+		const model2: Model = { ...mockModel, id: 'model2', name: 'Other Name' };
+		const categories: Category[] = [mockCategory];
+		const ranked = rankModels([model1, model2], categories);
+
+		// Use FilterState-like object partially since filterModels accepts a shape with optional fields
+		const filtered = filterModels(ranked, {
+			searchQuery: 'alias',
+			providers: [],
+			types: [],
+			priceRange: [0, 100], // unused but required by type in some contexts, though here implementation treats optional
+			speedRange: [0, 10000],
+			dateRange: 'all',
+			favoritesOnly: false
+		});
+
+		expect(filtered).toHaveLength(1);
+		expect(filtered[0].model.id).toBe('model1');
+	});
 });
 
 describe('formatScore', () => {
