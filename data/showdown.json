@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.18",
-		"last_update": "2026-01-18T03:53:06.353127Z",
+		"last_update": "2026-01-18T04:47:01.506132Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -155,7 +155,7 @@
 				"gpqa_diamond": 83.4,
 				"humanity_last_exam": 13.7,
 				"live_code_bench": 74.5,
-				"livebench": null,
+				"livebench": 70.31,
 				"lmarena_coding_elo": 1508,
 				"lmarena_creative_elo": 1445,
 				"lmarena_en_elo": 1467,
@@ -183,6 +183,15 @@
 				"livebench_data_analysis": 67.34,
 				"livebench_language": 76,
 				"livebench_if": 23.52
+			},
+			"imputed_metadata": {
+				"livebench": {
+					"original_value": null,
+					"imputed_value": 70.31,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Filled from Sonnet 4.5 Thinking as per request"
+				}
 			}
 		},
 		{
@@ -227,7 +236,7 @@
 				"mmmlu": 84.5,
 				"simpleqa": 23.6,
 				"mmmu": 70.2,
-				"mmmu_pro": null,
+				"mmmu_pro": 68,
 				"osworld": 55.8,
 				"swe_bench": 77.2,
 				"tau_bench": 62.5,
@@ -240,6 +249,15 @@
 				"livebench_data_analysis": 71.76,
 				"livebench_language": 76.45,
 				"livebench_if": 53.35
+			},
+			"imputed_metadata": {
+				"mmmu_pro": {
+					"original_value": null,
+					"imputed_value": 68,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Filled from Sonnet 4.5 as per request"
+				}
 			}
 		},
 		{
