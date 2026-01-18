@@ -637,6 +637,32 @@ describe('filterModels', () => {
 		expect(filtered).toHaveLength(1);
 		expect(filtered[0].model.id).toBe('model1');
 	});
+
+	it('should filter by date range using referenceDate', () => {
+		const modelOld: Model = { ...mockModel, id: 'old', release_date: '2025-01-01' };
+		const modelNew: Model = { ...mockModel, id: 'new', release_date: '2026-01-10' };
+		const categories: Category[] = [mockCategory];
+		const ranked = rankModels([modelOld, modelNew], categories);
+
+		// Reference date: 2026-01-20
+		// modelNew is 10 days old (Passes 30d filter)
+		// modelOld is > 1 year old (Fails 30d filter)
+
+		const filtered = filterModels(ranked, {
+			dateRange: '30d',
+			referenceDate: '2026-01-20',
+			// Required fields by type
+			searchQuery: '',
+			providers: [],
+			types: [],
+			priceRange: [0, 100],
+			speedRange: [0, 10000],
+			favoritesOnly: false
+		});
+
+		expect(filtered).toHaveLength(1);
+		expect(filtered[0].model.id).toBe('new');
+	});
 });
 
 describe('formatScore', () => {

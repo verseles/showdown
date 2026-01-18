@@ -156,7 +156,8 @@
 	let filteredModels = $derived(
 		filterModels(rankedModels, {
 			...filters,
-			favoriteIds: favorites
+			favoriteIds: favorites,
+			referenceDate: data.meta.last_update
 		})
 	);
 
