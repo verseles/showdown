@@ -558,6 +558,44 @@ describe('rankModels', () => {
 		expect(ranked[1].model.id).toBe('model2');
 		expect(ranked[1].rank).toBeNull();
 	});
+
+	it('should sort multiple models with null scores by tie-breakers', () => {
+		// Need 4 categories for overall score
+		const cat1: Category = { ...mockCategory, id: 'cat1', weight: 0.25 };
+		const cat2: Category = { ...mockCategory, id: 'cat2', weight: 0.25 };
+		const cat3: Category = { ...mockCategory, id: 'cat3', weight: 0.25 };
+		const cat4: Category = { ...mockCategory, id: 'cat4', weight: 0.25 };
+		const categories: Category[] = [cat1, cat2, cat3, cat4];
+
+		const modelNull1: Model = {
+			...mockModel,
+			id: 'modelNull1',
+			name: 'Zeta',
+			benchmark_scores: {}
+		};
+		const modelNull2: Model = {
+			...mockModel,
+			id: 'modelNull2',
+			name: 'Alpha',
+			benchmark_scores: {}
+		};
+		const modelScore: Model = {
+			...mockModel,
+			id: 'modelScore',
+			name: 'Best',
+			benchmark_scores: { test_bench: 100, test_elo: 1400 }
+		};
+
+		// Pass in mixed order
+		const ranked = rankModels([modelNull1, modelScore, modelNull2], categories);
+
+		expect(ranked[0].model.id).toBe('modelScore'); // Score comes first
+		expect(ranked[1].model.id).toBe('modelNull2'); // Alpha (null)
+		expect(ranked[2].model.id).toBe('modelNull1'); // Zeta (null)
+
+		expect(ranked[1].rank).toBeNull();
+		expect(ranked[2].rank).toBeNull();
+	});
 });
 
 describe('sortModels', () => {
