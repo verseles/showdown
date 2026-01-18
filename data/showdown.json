@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.17",
-		"last_update": "2026-01-17T15:53:46.791Z",
+		"version": "2026.01.18",
+		"last_update": "2026-01-18T04:47:01.506132Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -35,7 +35,7 @@
 				"livebench": 65.01,
 				"lmarena_coding_elo": 1520,
 				"lmarena_creative_elo": 1465,
-				"lmarena_en_elo": 1467,
+				"lmarena_en_elo": 1478,
 				"lmarena_hard_elo": 1498,
 				"lmarena_if_elo": 1486,
 				"lmarena_math_elo": 1467,
@@ -101,7 +101,7 @@
 				"livebench": 75.61,
 				"lmarena_coding_elo": 1538,
 				"lmarena_creative_elo": 1458,
-				"lmarena_en_elo": 1468,
+				"lmarena_en_elo": 1484,
 				"lmarena_hard_elo": 1501,
 				"lmarena_if_elo": 1479,
 				"lmarena_math_elo": 1476,
@@ -155,7 +155,7 @@
 				"gpqa_diamond": 83.4,
 				"humanity_last_exam": 13.7,
 				"live_code_bench": 74.5,
-				"livebench": null,
+				"livebench": 70.31,
 				"lmarena_coding_elo": 1508,
 				"lmarena_creative_elo": 1445,
 				"lmarena_en_elo": 1467,
@@ -183,6 +183,15 @@
 				"livebench_data_analysis": 67.34,
 				"livebench_language": 76,
 				"livebench_if": 23.52
+			},
+			"imputed_metadata": {
+				"livebench": {
+					"original_value": null,
+					"imputed_value": 70.31,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Filled from Sonnet 4.5 Thinking as per request"
+				}
 			}
 		},
 		{
@@ -215,7 +224,7 @@
 				"livebench": 70.31,
 				"lmarena_coding_elo": 1524,
 				"lmarena_creative_elo": 1444,
-				"lmarena_en_elo": 1452,
+				"lmarena_en_elo": 1471,
 				"lmarena_hard_elo": 1486,
 				"lmarena_if_elo": 1463,
 				"lmarena_math_elo": 1461,
@@ -227,7 +236,7 @@
 				"mmmlu": 84.5,
 				"simpleqa": 23.6,
 				"mmmu": 70.2,
-				"mmmu_pro": null,
+				"mmmu_pro": 68,
 				"osworld": 55.8,
 				"swe_bench": 77.2,
 				"tau_bench": 62.5,
@@ -240,6 +249,15 @@
 				"livebench_data_analysis": 71.76,
 				"livebench_language": 76.45,
 				"livebench_if": 53.35
+			},
+			"imputed_metadata": {
+				"mmmu_pro": {
+					"original_value": null,
+					"imputed_value": 68,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Filled from Sonnet 4.5 as per request"
+				}
 			}
 		},
 		{
@@ -457,7 +475,7 @@
 				"livebench": 72.39,
 				"lmarena_coding_elo": 1496,
 				"lmarena_creative_elo": 1438,
-				"lmarena_en_elo": 1460,
+				"lmarena_en_elo": 1468,
 				"lmarena_hard_elo": 1476,
 				"lmarena_if_elo": 1450,
 				"lmarena_math_elo": 1473,
@@ -655,11 +673,11 @@
 				"livebench": 73.46,
 				"lmarena_coding_elo": 1517,
 				"lmarena_creative_elo": 1490,
-				"lmarena_en_elo": 1489,
+				"lmarena_en_elo": 1494,
 				"lmarena_hard_elo": 1502,
 				"lmarena_if_elo": 1475,
 				"lmarena_math_elo": 1484,
-				"lmarena_vision_elo": 1300,
+				"lmarena_vision_elo": 1299,
 				"lmarena_zh_elo": 1523,
 				"math_500": 92.8,
 				"mathvista": 78.5,
@@ -709,13 +727,13 @@
 				"humanity_last_exam": 33.7,
 				"live_code_bench": null,
 				"livebench": 73.74,
-				"lmarena_coding_elo": 1497,
+				"lmarena_coding_elo": 1502,
 				"lmarena_creative_elo": 1460,
-				"lmarena_en_elo": 1464,
-				"lmarena_hard_elo": 1482,
+				"lmarena_en_elo": 1473,
+				"lmarena_hard_elo": 1487,
 				"lmarena_if_elo": 1448,
 				"lmarena_math_elo": 1471,
-				"lmarena_vision_elo": 1254,
+				"lmarena_vision_elo": 1279,
 				"lmarena_zh_elo": 1517,
 				"math_500": null,
 				"mathvista": null,
@@ -777,10 +795,10 @@
 				"math_500": null,
 				"mathvista": null,
 				"mmlu_pro": 88.6,
-				"mmmlu": null,
+				"mmmlu": 91.8,
 				"simpleqa": 67.4,
 				"mmmu": 82,
-				"mmmu_pro": null,
+				"mmmu_pro": 81.2,
 				"osworld": null,
 				"swe_bench": 78,
 				"tau_bench": 92,
@@ -801,6 +819,20 @@
 					"method": "estimated",
 					"imputed_date": "2025-12-27",
 					"note": "Using Gemini 3 Flash base value"
+				},
+				"mmmlu": {
+					"original_value": null,
+					"imputed_value": 91.8,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Using Gemini 3 Flash base value per AGENTS.md fallback"
+				},
+				"mmmu_pro": {
+					"original_value": null,
+					"imputed_value": 81.2,
+					"method": "manual",
+					"imputed_date": "2026-01-18",
+					"note": "Using Gemini 3 Flash base value per AGENTS.md fallback"
 				}
 			}
 		},
@@ -1054,7 +1086,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": 1495,
 				"lmarena_creative_elo": 1428,
-				"lmarena_en_elo": 1466,
+				"lmarena_en_elo": 1477,
 				"lmarena_hard_elo": 1477,
 				"lmarena_if_elo": 1434,
 				"lmarena_math_elo": 1439,
@@ -1111,7 +1143,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": 1510,
 				"lmarena_creative_elo": 1442,
-				"lmarena_en_elo": 1477,
+				"lmarena_en_elo": 1484,
 				"lmarena_hard_elo": 1489,
 				"lmarena_if_elo": 1436,
 				"lmarena_math_elo": 1456,
@@ -1420,7 +1452,7 @@
 				"humanity_last_exam": null,
 				"live_code_bench": 66.9,
 				"livebench": null,
-				"lmarena_coding_elo": 1482,
+				"lmarena_coding_elo": 1481,
 				"lmarena_creative_elo": 1397,
 				"lmarena_en_elo": 1441,
 				"lmarena_hard_elo": 1457,
