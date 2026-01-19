@@ -2,6 +2,7 @@
 	import { getContext, onMount } from 'svelte';
 	import { untrack } from 'svelte';
 	import SimpleMultiSelect from '$lib/components/SimpleMultiSelect.svelte';
+	import RangeSlider from '$lib/components/RangeSlider.svelte';
 	import type { PageData } from './$types';
 	import type { Category, FilterState, Model } from '$lib/types.js';
 	import {
@@ -13,7 +14,9 @@
 		formatPrice,
 		formatSpeed,
 		getUniqueProviders,
-		getCategoryBreakdown
+		getCategoryBreakdown,
+		getPriceRange,
+		getSpeedRange
 	} from '$lib/ranking.js';
 	import * as m from '$lib/paraglide/messages.js';
 	import LanguageSelector from '$lib/components/LanguageSelector.svelte';
@@ -50,8 +53,8 @@
 		searchQuery: '',
 		providers: [],
 		types: [],
-		priceRange: [0, 100],
-		speedRange: [0, 3000],
+		priceRange: getPriceRange(data.models),
+		speedRange: getSpeedRange(data.models),
 		dateRange: 'all',
 		favoritesOnly: false
 	});
@@ -164,6 +167,8 @@
 	let sortedModels = $derived(sortModels(filteredModels, sortBy, sortOrder));
 
 	let providers = $derived(getUniqueProviders(data.models));
+	let priceBounds = $derived(getPriceRange(data.models));
+	let speedBounds = $derived(getSpeedRange(data.models));
 
 	// Handlers
 	function handleSort(column: string) {
@@ -486,6 +491,28 @@
 			</div>
 
 			<div class="filter-group">
+				<span class="filter-label">{m.column_price()}</span>
+				<RangeSlider
+					min={priceBounds[0]}
+					max={priceBounds[1]}
+					step={0.01}
+					bind:value={filters.priceRange}
+					format={(v) => formatPrice(v)}
+				/>
+			</div>
+
+			<div class="filter-group">
+				<span class="filter-label">{m.column_speed()}</span>
+				<RangeSlider
+					min={speedBounds[0]}
+					max={speedBounds[1]}
+					step={10}
+					bind:value={filters.speedRange}
+					format={(v) => formatSpeed(v) + ' t/s'}
+				/>
+			</div>
+
+			<div class="filter-group">
 				<label for="date-range-filter">{m.filter_date_range()}</label>
 				<select id="date-range-filter" bind:value={filters.dateRange} class="filter-select">
 					<option value="all">{m.filter_date_all()}</option>
@@ -510,8 +537,8 @@
 							searchQuery: '',
 							providers: [],
 							types: [],
-							priceRange: [0, 100],
-							speedRange: [0, 3000],
+							priceRange: priceBounds,
+							speedRange: speedBounds,
 							dateRange: 'all',
 							favoritesOnly: false
 						};
