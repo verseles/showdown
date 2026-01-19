@@ -418,8 +418,12 @@ export function imputeMissingScores(
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
 	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
 	if (!model.superior_of && allModels.length > 0) {
-		const superiorModel = allModels.find((m) => m.superior_of === model.id);
-		if (superiorModel) {
+		const superiorModelRaw = allModels.find((m) => m.superior_of === model.id);
+		if (superiorModelRaw) {
+			// Recursively impute the superior model to ensure we have access to its imputed values
+			// This allows the base model to inherit values that were imputed on the thinking model
+			const superiorModel = imputeMissingScores(superiorModelRaw, categories, allModels);
+
 			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
 				if (score !== null) continue; // Skip non-null values
 
