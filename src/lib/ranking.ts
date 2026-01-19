@@ -816,6 +816,7 @@ export function filterModels(
 		dateRange?: 'all' | '30d' | '90d' | '180d';
 		favoritesOnly?: boolean;
 		favoriteIds?: string[];
+		referenceDate?: string | Date;
 	}
 ): RankedModel[] {
 	const query = filters.searchQuery?.toLowerCase().trim();
@@ -859,7 +860,7 @@ export function filterModels(
 
 		// Date range filter
 		if (filters.dateRange && filters.dateRange !== 'all') {
-			const now = new Date();
+			const now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
 			const releaseDate = new Date(model.release_date);
 			const daysDiff = Math.floor((now.getTime() - releaseDate.getTime()) / (1000 * 60 * 60 * 24));
 
