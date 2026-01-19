@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.19",
-		"last_update": "2026-01-19T10:00:00.000000Z",
+		"last_update": "2026-01-19T03:36:12.000000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -719,7 +719,7 @@
 			},
 			"editor_notes": "Fastest intelligent model at 218 TPS. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
 			"benchmark_scores": {
-				"aime": null,
+				"aime": 95.2,
 				"arc_agi_2": 33.6,
 				"bfcl": 92.8,
 				"frontiermath": 35.6,
@@ -745,7 +745,7 @@
 				"osworld": null,
 				"swe_bench": 76.2,
 				"tau_bench": 90.2,
-				"terminal_bench": null,
+				"terminal_bench": 47.6,
 				"webdev_arena_elo": 1455,
 				"livebench_reasoning": 74.55,
 				"livebench_coding": 73.9,
@@ -965,13 +965,13 @@
 			},
 			"editor_notes": "Thinking variant of DeepSeek V3.2 with enhanced reasoning capabilities and gold-medal performance in math olympiads.",
 			"benchmark_scores": {
-				"aime": 88.4,
+				"aime": 93.1,
 				"arc_agi_2": 8.5,
 				"bfcl": 80.5,
 				"frontiermath": 22.1,
-				"gpqa_diamond": 80.1,
+				"gpqa_diamond": 82.4,
 				"humanity_last_exam": 15.9,
-				"live_code_bench": 74.8,
+				"live_code_bench": 83.3,
 				"livebench": 65.17,
 				"lmarena_coding_elo": 1466,
 				"lmarena_creative_elo": 1405,
@@ -989,7 +989,7 @@
 				"mmmu": 62.5,
 				"mmmu_pro": 83.7,
 				"osworld": 38.5,
-				"swe_bench": 66,
+				"swe_bench": 73.1,
 				"tau_bench": 55.2,
 				"terminal_bench": 31,
 				"webdev_arena_elo": 1290,
