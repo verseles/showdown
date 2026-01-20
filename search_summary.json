@@ -1,0 +1,31 @@
+{
+	"o3_mini": {
+		"livebench": {
+			"score": 84.6,
+			"source": "llm-stats.com"
+		},
+		"swe_bench": {
+			"score": 49.3,
+			"source": "llm-stats.com / reddit"
+		},
+		"aime": {
+			"score": 87.3,
+			"source": "llm-stats.com"
+		},
+		"gpqa_diamond": {
+			"score": 79.7,
+			"source": "reddit"
+		},
+		"lmarena_coding_elo": 1434,
+		"lmarena_en_elo": 1381,
+		"lmarena_hard_elo": 1400,
+		"lmarena_math_elo": 1410
+	},
+	"deepseek_r1": {
+		"swe_bench": 49.2,
+		"aime": 79.8,
+		"gpqa_diamond": 71.5,
+		"livebench": 71.38,
+		"simpleqa": 30.1
+	}
+}

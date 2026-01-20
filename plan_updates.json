@@ -1,0 +1,31 @@
+{
+	"models": [
+		{
+			"id": "o3-mini-20250129",
+			"updates": {
+				"live_code_bench": 75.8,
+				"swe_bench": 49.3,
+				"aime": 87.3,
+				"gpqa_diamond": 79.7,
+				"livebench": 84.6
+			}
+		},
+		{
+			"id": "deepseek-r1",
+			"updates": {
+				"live_code_bench": 73.1,
+				"swe_bench": 57.6,
+				"aime": 87.5
+			},
+			"note": "Keeping DeepSeek R1 Future scores. But filling missing values with Real R1 stats if sensible."
+		},
+		{
+			"id": "grok-4.1",
+			"updates": {
+				"lmarena_en_elo": 1477,
+				"lmarena_coding_elo": 1495,
+				"lmarena_math_elo": 1439
+			}
+		}
+	]
+}
