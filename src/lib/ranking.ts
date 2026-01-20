@@ -634,7 +634,13 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	}));
 
 	// Filter out disabled models (imputation already used ALL models for superior_of lookup)
-	const activeModels = modelsWithScores.filter((item) => !item.model.disabled);
+	// Pre-calculate timestamps for sorting efficiency
+	const activeModels = modelsWithScores
+		.filter((item) => !item.model.disabled)
+		.map((item) => ({
+			...item,
+			_timestamp: new Date(item.model.release_date).getTime()
+		}));
 
 	// Sort by:
 	// 1. Overall score (descending)
@@ -666,10 +672,8 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		}
 
 		// 3. Tie-breaker: release date
-		const dateA = new Date(a.model.release_date).getTime();
-		const dateB = new Date(b.model.release_date).getTime();
-		if (dateA !== dateB) {
-			return dateB - dateA; // Newer first
+		if (a._timestamp !== b._timestamp) {
+			return b._timestamp - a._timestamp; // Newer first
 		}
 
 		// 4. Tie-breaker: alphabetical by name
