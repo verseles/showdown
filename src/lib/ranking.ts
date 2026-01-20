@@ -837,10 +837,12 @@ export function filterModels(
 
 		// Search query filter
 		if (query) {
-			const matchesName = model.name.toLowerCase().includes(query);
-			const matchesProvider = model.provider.toLowerCase().includes(query);
-			const matchesAka = model.aka?.some((alias) => alias.toLowerCase().includes(query));
-			if (!matchesName && !matchesProvider && !matchesAka) return false;
+			const matches =
+				model.name.toLowerCase().includes(query) ||
+				model.provider.toLowerCase().includes(query) ||
+				(model.aka?.some((alias) => alias.toLowerCase().includes(query)) ?? false);
+
+			if (!matches) return false;
 		}
 
 		// Provider filter
