@@ -7,13 +7,7 @@
 		format?: (val: number) => string;
 	}
 
-	let {
-		min,
-		max,
-		step = 1,
-		value = $bindable(),
-		format = (v) => v.toString()
-	}: Props = $props();
+	let { min, max, step = 1, value = $bindable(), format = (v) => v.toString() }: Props = $props();
 
 	// Calculate percentages for the UI
 	let minPercent = $derived(Math.max(0, Math.min(100, ((value[0] - min) / (max - min)) * 100)));
@@ -23,10 +17,7 @@
 <div class="range-slider">
 	<div class="slider-container">
 		<div class="track-bg"></div>
-		<div
-			class="track-fill"
-			style="left: {minPercent}%; width: {maxPercent - minPercent}%"
-		></div>
+		<div class="track-fill" style="left: {minPercent}%; width: {maxPercent - minPercent}%"></div>
 
 		<!-- Min Value Input -->
 		<input
