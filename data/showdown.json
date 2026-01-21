@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.22",
-		"last_update": "2026-01-22T10:00:00.000000Z",
+		"version": "2026.02.01",
+		"last_update": "2026-02-01T10:00:00.000000Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1499,12 +1499,12 @@
 			},
 			"editor_notes": "Premier reasoning model with extended thinking. Excels at complex multi-step problems. Higher latency due to deliberation.",
 			"benchmark_scores": {
-				"aime": 83.9,
+				"aime": 91.6,
 				"arc_agi_2": 6.5,
 				"bfcl": 78.5,
 				"frontiermath": 18.7,
-				"gpqa_diamond": 81.8,
-				"humanity_last_exam": 24,
+				"gpqa_diamond": 83.3,
+				"humanity_last_exam": 24.9,
 				"live_code_bench": 75.8,
 				"livebench": 79,
 				"lmarena_coding_elo": 1458,
@@ -1516,11 +1516,11 @@
 				"lmarena_vision_elo": 1217,
 				"lmarena_zh_elo": 1459,
 				"math_500": 95.8,
-				"mathvista": 78.5,
+				"mathvista": 86.8,
 				"mmlu_pro": 86.4,
 				"mmmlu": 85.5,
 				"simpleqa": 53,
-				"mmmu": 74.5,
+				"mmmu": 82.9,
 				"mmmu_pro": 76.4,
 				"osworld": 48.5,
 				"swe_bench": 71.7,
@@ -1560,7 +1560,7 @@
 				"bfcl": 98.7,
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
-				"humanity_last_exam": null,
+				"humanity_last_exam": 13.4,
 				"live_code_bench": 75.8,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
