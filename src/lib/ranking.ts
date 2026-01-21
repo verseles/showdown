@@ -213,7 +213,9 @@ export function calculateSuperiorityRatio(
 export function imputeMissingScores(
 	model: Model,
 	categories: Category[],
-	allModels: Model[] = []
+	allModels: Model[] = [],
+	benchmarkToCategoryMap?: Map<string, Category>,
+	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>
 ): Model {
 	// Create a copy of the model to avoid mutation
 	const imputedModel: Model = {
@@ -224,14 +226,18 @@ export function imputeMissingScores(
 
 	const today = new Date().toISOString().split('T')[0];
 
-	// Build a map: benchmark_id -> category for quick lookup
-	const benchmarkToCategory = new Map<string, Category>();
-	// Also build benchmark_id -> benchmark for quick lookup
-	const benchmarkById = new Map<string, { benchmark: Benchmark; category: Category }>();
-	for (const category of categories) {
-		for (const benchmark of category.benchmarks) {
-			benchmarkToCategory.set(benchmark.id, category);
-			benchmarkById.set(benchmark.id, { benchmark, category });
+	// Use provided maps or build them if not provided (fallback/test mode)
+	let benchmarkToCategory = benchmarkToCategoryMap;
+	let benchmarkById = benchmarkByIdMap;
+
+	if (!benchmarkToCategory || !benchmarkById) {
+		benchmarkToCategory = new Map<string, Category>();
+		benchmarkById = new Map<string, { benchmark: Benchmark; category: Category }>();
+		for (const category of categories) {
+			for (const benchmark of category.benchmarks) {
+				benchmarkToCategory.set(benchmark.id, category);
+				benchmarkById.set(benchmark.id, { benchmark, category });
+			}
 		}
 	}
 
@@ -422,7 +428,13 @@ export function imputeMissingScores(
 		if (superiorModelRaw) {
 			// Recursively impute the superior model to ensure we have access to its imputed values
 			// This allows the base model to inherit values that were imputed on the thinking model
-			const superiorModel = imputeMissingScores(superiorModelRaw, categories, allModels);
+			const superiorModel = imputeMissingScores(
+				superiorModelRaw,
+				categories,
+				allModels,
+				benchmarkToCategory,
+				benchmarkById
+			);
 
 			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
 				if (score !== null) continue; // Skip non-null values
@@ -622,8 +634,20 @@ export function calculateBenchmarkCoverage(model: Model, categories: Category[])
  * Rank all models and return sorted array with positions
  */
 export function rankModels(models: Model[], categories: Category[]): RankedModel[] {
+	// Pre-compute lookup maps to avoid rebuilding them for every model
+	const benchmarkToCategory = new Map<string, Category>();
+	const benchmarkById = new Map<string, { benchmark: Benchmark; category: Category }>();
+	for (const category of categories) {
+		for (const benchmark of category.benchmarks) {
+			benchmarkToCategory.set(benchmark.id, category);
+			benchmarkById.set(benchmark.id, { benchmark, category });
+		}
+	}
+
 	// First, impute missing scores for all models (pass all models for superior_of lookup)
-	const imputedModels = models.map((model) => imputeMissingScores(model, categories, models));
+	const imputedModels = models.map((model) =>
+		imputeMissingScores(model, categories, models, benchmarkToCategory, benchmarkById)
+	);
 
 	// Calculate scores for all models (using imputed values)
 	const modelsWithScores = imputedModels.map((model) => ({
