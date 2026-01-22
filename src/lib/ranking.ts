@@ -860,6 +860,19 @@ export function filterModels(
 ): RankedModel[] {
 	const query = filters.searchQuery?.toLowerCase().trim();
 
+	// Pre-calculate date filter values to avoid recalculation in loop
+	let now: Date | null = null;
+	let maxDays: number | null = null;
+
+	if (filters.dateRange && filters.dateRange !== 'all') {
+		now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
+		maxDays = {
+			'30d': 30,
+			'90d': 90,
+			'180d': 180
+		}[filters.dateRange];
+	}
+
 	return rankedModels.filter((ranked) => {
 		const model = ranked.model;
 
@@ -900,16 +913,9 @@ export function filterModels(
 		}
 
 		// Date range filter
-		if (filters.dateRange && filters.dateRange !== 'all') {
-			const now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
+		if (now && maxDays !== null) {
 			const releaseDate = new Date(model.release_date);
 			const daysDiff = Math.floor((now.getTime() - releaseDate.getTime()) / (1000 * 60 * 60 * 24));
-
-			const maxDays = {
-				'30d': 30,
-				'90d': 90,
-				'180d': 180
-			}[filters.dateRange];
 
 			if (daysDiff > maxDays) return false;
 		}
