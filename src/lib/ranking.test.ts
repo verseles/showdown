@@ -456,6 +456,37 @@ describe('imputeMissingScores', () => {
 
 		expect(Object.keys(imputed.imputed_metadata!)).toHaveLength(2);
 	});
+
+	it('should use imputation cache if provided', () => {
+		const category: Category = {
+			id: 'test',
+			name: 'Test',
+			emoji: '🧪',
+			weight: 0.25,
+			description: 'Test',
+			benchmarks: [mockBenchmark, mockEloBenchmark]
+		};
+
+		const model: Model = {
+			...mockModel,
+			id: 'cached-model',
+			benchmark_scores: {
+				test_bench: 80,
+				test_elo: null as unknown as number
+			}
+		};
+
+		const cache = new Map<string, Model>();
+
+		// First call should populate cache
+		const result1 = imputeMissingScores(model, [category], [], undefined, undefined, cache);
+		expect(cache.has('cached-model')).toBe(true);
+		expect(cache.get('cached-model')).toBe(result1);
+
+		// Second call should return cached object
+		const result2 = imputeMissingScores(model, [category], [], undefined, undefined, cache);
+		expect(result2).toBe(result1); // Exact same object reference
+	});
 });
 
 describe('calculateCategoryScore', () => {

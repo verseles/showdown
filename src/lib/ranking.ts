@@ -215,8 +215,14 @@ export function imputeMissingScores(
 	categories: Category[],
 	allModels: Model[] = [],
 	benchmarkToCategoryMap?: Map<string, Category>,
-	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>
+	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>,
+	imputationCache?: Map<string, Model>
 ): Model {
+	// Check cache first
+	if (imputationCache && imputationCache.has(model.id)) {
+		return imputationCache.get(model.id)!;
+	}
+
 	// Create a copy of the model to avoid mutation
 	const imputedModel: Model = {
 		...model,
@@ -433,7 +439,8 @@ export function imputeMissingScores(
 				categories,
 				allModels,
 				benchmarkToCategory,
-				benchmarkById
+				benchmarkById,
+				imputationCache
 			);
 
 			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
@@ -466,6 +473,10 @@ export function imputeMissingScores(
 				};
 			}
 		}
+	}
+
+	if (imputationCache) {
+		imputationCache.set(model.id, imputedModel);
 	}
 
 	return imputedModel;
@@ -645,8 +656,16 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	}
 
 	// First, impute missing scores for all models (pass all models for superior_of lookup)
+	const imputationCache = new Map<string, Model>();
 	const imputedModels = models.map((model) =>
-		imputeMissingScores(model, categories, models, benchmarkToCategory, benchmarkById)
+		imputeMissingScores(
+			model,
+			categories,
+			models,
+			benchmarkToCategory,
+			benchmarkById,
+			imputationCache
+		)
 	);
 
 	// Calculate scores for all models (using imputed values)
