@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.01.23",
-		"last_update": "2026-01-22T15:34:41.000000Z",
+		"last_update": "2026-01-23T04:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -687,7 +687,7 @@
 				"mmmu": 75.2,
 				"mmmu_pro": 81,
 				"osworld": 48.5,
-				"swe_bench": 76.2,
+				"swe_bench": 77.4,
 				"tau_bench": 85.4,
 				"terminal_bench": 54.2,
 				"webdev_arena_elo": 1468,
@@ -1763,7 +1763,7 @@
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": 69.2,
+				"swe_bench": 71.2,
 				"tau_bench": null,
 				"terminal_bench": 35.7,
 				"webdev_arena_elo": null,
