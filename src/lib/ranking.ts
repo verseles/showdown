@@ -880,16 +880,20 @@ export function filterModels(
 	const query = filters.searchQuery?.toLowerCase().trim();
 
 	// Pre-calculate date filter values to avoid recalculation in loop
-	let now: Date | null = null;
-	let maxDays: number | null = null;
+	let minReleaseDateString: string | null = null;
 
 	if (filters.dateRange && filters.dateRange !== 'all') {
-		now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
-		maxDays = {
+		const now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
+		const maxDays = {
 			'30d': 30,
 			'90d': 90,
 			'180d': 180
 		}[filters.dateRange];
+
+		// Calculate cutoff timestamp
+		const cutoffTimestamp = now.getTime() - maxDays * 24 * 60 * 60 * 1000;
+		// Convert to ISO string YYYY-MM-DD for string comparison
+		minReleaseDateString = new Date(cutoffTimestamp).toISOString().split('T')[0];
 	}
 
 	return rankedModels.filter((ranked) => {
@@ -932,11 +936,8 @@ export function filterModels(
 		}
 
 		// Date range filter
-		if (now && maxDays !== null) {
-			const releaseDate = new Date(model.release_date);
-			const daysDiff = Math.floor((now.getTime() - releaseDate.getTime()) / (1000 * 60 * 60 * 24));
-
-			if (daysDiff > maxDays) return false;
+		if (minReleaseDateString !== null) {
+			if (model.release_date < minReleaseDateString) return false;
 		}
 
 		// Favorites filter
