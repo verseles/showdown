@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.23",
-		"last_update": "2026-01-23T04:00:00Z",
+		"version": "2026.01.24",
+		"last_update": "2026-01-24T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -333,13 +333,13 @@
 			},
 			"editor_notes": "Excellent multimodal capabilities with very fast inference. Good value for general-purpose tasks but superseded by newer models on benchmarks.",
 			"benchmark_scores": {
-				"aime": 6.3,
+				"aime": 9.3,
 				"arc_agi_2": 5.5,
 				"bfcl": 76.2,
 				"frontiermath": 0.3,
-				"gpqa_diamond": 48.9,
+				"gpqa_diamond": 49.9,
 				"humanity_last_exam": 26.6,
-				"live_code_bench": 48.2,
+				"live_code_bench": 32.9,
 				"livebench": null,
 				"lmarena_coding_elo": 1369,
 				"lmarena_creative_elo": 1336,
@@ -349,7 +349,7 @@
 				"lmarena_math_elo": 1307,
 				"lmarena_vision_elo": 1162,
 				"lmarena_zh_elo": 1331,
-				"math_500": 76.6,
+				"math_500": 74.6,
 				"mathvista": 63.8,
 				"mmlu_pro": 72.6,
 				"mmmlu": 78.2,
@@ -1040,7 +1040,7 @@
 				"mathvista": 68.2,
 				"mmlu_pro": 85,
 				"mmmlu": 84,
-				"simpleqa": 30.1,
+				"simpleqa": 27.8,
 				"mmmu": 64.5,
 				"mmmu_pro": 85,
 				"osworld": 35.2,
