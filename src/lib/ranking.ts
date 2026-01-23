@@ -795,51 +795,43 @@ export function sortModels(
 ): RankedModel[] {
 	const sorted = [...rankedModels];
 
-	sorted.sort((a, b) => {
-		let valueA: number | string | null = null;
-		let valueB: number | string | null = null;
+	// Extract value retrieval logic outside the sort loop for performance
+	let getValue: (item: RankedModel) => number | string | null;
 
-		switch (sortBy) {
-			case 'rank':
-			case 'overall':
-				valueA = a.overallScore;
-				valueB = b.overallScore;
-				break;
-			case 'name':
-				valueA = a.model.name;
-				valueB = b.model.name;
-				break;
-			case 'provider':
-				valueA = a.model.provider;
-				valueB = b.model.provider;
-				break;
-			case 'type':
-				valueA = a.model.type;
-				valueB = b.model.type;
-				break;
-			case 'price':
-				valueA = a.model.pricing.average_per_1m;
-				valueB = b.model.pricing.average_per_1m;
-				break;
-			case 'speed':
-				valueA = a.model.performance.output_speed_tps;
-				valueB = b.model.performance.output_speed_tps;
-				break;
-			case 'latency':
-				valueA = a.model.performance.latency_ttft_ms;
-				valueB = b.model.performance.latency_ttft_ms;
-				break;
-			case 'release_date':
-				valueA = a.model.release_date;
-				valueB = b.model.release_date;
-				break;
-			default:
-				// Category scores
-				if (sortBy in a.categoryScores) {
-					valueA = a.categoryScores[sortBy];
-					valueB = b.categoryScores[sortBy];
-				}
-		}
+	switch (sortBy) {
+		case 'rank':
+		case 'overall':
+			getValue = (item) => item.overallScore;
+			break;
+		case 'name':
+			getValue = (item) => item.model.name;
+			break;
+		case 'provider':
+			getValue = (item) => item.model.provider;
+			break;
+		case 'type':
+			getValue = (item) => item.model.type;
+			break;
+		case 'price':
+			getValue = (item) => item.model.pricing.average_per_1m;
+			break;
+		case 'speed':
+			getValue = (item) => item.model.performance.output_speed_tps;
+			break;
+		case 'latency':
+			getValue = (item) => item.model.performance.latency_ttft_ms;
+			break;
+		case 'release_date':
+			getValue = (item) => item.model.release_date;
+			break;
+		default:
+			// Category scores
+			getValue = (item) => item.categoryScores[sortBy] ?? null;
+	}
+
+	sorted.sort((a, b) => {
+		const valueA = getValue(a);
+		const valueB = getValue(b);
 
 		// Handle nulls
 		if (valueA === null && valueB === null) return 0;
