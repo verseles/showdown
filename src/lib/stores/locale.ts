@@ -3,7 +3,7 @@ import { setLocale, getLocale, locales, baseLocale } from '$lib/paraglide/runtim
 const STORAGE_KEY = 'showdown_locale';
 
 // RTL languages
-const RTL_LANGUAGES = ['ar', 'arz', 'ur'];
+const RTL_LANGUAGES = ['ar', 'arz', 'ur', 'fa'];
 
 type Locale = (typeof locales)[number];
 
@@ -143,5 +143,6 @@ export const languageData: {
 	{ code: 'pl', flag: '🇵🇱', name: 'Polish', nativeName: 'Polski' },
 	{ code: 'th', flag: '🇹🇭', name: 'Thai', nativeName: 'ไทย' },
 	{ code: 'nl', flag: '🇳🇱', name: 'Dutch', nativeName: 'Nederlands' },
-	{ code: 'sv', flag: '🇸🇪', name: 'Swedish', nativeName: 'Svenska' }
+	{ code: 'sv', flag: '🇸🇪', name: 'Swedish', nativeName: 'Svenska' },
+	{ code: 'fa', flag: '🇮🇷', name: 'Persian', nativeName: 'فارسی' }
 ];

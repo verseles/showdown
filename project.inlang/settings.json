@@ -23,7 +23,8 @@
 		"pl",
 		"th",
 		"nl",
-		"sv"
+		"sv",
+		"fa"
 	],
 	"modules": ["./plugins/message-format.js"],
 	"plugin.inlang.messageFormat": {
