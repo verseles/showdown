@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.24",
-		"last_update": "2026-01-24T04:00:00Z",
+		"version": "2026.01.25",
+		"last_update": "2026-01-25T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1615,7 +1615,7 @@
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
 				"humanity_last_exam": null,
-				"live_code_bench": 75.8,
+				"live_code_bench": 71.6,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
@@ -1629,14 +1629,14 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": 80.7,
-				"simpleqa": 15.0,
+				"simpleqa": 13.8,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
 				"swe_bench": 49.3,
 				"tau_bench": 45.0,
 				"terminal_bench": null,
-				"webdev_arena_elo": null,
+				"webdev_arena_elo": 1146,
 				"livebench_reasoning": 89.6,
 				"livebench_coding": 82.7,
 				"livebench_agentic_coding": null,
