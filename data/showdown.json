@@ -1591,6 +1591,54 @@
 			}
 		},
 		{
+			"id": "o4-mini-2025-04-16",
+			"name": "OpenAI o4-mini",
+			"aka": ["o4-mini", "o4-mini-high"],
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-04-16",
+			"pricing": {
+				"input_per_1m": 4.0,
+				"output_per_1m": 16.0,
+				"average_per_1m": 10.0
+			},
+			"performance": {
+				"output_speed_tps": 100,
+				"latency_ttft_ms": 1000,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Fast, cost-efficient reasoning model. Scores 80.2% on LiveCodeBench and 68.1% on SWE-Bench Verified. Features high reasoning effort.",
+			"benchmark_scores": {
+				"swe_bench": 68.1,
+				"terminal_bench": null,
+				"lmarena_coding_elo": null,
+				"live_code_bench": 80.2,
+				"gpqa_diamond": 81.3,
+				"aime": null,
+				"arc_agi_2": null,
+				"lmarena_hard_elo": null,
+				"bfcl": null,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_if_elo": null,
+				"math_500": 98.2,
+				"lmarena_math_elo": null,
+				"frontiermath": null,
+				"mathvista": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"lmarena_vision_elo": null,
+				"mmlu_pro": null,
+				"mmmlu": 90.3,
+				"simpleqa": 19.3,
+				"lmarena_en_elo": null,
+				"lmarena_zh_elo": null,
+				"humanity_last_exam": 14.3
+			}
+		},
+		{
 			"id": "o3-mini-20250129",
 			"name": "OpenAI o3-mini",
 			"aka": ["o3-mini", "o3-mini-high"],
