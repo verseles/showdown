@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.24",
-		"last_update": "2026-01-24T04:00:00Z",
+		"version": "2026.01.25",
+		"last_update": "2026-01-25T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1591,6 +1591,54 @@
 			}
 		},
 		{
+			"id": "o4-mini-2025-04-16",
+			"name": "o4-mini",
+			"aka": ["o4-mini", "o4-mini-high"],
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-04-16",
+			"pricing": {
+				"input_per_1m": 4.0,
+				"output_per_1m": 16.0,
+				"average_per_1m": 10.0
+			},
+			"performance": {
+				"output_speed_tps": 100,
+				"latency_ttft_ms": 1000,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Fast, cost-efficient reasoning model. Scores 80.2% on LiveCodeBench and 68.1% on SWE-Bench Verified. Features high reasoning effort.",
+			"benchmark_scores": {
+				"swe_bench": 68.1,
+				"terminal_bench": null,
+				"lmarena_coding_elo": null,
+				"live_code_bench": 80.2,
+				"gpqa_diamond": 81.3,
+				"aime": null,
+				"arc_agi_2": null,
+				"lmarena_hard_elo": null,
+				"bfcl": null,
+				"tau_bench": null,
+				"osworld": null,
+				"webdev_arena_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_if_elo": null,
+				"math_500": 98.2,
+				"lmarena_math_elo": null,
+				"frontiermath": null,
+				"mathvista": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"lmarena_vision_elo": null,
+				"mmlu_pro": null,
+				"mmmlu": 90.3,
+				"simpleqa": 19.3,
+				"lmarena_en_elo": null,
+				"lmarena_zh_elo": null,
+				"humanity_last_exam": 14.3
+			}
+		},
+		{
 			"id": "o3-mini-20250129",
 			"name": "OpenAI o3-mini",
 			"aka": ["o3-mini", "o3-mini-high"],
@@ -1615,7 +1663,7 @@
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
 				"humanity_last_exam": null,
-				"live_code_bench": 75.8,
+				"live_code_bench": 71.6,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
@@ -1629,14 +1677,14 @@
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": 80.7,
-				"simpleqa": 15.0,
+				"simpleqa": 13.8,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
 				"swe_bench": 49.3,
 				"tau_bench": 45.0,
 				"terminal_bench": null,
-				"webdev_arena_elo": null,
+				"webdev_arena_elo": 1146,
 				"livebench_reasoning": 89.6,
 				"livebench_coding": 82.7,
 				"livebench_agentic_coding": null,
