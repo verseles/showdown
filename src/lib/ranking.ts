@@ -341,40 +341,17 @@ export function imputeMissingScores(
 	}
 
 	// STEP 2: category_average for remaining missing benchmarks
-	for (const [benchmarkId, score] of Object.entries(model.benchmark_scores)) {
-		if (score !== null) continue; // Skip non-null values
-		if (imputedViaSuperior.has(benchmarkId)) continue; // Already imputed via superior_of
+	// Process per category to calculate average once and apply to all missing benchmarks
+	// This ensures consistency and prevents order-dependent calculation (daisy-chaining)
+	for (const category of categories) {
+		const validScores: number[] = [];
+		const missingBenchmarks: string[] = [];
 
-		const category = benchmarkToCategory.get(benchmarkId);
-		if (!category) continue; // Skip if category not found
-
-		// Count total benchmarks in category
-		const totalBenchmarks = category.benchmarks.length;
-
-		// Count how many benchmarks have values (real or imputed via superior_of)
-		let valuesCount = 0;
 		for (const benchmark of category.benchmarks) {
+			// Only use values that are present in the original model OR imputed via superior_of
+			// We do NOT use values imputed via category_average in the same pass
 			const rawScore = imputedModel.benchmark_scores[benchmark.id];
-			if (rawScore !== null && rawScore !== undefined) {
-				valuesCount++;
-			}
-		}
 
-		// Only impute if we have at least 50% (ceil) of benchmarks with values
-		// Example: 5 benchmarks total, need at least 3 values (ceil(5/2) = 3)
-		const minRequired = Math.ceil(totalBenchmarks / 2);
-		if (valuesCount < minRequired) {
-			// Not enough data, skip imputation
-			continue;
-		}
-
-		// Get all OTHER benchmarks in the same category (excluding the current missing one)
-		const categoryBenchmarks = category.benchmarks.filter((b) => b.id !== benchmarkId);
-
-		// Collect normalized scores from the same category (using imputedModel to include superior_of values)
-		const availableScores: number[] = [];
-		for (const benchmark of categoryBenchmarks) {
-			const rawScore = imputedModel.benchmark_scores[benchmark.id];
 			if (rawScore !== null && rawScore !== undefined) {
 				// Normalize if needed
 				let normalizedScore = rawScore;
@@ -385,46 +362,57 @@ export function imputeMissingScores(
 						benchmark.elo_range.max
 					);
 				}
-				availableScores.push(normalizedScore);
+				validScores.push(normalizedScore);
+			} else {
+				missingBenchmarks.push(benchmark.id);
 			}
 		}
 
-		// Sanity check: should have at least 1 other score due to minRequired check
-		if (availableScores.length === 0) continue;
+		// If no missing benchmarks in this category, skip
+		if (missingBenchmarks.length === 0) continue;
 
-		// Calculate average of available scores in the category
-		const average = availableScores.reduce((sum, s) => sum + s, 0) / availableScores.length;
+		// Count total benchmarks in category
+		const totalBenchmarks = category.benchmarks.length;
 
-		// Find the benchmark to check if we need to denormalize for Elo types
-		const currentBenchmark = category.benchmarks.find((b) => b.id === benchmarkId);
-		if (!currentBenchmark) continue;
-
-		// Store the imputed value (keep it normalized in 0-100 scale for percentage types,
-		// or denormalize back to Elo scale for Elo types)
-		let imputedValue = average;
-
-		if (currentBenchmark.type === 'elo' && currentBenchmark.elo_range) {
-			// Denormalize back to Elo scale for storage
-			const { min, max } = currentBenchmark.elo_range;
-			imputedValue = (average / 100) * (max - min) + min;
+		// Only impute if we have at least 50% (ceil) of benchmarks with values
+		const minRequired = Math.ceil(totalBenchmarks / 2);
+		if (validScores.length < minRequired) {
+			continue;
 		}
 
-		// Update the benchmark score
-		imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+		// Calculate average of available scores in the category
+		const average = validScores.reduce((sum, s) => sum + s, 0) / validScores.length;
+		const categoryConfidence = getConfidenceLevel(validScores.length);
 
-		// Calculate confidence for category_average
-		const categoryConfidence = getConfidenceLevel(availableScores.length);
+		// Apply average to all missing benchmarks in this category
+		for (const benchmarkId of missingBenchmarks) {
+			const benchmark = category.benchmarks.find((b) => b.id === benchmarkId);
+			if (!benchmark) continue;
 
-		// Store metadata about the imputation
-		imputedModel.imputed_metadata![benchmarkId] = {
-			original_value: null,
-			imputed_value: imputedValue,
-			method: 'category_average',
-			imputed_date: today,
-			note: `Estimated from ${availableScores.length} other benchmark${availableScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`,
-			confidence: categoryConfidence,
-			benchmarks_used: availableScores.length
-		};
+			// Store the imputed value (keep it normalized in 0-100 scale for percentage types,
+			// or denormalize back to Elo scale for Elo types)
+			let imputedValue = average;
+
+			if (benchmark.type === 'elo' && benchmark.elo_range) {
+				// Denormalize back to Elo scale for storage
+				const { min, max } = benchmark.elo_range;
+				imputedValue = (average / 100) * (max - min) + min;
+			}
+
+			// Update the benchmark score
+			imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+
+			// Store metadata about the imputation
+			imputedModel.imputed_metadata![benchmarkId] = {
+				original_value: null,
+				imputed_value: imputedValue,
+				method: 'category_average',
+				imputed_date: today,
+				note: `Estimated from ${validScores.length} other benchmark${validScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`,
+				confidence: categoryConfidence,
+				benchmarks_used: validScores.length
+			};
+		}
 	}
 
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
