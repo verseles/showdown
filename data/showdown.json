@@ -1592,7 +1592,7 @@
 		},
 		{
 			"id": "o4-mini-2025-04-16",
-			"name": "OpenAI o4-mini",
+			"name": "o4-mini",
 			"aka": ["o4-mini", "o4-mini-high"],
 			"provider": "OpenAI",
 			"type": "proprietary",
