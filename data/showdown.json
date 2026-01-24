@@ -1,10 +1,64 @@
 {
 	"meta": {
-		"version": "2026.01.23",
-		"last_update": "2026-01-23T04:00:00Z",
+		"version": "2026.01.24",
+		"last_update": "2026-01-24T04:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
+		{
+			"id": "minimax-m2-1",
+			"name": "MiniMax M2.1",
+			"provider": "MiniMax",
+			"type": "open-source",
+			"release_date": "2025-12-23",
+			"pricing": {
+				"input_per_1m": 0.3,
+				"output_per_1m": 1.2,
+				"average_per_1m": 0.75
+			},
+			"performance": {
+				"output_speed_tps": 148,
+				"latency_ttft_ms": 400,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "Significant update to M2 with improved coding and agentic capabilities. Scores 81.0% on LiveCodeBench and 74.0% on SWE-Bench Verified.",
+			"benchmark_scores": {
+				"swe_bench": 74.0,
+				"terminal_bench": 47.9,
+				"live_code_bench": 81.0,
+				"gpqa_diamond": 83.0,
+				"aime": 81.0,
+				"mmlu_pro": 88.0,
+				"humanity_last_exam": 22.2,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"tau_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null,
+				"bfcl": null,
+				"livebench": null,
+				"frontiermath": null
+			}
+		},
 		{
 			"id": "claude-opus-4-5-20251101",
 			"name": "Claude Opus 4.5",
