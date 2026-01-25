@@ -643,35 +643,30 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		}
 	}
 
-	// First, impute missing scores for all models (pass all models for superior_of lookup)
+	// First, impute missing scores and calculate metrics only for enabled models
+	// We still pass the full 'models' array to imputeMissingScores for dependency lookups (superior_of)
 	const imputationCache = new Map<string, Model>();
-	const imputedModels = models.map((model) =>
-		imputeMissingScores(
-			model,
-			categories,
-			models,
-			benchmarkToCategory,
-			benchmarkById,
-			imputationCache
-		)
-	);
 
-	// Calculate scores for all models (using imputed values)
-	const modelsWithScores = imputedModels.map((model) => ({
-		model,
-		overallScore: calculateOverallScore(model, categories),
-		categoryScores: getAllCategoryScores(model, categories),
-		coverage: calculateBenchmarkCoverage(model, categories)
-	}));
+	const activeModels = models
+		.filter((model) => !model.disabled)
+		.map((model) => {
+			const imputedModel = imputeMissingScores(
+				model,
+				categories,
+				models,
+				benchmarkToCategory,
+				benchmarkById,
+				imputationCache
+			);
 
-	// Filter out disabled models (imputation already used ALL models for superior_of lookup)
-	// Pre-calculate timestamps for sorting efficiency
-	const activeModels = modelsWithScores
-		.filter((item) => !item.model.disabled)
-		.map((item) => ({
-			...item,
-			_timestamp: new Date(item.model.release_date).getTime()
-		}));
+			return {
+				model: imputedModel,
+				overallScore: calculateOverallScore(imputedModel, categories),
+				categoryScores: getAllCategoryScores(imputedModel, categories),
+				coverage: calculateBenchmarkCoverage(imputedModel, categories),
+				_timestamp: new Date(imputedModel.release_date).getTime()
+			};
+		});
 
 	// Sort by:
 	// 1. Overall score (descending)
