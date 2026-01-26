@@ -141,42 +141,45 @@ export interface SuperiorityResult {
 export function calculateSuperiorityRatio(
 	superiorModel: Model,
 	inferiorModel: Model,
-	categories: Category[]
+	benchmarkById: Map<string, { benchmark: Benchmark; category: Category }>
 ): SuperiorityResult {
 	const ratios: number[] = [];
 
-	for (const category of categories) {
-		for (const benchmark of category.benchmarks) {
-			const superiorScore = superiorModel.benchmark_scores[benchmark.id];
-			const inferiorScore = inferiorModel.benchmark_scores[benchmark.id];
+	for (const [benchmarkId, superiorScore] of Object.entries(superiorModel.benchmark_scores)) {
+		if (superiorScore === null) continue;
 
-			// Both must have real values (not null/undefined)
-			if (superiorScore == null || inferiorScore == null) continue;
-			if (inferiorScore <= 0) continue; // Avoid division by zero
+		const inferiorScore = inferiorModel.benchmark_scores[benchmarkId];
 
-			// Normalize for fair comparison
-			let superiorNorm = superiorScore;
-			let inferiorNorm = inferiorScore;
+		// Both must have real values (not null/undefined)
+		if (inferiorScore == null) continue;
+		if (inferiorScore <= 0) continue; // Avoid division by zero
 
-			if (benchmark.type === 'elo' && benchmark.elo_range) {
-				superiorNorm = normalizeEloScore(
-					superiorScore,
-					benchmark.elo_range.min,
-					benchmark.elo_range.max
-				);
-				inferiorNorm = normalizeEloScore(
-					inferiorScore,
-					benchmark.elo_range.min,
-					benchmark.elo_range.max
-				);
-			}
+		const benchmarkInfo = benchmarkById.get(benchmarkId);
+		if (!benchmarkInfo) continue;
+		const { benchmark } = benchmarkInfo;
 
-			if (inferiorNorm > 0) {
-				const ratio = superiorNorm / inferiorNorm;
-				// Only consider ratios >= 1.0 (superior is equal or better)
-				if (ratio >= 1.0) {
-					ratios.push(ratio);
-				}
+		// Normalize for fair comparison
+		let superiorNorm = superiorScore;
+		let inferiorNorm = inferiorScore;
+
+		if (benchmark.type === 'elo' && benchmark.elo_range) {
+			superiorNorm = normalizeEloScore(
+				superiorScore,
+				benchmark.elo_range.min,
+				benchmark.elo_range.max
+			);
+			inferiorNorm = normalizeEloScore(
+				inferiorScore,
+				benchmark.elo_range.min,
+				benchmark.elo_range.max
+			);
+		}
+
+		if (inferiorNorm > 0) {
+			const ratio = superiorNorm / inferiorNorm;
+			// Only consider ratios >= 1.0 (superior is equal or better)
+			if (ratio >= 1.0) {
+				ratios.push(ratio);
 			}
 		}
 	}
@@ -277,7 +280,11 @@ export function imputeMissingScores(
 	if (model.superior_of && allModels.length > 0) {
 		const inferiorModel = allModels.find((m) => m.id === model.superior_of);
 		if (inferiorModel) {
-			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(model, inferiorModel, categories);
+			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(
+				model,
+				inferiorModel,
+				benchmarkById
+			);
 			const confidence = getConfidenceLevel(benchmarksUsed);
 
 			// Find missing benchmarks

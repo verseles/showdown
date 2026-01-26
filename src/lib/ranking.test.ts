@@ -924,6 +924,20 @@ describe('calculateSuperiorityRatio', () => {
 		benchmarks: [benchPercent1, benchPercent2, benchElo]
 	};
 
+	function createBenchmarkMap(
+		categories: Category[]
+	): Map<string, { benchmark: Benchmark; category: Category }> {
+		const map = new Map<string, { benchmark: Benchmark; category: Category }>();
+		for (const category of categories) {
+			for (const benchmark of category.benchmarks) {
+				map.set(benchmark.id, { benchmark, category });
+			}
+		}
+		return map;
+	}
+
+	const benchmarkMap = createBenchmarkMap([testCategory]);
+
 	it('should calculate ratio correctly for percentage benchmarks', () => {
 		const baseModel: Model = {
 			...mockModel,
@@ -937,7 +951,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 88, percent2: 66 } // 10% better on both
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// 88/80 = 1.1, 66/60 = 1.1 => average = 1.1
 		expect(result.ratio).toBeCloseTo(1.1);
 		expect(result.benchmarksUsed).toBe(2);
@@ -956,7 +970,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 80, percent2: 80.5 } // Only 0.625% better
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// (1.0 + 1.00625) / 2 = ~1.003 => clamped to MIN_SUPERIORITY_RATIO (1.02)
 		expect(result.ratio).toBe(MIN_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(2);
@@ -975,7 +989,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 75, percent2: 75 } // 50% better
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// 75/50 = 1.5 => clamped to MAX_SUPERIORITY_RATIO (1.2)
 		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(2);
@@ -994,7 +1008,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent2: 85 } // No overlap
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(0);
 	});
@@ -1012,7 +1026,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { elo1: 1300 } // normalized: (1300-1000)/(1500-1000)*100 = 60
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// 60/40 = 1.5 => clamped to MAX
 		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(1);
@@ -1031,7 +1045,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 72, percent2: 84 } // worse on percent1, 20% better on percent2
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// percent1: 72/80 = 0.9 (ignored), percent2: 84/70 = 1.2
 		// Only 84/70 = 1.2 is used => clamped to MAX (1.2)
 		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
@@ -1051,7 +1065,7 @@ describe('calculateSuperiorityRatio', () => {
 			benchmark_scores: { percent1: 80, percent2: 90 }
 		};
 
-		const result = calculateSuperiorityRatio(superiorModel, baseModel, [testCategory]);
+		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		// No valid comparisons => DEFAULT
 		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(0);
