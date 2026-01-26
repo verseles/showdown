@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.01.25",
-		"last_update": "2026-01-25T00:00:00Z",
+		"version": "2026.02.01",
+		"last_update": "2026-02-01T00:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -459,14 +459,15 @@
 				"gpqa_diamond": 65,
 				"lmarena_en_elo": 1448,
 				"lmarena_coding_elo": 1459,
-				"simpleqa": 25,
+				"simpleqa": 62.5,
 				"mmmu": 74.4,
 				"mmmlu": 85.1,
 				"lmarena_hard_elo": 1439,
 				"lmarena_math_elo": 1414,
 				"lmarena_vision_elo": 1226,
 				"lmarena_creative_elo": 1437,
-				"lmarena_if_elo": 1435
+				"lmarena_if_elo": 1435,
+				"swe_bench": 38.0
 			}
 		},
 		{
@@ -914,7 +915,7 @@
 				"frontiermath": 14.1,
 				"gpqa_diamond": 86.4,
 				"humanity_last_exam": 21.6,
-				"live_code_bench": 65.5,
+				"live_code_bench": 73.6,
 				"livebench": 61.17,
 				"lmarena_coding_elo": 1468,
 				"lmarena_creative_elo": 1451,
@@ -929,10 +930,10 @@
 				"mmlu_pro": 86.7,
 				"mmmlu": 89.5,
 				"simpleqa": 54.5,
-				"mmmu": 68.8,
+				"mmmu": 81.7,
 				"mmmu_pro": 68,
 				"osworld": 42.5,
-				"swe_bench": 63.2,
+				"swe_bench": 63.8,
 				"tau_bench": 54.9,
 				"terminal_bench": 32.6,
 				"webdev_arena_elo": 1209,
@@ -1699,7 +1700,7 @@
 			"name": "Gemini 2.5 Flash",
 			"provider": "Google",
 			"type": "proprietary",
-			"release_date": "2025-04-17",
+			"release_date": "2025-05-20",
 			"pricing": {
 				"input_per_1m": 0.15,
 				"output_per_1m": 0.6,
@@ -1718,7 +1719,7 @@
 				"frontiermath": null,
 				"gpqa_diamond": 72.5,
 				"humanity_last_exam": 11,
-				"live_code_bench": 60.6,
+				"live_code_bench": 61.9,
 				"livebench": null,
 				"lmarena_coding_elo": 1423,
 				"lmarena_creative_elo": 1397,
