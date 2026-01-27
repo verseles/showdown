@@ -499,10 +499,14 @@ export function getBenchmarkScore(model: Model, benchmark: Benchmark): number | 
  * Benchmarks with null scores contribute 0 to the sum.
  * If weighted coverage is less than 50%, the category score is null.
  */
-export function calculateCategoryScore(model: Model, category: Category): number | null {
+export function calculateCategoryScore(
+	model: Model,
+	category: Category,
+	totalWeightArg?: number
+): number | null {
 	let weightedSum = 0;
 	let presentWeight = 0;
-	const totalWeight = category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+	const totalWeight = totalWeightArg ?? category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
 
 	for (const benchmark of category.benchmarks) {
 		const score = getBenchmarkScore(model, benchmark);
@@ -595,12 +599,14 @@ export function calculateOverallScore(
  */
 export function getAllCategoryScores(
 	model: Model,
-	categories: Category[]
+	categories: Category[],
+	categoryWeights?: Map<string, number>
 ): Record<string, number | null> {
 	const scores: Record<string, number | null> = {};
 
 	for (const category of categories) {
-		scores[category.id] = calculateCategoryScore(model, category);
+		const weight = categoryWeights?.get(category.id);
+		scores[category.id] = calculateCategoryScore(model, category, weight);
 	}
 
 	return scores;
@@ -650,7 +656,13 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	// Pre-compute lookup maps to avoid rebuilding them for every model
 	const benchmarkToCategory = new Map<string, Category>();
 	const benchmarkById = new Map<string, { benchmark: Benchmark; category: Category }>();
+	const categoryWeights = new Map<string, number>();
+
 	for (const category of categories) {
+		categoryWeights.set(
+			category.id,
+			category.benchmarks.reduce((sum, b) => sum + b.weight, 0)
+		);
 		for (const benchmark of category.benchmarks) {
 			benchmarkToCategory.set(benchmark.id, category);
 			benchmarkById.set(benchmark.id, { benchmark, category });
@@ -673,7 +685,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				imputationCache
 			);
 
-			const categoryScores = getAllCategoryScores(imputedModel, categories);
+			const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
 			const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
 
 			return {
