@@ -555,11 +555,18 @@ export function getCategoryBreakdown(
  * Excludes null categories and renormalizes weights.
  * Returns null if fewer than 4 categories have a valid score.
  */
-export function calculateOverallScore(model: Model, categories: Category[]): number | null {
+export function calculateOverallScore(
+	model: Model,
+	categories: Category[],
+	precalculatedScores?: Record<string, number | null>
+): number | null {
 	const categoryScores: { score: number; weight: number }[] = [];
 
 	for (const category of categories) {
-		const score = calculateCategoryScore(model, category);
+		const score = precalculatedScores
+			? (precalculatedScores[category.id] ?? null)
+			: calculateCategoryScore(model, category);
+
 		if (score !== null) {
 			categoryScores.push({ score, weight: category.weight });
 		}
@@ -666,10 +673,13 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				imputationCache
 			);
 
+			const categoryScores = getAllCategoryScores(imputedModel, categories);
+			const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
+
 			return {
 				model: imputedModel,
-				overallScore: calculateOverallScore(imputedModel, categories),
-				categoryScores: getAllCategoryScores(imputedModel, categories),
+				overallScore,
+				categoryScores,
 				coverage: calculateBenchmarkCoverage(imputedModel, categories)
 			};
 		});
