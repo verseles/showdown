@@ -670,8 +670,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				model: imputedModel,
 				overallScore: calculateOverallScore(imputedModel, categories),
 				categoryScores: getAllCategoryScores(imputedModel, categories),
-				coverage: calculateBenchmarkCoverage(imputedModel, categories),
-				_timestamp: new Date(imputedModel.release_date).getTime()
+				coverage: calculateBenchmarkCoverage(imputedModel, categories)
 			};
 		});
 
@@ -705,8 +704,9 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		}
 
 		// 3. Tie-breaker: release date
-		if (a._timestamp !== b._timestamp) {
-			return b._timestamp - a._timestamp; // Newer first
+		if (a.model.release_date !== b.model.release_date) {
+			// Newer first (descending order)
+			return b.model.release_date.localeCompare(a.model.release_date);
 		}
 
 		// 4. Tie-breaker: alphabetical by name
