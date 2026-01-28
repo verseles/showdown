@@ -216,7 +216,7 @@ export function calculateSuperiorityRatio(
 export function imputeMissingScores(
 	model: Model,
 	categories: Category[],
-	allModels: Model[] = [],
+	allModels: Model[] | Map<string, Model> = [],
 	benchmarkToCategoryMap?: Map<string, Category>,
 	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>,
 	imputationCache?: Map<string, Model>
@@ -234,6 +234,29 @@ export function imputeMissingScores(
 	};
 
 	const today = new Date().toISOString().split('T')[0];
+
+	// Helper functions to abstract Map vs Array access
+	const getModelById = (id: string): Model | undefined => {
+		if (Array.isArray(allModels)) {
+			return allModels.find((m) => m.id === id);
+		}
+		return allModels.get(id);
+	};
+
+	const getAllModelsSize = (): number => {
+		if (Array.isArray(allModels)) return allModels.length;
+		return allModels.size;
+	};
+
+	const findModel = (predicate: (m: Model) => boolean): Model | undefined => {
+		if (Array.isArray(allModels)) {
+			return allModels.find(predicate);
+		}
+		for (const m of allModels.values()) {
+			if (predicate(m)) return m;
+		}
+		return undefined;
+	};
 
 	// Use provided maps or build them if not provided (fallback/test mode)
 	let benchmarkToCategory = benchmarkToCategoryMap;
@@ -262,7 +285,7 @@ export function imputeMissingScores(
 		let currentId = startModelId;
 		let depth = 0;
 		while (currentId && depth < maxDepth) {
-			const ancestorModel = allModels.find((m) => m.id === currentId);
+			const ancestorModel = getModelById(currentId);
 			if (!ancestorModel) break;
 
 			const value = ancestorModel.benchmark_scores[benchmarkId];
@@ -277,8 +300,8 @@ export function imputeMissingScores(
 	}
 
 	// STEP 1: Try superior_of imputation first (with cascade lookup)
-	if (model.superior_of && allModels.length > 0) {
-		const inferiorModel = allModels.find((m) => m.id === model.superior_of);
+	if (model.superior_of && getAllModelsSize() > 0) {
+		const inferiorModel = getModelById(model.superior_of);
 		if (inferiorModel) {
 			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(
 				model,
@@ -424,8 +447,8 @@ export function imputeMissingScores(
 
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
 	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
-	if (!model.superior_of && allModels.length > 0) {
-		const superiorModelRaw = allModels.find((m) => m.superior_of === model.id);
+	if (!model.superior_of && getAllModelsSize() > 0) {
+		const superiorModelRaw = findModel((m) => m.superior_of === model.id);
 		if (superiorModelRaw) {
 			// Recursively impute the superior model to ensure we have access to its imputed values
 			// This allows the base model to inherit values that were imputed on the thinking model
@@ -672,6 +695,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	// First, impute missing scores and calculate metrics only for enabled models
 	// We still pass the full 'models' array to imputeMissingScores for dependency lookups (superior_of)
 	const imputationCache = new Map<string, Model>();
+	const modelMap = new Map(models.map((m) => [m.id, m]));
 
 	const activeModels = models
 		.filter((model) => !model.disabled)
@@ -679,7 +703,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 			const imputedModel = imputeMissingScores(
 				model,
 				categories,
-				models,
+				modelMap,
 				benchmarkToCategory,
 				benchmarkById,
 				imputationCache
