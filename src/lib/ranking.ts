@@ -118,6 +118,17 @@ export function normalizeEloScore(elo: number, min: number, max: number): number
 	return ((elo - min) / (max - min)) * 100;
 }
 
+/**
+ * Denormalize a 0-100 score back to Elo scale.
+ * @param normalized - The normalized score (0-100)
+ * @param min - Minimum expected Elo
+ * @param max - Maximum expected Elo
+ * @returns Raw Elo score
+ */
+export function denormalizeEloScore(normalized: number, min: number, max: number): number {
+	return (normalized / 100) * (max - min) + min;
+}
+
 export interface SuperiorityResult {
 	ratio: number;
 	benchmarksUsed: number;
@@ -336,15 +347,26 @@ export function imputeMissingScores(
 				const { benchmark } = benchmarkInfo;
 
 				// Calculate imputed value using superiority ratio
-				let imputedValue = sourceValue * ratio;
+				let imputedValue: number;
 
-				// Limit to maximum possible value
-				// For percentage benchmarks, cap at MAX_IMPUTED_PERCENTAGE (95%) to avoid
-				// artificially perfect scores from imputation
-				if (benchmark.type === 'percentage') {
-					imputedValue = Math.min(MAX_IMPUTED_PERCENTAGE, imputedValue);
-				} else if (benchmark.type === 'elo' && benchmark.elo_range) {
-					imputedValue = Math.min(benchmark.elo_range.max, imputedValue);
+				if (benchmark.type === 'elo' && benchmark.elo_range) {
+					// For Elo scores, apply ratio to the NORMALIZED score
+					const { min, max } = benchmark.elo_range;
+					const normalizedSource = normalizeEloScore(sourceValue, min, max);
+					const normalizedImputed = normalizedSource * ratio;
+
+					// Denormalize back to Elo scale
+					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
+					imputedValue = Math.min(max, imputedValue);
+				} else {
+					imputedValue = sourceValue * ratio;
+
+					// Limit to maximum possible value
+					// For percentage benchmarks, cap at MAX_IMPUTED_PERCENTAGE (95%) to avoid
+					// artificially perfect scores from imputation
+					if (benchmark.type === 'percentage') {
+						imputedValue = Math.min(MAX_IMPUTED_PERCENTAGE, imputedValue);
+					}
 				}
 
 				// Update the benchmark score
@@ -427,7 +449,7 @@ export function imputeMissingScores(
 			if (benchmark.type === 'elo' && benchmark.elo_range) {
 				// Denormalize back to Elo scale for storage
 				const { min, max } = benchmark.elo_range;
-				imputedValue = (average / 100) * (max - min) + min;
+				imputedValue = denormalizeEloScore(average, min, max);
 			}
 
 			// Update the benchmark score
@@ -480,10 +502,19 @@ export function imputeMissingScores(
 
 				const { benchmark } = benchmarkInfo;
 
-				let imputedValue = superiorValue * INFERIOR_OF_RATIO;
+				let imputedValue: number;
 
 				if (benchmark.type === 'elo' && benchmark.elo_range) {
-					imputedValue = Math.max(benchmark.elo_range.min, imputedValue);
+					// For Elo scores, apply ratio to the NORMALIZED score
+					const { min, max } = benchmark.elo_range;
+					const normalizedSuperior = normalizeEloScore(superiorValue, min, max);
+					const normalizedImputed = normalizedSuperior * INFERIOR_OF_RATIO;
+
+					// Denormalize back to Elo scale
+					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
+					imputedValue = Math.max(min, imputedValue);
+				} else {
+					imputedValue = superiorValue * INFERIOR_OF_RATIO;
 				}
 
 				imputedModel.benchmark_scores[benchmarkId] = imputedValue;

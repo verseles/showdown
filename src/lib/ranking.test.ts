@@ -1165,7 +1165,7 @@ describe('imputeMissingScores with superior_of', () => {
 		const baseModel: Model = {
 			...mockModel,
 			id: 'base-model',
-			benchmark_scores: { elo_bench: 1450 }
+			benchmark_scores: { elo_bench: 1490 }
 		};
 
 		const thinkingModel: Model = {
@@ -1173,7 +1173,7 @@ describe('imputeMissingScores with superior_of', () => {
 			id: 'thinking-model',
 			superior_of: 'base-model',
 			benchmark_scores: {
-				bench1: 85, // shared benchmark for ratio calculation
+				bench1: 90, // shared benchmark for ratio calculation
 				elo_bench: null as unknown as number
 			}
 		};
@@ -1183,8 +1183,10 @@ describe('imputeMissingScores with superior_of', () => {
 
 		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
 
-		// Ratio: 85/80 = 1.0625
-		// imputed elo = 1450 * 1.0625 = 1540.625 => capped at 1500
+		// Ratio: 90/80 = 1.125
+		// Base Elo: 1490 (Range 1000-1500) -> Normalized: 98
+		// Imputed Norm: 98 * 1.125 = 110.25
+		// Denormalized > 1500 => capped at 1500
 		expect(imputed.benchmark_scores.elo_bench).toBe(1500);
 	});
 
