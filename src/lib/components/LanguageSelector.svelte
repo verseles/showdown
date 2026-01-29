@@ -32,6 +32,7 @@
 
 <div class="language-selector">
 	<button
+		type="button"
 		class="selector-button"
 		onclick={() => (isOpen = !isOpen)}
 		aria-label={m.aria_select_language()}
@@ -47,6 +48,7 @@
 		<div class="dropdown" role="listbox" aria-label={m.aria_select_language()}>
 			{#each languageData as lang (lang.code)}
 				<button
+					type="button"
 					role="option"
 					class="language-option"
 					class:selected={lang.code === getLocale()}
