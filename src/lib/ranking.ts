@@ -219,7 +219,8 @@ export function imputeMissingScores(
 	allModels: Model[] | Map<string, Model> = [],
 	benchmarkToCategoryMap?: Map<string, Category>,
 	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>,
-	imputationCache?: Map<string, Model>
+	imputationCache?: Map<string, Model>,
+	baseToThinkingMap?: Map<string, Model>
 ): Model {
 	// Check cache first
 	if (imputationCache && imputationCache.has(model.id)) {
@@ -448,7 +449,13 @@ export function imputeMissingScores(
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
 	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
 	if (!model.superior_of && getAllModelsSize() > 0) {
-		const superiorModelRaw = findModel((m) => m.superior_of === model.id);
+		let superiorModelRaw: Model | undefined;
+		if (baseToThinkingMap) {
+			superiorModelRaw = baseToThinkingMap.get(model.id);
+		} else {
+			superiorModelRaw = findModel((m) => m.superior_of === model.id);
+		}
+
 		if (superiorModelRaw) {
 			// Recursively impute the superior model to ensure we have access to its imputed values
 			// This allows the base model to inherit values that were imputed on the thinking model
@@ -458,7 +465,8 @@ export function imputeMissingScores(
 				allModels,
 				benchmarkToCategory,
 				benchmarkById,
-				imputationCache
+				imputationCache,
+				baseToThinkingMap
 			);
 
 			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
@@ -692,6 +700,13 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		}
 	}
 
+	const baseToThinkingMap = new Map<string, Model>();
+	for (const model of models) {
+		if (model.superior_of) {
+			baseToThinkingMap.set(model.superior_of, model);
+		}
+	}
+
 	// First, impute missing scores and calculate metrics only for enabled models
 	// We still pass the full 'models' array to imputeMissingScores for dependency lookups (superior_of)
 	const imputationCache = new Map<string, Model>();
@@ -706,7 +721,8 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				modelMap,
 				benchmarkToCategory,
 				benchmarkById,
-				imputationCache
+				imputationCache,
+				baseToThinkingMap
 			);
 
 			const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
