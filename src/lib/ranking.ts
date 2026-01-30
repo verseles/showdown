@@ -626,7 +626,9 @@ export function calculateOverallScore(
 	categories: Category[],
 	precalculatedScores?: Record<string, number | null>
 ): number | null {
-	const categoryScores: { score: number; weight: number }[] = [];
+	let validCategoriesCount = 0;
+	let weightedSum = 0;
+	let totalWeight = 0;
 
 	for (const category of categories) {
 		const score = precalculatedScores
@@ -634,24 +636,21 @@ export function calculateOverallScore(
 			: calculateCategoryScore(model, category);
 
 		if (score !== null) {
-			categoryScores.push({ score, weight: category.weight });
+			validCategoriesCount++;
+			weightedSum += score * category.weight;
+			totalWeight += category.weight;
 		}
 	}
 
 	// If fewer than 4 categories have scores, return null
-	if (categoryScores.length < MIN_CATEGORIES_FOR_OVERALL) {
+	if (validCategoriesCount < MIN_CATEGORIES_FOR_OVERALL) {
 		return null;
 	}
 
 	// Renormalize weights for present categories
-	const totalWeight = categoryScores.reduce((sum, c) => sum + c.weight, 0);
-
 	if (totalWeight === 0) {
 		return null;
 	}
-
-	// Calculate weighted average
-	const weightedSum = categoryScores.reduce((sum, c) => sum + c.score * c.weight, 0);
 
 	return weightedSum / totalWeight;
 }
