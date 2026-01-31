@@ -1544,6 +1544,26 @@ describe('rankModels with superior_of integration', () => {
 		expect(rankedThinking.model.imputed_metadata!.bench2).toBeDefined();
 		expect(rankedThinking.model.imputed_metadata!.bench2.method).toBe('superior_of');
 	});
+
+	it('should keep coverage based on original benchmarks after imputation', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-coverage',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-coverage',
+			superior_of: 'base-coverage',
+			benchmark_scores: { bench1: 88, bench2: null as unknown as number }
+		};
+
+		const ranked = rankModels([baseModel, thinkingModel], categories);
+		const rankedThinking = ranked.find((r) => r.model.id === 'thinking-coverage')!;
+
+		expect(rankedThinking.coverage).toBe(50);
+	});
 });
 
 describe('rankModels with disabled models', () => {

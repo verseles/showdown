@@ -761,7 +761,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				model: imputedModel,
 				overallScore,
 				categoryScores,
-				coverage: calculateBenchmarkCoverage(imputedModel, categories)
+				coverage: calculateBenchmarkCoverage(model, categories)
 			};
 		});
 
