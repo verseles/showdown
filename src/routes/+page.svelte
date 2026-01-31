@@ -2149,7 +2149,7 @@
 			gap: var(--spacing-sm);
 		}
 
-		/* Fix theme toggle circle */
+		/* Adjust theme toggle size and prevent shrinking on mobile */
 		.theme-toggle {
 			flex-shrink: 0;
 			min-width: 36px;
