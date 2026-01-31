@@ -154,7 +154,8 @@ export function calculateSuperiorityRatio(
 	inferiorModel: Model,
 	benchmarkById: Map<string, { benchmark: Benchmark; category: Category }>
 ): SuperiorityResult {
-	const ratios: number[] = [];
+	let sumRatios = 0;
+	let countRatios = 0;
 
 	for (const [benchmarkId, superiorScore] of Object.entries(superiorModel.benchmark_scores)) {
 		if (superiorScore === null) continue;
@@ -190,23 +191,24 @@ export function calculateSuperiorityRatio(
 			const ratio = superiorNorm / inferiorNorm;
 			// Only consider ratios >= 1.0 (superior is equal or better)
 			if (ratio >= 1.0) {
-				ratios.push(ratio);
+				sumRatios += ratio;
+				countRatios++;
 			}
 		}
 	}
 
 	// If no shared benchmarks, use default ratio
-	if (ratios.length === 0) {
+	if (countRatios === 0) {
 		return { ratio: DEFAULT_SUPERIORITY_RATIO, benchmarksUsed: 0 };
 	}
 
 	// Calculate average ratio
-	const avgRatio = ratios.reduce((a, b) => a + b, 0) / ratios.length;
+	const avgRatio = sumRatios / countRatios;
 
 	// Clamp to [MIN, MAX]
 	const clampedRatio = Math.min(MAX_SUPERIORITY_RATIO, Math.max(MIN_SUPERIORITY_RATIO, avgRatio));
 
-	return { ratio: clampedRatio, benchmarksUsed: ratios.length };
+	return { ratio: clampedRatio, benchmarksUsed: countRatios };
 }
 
 /**
