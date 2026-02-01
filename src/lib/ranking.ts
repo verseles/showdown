@@ -399,7 +399,8 @@ export function imputeMissingScores(
 	// Process per category to calculate average once and apply to all missing benchmarks
 	// This ensures consistency and prevents order-dependent calculation (daisy-chaining)
 	for (const category of categories) {
-		const validScores: number[] = [];
+		let validSum = 0;
+		let validCount = 0;
 		const missingBenchmarks: string[] = [];
 
 		for (const benchmark of category.benchmarks) {
@@ -417,7 +418,8 @@ export function imputeMissingScores(
 						benchmark.elo_range.max
 					);
 				}
-				validScores.push(normalizedScore);
+				validSum += normalizedScore;
+				validCount++;
 			} else {
 				missingBenchmarks.push(benchmark.id);
 			}
@@ -431,13 +433,13 @@ export function imputeMissingScores(
 
 		// Only impute if we have at least 50% (ceil) of benchmarks with values
 		const minRequired = Math.ceil(totalBenchmarks / 2);
-		if (validScores.length < minRequired) {
+		if (validCount < minRequired) {
 			continue;
 		}
 
 		// Calculate average of available scores in the category
-		const average = validScores.reduce((sum, s) => sum + s, 0) / validScores.length;
-		const categoryConfidence = getConfidenceLevel(validScores.length);
+		const average = validSum / validCount;
+		const categoryConfidence = getConfidenceLevel(validCount);
 
 		// Apply average to all missing benchmarks in this category
 		for (const benchmarkId of missingBenchmarks) {
@@ -463,9 +465,9 @@ export function imputeMissingScores(
 				imputed_value: imputedValue,
 				method: 'category_average',
 				imputed_date: today,
-				note: `Estimated from ${validScores.length} other benchmark${validScores.length > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`,
+				note: `Estimated from ${validCount} other benchmark${validCount > 1 ? 's' : ''} in ${category.name} category (avg: ${average.toFixed(2)})`,
 				confidence: categoryConfidence,
-				benchmarks_used: validScores.length
+				benchmarks_used: validCount
 			};
 		}
 	}
