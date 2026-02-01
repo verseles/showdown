@@ -627,6 +627,36 @@ describe('rankModels', () => {
 		expect(ranked[1].rank).toBeNull();
 		expect(ranked[2].rank).toBeNull();
 	});
+
+	it('should use release date as tie-breaker for same scores', () => {
+		// Need 4 categories for overall score
+		const cat1: Category = { ...mockCategory, id: 'cat1', weight: 0.25 };
+		const cat2: Category = { ...mockCategory, id: 'cat2', weight: 0.25 };
+		const cat3: Category = { ...mockCategory, id: 'cat3', weight: 0.25 };
+		const cat4: Category = { ...mockCategory, id: 'cat4', weight: 0.25 };
+		const categories: Category[] = [cat1, cat2, cat3, cat4];
+
+		const modelOld: Model = {
+			...mockModel,
+			id: 'modelOld',
+			name: 'SameName',
+			release_date: '2024-01-01',
+			benchmark_scores: { test_bench: 100, test_elo: 1400 }
+		};
+		const modelNew: Model = {
+			...mockModel,
+			id: 'modelNew',
+			name: 'SameName',
+			release_date: '2025-01-01',
+			benchmark_scores: { test_bench: 100, test_elo: 1400 }
+		};
+
+		// Pass in mixed order
+		const ranked = rankModels([modelOld, modelNew], categories);
+
+		expect(ranked[0].model.id).toBe('modelNew'); // Newer comes first
+		expect(ranked[1].model.id).toBe('modelOld');
+	});
 });
 
 describe('sortModels', () => {
