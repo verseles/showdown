@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.02.13",
-		"last_update": "2026-02-13T12:00:00Z",
+		"last_update": "2026-02-13T13:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -2075,7 +2075,7 @@
 		},
 		{
 			"id": "kimi-k2-5",
-			"name": "Kimi K2.5",
+			"name": "Kimi K2.5 Thinking",
 			"provider": "Moonshot AI",
 			"type": "open-source",
 			"release_date": "2026-02-10",
@@ -2127,7 +2127,8 @@
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": null
-			}
+			},
+			"aka": ["kimi-k2.5", "kimi-k2-5"]
 		}
 	],
 	"categories": [
