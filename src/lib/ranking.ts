@@ -801,7 +801,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		// 3. Tie-breaker: release date
 		if (a.model.release_date !== b.model.release_date) {
 			// Newer first (descending order)
-			return b.model.release_date.localeCompare(a.model.release_date);
+			return a.model.release_date < b.model.release_date ? 1 : -1;
 		}
 
 		// 4. Tie-breaker: alphabetical by name
