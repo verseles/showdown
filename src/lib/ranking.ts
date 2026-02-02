@@ -226,6 +226,66 @@ export function calculateSuperiorityRatio(
  * @param allModels - All models (needed for superior_of lookup)
  * @returns New model with imputed scores and metadata
  */
+/**
+ * Helper to get a model by ID from either an Array or Map
+ */
+function getModelById(allModels: Model[] | Map<string, Model>, id: string): Model | undefined {
+	if (Array.isArray(allModels)) {
+		return allModels.find((m) => m.id === id);
+	}
+	return allModels.get(id);
+}
+
+/**
+ * Helper to get the size of the models collection
+ */
+function getAllModelsSize(allModels: Model[] | Map<string, Model>): number {
+	if (Array.isArray(allModels)) return allModels.length;
+	return allModels.size;
+}
+
+/**
+ * Helper to find a model matching a predicate
+ */
+function findModel(
+	allModels: Model[] | Map<string, Model>,
+	predicate: (m: Model) => boolean
+): Model | undefined {
+	if (Array.isArray(allModels)) {
+		return allModels.find(predicate);
+	}
+	for (const m of allModels.values()) {
+		if (predicate(m)) return m;
+	}
+	return undefined;
+}
+
+/**
+ * Helper: Walk up the superior_of chain to find a model with the benchmark value
+ */
+function findAncestorWithValue(
+	benchmarkId: string,
+	startModelId: string | undefined,
+	allModels: Model[] | Map<string, Model>,
+	maxDepth = 5
+): { model: Model; value: number } | null {
+	let currentId = startModelId;
+	let depth = 0;
+	while (currentId && depth < maxDepth) {
+		const ancestorModel = getModelById(allModels, currentId);
+		if (!ancestorModel) break;
+
+		const value = ancestorModel.benchmark_scores[benchmarkId];
+		if (value != null) {
+			return { model: ancestorModel, value };
+		}
+
+		currentId = ancestorModel.superior_of;
+		depth++;
+	}
+	return null;
+}
+
 export function imputeMissingScores(
 	model: Model,
 	categories: Category[],
@@ -249,29 +309,6 @@ export function imputeMissingScores(
 
 	const today = new Date().toISOString().split('T')[0];
 
-	// Helper functions to abstract Map vs Array access
-	const getModelById = (id: string): Model | undefined => {
-		if (Array.isArray(allModels)) {
-			return allModels.find((m) => m.id === id);
-		}
-		return allModels.get(id);
-	};
-
-	const getAllModelsSize = (): number => {
-		if (Array.isArray(allModels)) return allModels.length;
-		return allModels.size;
-	};
-
-	const findModel = (predicate: (m: Model) => boolean): Model | undefined => {
-		if (Array.isArray(allModels)) {
-			return allModels.find(predicate);
-		}
-		for (const m of allModels.values()) {
-			if (predicate(m)) return m;
-		}
-		return undefined;
-	};
-
 	// Use provided maps or build them if not provided (fallback/test mode)
 	let benchmarkToCategory = benchmarkToCategoryMap;
 	let benchmarkById = benchmarkByIdMap;
@@ -290,32 +327,9 @@ export function imputeMissingScores(
 	// Track which benchmarks were imputed via superior_of (to skip in category_average)
 	const imputedViaSuperior = new Set<string>();
 
-	// Helper: Walk up the superior_of chain to find a model with the benchmark value
-	function findAncestorWithValue(
-		benchmarkId: string,
-		startModelId: string | undefined,
-		maxDepth = 5
-	): { model: Model; value: number } | null {
-		let currentId = startModelId;
-		let depth = 0;
-		while (currentId && depth < maxDepth) {
-			const ancestorModel = getModelById(currentId);
-			if (!ancestorModel) break;
-
-			const value = ancestorModel.benchmark_scores[benchmarkId];
-			if (value != null) {
-				return { model: ancestorModel, value };
-			}
-
-			currentId = ancestorModel.superior_of;
-			depth++;
-		}
-		return null;
-	}
-
 	// STEP 1: Try superior_of imputation first (with cascade lookup)
-	if (model.superior_of && getAllModelsSize() > 0) {
-		const inferiorModel = getModelById(model.superior_of);
+	if (model.superior_of && getAllModelsSize(allModels) > 0) {
+		const inferiorModel = getModelById(allModels, model.superior_of);
 		if (inferiorModel) {
 			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(
 				model,
@@ -334,7 +348,12 @@ export function imputeMissingScores(
 
 				if (sourceValue == null) {
 					// Cascade: look up the chain for an ancestor with this value
-					const ancestor = findAncestorWithValue(benchmarkId, inferiorModel.superior_of, 4);
+					const ancestor = findAncestorWithValue(
+						benchmarkId,
+						inferiorModel.superior_of,
+						allModels,
+						4
+					);
 					if (ancestor) {
 						sourceModel = ancestor.model;
 						sourceValue = ancestor.value;
@@ -474,12 +493,12 @@ export function imputeMissingScores(
 
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
 	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
-	if (!model.superior_of && getAllModelsSize() > 0) {
+	if (!model.superior_of && getAllModelsSize(allModels) > 0) {
 		let superiorModelRaw: Model | undefined;
 		if (baseToThinkingMap) {
 			superiorModelRaw = baseToThinkingMap.get(model.id);
 		} else {
-			superiorModelRaw = findModel((m) => m.superior_of === model.id);
+			superiorModelRaw = findModel(allModels, (m) => m.superior_of === model.id);
 		}
 
 		if (superiorModelRaw) {
