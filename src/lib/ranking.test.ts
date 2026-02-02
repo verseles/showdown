@@ -657,6 +657,49 @@ describe('rankModels', () => {
 		expect(ranked[0].model.id).toBe('modelNew'); // Newer comes first
 		expect(ranked[1].model.id).toBe('modelOld');
 	});
+
+	it('should assign same rank to models with effectively equal scores (epsilon)', () => {
+		// Regression test for issue where sort used epsilon but rank assignment used strict equality
+		const bench: Benchmark = {
+			id: 'bench',
+			name: 'Bench',
+			type: 'percentage',
+			weight: 1.0,
+			url: '',
+			description: ''
+		};
+
+		const cat1: Category = { id: 'c1', name: 'C1', emoji: 'a', weight: 0.25, description: '', benchmarks: [bench] };
+		const cat2: Category = { id: 'c2', name: 'C2', emoji: 'b', weight: 0.25, description: '', benchmarks: [bench] };
+		const cat3: Category = { id: 'c3', name: 'C3', emoji: 'c', weight: 0.25, description: '', benchmarks: [bench] };
+		const cat4: Category = { id: 'c4', name: 'C4', emoji: 'd', weight: 0.25, description: '', benchmarks: [bench] };
+		const categories = [cat1, cat2, cat3, cat4];
+
+		const modelA: Model = {
+			...mockModel,
+			id: 'modelA',
+			name: 'Model A',
+			benchmark_scores: { bench: 80.0001 }
+		};
+
+		const modelB: Model = {
+			...mockModel,
+			id: 'modelB',
+			name: 'Model B',
+			benchmark_scores: { bench: 80.0002 }
+		};
+
+		// 80.0001 vs 80.0002 diff is 0.0001, which is < 0.001 (epsilon)
+		// Sort should treat them as equal (tie).
+		// Tie breakers: Coverage (same), Date (same), Name. Model A < Model B.
+		// So Model A should come first or second depending on name sort (A < B).
+		// But they should have the SAME rank.
+
+		const ranked = rankModels([modelA, modelB], categories);
+
+		expect(ranked[0].rank).toBe(1);
+		expect(ranked[1].rank).toBe(1); // Previously failing expectation (was 2)
+	});
 });
 
 describe('sortModels', () => {

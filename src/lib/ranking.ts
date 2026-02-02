@@ -814,7 +814,9 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 
 	return activeModels.map((item, index) => {
 		if (item.overallScore !== null) {
-			if (item.overallScore !== previousScore) {
+			// Check if score is effectively different from previous (considering epsilon)
+			// Matches the sort logic tolerance of 0.001
+			if (previousScore === null || Math.abs(item.overallScore - previousScore) > 0.001) {
 				currentRank = index + 1;
 			}
 			previousScore = item.overallScore;
