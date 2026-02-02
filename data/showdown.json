@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.12",
-		"last_update": "2026-02-12T12:00:00Z",
+		"version": "2026.02.13",
+		"last_update": "2026-02-13T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1075,13 +1075,13 @@
 			},
 			"editor_notes": "Reasoning-focused model with excellent math performance. Competitive with o3 on GPQA at fraction of cost.",
 			"benchmark_scores": {
-				"aime": 79.8,
+				"aime": 87.5,
 				"arc_agi_2": 1.3,
 				"bfcl": 75.8,
 				"frontiermath": 1.7,
 				"gpqa_diamond": 71.5,
 				"humanity_last_exam": 17.7,
-				"live_code_bench": 73.3,
+				"live_code_bench": 73.1,
 				"livebench": 71.38,
 				"lmarena_coding_elo": 1464,
 				"lmarena_creative_elo": 1389,
@@ -1099,7 +1099,7 @@
 				"mmmu": 64.5,
 				"mmmu_pro": 85,
 				"osworld": 35.2,
-				"swe_bench": 49.2,
+				"swe_bench": 57.6,
 				"tau_bench": 58.7,
 				"terminal_bench": 42.5,
 				"webdev_arena_elo": 1265,
@@ -1141,7 +1141,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": 1495,
 				"lmarena_creative_elo": 1428,
-				"lmarena_en_elo": 1465,
+				"lmarena_en_elo": 1477,
 				"lmarena_hard_elo": 1477,
 				"lmarena_if_elo": 1434,
 				"lmarena_math_elo": 1439,
@@ -1664,7 +1664,7 @@
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
 				"humanity_last_exam": null,
-				"live_code_bench": 71.6,
+				"live_code_bench": 75.8,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
