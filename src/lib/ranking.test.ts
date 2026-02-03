@@ -669,10 +669,38 @@ describe('rankModels', () => {
 			description: ''
 		};
 
-		const cat1: Category = { id: 'c1', name: 'C1', emoji: 'a', weight: 0.25, description: '', benchmarks: [bench] };
-		const cat2: Category = { id: 'c2', name: 'C2', emoji: 'b', weight: 0.25, description: '', benchmarks: [bench] };
-		const cat3: Category = { id: 'c3', name: 'C3', emoji: 'c', weight: 0.25, description: '', benchmarks: [bench] };
-		const cat4: Category = { id: 'c4', name: 'C4', emoji: 'd', weight: 0.25, description: '', benchmarks: [bench] };
+		const cat1: Category = {
+			id: 'c1',
+			name: 'C1',
+			emoji: 'a',
+			weight: 0.25,
+			description: '',
+			benchmarks: [bench]
+		};
+		const cat2: Category = {
+			id: 'c2',
+			name: 'C2',
+			emoji: 'b',
+			weight: 0.25,
+			description: '',
+			benchmarks: [bench]
+		};
+		const cat3: Category = {
+			id: 'c3',
+			name: 'C3',
+			emoji: 'c',
+			weight: 0.25,
+			description: '',
+			benchmarks: [bench]
+		};
+		const cat4: Category = {
+			id: 'c4',
+			name: 'C4',
+			emoji: 'd',
+			weight: 0.25,
+			description: '',
+			benchmarks: [bench]
+		};
 		const categories = [cat1, cat2, cat3, cat4];
 
 		const modelA: Model = {
