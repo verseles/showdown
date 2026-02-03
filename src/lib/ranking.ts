@@ -1059,7 +1059,10 @@ export function formatSpeed(tps: number): string {
  * Get unique providers from models
  */
 export function getUniqueProviders(models: Model[]): string[] {
-	const providers = new Set(models.map((m) => m.provider));
+	const providers = new Set<string>();
+	for (const model of models) {
+		providers.add(model.provider);
+	}
 	return Array.from(providers).sort();
 }
 
