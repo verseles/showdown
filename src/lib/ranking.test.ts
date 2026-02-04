@@ -11,6 +11,8 @@ import {
 	formatPrice,
 	formatSpeed,
 	getUniqueProviders,
+	getPriceRange,
+	getSpeedRange,
 	imputeMissingScores,
 	calculateSuperiorityRatio,
 	getConfidenceLevel,
@@ -1750,5 +1752,55 @@ describe('rankModels with disabled models', () => {
 
 		expect(ranked).toHaveLength(1);
 		expect(ranked[0].model.id).toBe('implicit-active');
+	});
+});
+
+describe('getPriceRange', () => {
+	it('should return range from min to max', () => {
+		const models: Model[] = [
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 10 } },
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 5 } },
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 20 } }
+		];
+		const range = getPriceRange(models);
+		expect(range).toEqual([5, 20]);
+	});
+
+	it('should return [0, 0] for empty array', () => {
+		const range = getPriceRange([]);
+		expect(range).toEqual([0, 0]);
+	});
+
+	it('should handle single item', () => {
+		const models: Model[] = [
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 10 } }
+		];
+		const range = getPriceRange(models);
+		expect(range).toEqual([10, 10]);
+	});
+});
+
+describe('getSpeedRange', () => {
+	it('should return range from min to max', () => {
+		const models: Model[] = [
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 100 } },
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 50 } },
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 200 } }
+		];
+		const range = getSpeedRange(models);
+		expect(range).toEqual([50, 200]);
+	});
+
+	it('should return [0, 0] for empty array', () => {
+		const range = getSpeedRange([]);
+		expect(range).toEqual([0, 0]);
+	});
+
+	it('should handle single item', () => {
+		const models: Model[] = [
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 100 } }
+		];
+		const range = getSpeedRange(models);
+		expect(range).toEqual([100, 100]);
 	});
 });

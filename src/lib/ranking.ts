@@ -1070,14 +1070,28 @@ export function getUniqueProviders(models: Model[]): string[] {
  * Get price range from models
  */
 export function getPriceRange(models: Model[]): [number, number] {
-	const prices = models.map((m) => m.pricing.average_per_1m);
-	return [Math.min(...prices), Math.max(...prices)];
+	if (models.length === 0) return [0, 0];
+	let min = Infinity;
+	let max = -Infinity;
+	for (const model of models) {
+		const price = model.pricing.average_per_1m;
+		if (price < min) min = price;
+		if (price > max) max = price;
+	}
+	return [min, max];
 }
 
 /**
  * Get speed range from models
  */
 export function getSpeedRange(models: Model[]): [number, number] {
-	const speeds = models.map((m) => m.performance.output_speed_tps);
-	return [Math.min(...speeds), Math.max(...speeds)];
+	if (models.length === 0) return [0, 0];
+	let min = Infinity;
+	let max = -Infinity;
+	for (const model of models) {
+		const speed = model.performance.output_speed_tps;
+		if (speed < min) min = speed;
+		if (speed > max) max = speed;
+	}
+	return [min, max];
 }
