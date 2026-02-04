@@ -287,9 +287,6 @@ export function imputeMissingScores(
 		}
 	}
 
-	// Track which benchmarks were imputed via superior_of (to skip in category_average)
-	const imputedViaSuperior = new Set<string>();
-
 	// Helper: Walk up the superior_of chain to find a model with the benchmark value
 	function findAncestorWithValue(
 		benchmarkId: string,
@@ -389,8 +386,6 @@ export function imputeMissingScores(
 					confidence,
 					benchmarks_used: benchmarksUsed
 				};
-
-				imputedViaSuperior.add(benchmarkId);
 			}
 		}
 	}
