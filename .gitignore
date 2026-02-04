@@ -26,3 +26,5 @@ vite.config.ts.timestamp-*
 
 # Paraglide generated files
 /src/lib/paraglide/
+npm_output.log
+dev_server.log
