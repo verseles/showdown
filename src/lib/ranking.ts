@@ -247,7 +247,7 @@ export function imputeMissingScores(
 		imputed_metadata: model.imputed_metadata ? { ...model.imputed_metadata } : {}
 	};
 
-	const today = new Date().toISOString().split('T')[0];
+	const today = new Date().toISOString().slice(0, 10);
 
 	// Helper functions to abstract Map vs Array access
 	const getModelById = (id: string): Model | undefined => {
