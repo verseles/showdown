@@ -967,7 +967,7 @@ export function filterModels(
 		// Calculate cutoff timestamp
 		const cutoffTimestamp = now.getTime() - maxDays * 24 * 60 * 60 * 1000;
 		// Convert to ISO string YYYY-MM-DD for string comparison
-		minReleaseDateString = new Date(cutoffTimestamp).toISOString().split('T')[0];
+		minReleaseDateString = new Date(cutoffTimestamp).toISOString().slice(0, 10);
 	}
 
 	return rankedModels.filter((ranked) => {
