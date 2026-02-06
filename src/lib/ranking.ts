@@ -426,7 +426,7 @@ export function imputeMissingScores(
 		const totalBenchmarks = category.benchmarks.length;
 
 		// Only impute if we have at least 50% (ceil) of benchmarks with values
-		const minRequired = Math.ceil(totalBenchmarks / 2);
+		const minRequired = Math.ceil(totalBenchmarks * MIN_IMPUTATION_COVERAGE);
 		if (validCount < minRequired) {
 			continue;
 		}
