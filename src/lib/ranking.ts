@@ -164,7 +164,6 @@ export function calculateSuperiorityRatio(
 
 		// Both must have real values (not null/undefined)
 		if (inferiorScore == null) continue;
-		if (inferiorScore <= 0) continue; // Avoid division by zero
 
 		const benchmarkInfo = benchmarkById.get(benchmarkId);
 		if (!benchmarkInfo) continue;
