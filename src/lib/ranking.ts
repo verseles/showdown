@@ -321,8 +321,9 @@ export function imputeMissingScores(
 			const confidence = getConfidenceLevel(benchmarksUsed);
 
 			// Find missing benchmarks
-			for (const [benchmarkId, score] of Object.entries(model.benchmark_scores)) {
-				if (score !== null) continue; // Skip non-null values
+			for (const benchmarkId of benchmarkById.keys()) {
+				const score = model.benchmark_scores[benchmarkId];
+				if (score !== null && score !== undefined) continue; // Skip non-null values
 
 				// Try direct inferior first, then cascade up the chain
 				let sourceModel = inferiorModel;

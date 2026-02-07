@@ -1558,6 +1558,31 @@ describe('imputeMissingScores with superior_of', () => {
 		expect(imputed.benchmark_scores.bench2).not.toBeNull();
 		expect(imputed.imputed_metadata).toBeDefined();
 	});
+
+	it('should impute missing benchmark via superior_of even if key is missing in model object', () => {
+		const baseModel: Model = {
+			...mockModel,
+			id: 'base-model',
+			name: 'Base Model',
+			benchmark_scores: { bench1: 80, bench2: 70 }
+		};
+
+		// thinkingModel is missing 'bench2' key entirely
+		const thinkingModel: Model = {
+			...mockModel,
+			id: 'thinking-model',
+			name: 'Thinking Model',
+			superior_of: 'base-model',
+			benchmark_scores: { bench1: 88 } // bench2 is missing
+		};
+
+		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
+
+		// Should use superior_of (method: 'superior_of')
+		// Ratio 1.1. Base 70. Expect 77.
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(77);
+		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
+	});
 });
 
 // ============================================
