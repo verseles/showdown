@@ -396,7 +396,7 @@ export function imputeMissingScores(
 	for (const category of categories) {
 		let validSum = 0;
 		let validCount = 0;
-		const missingBenchmarks: string[] = [];
+		const missingBenchmarks: Benchmark[] = [];
 
 		for (const benchmark of category.benchmarks) {
 			// Only use values that are present in the original model OR imputed via superior_of
@@ -416,7 +416,7 @@ export function imputeMissingScores(
 				validSum += normalizedScore;
 				validCount++;
 			} else {
-				missingBenchmarks.push(benchmark.id);
+				missingBenchmarks.push(benchmark);
 			}
 		}
 
@@ -437,10 +437,7 @@ export function imputeMissingScores(
 		const categoryConfidence = getConfidenceLevel(validCount);
 
 		// Apply average to all missing benchmarks in this category
-		for (const benchmarkId of missingBenchmarks) {
-			const benchmark = category.benchmarks.find((b) => b.id === benchmarkId);
-			if (!benchmark) continue;
-
+		for (const benchmark of missingBenchmarks) {
 			// Store the imputed value (keep it normalized in 0-100 scale for percentage types,
 			// or denormalize back to Elo scale for Elo types)
 			let imputedValue = average;
@@ -452,10 +449,10 @@ export function imputeMissingScores(
 			}
 
 			// Update the benchmark score
-			imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+			imputedModel.benchmark_scores[benchmark.id] = imputedValue;
 
 			// Store metadata about the imputation
-			imputedModel.imputed_metadata![benchmarkId] = {
+			imputedModel.imputed_metadata![benchmark.id] = {
 				original_value: null,
 				imputed_value: imputedValue,
 				method: 'category_average',
