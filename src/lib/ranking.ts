@@ -248,24 +248,22 @@ export function imputeMissingScores(
 
 	const today = new Date().toISOString().slice(0, 10);
 
+	// Ensure O(1) lookup
+	const modelMap = Array.isArray(allModels)
+		? new Map(allModels.map((m) => [m.id, m]))
+		: allModels;
+
 	// Helper functions to abstract Map vs Array access
 	const getModelById = (id: string): Model | undefined => {
-		if (Array.isArray(allModels)) {
-			return allModels.find((m) => m.id === id);
-		}
-		return allModels.get(id);
+		return modelMap.get(id);
 	};
 
 	const getAllModelsSize = (): number => {
-		if (Array.isArray(allModels)) return allModels.length;
-		return allModels.size;
+		return modelMap.size;
 	};
 
 	const findModel = (predicate: (m: Model) => boolean): Model | undefined => {
-		if (Array.isArray(allModels)) {
-			return allModels.find(predicate);
-		}
-		for (const m of allModels.values()) {
+		for (const m of modelMap.values()) {
 			if (predicate(m)) return m;
 		}
 		return undefined;
@@ -483,7 +481,7 @@ export function imputeMissingScores(
 			const superiorModel = imputeMissingScores(
 				superiorModelRaw,
 				categories,
-				allModels,
+				modelMap,
 				benchmarkToCategory,
 				benchmarkById,
 				imputationCache,
