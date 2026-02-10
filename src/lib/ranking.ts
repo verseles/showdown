@@ -249,9 +249,7 @@ export function imputeMissingScores(
 	const today = new Date().toISOString().slice(0, 10);
 
 	// Ensure O(1) lookup
-	const modelMap = Array.isArray(allModels)
-		? new Map(allModels.map((m) => [m.id, m]))
-		: allModels;
+	const modelMap = Array.isArray(allModels) ? new Map(allModels.map((m) => [m.id, m])) : allModels;
 
 	// Helper functions to abstract Map vs Array access
 	const getModelById = (id: string): Model | undefined => {
