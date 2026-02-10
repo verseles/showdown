@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.15",
-		"last_update": "2026-02-15T12:00:00Z",
+		"version": "2026.02.16",
+		"last_update": "2026-02-16T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1663,7 +1663,7 @@
 				"bfcl": 98.7,
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
-				"humanity_last_exam": null,
+				"humanity_last_exam": 14,
 				"live_code_bench": 75.8,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
