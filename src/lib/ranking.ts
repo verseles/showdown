@@ -232,7 +232,8 @@ export function imputeMissingScores(
 	benchmarkToCategoryMap?: Map<string, Category>,
 	benchmarkByIdMap?: Map<string, { benchmark: Benchmark; category: Category }>,
 	imputationCache?: Map<string, Model>,
-	baseToThinkingMap?: Map<string, Model>
+	baseToThinkingMap?: Map<string, Model>,
+	todayDate?: string
 ): Model {
 	// Check cache first
 	if (imputationCache && imputationCache.has(model.id)) {
@@ -246,7 +247,7 @@ export function imputeMissingScores(
 		imputed_metadata: model.imputed_metadata ? { ...model.imputed_metadata } : {}
 	};
 
-	const today = new Date().toISOString().slice(0, 10);
+	const today = todayDate ?? new Date().toISOString().slice(0, 10);
 
 	// Ensure O(1) lookup
 	const modelMap = Array.isArray(allModels) ? new Map(allModels.map((m) => [m.id, m])) : allModels;
@@ -483,7 +484,8 @@ export function imputeMissingScores(
 				benchmarkToCategory,
 				benchmarkById,
 				imputationCache,
-				baseToThinkingMap
+				baseToThinkingMap,
+				today
 			);
 
 			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
@@ -735,6 +737,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	// We still pass the full 'models' array to imputeMissingScores for dependency lookups (superior_of)
 	const imputationCache = new Map<string, Model>();
 	const modelMap = new Map(models.map((m) => [m.id, m]));
+	const today = new Date().toISOString().slice(0, 10);
 
 	const activeModels = models
 		.filter((model) => !model.disabled)
@@ -746,7 +749,8 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 				benchmarkToCategory,
 				benchmarkById,
 				imputationCache,
-				baseToThinkingMap
+				baseToThinkingMap,
+				today
 			);
 
 			const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
