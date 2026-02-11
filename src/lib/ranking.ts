@@ -157,7 +157,8 @@ export function calculateSuperiorityRatio(
 	let sumRatio = 0;
 	let count = 0;
 
-	for (const [benchmarkId, superiorScore] of Object.entries(superiorModel.benchmark_scores)) {
+	for (const benchmarkId in superiorModel.benchmark_scores) {
+		const superiorScore = superiorModel.benchmark_scores[benchmarkId];
 		if (superiorScore === null) continue;
 
 		const inferiorScore = inferiorModel.benchmark_scores[benchmarkId];
