@@ -53,8 +53,8 @@
 		searchQuery: '',
 		providers: [],
 		types: [],
-		priceRange: getPriceRange(data.models),
-		speedRange: getSpeedRange(data.models),
+		priceRange: untrack(() => getPriceRange(data.models)),
+		speedRange: untrack(() => getSpeedRange(data.models)),
 		dateRange: 'all',
 		favoritesOnly: false
 	});
