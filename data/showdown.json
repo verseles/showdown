@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.18",
-		"last_update": "2026-02-18T12:00:00Z",
+		"version": "2026.02.19",
+		"last_update": "2026-02-19T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1155,7 +1155,7 @@
 				"mmmu": 73,
 				"mmmu_pro": 72.7,
 				"osworld": 48,
-				"swe_bench": 76.2,
+				"swe_bench": null,
 				"tau_bench": 58.5,
 				"terminal_bench": 54,
 				"webdev_arena_elo": 1335,
