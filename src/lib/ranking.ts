@@ -387,7 +387,75 @@ export function imputeMissingScores(
 		}
 	}
 
-	// STEP 2: category_average for remaining missing benchmarks
+	// STEP 2: inferior_of - Impute BASE model scores from THINKING (superior) models
+	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
+	// NOTE: This runs before category_average so specific relationships take precedence
+	if (!model.superior_of && getAllModelsSize() > 0) {
+		let superiorModelRaw: Model | undefined;
+		if (baseToThinkingMap) {
+			superiorModelRaw = baseToThinkingMap.get(model.id);
+		} else {
+			superiorModelRaw = findModel((m) => m.superior_of === model.id);
+		}
+
+		if (superiorModelRaw) {
+			// Recursively impute the superior model to ensure we have access to its imputed values
+			// This allows the base model to inherit values that were imputed on the thinking model
+			const superiorModel = imputeMissingScores(
+				superiorModelRaw,
+				categories,
+				modelMap,
+				benchmarkToCategory,
+				benchmarkById,
+				imputationCache,
+				baseToThinkingMap,
+				today
+			);
+
+			// Iterate over superior model's benchmarks to catch implicitly missing keys in base model
+			for (const benchmarkId in superiorModel.benchmark_scores) {
+				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
+				if (superiorValue == null) continue;
+
+				const score = imputedModel.benchmark_scores[benchmarkId];
+				if (score != null) continue; // Skip non-null/non-undefined values
+
+				const benchmarkInfo = benchmarkById.get(benchmarkId);
+				if (!benchmarkInfo) continue;
+
+				const { benchmark } = benchmarkInfo;
+
+				let imputedValue: number;
+
+				if (benchmark.type === 'elo' && benchmark.elo_range) {
+					// For Elo scores, apply ratio to the NORMALIZED score
+					const { min, max } = benchmark.elo_range;
+					const normalizedSuperior = normalizeEloScore(superiorValue, min, max);
+					const normalizedImputed = normalizedSuperior * INFERIOR_OF_RATIO;
+
+					// Denormalize back to Elo scale
+					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
+					imputedValue = Math.max(min, imputedValue);
+				} else {
+					imputedValue = superiorValue * INFERIOR_OF_RATIO;
+				}
+
+				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+
+				imputedModel.imputed_metadata![benchmarkId] = {
+					original_value: null,
+					imputed_value: imputedValue,
+					method: 'inferior_of',
+					imputed_date: today,
+					note: `Estimated as base of ${superiorModel.name} (${superiorValue.toFixed(1)} × ${INFERIOR_OF_RATIO})`,
+					confidence: 'medium',
+					benchmarks_used: 1
+				};
+			}
+		}
+	}
+
+	// STEP 3: category_average for remaining missing benchmarks
 	// Process per category to calculate average once and apply to all missing benchmarks
 	// This ensures consistency and prevents order-dependent calculation (daisy-chaining)
 	for (const category of categories) {
@@ -461,71 +529,6 @@ export function imputeMissingScores(
 				confidence: categoryConfidence,
 				benchmarks_used: validCount
 			};
-		}
-	}
-
-	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
-	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
-	if (!model.superior_of && getAllModelsSize() > 0) {
-		let superiorModelRaw: Model | undefined;
-		if (baseToThinkingMap) {
-			superiorModelRaw = baseToThinkingMap.get(model.id);
-		} else {
-			superiorModelRaw = findModel((m) => m.superior_of === model.id);
-		}
-
-		if (superiorModelRaw) {
-			// Recursively impute the superior model to ensure we have access to its imputed values
-			// This allows the base model to inherit values that were imputed on the thinking model
-			const superiorModel = imputeMissingScores(
-				superiorModelRaw,
-				categories,
-				modelMap,
-				benchmarkToCategory,
-				benchmarkById,
-				imputationCache,
-				baseToThinkingMap,
-				today
-			);
-
-			for (const [benchmarkId, score] of Object.entries(imputedModel.benchmark_scores)) {
-				if (score !== null) continue; // Skip non-null values
-
-				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
-				if (superiorValue == null) continue;
-
-				const benchmarkInfo = benchmarkById.get(benchmarkId);
-				if (!benchmarkInfo) continue;
-
-				const { benchmark } = benchmarkInfo;
-
-				let imputedValue: number;
-
-				if (benchmark.type === 'elo' && benchmark.elo_range) {
-					// For Elo scores, apply ratio to the NORMALIZED score
-					const { min, max } = benchmark.elo_range;
-					const normalizedSuperior = normalizeEloScore(superiorValue, min, max);
-					const normalizedImputed = normalizedSuperior * INFERIOR_OF_RATIO;
-
-					// Denormalize back to Elo scale
-					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
-					imputedValue = Math.max(min, imputedValue);
-				} else {
-					imputedValue = superiorValue * INFERIOR_OF_RATIO;
-				}
-
-				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
-
-				imputedModel.imputed_metadata![benchmarkId] = {
-					original_value: null,
-					imputed_value: imputedValue,
-					method: 'inferior_of',
-					imputed_date: today,
-					note: `Estimated as base of ${superiorModel.name} (${superiorValue.toFixed(1)} × ${INFERIOR_OF_RATIO})`,
-					confidence: 'medium',
-					benchmarks_used: 1
-				};
-			}
 		}
 	}
 

@@ -1829,3 +1829,57 @@ describe('getSpeedRange', () => {
 		expect(range).toEqual([100, 100]);
 	});
 });
+
+describe('imputeMissingScores with inferior_of', () => {
+    const bench1: Benchmark = {
+        id: 'inf_bench1',
+        name: 'Inf Bench 1',
+        type: 'percentage',
+        weight: 0.5,
+        url: '',
+        description: ''
+    };
+    const bench2: Benchmark = {
+        id: 'inf_bench2',
+        name: 'Inf Bench 2',
+        type: 'percentage',
+        weight: 0.5,
+        url: '',
+        description: ''
+    };
+    const testCategory: Category = {
+        id: 'inf_test',
+        name: 'Inf Test',
+        emoji: '🧪',
+        weight: 1.0,
+        description: 'Test',
+        benchmarks: [bench1, bench2]
+    };
+
+    it('should impute missing benchmark via inferior_of even if key is missing in base model object', () => {
+        const baseModel: Model = {
+            ...mockModel,
+            id: 'base-missing-key',
+            benchmark_scores: { inf_bench1: 80 } // inf_bench2 is MISSING (undefined)
+        };
+
+        const thinkingModel: Model = {
+            ...mockModel,
+            id: 'thinking-source',
+            superior_of: 'base-missing-key',
+            benchmark_scores: { inf_bench1: 88, inf_bench2: 90 }
+        };
+
+        const imputed = imputeMissingScores(
+            baseModel,
+            [testCategory],
+            [baseModel, thinkingModel]
+        );
+
+        // Expect inf_bench2 to be imputed from thinking model (90 * 0.9 = 81)
+        expect(imputed.benchmark_scores.inf_bench2).toBe(81);
+        expect(imputed.imputed_metadata).toBeDefined();
+        expect(imputed.imputed_metadata!.inf_bench2).toBeDefined();
+        expect(imputed.imputed_metadata!.inf_bench2.method).toBe('inferior_of');
+    });
+});
