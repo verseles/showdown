@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.02.19",
-		"last_update": "2026-02-16T15:58:07Z",
+		"last_update": "2026-02-17T15:44:11Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1144,7 +1144,7 @@
 				"lmarena_en_elo": 1477,
 				"lmarena_hard_elo": 1476,
 				"lmarena_if_elo": 1434,
-				"lmarena_math_elo": 1431,
+				"lmarena_math_elo": 1439,
 				"lmarena_vision_elo": 1465,
 				"lmarena_zh_elo": 1508,
 				"math_500": 97.2,
@@ -1665,7 +1665,7 @@
 				"gpqa_diamond": 79.7,
 				"humanity_last_exam": 14,
 				"live_code_bench": 75.8,
-				"livebench": 73.94,
+				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1381,
