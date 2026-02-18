@@ -86,6 +86,8 @@ This document tracks the development progress of Showdown. Features are organize
 - [ ] Automated benchmark data fetching
 - [ ] Data freshness monitoring
 
+> **Recent model updates**: Added Claude Opus 4.6 + Thinking, Claude Sonnet 4.6 + Thinking (with null benchmarks), and expanded aka aliases including adaptive aliases. Related commits: d9fa642, 10eb224
+
 ## Phase 9: Internationalization
 
 - [x] Language selector UI (placeholder)

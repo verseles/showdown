@@ -117,7 +117,13 @@
 		{
 			"id": "claude-opus-4-6-20260205",
 			"name": "Claude Opus 4.6",
-			"aka": ["claude-opus-4-6", "claude-opus-4.6", "claude-4.6-opus", "opus-4.6"],
+			"aka": [
+				"claude-opus-4-6",
+				"claude-opus-4.6",
+				"claude-4.6-opus",
+				"opus-4.6",
+				"claude-opus-4-6-base"
+			],
 			"inferior_of": "claude-opus-4-6-20260205-thinking-32k",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -174,7 +180,14 @@
 		{
 			"id": "claude-opus-4-6-20260205-thinking-32k",
 			"name": "Claude Opus 4.6 Thinking",
-			"aka": ["claude-opus-4-6-thinking", "claude-opus-4.6-thinking", "opus-4.6-thinking"],
+			"aka": [
+				"claude-opus-4-6-thinking",
+				"claude-opus-4.6-thinking",
+				"opus-4.6-thinking",
+				"claude-opus-4-6-adaptive",
+				"claude-opus-4.6-adaptive",
+				"opus-4.6-adaptive"
+			],
 			"superior_of": "claude-opus-4-6-20260205",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -354,7 +367,13 @@
 		{
 			"id": "claude-sonnet-4-6-20260217",
 			"name": "Claude Sonnet 4.6",
-			"aka": ["claude-sonnet-4-6", "claude-sonnet-4.6", "sonnet-4.6"],
+			"aka": [
+				"claude-sonnet-4-6",
+				"claude-sonnet-4.6",
+				"claude-4.6-sonnet",
+				"sonnet-4.6",
+				"claude-sonnet-4-6-base"
+			],
 			"inferior_of": "claude-sonnet-4-6-20260217-thinking-32k",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -411,7 +430,14 @@
 		{
 			"id": "claude-sonnet-4-6-20260217-thinking-32k",
 			"name": "Claude Sonnet 4.6 Thinking",
-			"aka": ["claude-sonnet-4-6-thinking", "claude-sonnet-4.6-thinking", "sonnet-4.6-thinking"],
+			"aka": [
+				"claude-sonnet-4-6-thinking",
+				"claude-sonnet-4.6-thinking",
+				"sonnet-4.6-thinking",
+				"claude-sonnet-4-6-adaptive",
+				"claude-sonnet-4.6-adaptive",
+				"sonnet-4.6-adaptive"
+			],
 			"superior_of": "claude-sonnet-4-6-20260217",
 			"provider": "Anthropic",
 			"type": "proprietary",
