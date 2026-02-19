@@ -1829,3 +1829,57 @@ describe('getSpeedRange', () => {
 		expect(range).toEqual([100, 100]);
 	});
 });
+
+describe('imputeMissingScores with multi-level inferior_of', () => {
+	it('should impute from Pro to Thinking (downward flow) even if Thinking has a Base', () => {
+		const bench: Benchmark = {
+			id: 'bench',
+			name: 'Bench',
+			type: 'percentage',
+			weight: 1.0,
+			url: '',
+			description: ''
+		};
+		const category: Category = {
+			id: 'cat',
+			name: 'Cat',
+			emoji: 'c',
+			weight: 1.0,
+			description: '',
+			benchmarks: [bench]
+		};
+
+		const base: Model = {
+			...mockModel,
+			id: 'base',
+			benchmark_scores: { bench: null as unknown as number }
+		};
+
+		const thinking: Model = {
+			...mockModel,
+			id: 'thinking',
+			superior_of: 'base',
+			benchmark_scores: { bench: null as unknown as number }
+		};
+
+		const pro: Model = {
+			...mockModel,
+			id: 'pro',
+			superior_of: 'thinking',
+			benchmark_scores: { bench: 100 }
+		};
+
+		const allModels = [base, thinking, pro];
+
+		// Thinking is missing bench. Pro has bench=100.
+		// Thinking should impute from Pro (100 * 0.9 = 90).
+		// Currently fails because Thinking has superior_of: 'base', so Step 3 is skipped.
+
+		const imputedThinking = imputeMissingScores(thinking, [category], allModels);
+
+		// If fixed, this should be 90.
+		// If not fixed, this will be null (or fail assertion).
+		expect(imputedThinking.benchmark_scores.bench).toBeCloseTo(90);
+		expect(imputedThinking.imputed_metadata!.bench.method).toBe('inferior_of');
+	});
+});

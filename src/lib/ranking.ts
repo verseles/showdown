@@ -466,7 +466,7 @@ export function imputeMissingScores(
 
 	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
 	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
-	if (!model.superior_of && getAllModelsSize() > 0) {
+	if (getAllModelsSize() > 0) {
 		let superiorModelRaw: Model | undefined;
 		if (baseToThinkingMap) {
 			superiorModelRaw = baseToThinkingMap.get(model.id);
