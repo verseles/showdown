@@ -1883,3 +1883,62 @@ describe('imputeMissingScores with multi-level inferior_of', () => {
 		expect(imputedThinking.imputed_metadata!.bench.method).toBe('inferior_of');
 	});
 });
+
+describe('imputeMissingScores - Missing Benchmark Keys in Inferior Model', () => {
+    it('should impute missing benchmark via superior_of even if key is missing in model object', () => {
+        const bench1: Benchmark = { id: 'bench1', name: 'B1', type: 'percentage', weight: 0.5, url: '', description: '' };
+        const bench2: Benchmark = { id: 'bench2', name: 'B2', type: 'percentage', weight: 0.5, url: '', description: '' };
+        const bench3: Benchmark = { id: 'bench3', name: 'B3', type: 'percentage', weight: 0.5, url: '', description: '' };
+        const bench4: Benchmark = { id: 'bench4', name: 'B4', type: 'percentage', weight: 0.5, url: '', description: '' };
+
+        const category: Category = {
+            id: 'test',
+            name: 'Test',
+            emoji: 't',
+            weight: 1.0,
+            description: 'Test',
+            benchmarks: [bench1, bench2, bench3, bench4]
+        };
+
+        const mockModelBase: Model = {
+            id: 'test-model-base',
+            name: 'Test Model Base',
+            provider: 'TestProvider',
+            type: 'proprietary',
+            release_date: '2025-01-01',
+            pricing: {
+                input_per_1m: 0,
+                output_per_1m: 0,
+                average_per_1m: 0
+            },
+            performance: {
+                output_speed_tps: 0,
+                latency_ttft_ms: 0,
+                source: ''
+            },
+            editor_notes: '',
+            benchmark_scores: {
+                bench1: 80,
+                // bench2, bench3, bench4 missing entirely
+            }
+        };
+
+        const superiorModel: Model = {
+            ...mockModelBase,
+            id: 'superior-model',
+            superior_of: 'test-model-base',
+            benchmark_scores: {
+                bench1: 88,
+                bench2: 70
+                // bench3, bench4 missing
+            }
+        };
+
+        const allModels = [mockModelBase, superiorModel];
+
+        const imputedBase = imputeMissingScores(mockModelBase, [category], allModels);
+
+        expect(imputedBase.benchmark_scores.bench2).toBeCloseTo(63);
+        expect(imputedBase.imputed_metadata?.bench2?.method).toBe('inferior_of');
+    });
+});
