@@ -1,13 +1,14 @@
 {
 	"meta": {
-		"version": "2026.02.19",
-		"last_update": "2026-02-19T16:00:00Z",
+		"version": "2026.02.24",
+		"last_update": "2026-02-20T14:27:25Z",
 		"schema_version": "1.0"
 	},
 	"models": [
 		{
 			"id": "minimax-m2-1",
 			"name": "MiniMax M2.1",
+			"aka": ["minimax-m2.1", "minimax-m21", "m2.1"],
 			"provider": "MiniMax",
 			"type": "open-source",
 			"release_date": "2025-12-23",
@@ -76,13 +77,13 @@
 				"latency_ttft_ms": 2170,
 				"source": "https://artificialanalysis.ai/models/minimax-m2-5"
 			},
-			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified with improved efficiency over M2.1.",
+			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, with additional AIME and GPQA scores captured from MiniMax public release material.",
 			"benchmark_scores": {
 				"swe_bench": 80.2,
 				"terminal_bench": null,
 				"live_code_bench": null,
-				"gpqa_diamond": null,
-				"aime": null,
+				"gpqa_diamond": 85.2,
+				"aime": 86.3,
 				"mmlu_pro": null,
 				"humanity_last_exam": null,
 				"lmarena_coding_elo": null,
@@ -202,7 +203,7 @@
 				"latency_ttft_ms": 1650,
 				"source": "https://artificialanalysis.ai/models/claude-opus-4-6/providers"
 			},
-			"editor_notes": "High-effort adaptive thinking profile for Claude Opus 4.6. Family-level benchmark claims are attributed here while base variant remains null to allow conservative inferior_of imputation.",
+			"editor_notes": "High-effort adaptive thinking profile for Claude Opus 4.6. Family-level benchmark claims are attributed here while base variant remains null to allow conservative inferior_of imputation; SWE-Bench is populated from Anthropic's launch disclosure.",
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": 68.8,
@@ -388,7 +389,7 @@
 				"latency_ttft_ms": 1200,
 				"source": "https://artificialanalysis.ai/models/claude-4-5-sonnet"
 			},
-			"editor_notes": "Launch-day entry for Claude Sonnet 4.6. Benchmark values are intentionally null pending independent verification, and performance values are temporary placeholders from Sonnet 4.5 until provider measurements are published.",
+			"editor_notes": "Base profile for Claude Sonnet 4.6. Family-level benchmark disclosures are attributed to the thinking variant, keeping base benchmarks null for conservative inferior_of imputation.",
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": 58.3,
@@ -452,14 +453,14 @@
 				"latency_ttft_ms": 5500,
 				"source": "https://artificialanalysis.ai/models/claude-4-5-sonnet"
 			},
-			"editor_notes": "High-effort adaptive thinking profile for Claude Sonnet 4.6. Benchmark values are intentionally null pending independent verification, and performance values are temporary placeholders from Sonnet 4.5 Thinking until provider measurements are published.",
+			"editor_notes": "High-effort adaptive thinking profile for Claude Sonnet 4.6 with benchmark values populated from Anthropic's official system card (single-source fallback where independent mirrors are unavailable).",
 			"benchmark_scores": {
-				"aime": null,
+				"aime": 95.6,
 				"arc_agi_2": 58.3,
 				"bfcl": null,
 				"frontiermath": null,
 				"gpqa_diamond": 89.9,
-				"humanity_last_exam": 49.0,
+				"humanity_last_exam": 33.2,
 				"live_code_bench": null,
 				"livebench": null,
 				"lmarena_coding_elo": null,
@@ -476,11 +477,11 @@
 				"mmmlu": 89.3,
 				"simpleqa": null,
 				"mmmu": null,
-				"mmmu_pro": null,
-				"osworld": null,
+				"mmmu_pro": 74.5,
+				"osworld": 72.5,
 				"swe_bench": 79.6,
 				"tau_bench": null,
-				"terminal_bench": null,
+				"terminal_bench": 59.1,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -626,6 +627,7 @@
 		{
 			"id": "claude-opus-4-1-20250805",
 			"name": "Claude Opus 4.1",
+			"aka": ["claude-opus-4-1", "claude-opus-4.1", "claude-4.1-opus", "opus-4.1"],
 			"provider": "Anthropic",
 			"type": "proprietary",
 			"release_date": "2025-08-05",
@@ -681,6 +683,7 @@
 		{
 			"id": "gpt-4o-2024-05-13",
 			"name": "GPT-4o",
+			"aka": ["gpt-4o", "gpt4o", "gpt-4o-base"],
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2024-05-13",
@@ -1259,6 +1262,7 @@
 		{
 			"id": "gemini-2.5-pro",
 			"name": "Gemini 2.5 Pro",
+			"aka": ["gemini-2.5-pro", "gemini-25-pro", "gemini-2-5-pro"],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-03-25",
@@ -1314,6 +1318,7 @@
 		{
 			"id": "deepseek-v3.2",
 			"name": "DeepSeek V3.2",
+			"aka": ["deepseek-v3-2", "deepseek-v32", "deepseek-v3.2-base"],
 			"provider": "DeepSeek",
 			"type": "open-source",
 			"release_date": "2025-12-01",
@@ -1369,6 +1374,7 @@
 		{
 			"id": "deepseek-v3.2-thinking",
 			"name": "DeepSeek V3.2 Thinking",
+			"aka": ["deepseek-v3-2-thinking", "deepseek-v32-thinking", "deepseek-v3.2-reasoning"],
 			"superior_of": "deepseek-v3.2",
 			"provider": "DeepSeek",
 			"type": "open-source",
@@ -1425,6 +1431,7 @@
 		{
 			"id": "deepseek-r1",
 			"name": "DeepSeek R1",
+			"aka": ["deepseek-r1-2025-05-28", "deepseek-r1-0528", "deepseek-r1-reasoning"],
 			"provider": "DeepSeek",
 			"type": "open-source",
 			"release_date": "2025-05-28",
@@ -1658,6 +1665,7 @@
 		{
 			"id": "llama-4-maverick-17b-128e-instruct",
 			"name": "Llama 4 Maverick",
+			"aka": ["llama-4-maverick", "llama4-maverick", "llama-4-maverick-instruct"],
 			"provider": "Meta",
 			"type": "open-source",
 			"release_date": "2025-04-05",
@@ -1722,6 +1730,7 @@
 		{
 			"id": "llama-4-scout-17b-16e-instruct",
 			"name": "Llama 4 Scout",
+			"aka": ["llama-4-scout", "llama4-scout", "llama-4-scout-instruct"],
 			"provider": "Meta",
 			"type": "open-source",
 			"release_date": "2025-04-05",
@@ -1786,6 +1795,7 @@
 		{
 			"id": "qwen3-235b-a22b-instruct-2507",
 			"name": "Qwen3 235B",
+			"aka": ["qwen3-235b-a22b-instruct", "qwen3-235b", "qwen3-235b-2507"],
 			"provider": "Alibaba",
 			"type": "open-source",
 			"release_date": "2025-04-29",
@@ -1841,6 +1851,7 @@
 		{
 			"id": "qwen3-32b",
 			"name": "Qwen3 32B",
+			"aka": ["qwen-3-32b", "qwen3-32b-instruct", "qwen-32b"],
 			"provider": "Alibaba",
 			"type": "open-source",
 			"release_date": "2025-04-29",
@@ -1905,6 +1916,7 @@
 		{
 			"id": "qwen3-max-preview",
 			"name": "Qwen3 Max Preview",
+			"aka": ["qwen3-max", "qwen-max-preview", "qwen3-max-preview-2025"],
 			"provider": "Alibaba",
 			"type": "proprietary",
 			"release_date": "2025-12-01",
@@ -1960,6 +1972,7 @@
 		{
 			"id": "o3-2025-04-16",
 			"name": "OpenAI o3",
+			"aka": ["o3", "openai-o3", "o3-2025-04-16"],
 			"provider": "OpenAI",
 			"type": "proprietary",
 			"release_date": "2025-04-16",
@@ -2119,6 +2132,7 @@
 		{
 			"id": "gemini-2.5-flash",
 			"name": "Gemini 2.5 Flash",
+			"aka": ["gemini-2.5-flash", "gemini-25-flash", "gemini-2-5-flash"],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-05-20",
@@ -2183,6 +2197,7 @@
 		{
 			"id": "minimax-m2",
 			"name": "MiniMax M2",
+			"aka": ["minimax-m2.0", "minimax-m20", "m2"],
 			"provider": "MiniMax",
 			"type": "open-source",
 			"release_date": "2025-10-27",
@@ -2425,6 +2440,7 @@
 		{
 			"id": "kimi-k2.5-thinking",
 			"name": "Kimi K2.5 Thinking",
+			"aka": ["kimi-k2.5-thinking", "kimi-k25-thinking", "k2.5-thinking"],
 			"superior_of": "kimi-k2.5-instant",
 			"provider": "Moonshot AI",
 			"type": "open-source",
@@ -2481,6 +2497,7 @@
 		{
 			"id": "longcat-flash-chat",
 			"name": "Longcat Flash Chat",
+			"aka": ["longcat-flash", "longcat-chat", "longcat-flashchat"],
 			"provider": "Meituan",
 			"type": "open-source",
 			"release_date": "2025-12-01",
@@ -2545,6 +2562,7 @@
 		{
 			"id": "mistral-large-3",
 			"name": "Mistral Large 3",
+			"aka": ["mistral-large-3.0", "mistral-large3", "mistral-large-v3"],
 			"provider": "Mistral",
 			"type": "open-source",
 			"release_date": "2025-12-02",

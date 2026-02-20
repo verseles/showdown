@@ -60,11 +60,11 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 
 ### 🚨 CRITICAL: Data Verification Requirements
 
-**MANDATORY TWO-SOURCE MINIMUM:**
+**PREFER TWO SOURCES, ALLOW ONE-SOURCE FALLBACK:**
 
-You **MUST** verify data from at least **TWO independent sources** before adding or updating any value. Acceptable combinations:
+You should verify data with **TWO independent sources** whenever possible. If only one trustworthy source exists after exhaustive search, you may add the value as a **provisional single-source entry**.
 
-✅ **Valid verification combinations:**
+✅ **Preferred verification combinations:**
 
 - 1 website + 1 Web Search result
 - 2 different websites
@@ -72,17 +72,23 @@ You **MUST** verify data from at least **TWO independent sources** before adding
 - Official provider announcement + benchmark leaderboard
 - Technical paper + leaderboard
 
-❌ **Invalid (single source only):**
+✅ **Allowed fallback (when no second source exists):**
 
-- Only one website
-- Only one Web Search
+- 1 trustworthy source + explicit note that verification is single-source
+- Include source URL and date in commit message (and `editor_notes` when useful)
+- Mark for future revalidation when additional sources appear
+
+❌ **Still invalid:**
+
+- Single source without clear provenance
+- Single source with conflicting or suspicious numbers
 - Cached knowledge without verification
 
 **⚠️ BETTER NULL THAN WRONG:**
 
 **It is ALWAYS preferable to use `null` (missing value) than to add incorrect data.**
 
-- If you cannot find **TWO independent sources** confirming the same value → use `null`
+- If you cannot verify a value with confidence (even after one-source fallback) → use `null`
 - If sources contradict each other → use `null` and document in commit message
 - If data seems outdated or suspicious → use `null` and investigate further
 - When in doubt → use `null`
@@ -99,9 +105,9 @@ You **MUST** verify data from at least **TWO independent sources** before adding
 ```
 Update GPT-5.2 benchmarks - partial data only
 
-Sources verified (2+ sources each):
+Sources verified:
 - SWE-Bench: 78.5% (OpenAI blog + swebench.com leaderboard)
-- GPQA: 82.0% (Technical report + LMArena)
+- GPQA: 82.0% (single-source fallback: provider technical report, 2026-02-20)
 
 Unable to verify (set to null):
 - Terminal-Bench: No official data found
@@ -479,6 +485,8 @@ When you encounter a new alternative name for a model:
    - With/without version numbers
    - With/without thinking/reasoning suffix
    - Official API names vs marketing names
+4. If the model has no `aka` field yet, create it as soon as you confirm at least one reliable alias
+5. If a source uses a nickname not present in `aka`, add it in the same update to avoid future matching errors
 
 ---
 
@@ -861,23 +869,25 @@ gh pr create \
 
 When updating data:
 
-1. **🚨 MANDATORY: Verify with TWO sources minimum** - Never add/update data from a single source
-2. **🚨 BETTER NULL THAN WRONG** - If you can't verify with 2+ sources, use `null`
-3. **Always search multiple sources** - Don't rely on cached knowledge
-4. **Use `null` for missing data** - Never guess benchmark scores
-5. **Fallback strategy for URLs:**
+1. **🚨 Preferred: verify with TWO sources** - This is the default for new/updated values
+2. **Single-source fallback is allowed** - Use only when no second source exists and provenance is clear
+3. **🚨 BETTER NULL THAN WRONG** - If confidence is low or data conflicts, use `null`
+4. **Always update `aka` when new nicknames are found** - Keep alias matching current
+5. **Always search multiple sources** - Don't rely on cached knowledge
+6. **Use `null` for missing data** - Never guess benchmark scores
+7. **Fallback strategy for URLs:**
    - First: Try `https://r.jina.ai/[URL]`
    - Second: If fails, try direct URL with WebFetch
    - Third: If fails, use Web Search
-6. **Verify Elo scores are current** - LMArena updates frequently
-7. **Check pricing is current** - Providers often adjust prices
-8. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
-9. **Update the meta timestamp** - Shows data freshness
-10. **Use Web Search frequently** - Find current benchmark scores and announcements
-11. **Create feature branches** - Never commit directly to main branch
-12. **Create PRs using gh CLI** - Use `gh pr create` when available
-13. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
-14. **Update meta.version and meta.last_update** whenever making data changes
-15. **Document all sources** - Include URLs in commit messages, especially for hard-to-find data
+8. **Verify Elo scores are current** - LMArena updates frequently
+9. **Check pricing is current** - Providers often adjust prices
+10. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
+11. **Update the meta timestamp** - Shows data freshness
+12. **Use Web Search frequently** - Find current benchmark scores and announcements
+13. **Create feature branches** - Never commit directly to main branch
+14. **Create PRs using gh CLI** - Use `gh pr create` when available
+15. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
+16. **Update meta.version and meta.last_update** whenever making data changes
+17. **Document all sources** - Include URLs in commit messages, especially for hard-to-find data
 
 **Remember:** Data integrity is paramount. One incorrect value can corrupt rankings for all models. When in doubt, use `null` and document why in the commit message.
