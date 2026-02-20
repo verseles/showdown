@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.02.24",
-		"last_update": "2026-02-20T14:27:25Z",
+		"last_update": "2026-02-24T12:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -142,10 +142,10 @@
 			"editor_notes": "Latest Claude Opus generation with adaptive thinking controls and improved long-context reasoning. Base profile is kept conservative where only family-level benchmark claims are available.",
 			"benchmark_scores": {
 				"aime": null,
-				"arc_agi_2": 68.8,
+				"arc_agi_2": null,
 				"bfcl": null,
 				"frontiermath": null,
-				"gpqa_diamond": 91.3,
+				"gpqa_diamond": null,
 				"humanity_last_exam": 40.0,
 				"live_code_bench": null,
 				"livebench": null,
@@ -165,9 +165,9 @@
 				"mmmu": null,
 				"mmmu_pro": 73.9,
 				"osworld": null,
-				"swe_bench": 80.8,
+				"swe_bench": null,
 				"tau_bench": null,
-				"terminal_bench": 65.4,
+				"terminal_bench": null,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -392,11 +392,11 @@
 			"editor_notes": "Base profile for Claude Sonnet 4.6. Family-level benchmark disclosures are attributed to the thinking variant, keeping base benchmarks null for conservative inferior_of imputation.",
 			"benchmark_scores": {
 				"aime": null,
-				"arc_agi_2": 58.3,
+				"arc_agi_2": null,
 				"bfcl": null,
 				"frontiermath": null,
-				"gpqa_diamond": 89.9,
-				"humanity_last_exam": 33.2,
+				"gpqa_diamond": null,
+				"humanity_last_exam": null,
 				"live_code_bench": null,
 				"livebench": null,
 				"lmarena_coding_elo": null,
@@ -415,7 +415,7 @@
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": 79.6,
+				"swe_bench": null,
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": null,
