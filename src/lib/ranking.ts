@@ -394,7 +394,7 @@ export function imputeMissingScores(
 	for (const category of categories) {
 		let validSum = 0;
 		let validCount = 0;
-		const missingBenchmarks: Benchmark[] = [];
+		let missingCount = 0;
 
 		for (const benchmark of category.benchmarks) {
 			// Only use values that are present in the original model OR imputed via superior_of
@@ -414,12 +414,12 @@ export function imputeMissingScores(
 				validSum += normalizedScore;
 				validCount++;
 			} else {
-				missingBenchmarks.push(benchmark);
+				missingCount++;
 			}
 		}
 
 		// If no missing benchmarks in this category, skip
-		if (missingBenchmarks.length === 0) continue;
+		if (missingCount === 0) continue;
 
 		// Count total benchmarks in category
 		const totalBenchmarks = category.benchmarks.length;
@@ -435,7 +435,12 @@ export function imputeMissingScores(
 		const categoryConfidence = getConfidenceLevel(validCount);
 
 		// Apply average to all missing benchmarks in this category
-		for (const benchmark of missingBenchmarks) {
+		for (const benchmark of category.benchmarks) {
+			const rawScore = imputedModel.benchmark_scores[benchmark.id];
+
+			// Skip benchmarks that already have values
+			if (rawScore !== null && rawScore !== undefined) continue;
+
 			const benchmarkId = benchmark.id;
 
 			// Store the imputed value (keep it normalized in 0-100 scale for percentage types,
