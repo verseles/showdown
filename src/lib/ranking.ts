@@ -743,30 +743,33 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	const modelMap = new Map(models.map((m) => [m.id, m]));
 	const today = new Date().toISOString().slice(0, 10);
 
-	const activeModels = models
-		.filter((model) => !model.disabled)
-		.map((model) => {
-			const imputedModel = imputeMissingScores(
-				model,
-				categories,
-				modelMap,
-				benchmarkToCategory,
-				benchmarkById,
-				imputationCache,
-				baseToThinkingMap,
-				today
-			);
+	// Optimize: Combined filter and map into a single loop to avoid intermediate array allocation
+	const activeModels: Omit<RankedModel, 'rank'>[] = [];
 
-			const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
-			const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
+	for (const model of models) {
+		if (model.disabled) continue;
 
-			return {
-				model: imputedModel,
-				overallScore,
-				categoryScores,
-				coverage: calculateBenchmarkCoverage(imputedModel, categories)
-			};
+		const imputedModel = imputeMissingScores(
+			model,
+			categories,
+			modelMap,
+			benchmarkToCategory,
+			benchmarkById,
+			imputationCache,
+			baseToThinkingMap,
+			today
+		);
+
+		const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
+		const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
+
+		activeModels.push({
+			model: imputedModel,
+			overallScore,
+			categoryScores,
+			coverage: calculateBenchmarkCoverage(imputedModel, categories)
 		});
+	}
 
 	// Sort by:
 	// 1. Overall score (descending)
