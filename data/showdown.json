@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.24",
-		"last_update": "2026-02-24T18:00:00Z",
+		"version": "2026.02.22",
+		"last_update": "2026-02-22T16:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -165,7 +165,7 @@
 				"mmmu": null,
 				"mmmu_pro": 73.9,
 				"osworld": null,
-				"swe_bench": null,
+				"swe_bench": 75.6,
 				"tau_bench": null,
 				"terminal_bench": 69.9,
 				"webdev_arena_elo": null,
@@ -2098,7 +2098,7 @@
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
 				"humanity_last_exam": 14,
-				"live_code_bench": 67.4,
+				"live_code_bench": 75.8,
 				"livebench": 84.6,
 				"lmarena_coding_elo": 1434,
 				"lmarena_creative_elo": null,
