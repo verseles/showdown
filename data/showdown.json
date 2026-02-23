@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.22",
-		"last_update": "2026-02-22T16:00:00Z",
+		"version": "2026.02.23",
+		"last_update": "2026-02-23T16:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -706,7 +706,7 @@
 				"gpqa_diamond": 48.9,
 				"humanity_last_exam": 26.6,
 				"live_code_bench": 48.2,
-				"livebench": null,
+				"livebench": 52.6,
 				"lmarena_coding_elo": 1368,
 				"lmarena_creative_elo": 1336,
 				"lmarena_en_elo": 1358,
@@ -1481,7 +1481,7 @@
 				"livebench_math": 79.54,
 				"livebench_data_analysis": 69.78,
 				"livebench_language": 48.53,
-				"livebench_if": null
+				"livebench_if": 80.5
 			}
 		},
 		{
@@ -1567,9 +1567,9 @@
 				"humanity_last_exam": 44.4,
 				"live_code_bench": 70.5,
 				"livebench": null,
-				"lmarena_coding_elo": 1463,
+				"lmarena_coding_elo": 1495,
 				"lmarena_creative_elo": 1428,
-				"lmarena_en_elo": 1463,
+				"lmarena_en_elo": 1477,
 				"lmarena_hard_elo": 1476,
 				"lmarena_if_elo": 1434,
 				"lmarena_math_elo": 1439,
@@ -2125,7 +2125,7 @@
 				"livebench_agentic_coding": null,
 				"livebench_math": 76.5,
 				"livebench_data_analysis": 70.64,
-				"livebench_language": 50.68,
+				"livebench_language": 50.7,
 				"livebench_if": 84.4
 			}
 		},
