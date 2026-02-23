@@ -961,6 +961,12 @@ export function filterModels(
 ): RankedModel[] {
 	const query = filters.searchQuery?.toLowerCase().trim();
 
+	// Create Sets for O(1) lookups
+	const providerSet = filters.providers?.length ? new Set(filters.providers) : null;
+	const typeSet = filters.types?.length ? new Set(filters.types) : null;
+	const favoriteSet =
+		filters.favoritesOnly && filters.favoriteIds ? new Set(filters.favoriteIds) : null;
+
 	// Pre-calculate date filter values to avoid recalculation in loop
 	let minReleaseDateString: string | null = null;
 
@@ -992,13 +998,13 @@ export function filterModels(
 		}
 
 		// Provider filter
-		if (filters.providers && filters.providers.length > 0) {
-			if (!filters.providers.includes(model.provider)) return false;
+		if (providerSet) {
+			if (!providerSet.has(model.provider)) return false;
 		}
 
 		// Type filter
-		if (filters.types && filters.types.length > 0) {
-			if (!filters.types.includes(model.type)) return false;
+		if (typeSet) {
+			if (!typeSet.has(model.type)) return false;
 		}
 
 		// Price range filter
@@ -1023,8 +1029,8 @@ export function filterModels(
 		}
 
 		// Favorites filter
-		if (filters.favoritesOnly && filters.favoriteIds) {
-			if (!filters.favoriteIds.includes(model.id)) return false;
+		if (filters.favoritesOnly && favoriteSet) {
+			if (!favoriteSet.has(model.id)) return false;
 		}
 
 		return true;
