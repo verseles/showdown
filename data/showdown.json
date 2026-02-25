@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.02.24",
-		"last_update": "2026-02-24T15:00:00Z",
+		"last_update": "2026-02-25T16:03:55Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -110,7 +110,7 @@
 				"livebench_data_analysis": null,
 				"livebench_language": null,
 				"livebench_if": null,
-				"bfcl": null,
+				"bfcl": 76.8,
 				"livebench": null,
 				"frontiermath": null
 			}
@@ -206,7 +206,7 @@
 			"editor_notes": "High-effort adaptive thinking profile for Claude Opus 4.6. Family-level benchmark claims are attributed here while base variant remains null to allow conservative inferior_of imputation; SWE-Bench is populated from Anthropic's launch disclosure.",
 			"benchmark_scores": {
 				"aime": null,
-				"arc_agi_2": 68.8,
+				"arc_agi_2": 75.2,
 				"bfcl": null,
 				"frontiermath": 40.0,
 				"gpqa_diamond": 91.3,
@@ -395,7 +395,7 @@
 				"arc_agi_2": null,
 				"bfcl": null,
 				"frontiermath": null,
-				"gpqa_diamond": null,
+				"gpqa_diamond": 74.1,
 				"humanity_last_exam": null,
 				"live_code_bench": null,
 				"livebench": null,
@@ -409,15 +409,15 @@
 				"lmarena_zh_elo": null,
 				"math_500": null,
 				"mathvista": null,
-				"mmlu_pro": null,
+				"mmlu_pro": 79.1,
 				"mmmlu": 89.3,
 				"simpleqa": null,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": null,
+				"swe_bench": 79.6,
 				"tau_bench": null,
-				"terminal_bench": null,
+				"terminal_bench": 59.1,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -471,7 +471,7 @@
 				"lmarena_math_elo": null,
 				"lmarena_vision_elo": null,
 				"lmarena_zh_elo": null,
-				"math_500": null,
+				"math_500": 97.8,
 				"mathvista": null,
 				"mmlu_pro": null,
 				"mmmlu": 89.3,
@@ -1091,7 +1091,7 @@
 			},
 			"editor_notes": "Preview of the updated Gemini 3.1 Pro model. Very recent release, benchmark data is currently being collected.",
 			"benchmark_scores": {
-				"aime": null,
+				"aime": 91.2,
 				"arc_agi_2": 77.1,
 				"bfcl": null,
 				"frontiermath": null,
@@ -1101,7 +1101,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": 1531,
 				"lmarena_creative_elo": null,
-				"lmarena_en_elo": 1505,
+				"lmarena_en_elo": 1489,
 				"lmarena_hard_elo": null,
 				"lmarena_if_elo": null,
 				"lmarena_math_elo": null,

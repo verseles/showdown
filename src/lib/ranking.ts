@@ -731,7 +731,8 @@ export function calculateModelMetrics(
 		let weightedSum = 0;
 		let presentWeight = 0;
 		const totalWeight =
-			categoryWeights?.get(category.id) ?? category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+			categoryWeights?.get(category.id) ??
+			category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
 
 		let categoryAvailable = 0;
 		const categoryTotal = category.benchmarks.length;
