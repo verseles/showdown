@@ -712,6 +712,73 @@ export function calculateBenchmarkCoverage(model: Model, categories: Category[])
 }
 
 /**
+ * Calculate both category scores and benchmark coverage in a single pass
+ * Optimization for rankModels to avoid iterating benchmarks twice
+ */
+export function calculateModelMetrics(
+	model: Model,
+	categories: Category[],
+	categoryWeights?: Map<string, number>
+): {
+	scores: Record<string, number | null>;
+	coverage: number;
+} {
+	const scores: Record<string, number | null> = {};
+	let totalBenchmarks = 0;
+	let availableBenchmarks = 0;
+
+	for (const category of categories) {
+		let weightedSum = 0;
+		let presentWeight = 0;
+		const totalWeight =
+			categoryWeights?.get(category.id) ?? category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+
+		let categoryAvailable = 0;
+		const categoryTotal = category.benchmarks.length;
+
+		for (const benchmark of category.benchmarks) {
+			// Inlined getBenchmarkScore logic to avoid function call overhead and redundant lookup
+			const rawScore = model.benchmark_scores[benchmark.id];
+
+			if (rawScore !== null && rawScore !== undefined) {
+				categoryAvailable++;
+
+				let normalizedScore = rawScore;
+				if (benchmark.type === 'elo' && benchmark.elo_range) {
+					normalizedScore = normalizeEloScore(
+						rawScore,
+						benchmark.elo_range.min,
+						benchmark.elo_range.max
+					);
+				}
+
+				weightedSum += normalizedScore * benchmark.weight;
+				presentWeight += benchmark.weight;
+			}
+		}
+
+		availableBenchmarks += categoryAvailable;
+		totalBenchmarks += categoryTotal;
+
+		// Calculate category score
+		if (presentWeight === 0) {
+			scores[category.id] = null;
+		} else {
+			const weightedCoverage = totalWeight > 0 ? presentWeight / totalWeight : 0;
+			if (weightedCoverage < MIN_CATEGORY_COVERAGE) {
+				scores[category.id] = null;
+			} else {
+				scores[category.id] = weightedSum / totalWeight;
+			}
+		}
+	}
+
+	const coverage = totalBenchmarks > 0 ? (availableBenchmarks / totalBenchmarks) * 100 : 0;
+
+	return { scores, coverage };
+}
+
+/**
  * Rank all models and return sorted array with positions
  */
 export function rankModels(models: Model[], categories: Category[]): RankedModel[] {
@@ -761,14 +828,18 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 			today
 		);
 
-		const categoryScores = getAllCategoryScores(imputedModel, categories, categoryWeights);
+		const { scores: categoryScores, coverage } = calculateModelMetrics(
+			imputedModel,
+			categories,
+			categoryWeights
+		);
 		const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
 
 		activeModels.push({
 			model: imputedModel,
 			overallScore,
 			categoryScores,
-			coverage: calculateBenchmarkCoverage(imputedModel, categories)
+			coverage
 		});
 	}
 

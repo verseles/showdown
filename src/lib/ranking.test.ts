@@ -4,6 +4,7 @@ import {
 	getBenchmarkScore,
 	calculateCategoryScore,
 	calculateOverallScore,
+	calculateModelMetrics,
 	rankModels,
 	sortModels,
 	filterModels,
@@ -543,6 +544,70 @@ describe('calculateOverallScore', () => {
 		const categories: Category[] = [mockCategory];
 		const score = calculateOverallScore(modelNoScores, categories);
 		expect(score).toBeNull();
+	});
+});
+
+describe('calculateModelMetrics', () => {
+	it('should calculate scores and coverage correctly', () => {
+		const result = calculateModelMetrics(mockModel, [mockCategory]);
+
+		// Score: (80 * 0.5 + 50 * 0.5) / 1.0 = 65
+		expect(result.scores[mockCategory.id]).toBe(65);
+
+		// Coverage: 2 available / 2 total = 100%
+		expect(result.coverage).toBe(100);
+	});
+
+	it('should handle missing benchmarks correctly', () => {
+		const modelPartial: Model = {
+			...mockModel,
+			benchmark_scores: { test_bench: 80 } // Missing test_elo
+		};
+
+		const result = calculateModelMetrics(modelPartial, [mockCategory]);
+
+		// Score: weightedSum = 80 * 0.5 = 40. totalWeight = 1.0. Score = 40.
+		// Coverage: 1 available / 2 total = 50%
+		expect(result.scores[mockCategory.id]).toBe(40);
+		expect(result.coverage).toBe(50);
+	});
+
+	it('should return null score if coverage is below threshold', () => {
+		// Create a category with 4 benchmarks
+		const b1 = { ...mockBenchmark, id: 'b1', weight: 0.25 };
+		const b2 = { ...mockBenchmark, id: 'b2', weight: 0.25 };
+		const b3 = { ...mockBenchmark, id: 'b3', weight: 0.25 };
+		const b4 = { ...mockBenchmark, id: 'b4', weight: 0.25 };
+		const category: Category = { ...mockCategory, benchmarks: [b1, b2, b3, b4] };
+
+		const model: Model = {
+			...mockModel,
+			benchmark_scores: { b1: 100 } // Only 25% coverage
+		};
+
+		const result = calculateModelMetrics(model, [category]);
+
+		expect(result.scores[category.id]).toBeNull();
+		// Coverage: 1/4 = 25%
+		expect(result.coverage).toBe(25);
+	});
+
+	it('should handle zero total benchmarks gracefully', () => {
+		const emptyCategory: Category = { ...mockCategory, benchmarks: [] };
+		const result = calculateModelMetrics(mockModel, [emptyCategory]);
+
+		expect(result.scores[emptyCategory.id]).toBeNull();
+		expect(result.coverage).toBe(0);
+	});
+
+	it('should use provided category weights', () => {
+		const weights = new Map<string, number>();
+		weights.set(mockCategory.id, 2.0); // Override total weight to 2.0
+
+		const result = calculateModelMetrics(mockModel, [mockCategory], weights);
+
+		// Weighted Sum = 65. Total Weight = 2.0. Score = 32.5.
+		expect(result.scores[mockCategory.id]).toBe(32.5);
 	});
 });
 
