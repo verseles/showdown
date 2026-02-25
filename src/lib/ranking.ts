@@ -722,10 +722,15 @@ export function calculateModelMetrics(
 ): {
 	scores: Record<string, number | null>;
 	coverage: number;
+	overallScore: number | null;
 } {
 	const scores: Record<string, number | null> = {};
 	let totalBenchmarks = 0;
 	let availableBenchmarks = 0;
+
+	let overallWeightedSum = 0;
+	let overallTotalWeight = 0;
+	let validCategoryCount = 0;
 
 	for (const category of categories) {
 		let weightedSum = 0;
@@ -769,14 +774,24 @@ export function calculateModelMetrics(
 			if (weightedCoverage < MIN_CATEGORY_COVERAGE) {
 				scores[category.id] = null;
 			} else {
-				scores[category.id] = weightedSum / totalWeight;
+				const catScore = weightedSum / totalWeight;
+				scores[category.id] = catScore;
+
+				overallWeightedSum += catScore * category.weight;
+				overallTotalWeight += category.weight;
+				validCategoryCount++;
 			}
 		}
 	}
 
 	const coverage = totalBenchmarks > 0 ? (availableBenchmarks / totalBenchmarks) * 100 : 0;
 
-	return { scores, coverage };
+	let overallScore: number | null = null;
+	if (validCategoryCount >= MIN_CATEGORIES_FOR_OVERALL && overallTotalWeight > 0) {
+		overallScore = overallWeightedSum / overallTotalWeight;
+	}
+
+	return { scores, coverage, overallScore };
 }
 
 /**
@@ -829,12 +844,11 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 			today
 		);
 
-		const { scores: categoryScores, coverage } = calculateModelMetrics(
+		const { scores: categoryScores, coverage, overallScore } = calculateModelMetrics(
 			imputedModel,
 			categories,
 			categoryWeights
 		);
-		const overallScore = calculateOverallScore(imputedModel, categories, categoryScores);
 
 		activeModels.push({
 			model: imputedModel,
