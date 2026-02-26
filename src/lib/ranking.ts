@@ -844,11 +844,11 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 			today
 		);
 
-		const { scores: categoryScores, coverage, overallScore } = calculateModelMetrics(
-			imputedModel,
-			categories,
-			categoryWeights
-		);
+		const {
+			scores: categoryScores,
+			coverage,
+			overallScore
+		} = calculateModelMetrics(imputedModel, categories, categoryWeights);
 
 		activeModels.push({
 			model: imputedModel,
