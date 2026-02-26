@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.02.24",
-		"last_update": "2026-02-25T16:03:55Z",
+		"version": "2026.02.26",
+		"last_update": "2026-02-26T15:47:40Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -2237,7 +2237,7 @@
 				"lmarena_en_elo": 1381,
 				"lmarena_hard_elo": 1400,
 				"lmarena_if_elo": null,
-				"lmarena_math_elo": 1409,
+				"lmarena_math_elo": 1410,
 				"lmarena_vision_elo": null,
 				"lmarena_zh_elo": null,
 				"math_500": 97.9,
