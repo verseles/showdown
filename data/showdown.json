@@ -1014,7 +1014,13 @@
 		{
 			"id": "gemini-3-1-pro-preview",
 			"name": "Gemini 3.1 Pro Preview",
-			"aka": ["gemini-3.1-pro", "gemini3.1-pro"],
+			"aka": [
+				"gemini-3.1-pro",
+				"gemini3.1-pro",
+				"gemini-3.1-pro-thinking",
+				"gemini-3-1-pro-thinking",
+				"gemini3.1-pro-thinking"
+			],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2026-02-19",
@@ -1132,7 +1138,13 @@
 		{
 			"id": "gemini-3-pro",
 			"name": "Gemini 3 Pro",
-			"aka": ["gemini-3.0-pro", "gemini3-pro"],
+			"aka": [
+				"gemini-3.0-pro",
+				"gemini3-pro",
+				"gemini-3-pro-thinking",
+				"gemini-3.0-pro-thinking",
+				"gemini3-pro-thinking"
+			],
 			"provider": "Google",
 			"type": "proprietary",
 			"release_date": "2025-11-18",
