@@ -94,6 +94,7 @@
 		left: 0;
 		pointer-events: none;
 		-webkit-appearance: none;
+		appearance: none;
 		z-index: 3;
 		height: 20px;
 		width: 100%;
@@ -107,6 +108,7 @@
 	input[type='range']::-webkit-slider-thumb {
 		pointer-events: auto;
 		-webkit-appearance: none;
+		appearance: none;
 		width: 16px;
 		height: 16px;
 		border-radius: 50%;
