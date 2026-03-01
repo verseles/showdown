@@ -251,7 +251,15 @@ export function imputeMissingScores(
 	const today = todayDate ?? new Date().toISOString().slice(0, 10);
 
 	// Ensure O(1) lookup
-	const modelMap = Array.isArray(allModels) ? new Map(allModels.map((m) => [m.id, m])) : allModels;
+	let modelMap: Map<string, Model>;
+	if (Array.isArray(allModels)) {
+		modelMap = new Map();
+		for (const m of allModels) {
+			modelMap.set(m.id, m);
+		}
+	} else {
+		modelMap = allModels;
+	}
 
 	// Helper functions to abstract Map vs Array access
 	const getModelById = (id: string): Model | undefined => {
@@ -819,7 +827,10 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	// First, impute missing scores and calculate metrics only for enabled models
 	// We still pass the full 'models' array to imputeMissingScores for dependency lookups (superior_of)
 	const imputationCache = new Map<string, Model>();
-	const modelMap = new Map(models.map((m) => [m.id, m]));
+	const modelMap = new Map<string, Model>();
+	for (const m of models) {
+		modelMap.set(m.id, m);
+	}
 	const today = new Date().toISOString().slice(0, 10);
 
 	// Optimize: Combined filter and map into a single loop to avoid intermediate array allocation
