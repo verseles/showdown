@@ -807,14 +807,13 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	const categoryWeights = new Map<string, number>();
 
 	for (const category of categories) {
-		categoryWeights.set(
-			category.id,
-			category.benchmarks.reduce((sum, b) => sum + b.weight, 0)
-		);
+		let totalWeight = 0;
 		for (const benchmark of category.benchmarks) {
+			totalWeight += benchmark.weight;
 			benchmarkToCategory.set(benchmark.id, category);
 			benchmarkById.set(benchmark.id, { benchmark, category });
 		}
+		categoryWeights.set(category.id, totalWeight);
 	}
 
 	const baseToThinkingMap = new Map<string, Model>();
