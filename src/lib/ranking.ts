@@ -496,7 +496,7 @@ export function imputeMissingScores(
 				today
 			);
 
-			for (const benchmarkId in superiorModel.benchmark_scores) {
+			for (const benchmarkId of benchmarkById.keys()) {
 				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
 				const score = imputedModel.benchmark_scores[benchmarkId];
 				if (score !== null && score !== undefined) continue; // Skip non-null values
