@@ -329,7 +329,7 @@ export function imputeMissingScores(
 			// Find missing benchmarks
 			for (const benchmarkId of benchmarkById.keys()) {
 				const score = model.benchmark_scores[benchmarkId];
-				if (score !== null && score !== undefined) continue; // Skip non-null values
+				if (score != null) continue; // Skip non-null values
 
 				// Try direct inferior first, then cascade up the chain
 				let sourceModel = inferiorModel;
@@ -409,7 +409,7 @@ export function imputeMissingScores(
 			// We do NOT use values imputed via category_average in the same pass
 			const rawScore = imputedModel.benchmark_scores[benchmark.id];
 
-			if (rawScore !== null && rawScore !== undefined) {
+			if (rawScore != null) {
 				// Normalize if needed
 				let normalizedScore = rawScore;
 				if (benchmark.type === 'elo' && benchmark.elo_range) {
@@ -499,7 +499,7 @@ export function imputeMissingScores(
 			for (const benchmarkId of benchmarkById.keys()) {
 				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
 				const score = imputedModel.benchmark_scores[benchmarkId];
-				if (score !== null && score !== undefined) continue; // Skip non-null values
+				if (score != null) continue; // Skip non-null values
 				if (superiorValue == null) continue;
 
 				const benchmarkInfo = benchmarkById.get(benchmarkId);
@@ -550,7 +550,7 @@ export function imputeMissingScores(
 export function getBenchmarkScore(model: Model, benchmark: Benchmark): number | null {
 	const rawScore = model.benchmark_scores[benchmark.id];
 
-	if (rawScore === null || rawScore === undefined) {
+	if (rawScore == null) {
 		return null;
 	}
 
@@ -689,7 +689,7 @@ export function countAvailableBenchmarks(
 
 	for (const benchmark of category.benchmarks) {
 		const score = model.benchmark_scores[benchmark.id];
-		if (score !== null && score !== undefined) {
+		if (score != null) {
 			available++;
 		}
 	}
@@ -749,7 +749,7 @@ export function calculateModelMetrics(
 			// Inlined getBenchmarkScore logic to avoid function call overhead and redundant lookup
 			const rawScore = model.benchmark_scores[benchmark.id];
 
-			if (rawScore !== null && rawScore !== undefined) {
+			if (rawScore != null) {
 				categoryAvailable++;
 
 				let normalizedScore = rawScore;
