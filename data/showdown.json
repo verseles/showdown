@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.03.09",
-		"last_update": "2026-03-09T00:05:00Z",
+		"last_update": "2026-03-09T00:20:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1076,7 +1076,7 @@
 		},
 		{
 			"id": "gemini-3-1-pro-preview",
-			"name": "Gemini 3.1 Pro Preview",
+			"name": "Gemini 3.1 Pro Preview Base",
 			"aka": [
 				"gemini-3.1-pro",
 				"gemini3.1-pro",
@@ -1097,7 +1097,7 @@
 				"latency_ttft_ms": 600,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Preview of the updated Gemini 3.1 Pro model. Very recent release, benchmark data is currently being collected.",
+			"editor_notes": "Inferred baseline entry for Gemini 3.1 Pro Preview. Google positions Gemini 3.1 Pro as a reasoning model, so thinking aliases are retained for matching while benchmark-heavy public results stay on the main Gemini 3.1 Pro Preview entry.",
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": null,
@@ -1139,7 +1139,7 @@
 		},
 		{
 			"id": "gemini-3-1-pro-preview-thinking",
-			"name": "Gemini 3.1 Pro Preview Thinking",
+			"name": "Gemini 3.1 Pro Preview",
 			"aka": [
 				"gemini-3.1-pro-thinking",
 				"gemini3.1-pro-thinking",
@@ -1158,7 +1158,7 @@
 				"latency_ttft_ms": 600,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Preview of the updated Gemini 3.1 Pro model. Very recent release, benchmark data is currently being collected.",
+			"editor_notes": "Google's Gemini 3.1 Pro Preview reasoning model. Thinking aliases are kept for source matching, but the primary title follows Google's product naming rather than exposing thinking as a separate user-facing variant.",
 			"benchmark_scores": {
 				"aime": 91.2,
 				"arc_agi_2": 77.1,
@@ -1179,10 +1179,10 @@
 				"math_500": null,
 				"mathvista": null,
 				"mmlu_pro": 91.0,
-				"mmmlu": null,
+				"mmmlu": 92.6,
 				"simpleqa": null,
 				"mmmu": null,
-				"mmmu_pro": null,
+				"mmmu_pro": 80.5,
 				"osworld": null,
 				"swe_bench": 80.6,
 				"tau_bench": null,
