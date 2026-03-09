@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.08",
-		"last_update": "2026-03-08T23:40:00Z",
+		"version": "2026.03.09",
+		"last_update": "2026-03-09T00:05:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -210,7 +210,7 @@
 				"bfcl": null,
 				"frontiermath": 40.0,
 				"gpqa_diamond": 91.3,
-				"humanity_last_exam": 53.0,
+				"humanity_last_exam": 53.1,
 				"live_code_bench": null,
 				"livebench": null,
 				"lmarena_coding_elo": 1545,
@@ -456,7 +456,7 @@
 			"editor_notes": "High-effort adaptive thinking profile for Claude Sonnet 4.6 with benchmark values populated from Anthropic's official system card (single-source fallback where independent mirrors are unavailable).",
 			"benchmark_scores": {
 				"aime": 95.6,
-				"arc_agi_2": 58.3,
+				"arc_agi_2": 60.4,
 				"bfcl": null,
 				"frontiermath": null,
 				"gpqa_diamond": 89.9,
@@ -1056,10 +1056,10 @@
 				"math_500": null,
 				"mathvista": null,
 				"mmlu_pro": null,
-				"mmmlu": null,
+				"mmmlu": 92.6,
 				"simpleqa": null,
 				"mmmu": null,
-				"mmmu_pro": null,
+				"mmmu_pro": 80.5,
 				"osworld": 75,
 				"swe_bench": null,
 				"tau_bench": null,
