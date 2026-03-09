@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.01",
-		"last_update": "2026-03-01T16:02:47Z",
+		"version": "2026.03.08",
+		"last_update": "2026-03-08T23:40:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1009,6 +1009,69 @@
 				"livebench_data_analysis": 72.42,
 				"livebench_language": 80.69,
 				"livebench_if": 63.96
+			}
+		},
+		{
+			"id": "gpt-5.4-high",
+			"name": "GPT 5.4 High",
+			"aka": [
+				"gpt-5.4-thinking",
+				"gpt-5.4-xhigh",
+				"gpt-5-4-high",
+				"gpt-5-4-thinking",
+				"gpt-5-4-xhigh"
+			],
+			"superior_of": "gpt-5.2-high",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2026-03-05",
+			"pricing": {
+				"input_per_1m": 2.5,
+				"output_per_1m": 15,
+				"average_per_1m": 8.75
+			},
+			"performance": {
+				"output_speed_tps": 75.3,
+				"latency_ttft_ms": 187590,
+				"source": "https://artificialanalysis.ai/models/gpt-5-4/providers"
+			},
+			"editor_notes": "OpenAI's March 2026 high-effort GPT-5.4 reasoning profile. This entry uses official GPT-5.4 API pricing because 'High' is an xhigh reasoning setting rather than a separate API SKU, and only directly verifiable public benchmark results are populated.",
+			"benchmark_scores": {
+				"aime": 100,
+				"arc_agi_2": 73.3,
+				"bfcl": null,
+				"frontiermath": 47.6,
+				"gpqa_diamond": 92.8,
+				"humanity_last_exam": null,
+				"live_code_bench": null,
+				"livebench": null,
+				"lmarena_coding_elo": 1516,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": 1489,
+				"lmarena_hard_elo": 1492,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": 1478,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": null,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": 75,
+				"swe_bench": null,
+				"tau_bench": null,
+				"terminal_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
