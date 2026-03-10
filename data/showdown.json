@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.09",
-		"last_update": "2026-03-09T00:20:00Z",
+		"version": "2026.03.10",
+		"last_update": "2026-03-10T14:45:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -24,12 +24,12 @@
 			},
 			"editor_notes": "Significant update to M2 with improved coding and agentic capabilities. Scores 81.0% on LiveCodeBench and 74.0% on SWE-Bench Verified.",
 			"benchmark_scores": {
-				"swe_bench": 74.0,
+				"swe_bench": 74,
 				"terminal_bench": 47.9,
-				"live_code_bench": 81.0,
-				"gpqa_diamond": 83.0,
-				"aime": 83.0,
-				"mmlu_pro": 88.0,
+				"live_code_bench": 81,
+				"gpqa_diamond": 83,
+				"aime": 83,
+				"mmlu_pro": 88,
 				"humanity_last_exam": 22.2,
 				"lmarena_coding_elo": 1414,
 				"lmarena_creative_elo": null,
@@ -46,7 +46,7 @@
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"tau_bench": 87.0,
+				"tau_bench": 87,
 				"webdev_arena_elo": 1445,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -77,7 +77,7 @@
 				"latency_ttft_ms": 2170,
 				"source": "https://artificialanalysis.ai/models/minimax-m2-5"
 			},
-			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, with additional AIME and GPQA scores captured from MiniMax public release material.",
+			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, with LiveBench now populated from the current leaderboard.",
 			"benchmark_scores": {
 				"swe_bench": 80.2,
 				"terminal_bench": null,
@@ -111,7 +111,7 @@
 				"livebench_language": null,
 				"livebench_if": null,
 				"bfcl": 76.8,
-				"livebench": null,
+				"livebench": 60.14,
 				"frontiermath": null
 			}
 		},
@@ -146,7 +146,7 @@
 				"bfcl": null,
 				"frontiermath": null,
 				"gpqa_diamond": null,
-				"humanity_last_exam": 40.0,
+				"humanity_last_exam": 40,
 				"live_code_bench": null,
 				"livebench": null,
 				"lmarena_coding_elo": 1530,
@@ -208,7 +208,7 @@
 				"aime": null,
 				"arc_agi_2": 75.2,
 				"bfcl": null,
-				"frontiermath": 40.0,
+				"frontiermath": 40,
 				"gpqa_diamond": 91.3,
 				"humanity_last_exam": 53.1,
 				"live_code_bench": null,
@@ -779,7 +779,7 @@
 				"lmarena_vision_elo": 1226,
 				"lmarena_creative_elo": 1437,
 				"lmarena_if_elo": 1435,
-				"swe_bench": 38.0
+				"swe_bench": 38
 			}
 		},
 		{
@@ -1158,7 +1158,7 @@
 				"latency_ttft_ms": 600,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Google's Gemini 3.1 Pro Preview reasoning model. Thinking aliases are kept for source matching, but the primary title follows Google's product naming rather than exposing thinking as a separate user-facing variant.",
+			"editor_notes": "Google's Gemini 3.1 Pro Preview reasoning model. Added current LiveBench overall score while keeping family-level benchmark attribution on the reasoning entry.",
 			"benchmark_scores": {
 				"aime": 91.2,
 				"arc_agi_2": 77.1,
@@ -1167,7 +1167,7 @@
 				"gpqa_diamond": 94.3,
 				"humanity_last_exam": 44.4,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 79.93,
 				"lmarena_coding_elo": 1531,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1489,
@@ -1178,7 +1178,7 @@
 				"lmarena_zh_elo": null,
 				"math_500": null,
 				"mathvista": null,
-				"mmlu_pro": 91.0,
+				"mmlu_pro": 91,
 				"mmmlu": 92.6,
 				"simpleqa": null,
 				"mmmu": null,
@@ -1277,7 +1277,7 @@
 				"latency_ttft_ms": 200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Fastest intelligent model at 218 TPS. Minimal thinking mode. 3x faster than 2.5 Pro with 30% fewer tokens.",
+			"editor_notes": "Fast Gemini 3 Flash release with broad public leaderboard coverage. SWE-Bench Verified is populated from Google launch material corroborated by current benchmark tracking.",
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": 33.6,
@@ -1303,7 +1303,7 @@
 				"mmmu": 81.2,
 				"mmmu_pro": 81.2,
 				"osworld": null,
-				"swe_bench": null,
+				"swe_bench": 78,
 				"tau_bench": 90.2,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1455,
@@ -1588,7 +1588,7 @@
 				"arc_agi_2": 1.3,
 				"bfcl": 75.8,
 				"frontiermath": 1.7,
-				"gpqa_diamond": 81.0,
+				"gpqa_diamond": 81,
 				"humanity_last_exam": 17.7,
 				"live_code_bench": 73.1,
 				"livebench": 71.38,
@@ -1695,7 +1695,7 @@
 				"latency_ttft_ms": 800,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Newest Grok model release. Limited data available at launch.",
+			"editor_notes": "Newest Grok model release. Added current Arena overall Elo while broader benchmark coverage remains limited.",
 			"benchmark_scores": {
 				"aime": 100,
 				"arc_agi_2": null,
@@ -1707,7 +1707,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": null,
 				"lmarena_creative_elo": null,
-				"lmarena_en_elo": null,
+				"lmarena_en_elo": 1493,
 				"lmarena_hard_elo": null,
 				"lmarena_if_elo": null,
 				"lmarena_math_elo": null,
@@ -1809,7 +1809,7 @@
 				"latency_ttft_ms": 2200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Extended thinking variant of Grok 4.1. #1 on LMArena Overall (1483 Elo). Deep reasoning with chain-of-thought. Top-tier emotional intelligence (1586 EQ-Bench Elo).",
+			"editor_notes": "Reasoning-focused Grok 4.1 profile with current LiveBench overall coverage added; family-level benchmark claims stay on the thinking variant when public sources do not split variants.",
 			"benchmark_scores": {
 				"aime": 84,
 				"arc_agi_2": 26,
@@ -1818,7 +1818,7 @@
 				"gpqa_diamond": 87,
 				"humanity_last_exam": 50.7,
 				"live_code_bench": 74.5,
-				"livebench": null,
+				"livebench": 62.02,
 				"lmarena_coding_elo": 1483,
 				"lmarena_creative_elo": 1442,
 				"lmarena_en_elo": 1482,
@@ -2228,9 +2228,9 @@
 			"type": "proprietary",
 			"release_date": "2025-04-16",
 			"pricing": {
-				"input_per_1m": 4.0,
-				"output_per_1m": 16.0,
-				"average_per_1m": 10.0
+				"input_per_1m": 4,
+				"output_per_1m": 16,
+				"average_per_1m": 10
 			},
 			"performance": {
 				"output_speed_tps": 100,
@@ -2244,7 +2244,7 @@
 				"lmarena_coding_elo": 1431,
 				"live_code_bench": 80.2,
 				"gpqa_diamond": 81.4,
-				"aime": 78.0,
+				"aime": 78,
 				"arc_agi_2": null,
 				"lmarena_hard_elo": 1405,
 				"bfcl": null,
@@ -2312,7 +2312,7 @@
 				"mmmu_pro": null,
 				"osworld": null,
 				"swe_bench": 49.3,
-				"tau_bench": 45.0,
+				"tau_bench": 45,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1146,
 				"livebench_reasoning": 89.6,
@@ -2426,15 +2426,15 @@
 				"lmarena_zh_elo": 1390,
 				"math_500": null,
 				"mathvista": null,
-				"mmlu_pro": 82.0,
+				"mmlu_pro": 82,
 				"mmmlu": null,
 				"simpleqa": 18,
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
 				"swe_bench": 69.4,
-				"tau_bench": 87.0,
-				"terminal_bench": 30.0,
+				"tau_bench": 87,
+				"terminal_bench": 30,
 				"webdev_arena_elo": 1313,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -2655,7 +2655,7 @@
 				"swe_bench": 76.8,
 				"terminal_bench": 50.8,
 				"lmarena_coding_elo": 1513,
-				"live_code_bench": 85.0,
+				"live_code_bench": 85,
 				"gpqa_diamond": 87.6,
 				"arc_agi_2": null,
 				"livebench": 69.07,
