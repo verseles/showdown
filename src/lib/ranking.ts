@@ -577,7 +577,7 @@ export function calculateCategoryScore(
 
 	for (const benchmark of category.benchmarks) {
 		const score = getBenchmarkScore(model, benchmark);
-		if (score !== null) {
+		if (score != null) {
 			weightedSum += score * benchmark.weight;
 			presentWeight += benchmark.weight;
 		}
@@ -640,7 +640,7 @@ export function calculateOverallScore(
 			? (precalculatedScores[category.id] ?? null)
 			: calculateCategoryScore(model, category);
 
-		if (score !== null) {
+		if (score != null) {
 			weightedSum += score * category.weight;
 			totalWeight += category.weight;
 			validCount++;
@@ -873,15 +873,15 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		const aScore = a.overallScore;
 		const bScore = b.overallScore;
 
-		if (aScore !== null && bScore !== null) {
+		if (aScore != null && bScore != null) {
 			// 1. Sort by score descending
 			const scoreDiff = bScore - aScore;
 			if (Math.abs(scoreDiff) > 0.001) {
 				return scoreDiff;
 			}
-		} else if (aScore === null && bScore !== null) {
+		} else if (aScore == null && bScore != null) {
 			return 1;
-		} else if (aScore !== null && bScore === null) {
+		} else if (aScore != null && bScore == null) {
 			return -1;
 		}
 		// If both are null, fall through to tie-breakers
@@ -907,17 +907,17 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 	let previousScore: number | null = null;
 
 	return activeModels.map((item, index) => {
-		if (item.overallScore !== null) {
+		if (item.overallScore != null) {
 			// Check if score is effectively different from previous (considering epsilon)
 			// Matches the sort logic tolerance of 0.001
-			if (previousScore === null || Math.abs(item.overallScore - previousScore) > 0.001) {
+			if (previousScore == null || Math.abs(item.overallScore - previousScore) > 0.001) {
 				currentRank = index + 1;
 			}
 			previousScore = item.overallScore;
 		}
 
 		return {
-			rank: item.overallScore === null ? null : currentRank,
+			rank: item.overallScore == null ? null : currentRank,
 			model: item.model,
 			overallScore: item.overallScore,
 			categoryScores: item.categoryScores,
@@ -946,8 +946,8 @@ export function findTopScores(
 
 	for (const ranked of rankedModels) {
 		// Check overall
-		if (ranked.overallScore !== null) {
-			if (topOverall === null || ranked.overallScore > topOverall) {
+		if (ranked.overallScore != null) {
+			if (topOverall == null || ranked.overallScore > topOverall) {
 				topOverall = ranked.overallScore;
 			}
 		}
@@ -955,8 +955,8 @@ export function findTopScores(
 		// Check each category
 		for (const category of categories) {
 			const score = ranked.categoryScores[category.id];
-			if (score !== null) {
-				if (topCategories[category.id] === null || score > topCategories[category.id]!) {
+			if (score != null) {
+				if (topCategories[category.id] == null || score > topCategories[category.id]!) {
 					topCategories[category.id] = score;
 				}
 			}
@@ -1015,9 +1015,9 @@ export function sortModels(
 		const valueB = getValue(b);
 
 		// Handle nulls
-		if (valueA === null && valueB === null) return 0;
-		if (valueA === null) return 1;
-		if (valueB === null) return -1;
+		if (valueA == null && valueB == null) return 0;
+		if (valueA == null) return 1;
+		if (valueB == null) return -1;
 
 		// Compare
 		let result: number;
@@ -1115,7 +1115,7 @@ export function filterModels(
 		}
 
 		// Date range filter
-		if (minReleaseDateString !== null) {
+		if (minReleaseDateString != null) {
 			if (model.release_date < minReleaseDateString) return false;
 		}
 
@@ -1132,7 +1132,7 @@ export function filterModels(
  * Format score for display
  */
 export function formatScore(score: number | null, decimals = 1): string {
-	if (score === null) return '—';
+	if (score == null) return '—';
 	return score.toFixed(decimals) + '%';
 }
 
