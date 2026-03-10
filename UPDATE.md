@@ -35,12 +35,12 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 **Priority order for accessing web content:**
 
 1. **Always use the proxy first** - Prefix URLs with `https://r.jina.ai/`
-   - Example: `https://r.jina.ai/https://lmarena.ai/leaderboard/text/coding`
+   - Example: `https://r.jina.ai/http://arena.ai/leaderboard/text/coding` (or `https://r.jina.ai/http://lmarena.ai/leaderboard/text/coding` if an older link still redirects)
    - This provides clean, text-only content without heavy rendering
 
 2. **If r.jina.ai fails** - Try the direct URL with WebFetch
    - Sometimes the proxy may timeout or return errors
-   - Fall back to direct access: `https://lmarena.ai/leaderboard/text/coding`
+   - Fall back to direct access: `https://arena.ai/leaderboard/text/coding`
 
 3. **If direct URL fails** - Use Web Search as final fallback
    - Search for specific benchmark scores
@@ -60,9 +60,11 @@ gh pr create --title "Update [Model Name] benchmarks" --body "Update [Model Name
 
 ### 🚨 CRITICAL: Data Verification Requirements
 
-**PREFER TWO SOURCES, ALLOW ONE-SOURCE FALLBACK:**
+**DEFAULT TO TWO INDEPENDENT SOURCES. ALLOW ONE EXPLICITLY TRUSTED SOURCE ONLY AS A DOCUMENTED FALLBACK:**
 
-You should verify data with **TWO independent sources** whenever possible. If only one trustworthy source exists after exhaustive search, you may add the value as a **provisional single-source entry**.
+You should verify data with **TWO independent sources** whenever possible. If no second source can be found after exhaustive search, you may add the value as a **provisional single-source entry** only when the remaining source is an **explicitly trusted source** from the list below.
+
+**Independent** means the evidence comes from different organizations or publication paths. Two pages that repeat the same underlying provider claim do **not** count as independent.
 
 ✅ **Preferred verification combinations:**
 
@@ -71,12 +73,27 @@ You should verify data with **TWO independent sources** whenever possible. If on
 - 2 different Web Search queries
 - Official provider announcement + benchmark leaderboard
 - Technical paper + leaderboard
+- 1 trusted benchmark-owner source + 1 provider or paper source
 
 ✅ **Allowed fallback (when no second source exists):**
 
-- 1 trustworthy source + explicit note that verification is single-source
+- 1 explicitly trusted source + explicit note that verification is single-source
 - Include source URL and date in commit message (and `editor_notes` when useful)
 - Mark for future revalidation when additional sources appear
+
+**Explicitly trusted sources for benchmark-score fallback:**
+
+- `arena.ai` (formerly LMArena)
+- `livebench.ai`
+- `www.swebench.com` / `swebench.com`
+- `arcprize.org`
+- `scale.com/leaderboard/humanitys_last_exam`
+- `epoch.ai/frontiermath`
+
+**Important trust boundary:**
+
+- Provider announcements are trusted for provider-owned facts like pricing, release details, and self-reported claims, but they should **not** be the sole source for benchmark scores.
+- `artificialanalysis.ai` is useful for speed, latency, pricing cross-checks, and discovery, but it should **not** be the sole source for benchmark scores.
 
 ❌ **Still invalid:**
 
@@ -106,8 +123,8 @@ You should verify data with **TWO independent sources** whenever possible. If on
 Update GPT-5.2 benchmarks - partial data only
 
 Sources verified:
-- SWE-Bench: 78.5% (OpenAI blog + swebench.com leaderboard)
-- GPQA: 82.0% (single-source fallback: provider technical report, 2026-02-20)
+- SWE-Bench: 78.5% (OpenAI blog + www.swebench.com leaderboard)
+- FrontierMath: 16.2% (single-source fallback: epoch.ai/frontiermath, 2026-02-20)
 
 Unable to verify (set to null):
 - Terminal-Bench: No official data found
@@ -120,7 +137,7 @@ Unable to verify (set to null):
 
 ### 🏆 SWE-Bench Verified - Gold Standard for Coding
 
-- **URL**: https://swebench.com
+- **URL**: https://www.swebench.com
 - **What it measures**: Real-world GitHub issue resolution from popular Python repositories
 - **Why it matters**: Most reliable indicator of actual coding capability in production environments
 - **Look for**: "Overall Acc" or "Verified" column
@@ -139,13 +156,32 @@ Unable to verify (set to null):
 
 ## Trustworthy Data Sources (Always Verify These First!)
 
-**PRIORITY ORDER:**
+Use these trust tiers when deciding whether one source is enough or whether a second source is still required.
 
-1. **LMArena** (lmarena.ai) - Real-time human preference votes, updated continuously
-2. **LiveBench** (livebench.ai) - Continuously updated benchmark with 21 diverse tasks resistant to contamination
-3. **SWE-Bench Verified** (swebench.com) - Gold standard for coding performance on real-world GitHub issues
-4. **ARC-AGI-2** (arcprize.org) - Most important benchmark for abstract reasoning capability
-5. **Provider Official Announcements** (OpenAI, Google, Anthropic, Meta) - Official press releases and technical reports
+### Tier 1 - Trusted for benchmark-score fallback
+
+These are benchmark-owner or benchmark-maintainer sources with direct leaderboard ownership. They can be used as the **one trusted source** when no second source exists after exhaustive search.
+
+1. **Arena** (`arena.ai`, formerly LMArena) - Real-time human preference votes, updated continuously
+2. **LiveBench** (`livebench.ai`) - Continuously updated benchmark with contamination-resistant tasks
+3. **SWE-Bench Verified** (`www.swebench.com`) - Gold standard for coding performance on real-world GitHub issues
+4. **ARC Prize / ARC-AGI-2** (`arcprize.org`) - Trusted benchmark-owner source for abstract reasoning capability
+5. **Humanity's Last Exam** (`scale.com/leaderboard/humanitys_last_exam`) - Official HLE leaderboard maintained by Scale
+6. **FrontierMath** (`epoch.ai/frontiermath`) - Official FrontierMath source maintained by Epoch AI
+
+### Tier 2 - Trusted for provider-owned facts, not sole benchmark-score evidence
+
+These are trustworthy for pricing, release details, model naming, and provider self-reported claims. They can support a two-source verification chain, but they should **not** be the only benchmark-score source.
+
+1. **Provider Official Announcements** (OpenAI, Google, Anthropic, Meta, xAI) - Official press releases, technical reports, and pricing pages
+2. **Provider Pricing Pages** - Canonical source for current input/output token prices
+
+### Tier 3 - Useful corroboration and discovery sources
+
+These help with speed, latency, discovery, and cross-checking, but they should not be the only benchmark-score evidence.
+
+1. **Artificial Analysis** (`artificialanalysis.ai`) - Strong for speed, latency, and pricing cross-checks; secondary for benchmark validation
+2. **Dataset cards, papers, and web search results** - Useful for discovery and corroboration when paired with Tier 1 or Tier 2 sources
 
 ⚠️ **Warning:** Some models have history of data manipulation or outdated scores:
 
@@ -158,38 +194,38 @@ Unable to verify (set to null):
 
 ### Primary Benchmark Sources
 
-| Benchmark                      | URL                                                                                          | What to Search                   |
-| ------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
-| **LiveBench**                  | https://livebench.ai                                                                         | Overall Acc column               |
-| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Use Accuracy column              |
-| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Overall Acc column               |
-| **HLE** (Humanity's Last Exam) | https://scale.com/hle                                                                        | Overall accuracy column          |
-| **FrontierMath**               | https://epoch.ai/benchmarks/frontiermath                                                     | Leaderboard tab                  |
-| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | See ARC-AGI-2 instructions below |
-| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Overall Acc column               |
-| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | "Pass^1" column                  |
-| **OSWorld**                    | https://os-world.github.io                                                                   | "Success Rate (Avg±Std)" column  |
-| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Provider technical reports       |
-| **MathVista**                  | https://mathvista.github.io                                                                  | Leaderboard                      |
-| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Leaderboard                      |
-| **MMMLU**                      | https://huggingface.co/datasets/openai/mmmlu (prefer web search since it is a complex table) | Papers, evaluations              |
+| Benchmark                      | URL                                                                                          | Trust Status       | What to Search                   |
+| ------------------------------ | -------------------------------------------------------------------------------------------- | ------------------ | -------------------------------- |
+| **LiveBench**                  | https://livebench.ai                                                                         | Tier 1 trusted     | Overall Acc column               |
+| **MMLU-Pro**                   | https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro                                           | Corroboration only | Use Accuracy column              |
+| **MMMU-Pro**                   | https://mmmu-benchmark.github.io                                                             | Corroboration only | Overall Acc column               |
+| **HLE** (Humanity's Last Exam) | https://scale.com/leaderboard/humanitys_last_exam                                            | Tier 1 trusted     | Overall accuracy column          |
+| **FrontierMath**               | https://epoch.ai/frontiermath                                                                | Tier 1 trusted     | Leaderboard tab                  |
+| **ARC-AGI-2**                  | https://arcprize.org/leaderboard#leaderboard-table                                           | Tier 1 trusted     | See ARC-AGI-2 instructions below |
+| **BFCL**                       | https://gorilla.cs.berkeley.edu/leaderboard.html                                             | Corroboration only | Overall Acc column               |
+| **TAU-Bench**                  | https://taubench.com/#leaderboard                                                            | Corroboration only | "Pass^1" column                  |
+| **OSWorld**                    | https://os-world.github.io                                                                   | Corroboration only | "Success Rate (Avg±Std)" column  |
+| **MATH-500**                   | Search "[model name] MATH-500"                                                               | Corroboration only | Provider technical reports       |
+| **MathVista**                  | https://mathvista.github.io                                                                  | Corroboration only | Leaderboard                      |
+| **MMMU**                       | https://mmmu-benchmark.github.io                                                             | Corroboration only | Leaderboard                      |
+| **MMMLU**                      | https://huggingface.co/datasets/openai/MMMLU (prefer web search since it is a complex table) | Corroboration only | Papers, evaluations              |
 
-### LMArena (Chatbot Arena) - Multiple Categories
+### Arena (formerly LMArena) - Multiple Categories
 
 > [!IMPORTANT]
 > **Use the browser tool** (without lock controls) to navigate to each leaderboard URL below. After the page loads, click **"View all"** to display all models before extracting ELO scores. If you face a "Security Verification" just ignore this overlay our focus is the table inside div[data-sentry-component="LeaderboardDataTable"] get the html and outline the table.
 
-| Benchmark ID           | Category              | URL                                                       |
-| ---------------------- | --------------------- | --------------------------------------------------------- |
-| `lmarena_coding_elo`   | Coding                | https://lmarena.ai/leaderboard/text/coding                |
-| `lmarena_hard_elo`     | Hard Prompts          | https://lmarena.ai/leaderboard/text/hard-prompts          |
-| `webdev_arena_elo`     | WebDev Arena          | https://lmarena.ai/leaderboard/webdev                     |
-| `lmarena_creative_elo` | Creative Writing      | https://lmarena.ai/leaderboard/text/creative-writing      |
-| `lmarena_if_elo`       | Instruction Following | https://lmarena.ai/leaderboard/text/instruction-following |
-| `lmarena_math_elo`     | Math                  | https://lmarena.ai/leaderboard/text/math                  |
-| `lmarena_vision_elo`   | Vision                | https://lmarena.ai/leaderboard/vision                     |
-| `lmarena_en_elo`       | English (Overall)     | https://lmarena.ai/leaderboard/text/english               |
-| `lmarena_zh_elo`       | Chinese               | https://lmarena.ai/leaderboard/text/chinese               |
+| Benchmark ID           | Category              | URL                                                     |
+| ---------------------- | --------------------- | ------------------------------------------------------- |
+| `lmarena_coding_elo`   | Coding                | https://arena.ai/leaderboard/text/coding                |
+| `lmarena_hard_elo`     | Hard Prompts          | https://arena.ai/leaderboard/text/hard-prompts          |
+| `webdev_arena_elo`     | WebDev Arena          | https://arena.ai/leaderboard/webdev                     |
+| `lmarena_creative_elo` | Creative Writing      | https://arena.ai/leaderboard/text/creative-writing      |
+| `lmarena_if_elo`       | Instruction Following | https://arena.ai/leaderboard/text/instruction-following |
+| `lmarena_math_elo`     | Math                  | https://arena.ai/leaderboard/text/math                  |
+| `lmarena_vision_elo`   | Vision                | https://arena.ai/leaderboard/vision                     |
+| `lmarena_en_elo`       | English (Overall)     | https://arena.ai/leaderboard/text/english               |
+| `lmarena_zh_elo`       | Chinese               | https://arena.ai/leaderboard/text/chinese               |
 
 ### ARC-AGI-2 Scores
 
@@ -204,14 +240,14 @@ Unable to verify (set to null):
 
 ### Pricing & Performance
 
-| Source                     | URL                             | Data                                 |
-| -------------------------- | ------------------------------- | ------------------------------------ |
-| **Artificial Analysis**    | https://artificialanalysis.ai   | Speed (TPS), Latency (TTFT), Pricing |
-| **Provider Pricing Pages** | -                               | Official input/output token prices   |
-| OpenAI                     | https://openai.com/api/pricing  |                                      |
-| Anthropic                  | https://anthropic.com/pricing   |                                      |
-| Google                     | https://ai.google.dev/pricing   |                                      |
-| Together AI                | https://www.together.ai/pricing | (for open-source models)             |
+| Source                     | URL                             | Trust Status               | Data                                 |
+| -------------------------- | ------------------------------- | -------------------------- | ------------------------------------ |
+| **Artificial Analysis**    | https://artificialanalysis.ai   | Tier 3 corroboration       | Speed (TPS), Latency (TTFT), Pricing |
+| **Provider Pricing Pages** | -                               | Tier 2 trusted for pricing | Official input/output token prices   |
+| OpenAI                     | https://openai.com/api/pricing  | Tier 2 trusted for pricing | Browser access may be required       |
+| Anthropic                  | https://anthropic.com/pricing   | Tier 2 trusted for pricing |                                      |
+| Google                     | https://ai.google.dev/pricing   | Tier 2 trusted for pricing |                                      |
+| Together AI                | https://www.together.ai/pricing | Tier 2 trusted for pricing | (for open-source models)             |
 
 ---
 
@@ -618,7 +654,7 @@ base_score = thinking_score × 0.90 (INFERIOR_OF_RATIO)
 Update Gemini 3 Flash models
 
 SWE-Bench Verified:
-- gemini-3-flash-thinking: 78.0% (from swebench.com leaderboard)
+- gemini-3-flash-thinking: 78.0% (from www.swebench.com leaderboard)
 - gemini-3-flash: null (will be auto-imputed to 70.2% via inferior_of)
 
 Note: SWE-Bench reports 78% for "Gemini 3 Flash Preview" which uses
@@ -638,7 +674,7 @@ imputation per UPDATE.md guidelines.
    Web search: "[Model Name] SWE-Bench"
    Web search: "[Model Name] benchmark results"
    Web search: "[Model Name] GPQA"
-   Visit: https://lmarena.ai/leaderboard (find model)
+   Visit: https://arena.ai/leaderboard (find model)
    Visit: https://artificialanalysis.ai (find model)
    Visit: Provider pricing page
    ```
@@ -763,7 +799,7 @@ Let's say OpenAI releases "GPT-5.2 High". Here's the process:
 Search: "GPT-5.2 High SWE-Bench"
 Search: "GPT-5.2 High benchmark"
 Search: "GPT-5.2 High pricing"
-Visit: https://lmarena.ai/leaderboard
+Visit: https://arena.ai/leaderboard
 Visit: https://artificialanalysis.ai
 Visit: https://openai.com/api/pricing
 ```
@@ -831,9 +867,9 @@ git add data/showdown.json
 git commit -m "Add GPT-5.2 High model
 
 Sources verified:
-- LMArena leaderboard (lmarena.ai)
+- Arena leaderboard (arena.ai)
 - OpenAI official announcement
-- SWE-Bench verified scores (swebench.com)
+- SWE-Bench verified scores (www.swebench.com)
 - ARC-AGI-2 leaderboard (arcprize.org)"
 git push -u origin feature/add-gpt-5-2-high
 
@@ -843,9 +879,9 @@ gh pr create \
   --body "Update data/showdown.json with GPT-5.2 High model and latest benchmark scores
 
 ## Sources Verified
-- LMArena leaderboard (lmarena.ai)
+- Arena leaderboard (arena.ai)
 - OpenAI official announcement
-- SWE-Bench verified scores (swebench.com)
+- SWE-Bench verified scores (www.swebench.com)
 - ARC-AGI-2 leaderboard (arcprize.org)"
 ```
 
@@ -869,8 +905,8 @@ gh pr create \
 
 When updating data:
 
-1. **🚨 Preferred: verify with TWO sources** - This is the default for new/updated values
-2. **Single-source fallback is allowed** - Use only when no second source exists and provenance is clear
+1. **🚨 Preferred: verify with TWO independent sources** - This is the default for new/updated values
+2. **Single-source fallback requires one Tier 1 trusted source** - Use only when no second source exists after exhaustive search
 3. **🚨 BETTER NULL THAN WRONG** - If confidence is low or data conflicts, use `null`
 4. **Always update `aka` when new nicknames are found** - Keep alias matching current
 5. **Always search multiple sources** - Don't rely on cached knowledge
@@ -879,7 +915,7 @@ When updating data:
    - First: Try `https://r.jina.ai/[URL]`
    - Second: If fails, try direct URL with WebFetch
    - Third: If fails, use Web Search
-8. **Verify Elo scores are current** - LMArena updates frequently
+8. **Verify Elo scores are current** - Arena updates frequently
 9. **Check pricing is current** - Providers often adjust prices
 10. **Validate before committing** - Run `./precommit.sh` (serves as final gatekeeper)
 11. **Update the meta timestamp** - Shows data freshness
@@ -889,5 +925,6 @@ When updating data:
 15. **Gemini 3 Flash Thinking Fallback** - If benchmark scores are missing for `gemini-3-flash-thinking`, use the values from `gemini-3-flash` (which represents the baseline "minimal thinking" score).
 16. **Update meta.version and meta.last_update** whenever making data changes
 17. **Document all sources** - Include URLs in commit messages, especially for hard-to-find data
+18. **Do not use provider announcements or Artificial Analysis as the only benchmark-score source** - They are support evidence, not sole benchmark proof
 
 **Remember:** Data integrity is paramount. One incorrect value can corrupt rankings for all models. When in doubt, use `null` and document why in the commit message.

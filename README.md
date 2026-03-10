@@ -97,7 +97,7 @@ Rankings aggregate data from trusted sources:
 - [SWE-Bench](https://swebench.com) - Real GitHub issue resolution
 - [GPQA](https://github.com/idavidrein/gpqa) - PhD-level questions
 - [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling
-- [LMArena](https://lmarena.ai/leaderboard) - Human preferences
+- [Arena](https://arena.ai) (formerly LMArena) - Human preferences
 - [Artificial Analysis](https://artificialanalysis.ai) - Speed metrics
 
 ## License
