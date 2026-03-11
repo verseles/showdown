@@ -660,61 +660,6 @@ export function calculateOverallScore(
 }
 
 /**
- * Get all category scores for a model
- */
-export function getAllCategoryScores(
-	model: Model,
-	categories: Category[],
-	categoryWeights?: Map<string, number>
-): Record<string, number | null> {
-	const scores: Record<string, number | null> = {};
-
-	for (const category of categories) {
-		const weight = categoryWeights?.get(category.id);
-		scores[category.id] = calculateCategoryScore(model, category, weight);
-	}
-
-	return scores;
-}
-
-/**
- * Count available benchmarks for a category
- */
-export function countAvailableBenchmarks(
-	model: Model,
-	category: Category
-): { available: number; total: number } {
-	let available = 0;
-	const total = category.benchmarks.length;
-
-	for (const benchmark of category.benchmarks) {
-		const score = model.benchmark_scores[benchmark.id];
-		if (score != null) {
-			available++;
-		}
-	}
-
-	return { available, total };
-}
-
-/**
- * Calculate benchmark coverage percentage for a model
- */
-export function calculateBenchmarkCoverage(model: Model, categories: Category[]): number {
-	let totalBenchmarks = 0;
-	let availableBenchmarks = 0;
-
-	for (const category of categories) {
-		const { available, total } = countAvailableBenchmarks(model, category);
-		availableBenchmarks += available;
-		totalBenchmarks += total;
-	}
-
-	if (totalBenchmarks === 0) return 0;
-	return (availableBenchmarks / totalBenchmarks) * 100;
-}
-
-/**
  * Calculate both category scores and benchmark coverage in a single pass
  * Optimization for rankModels to avoid iterating benchmarks twice
  */
