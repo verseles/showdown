@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.10",
-		"last_update": "2026-03-10T15:15:00Z",
+		"version": "2026.03.11",
+		"last_update": "2026-03-11T15:46:22Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -212,7 +212,7 @@
 				"gpqa_diamond": 91.3,
 				"humanity_last_exam": 53.1,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 76.33,
 				"lmarena_coding_elo": 1545,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1503,
@@ -462,7 +462,7 @@
 				"gpqa_diamond": 89.9,
 				"humanity_last_exam": 33.2,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 75.47,
 				"lmarena_coding_elo": null,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": null,
@@ -839,7 +839,7 @@
 				"gpqa_diamond": 88.1,
 				"humanity_last_exam": 26.5,
 				"live_code_bench": 78,
-				"livebench": 72.39,
+				"livebench": 72.04,
 				"lmarena_coding_elo": 1493,
 				"lmarena_creative_elo": 1438,
 				"lmarena_en_elo": 1468,
@@ -924,7 +924,7 @@
 				"gpqa_diamond": 92.4,
 				"humanity_last_exam": 34.5,
 				"live_code_bench": 78.5,
-				"livebench": 74.07,
+				"livebench": 74.84,
 				"lmarena_coding_elo": 1492,
 				"lmarena_creative_elo": 1388,
 				"lmarena_en_elo": 1446,
@@ -1038,13 +1038,13 @@
 			"editor_notes": "OpenAI's March 2026 high-effort GPT-5.4 reasoning profile. This entry uses official GPT-5.4 API pricing because 'High' is an xhigh reasoning setting rather than a separate API SKU, and only directly verifiable public benchmark results are populated.",
 			"benchmark_scores": {
 				"aime": 100,
-				"arc_agi_2": 73.3,
+				"arc_agi_2": 74.0,
 				"bfcl": null,
 				"frontiermath": 47.6,
 				"gpqa_diamond": 92.8,
 				"humanity_last_exam": null,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 80.28,
 				"lmarena_coding_elo": 1516,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1489,
@@ -1552,7 +1552,7 @@
 				"mmmu": 62.5,
 				"mmmu_pro": 83.7,
 				"osworld": 38.5,
-				"swe_bench": 66,
+				"swe_bench": 70.0,
 				"tau_bench": 55.2,
 				"terminal_bench": 31,
 				"webdev_arena_elo": 1290,
@@ -2245,7 +2245,7 @@
 				"live_code_bench": 80.2,
 				"gpqa_diamond": 81.4,
 				"aime": 78,
-				"arc_agi_2": null,
+				"arc_agi_2": 6.1,
 				"lmarena_hard_elo": 1405,
 				"bfcl": null,
 				"tau_bench": 60.5,
@@ -2265,7 +2265,8 @@
 				"simpleqa": 19.3,
 				"lmarena_en_elo": 1405,
 				"lmarena_zh_elo": null,
-				"humanity_last_exam": 17.7
+				"humanity_last_exam": 18.08,
+				"livebench": 70.22
 			}
 		},
 		{
@@ -2348,7 +2349,7 @@
 				"bfcl": 74.5,
 				"frontiermath": null,
 				"gpqa_diamond": 72.5,
-				"humanity_last_exam": 11,
+				"humanity_last_exam": 12.08,
 				"live_code_bench": 61.9,
 				"livebench": null,
 				"lmarena_coding_elo": 1424,
