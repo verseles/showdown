@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.03.10",
-		"last_update": "2026-03-10T14:45:00Z",
+		"last_update": "2026-03-10T15:15:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -68,16 +68,16 @@
 			"type": "open-source",
 			"release_date": "2026-02-12",
 			"pricing": {
-				"input_per_1m": 0.15,
+				"input_per_1m": 0.3,
 				"output_per_1m": 1.2,
-				"average_per_1m": 0.68
+				"average_per_1m": 0.75
 			},
 			"performance": {
-				"output_speed_tps": 50,
-				"latency_ttft_ms": 2170,
+				"output_speed_tps": 39.3,
+				"latency_ttft_ms": 3080,
 				"source": "https://artificialanalysis.ai/models/minimax-m2-5"
 			},
-			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, with LiveBench now populated from the current leaderboard.",
+			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, now includes current Arena Coding Elo, and uses refreshed pricing/performance from current provider and benchmark tracking sources.",
 			"benchmark_scores": {
 				"swe_bench": 80.2,
 				"terminal_bench": null,
@@ -86,7 +86,7 @@
 				"aime": 86.3,
 				"mmlu_pro": null,
 				"humanity_last_exam": null,
-				"lmarena_coding_elo": null,
+				"lmarena_coding_elo": 1476,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": null,
 				"lmarena_hard_elo": null,
