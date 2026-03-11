@@ -8,10 +8,21 @@
 	}
 
 	let { min, max, step = 1, value = $bindable(), format = (v) => v.toString() }: Props = $props();
+	let lowerValue = $state(value[0]);
+	let upperValue = $state(value[1]);
+
+	$effect(() => {
+		lowerValue = value[0];
+		upperValue = value[1];
+	});
+
+	$effect(() => {
+		value = [lowerValue, upperValue];
+	});
 
 	// Calculate percentages for the UI
-	let minPercent = $derived(Math.max(0, Math.min(100, ((value[0] - min) / (max - min)) * 100)));
-	let maxPercent = $derived(Math.max(0, Math.min(100, ((value[1] - min) / (max - min)) * 100)));
+	let minPercent = $derived(Math.max(0, Math.min(100, ((lowerValue - min) / (max - min)) * 100)));
+	let maxPercent = $derived(Math.max(0, Math.min(100, ((upperValue - min) / (max - min)) * 100)));
 </script>
 
 <div class="range-slider">
@@ -25,9 +36,9 @@
 			{min}
 			{max}
 			{step}
-			bind:value={value[0]}
+			bind:value={lowerValue}
 			oninput={() => {
-				value[0] = Math.min(value[0], value[1]);
+				lowerValue = Math.min(lowerValue, upperValue);
 			}}
 			class="thumb"
 		/>
@@ -38,17 +49,17 @@
 			{min}
 			{max}
 			{step}
-			bind:value={value[1]}
+			bind:value={upperValue}
 			oninput={() => {
-				value[1] = Math.max(value[0], value[1]);
+				upperValue = Math.max(lowerValue, upperValue);
 			}}
 			class="thumb"
 		/>
 	</div>
 
 	<div class="values">
-		<span>{format(value[0])}</span>
-		<span>{format(value[1])}</span>
+		<span>{format(lowerValue)}</span>
+		<span>{format(upperValue)}</span>
 	</div>
 </div>
 

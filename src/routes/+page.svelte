@@ -48,13 +48,17 @@
 	let sortBy = $state('coding');
 	let sortOrder = $state<'asc' | 'desc'>('desc');
 
+	function cloneRange(range: [number, number]): [number, number] {
+		return [range[0], range[1]];
+	}
+
 	// Filter state
 	let filters = $state<FilterState>({
 		searchQuery: '',
 		providers: [],
 		types: [],
-		priceRange: untrack(() => getPriceRange(data.models)),
-		speedRange: untrack(() => getSpeedRange(data.models)),
+		priceRange: untrack(() => cloneRange(getPriceRange(data.models))),
+		speedRange: untrack(() => cloneRange(getSpeedRange(data.models))),
 		dateRange: 'all',
 		favoritesOnly: false
 	});
@@ -537,8 +541,8 @@
 							searchQuery: '',
 							providers: [],
 							types: [],
-							priceRange: priceBounds,
-							speedRange: speedBounds,
+							priceRange: cloneRange(priceBounds),
+							speedRange: cloneRange(speedBounds),
 							dateRange: 'all',
 							favoritesOnly: false
 						};
