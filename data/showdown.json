@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.11",
-		"last_update": "2026-03-11T15:46:22Z",
+		"version": "2026.03.12",
+		"last_update": "2026-03-12T15:51:43Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1038,7 +1038,7 @@
 			"editor_notes": "OpenAI's March 2026 high-effort GPT-5.4 reasoning profile. This entry uses official GPT-5.4 API pricing because 'High' is an xhigh reasoning setting rather than a separate API SKU, and only directly verifiable public benchmark results are populated.",
 			"benchmark_scores": {
 				"aime": 100,
-				"arc_agi_2": 74.0,
+				"arc_agi_2": 74,
 				"bfcl": null,
 				"frontiermath": 47.6,
 				"gpqa_diamond": 92.8,
@@ -1552,7 +1552,7 @@
 				"mmmu": 62.5,
 				"mmmu_pro": 83.7,
 				"osworld": 38.5,
-				"swe_bench": 70.0,
+				"swe_bench": 70,
 				"tau_bench": 55.2,
 				"terminal_bench": 31,
 				"webdev_arena_elo": 1290,
