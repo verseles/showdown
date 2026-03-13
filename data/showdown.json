@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.12",
-		"last_update": "2026-03-12T15:51:43Z",
+		"version": "2026.03.13",
+		"last_update": "2026-03-13T16:04:12Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -165,9 +165,9 @@
 				"mmmu": null,
 				"mmmu_pro": 73.9,
 				"osworld": null,
-				"swe_bench": 75.6,
+				"swe_bench": null,
 				"tau_bench": null,
-				"terminal_bench": 69.9,
+				"terminal_bench": null,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -206,7 +206,7 @@
 			"editor_notes": "High-effort adaptive thinking profile for Claude Opus 4.6. Family-level benchmark claims are attributed here while base variant remains null to allow conservative inferior_of imputation; SWE-Bench is populated from Anthropic's launch disclosure.",
 			"benchmark_scores": {
 				"aime": null,
-				"arc_agi_2": 75.2,
+				"arc_agi_2": 68.8,
 				"bfcl": null,
 				"frontiermath": 40,
 				"gpqa_diamond": 91.3,
@@ -229,7 +229,7 @@
 				"mmmu": null,
 				"mmmu_pro": 77.3,
 				"osworld": 72.7,
-				"swe_bench": 81.4,
+				"swe_bench": 80.8,
 				"tau_bench": null,
 				"terminal_bench": 65.4,
 				"webdev_arena_elo": null,
@@ -387,7 +387,7 @@
 			"performance": {
 				"output_speed_tps": 77,
 				"latency_ttft_ms": 1200,
-				"source": "https://artificialanalysis.ai/models/claude-4-5-sonnet"
+				"source": "https://artificialanalysis.ai/models/claude-4-6-sonnet"
 			},
 			"editor_notes": "Base profile for Claude Sonnet 4.6. Family-level benchmark disclosures are attributed to the thinking variant, keeping base benchmarks null for conservative inferior_of imputation.",
 			"benchmark_scores": {
@@ -415,9 +415,9 @@
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"swe_bench": 79.6,
+				"swe_bench": null,
 				"tau_bench": null,
-				"terminal_bench": 59.1,
+				"terminal_bench": null,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -451,7 +451,7 @@
 			"performance": {
 				"output_speed_tps": 45,
 				"latency_ttft_ms": 5500,
-				"source": "https://artificialanalysis.ai/models/claude-4-5-sonnet"
+				"source": "https://artificialanalysis.ai/models/claude-4-6-sonnet"
 			},
 			"editor_notes": "High-effort adaptive thinking profile for Claude Sonnet 4.6 with benchmark values populated from Anthropic's official system card (single-source fallback where independent mirrors are unavailable).",
 			"benchmark_scores": {
@@ -481,7 +481,7 @@
 				"osworld": 72.5,
 				"swe_bench": 79.6,
 				"tau_bench": null,
-				"terminal_bench": 59.1,
+				"terminal_bench": null,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -1038,11 +1038,11 @@
 			"editor_notes": "OpenAI's March 2026 high-effort GPT-5.4 reasoning profile. This entry uses official GPT-5.4 API pricing because 'High' is an xhigh reasoning setting rather than a separate API SKU, and only directly verifiable public benchmark results are populated.",
 			"benchmark_scores": {
 				"aime": 100,
-				"arc_agi_2": 74,
+				"arc_agi_2": 74.0,
 				"bfcl": null,
 				"frontiermath": 47.6,
 				"gpqa_diamond": 92.8,
-				"humanity_last_exam": null,
+				"humanity_last_exam": 36.24,
 				"live_code_bench": null,
 				"livebench": 80.28,
 				"lmarena_coding_elo": 1516,
@@ -1060,7 +1060,7 @@
 				"simpleqa": null,
 				"mmmu": null,
 				"mmmu_pro": 80.5,
-				"osworld": 75,
+				"osworld": 75.0,
 				"swe_bench": null,
 				"tau_bench": null,
 				"terminal_bench": null,
