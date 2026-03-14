@@ -1020,11 +1020,7 @@ export function filterModels(
 
 	if (filters.dateRange && filters.dateRange !== 'all') {
 		const now = filters.referenceDate ? new Date(filters.referenceDate) : new Date();
-		const maxDays = {
-			'30d': 30,
-			'90d': 90,
-			'180d': 180
-		}[filters.dateRange];
+		const maxDays = filters.dateRange === '30d' ? 30 : filters.dateRange === '90d' ? 90 : 180;
 
 		// Calculate cutoff timestamp
 		const cutoffTimestamp = now.getTime() - maxDays * 24 * 60 * 60 * 1000;
