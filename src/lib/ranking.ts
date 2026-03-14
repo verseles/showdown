@@ -573,7 +573,14 @@ export function calculateCategoryScore(
 ): number | null {
 	let weightedSum = 0;
 	let presentWeight = 0;
-	const totalWeight = totalWeightArg ?? category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+	let totalWeight = totalWeightArg;
+
+	if (totalWeight === undefined) {
+		totalWeight = 0;
+		for (const benchmark of category.benchmarks) {
+			totalWeight += benchmark.weight;
+		}
+	}
 
 	for (const benchmark of category.benchmarks) {
 		const score = getBenchmarkScore(model, benchmark);
@@ -683,9 +690,14 @@ export function calculateModelMetrics(
 	for (const category of categories) {
 		let weightedSum = 0;
 		let presentWeight = 0;
-		const totalWeight =
-			categoryWeights?.get(category.id) ??
-			category.benchmarks.reduce((sum, b) => sum + b.weight, 0);
+		let totalWeight = categoryWeights?.get(category.id);
+
+		if (totalWeight === undefined) {
+			totalWeight = 0;
+			for (const benchmark of category.benchmarks) {
+				totalWeight += benchmark.weight;
+			}
+		}
 
 		let categoryAvailable = 0;
 		const categoryTotal = category.benchmarks.length;
