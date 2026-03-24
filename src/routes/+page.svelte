@@ -346,6 +346,25 @@
 		showExportMenu = false;
 	}
 
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			showExportMenu = false;
+			showColumnSettings = false;
+		}
+	}
+
+	function handleGlobalClick(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+
+		if (!target.closest('.export-wrapper')) {
+			showExportMenu = false;
+		}
+
+		if (!target.closest('.column-settings-wrapper')) {
+			showColumnSettings = false;
+		}
+	}
+
 	// Close tooltip when clicking outside on mobile
 	$effect(() => {
 		if (activeTooltip) {
@@ -369,6 +388,8 @@
 		}
 	});
 </script>
+
+<svelte:window onkeydown={handleKeydown} onclick={handleGlobalClick} />
 
 <svelte:head>
 	<title>{m.site_title()}</title>
