@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.25",
-		"last_update": "2026-03-25T22:45:00Z",
+		"version": "2026.03.26",
+		"last_update": "2026-03-26T16:11:51Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -28,7 +28,7 @@
 				"terminal_bench": 47.9,
 				"live_code_bench": 81,
 				"gpqa_diamond": 83,
-				"aime": 81.0,
+				"aime": 81,
 				"mmlu_pro": 88,
 				"humanity_last_exam": 22.2,
 				"lmarena_coding_elo": 1414,
@@ -79,7 +79,7 @@
 			},
 			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, now includes current Arena Coding Elo, and uses refreshed pricing/performance from current provider and benchmark tracking sources.",
 			"benchmark_scores": {
-				"swe_bench": 80.2,
+				"swe_bench": 75.8,
 				"terminal_bench": null,
 				"live_code_bench": null,
 				"gpqa_diamond": 85.2,
@@ -112,7 +112,8 @@
 				"livebench_if": null,
 				"bfcl": 76.8,
 				"livebench": 60.14,
-				"frontiermath": null
+				"frontiermath": null,
+				"arc_agi_2": 4.9
 			}
 		},
 		{
@@ -768,7 +769,7 @@
 			"editor_notes": "Significant upgrade over 4o with improved factual accuracy and reasoning. Leading in factual accuracy on SimpleQA during release.",
 			"benchmark_scores": {
 				"aime": 75,
-				"arc_agi_2": 7.5,
+				"arc_agi_2": 0.8,
 				"bfcl": 78.5,
 				"gpqa_diamond": 65,
 				"lmarena_en_elo": 1448,
@@ -1884,7 +1885,7 @@
 			"editor_notes": "Open-weights model with strong coding. Excellent LiveCodeBench performance. Free for self-hosting, competitive with closed models.",
 			"benchmark_scores": {
 				"aime": 20.6,
-				"arc_agi_2": 7.8,
+				"arc_agi_2": 0,
 				"bfcl": 77.6,
 				"frontiermath": null,
 				"gpqa_diamond": 67,
@@ -1949,7 +1950,7 @@
 			"editor_notes": "Blazing fast with 10M token context. Exceptional speed at 2600 tokens/s. Ideal for high-throughput applications.",
 			"benchmark_scores": {
 				"aime": 7.8,
-				"arc_agi_2": 5.2,
+				"arc_agi_2": 0,
 				"bfcl": 72.5,
 				"frontiermath": null,
 				"gpqa_diamond": 51.8,
@@ -2069,7 +2070,7 @@
 			"editor_notes": "Flagship open-source MoE model. Outperforms DeepSeek-R1 on 17/23 benchmarks. State-of-the-art reasoning among open models.",
 			"benchmark_scores": {
 				"aime": 86.7,
-				"arc_agi_2": 9.5,
+				"arc_agi_2": 1.3,
 				"bfcl": 82.5,
 				"frontiermath": 8.5,
 				"gpqa_diamond": 80.1,
@@ -2352,7 +2353,7 @@
 			"editor_notes": "Cost-efficient reasoning model optimized for STEM and coding. #1 in math/reasoning for its price tier. Features 'high' reasoning effort mode.",
 			"benchmark_scores": {
 				"aime": 87.3,
-				"arc_agi_2": 6,
+				"arc_agi_2": 3,
 				"bfcl": 98.7,
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
@@ -2717,12 +2718,12 @@
 			},
 			"editor_notes": "Latest thinking model from Moonshot AI with enhanced reasoning and multi-step tool use. Optimized for complex coding and math tasks.",
 			"benchmark_scores": {
-				"swe_bench": 76.8,
+				"swe_bench": 70.8,
 				"terminal_bench": 50.8,
 				"lmarena_coding_elo": 1513,
 				"live_code_bench": 85,
 				"gpqa_diamond": 87.6,
-				"arc_agi_2": null,
+				"arc_agi_2": 11.8,
 				"livebench": 69.07,
 				"humanity_last_exam": 30.1,
 				"lmarena_hard_elo": 1470,
@@ -2892,9 +2893,9 @@
 			"type": "proprietary",
 			"release_date": "2026-03-18",
 			"pricing": {
-				"input_per_1m": 1.0,
-				"output_per_1m": 3.0,
-				"average_per_1m": 2.0
+				"input_per_1m": 1,
+				"output_per_1m": 3,
+				"average_per_1m": 2
 			},
 			"performance": {
 				"output_speed_tps": 94.5,
@@ -2949,7 +2950,7 @@
 			"release_date": "2026-03-18",
 			"pricing": {
 				"input_per_1m": 0.4,
-				"output_per_1m": 2.0,
+				"output_per_1m": 2,
 				"average_per_1m": 1.2
 			},
 			"performance": {
