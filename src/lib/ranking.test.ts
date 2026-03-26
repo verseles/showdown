@@ -21,8 +21,6 @@ import {
 	buildSweBenchCalibration,
 	calibrateSweBenchProToVerified,
 	applySweBenchFamilyBridge,
-	MIN_SUPERIORITY_RATIO,
-	MAX_SUPERIORITY_RATIO,
 	DEFAULT_SUPERIORITY_RATIO
 } from './ranking.js';
 import type { Model, Category, Benchmark } from './types.js';
