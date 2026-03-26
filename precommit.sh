@@ -143,7 +143,7 @@ for (const model of models) {
 }
 
 // Validate imputed_metadata references valid benchmarks
-const validMethods = ['category_average', 'superior_of', 'cross_model_average', 'estimated', 'manual'];
+const validMethods = ['category_average', 'superior_of', 'inferior_of', 'benchmark_bridge', 'cross_model_average', 'estimated', 'manual'];
 for (const model of models) {
   if (model.imputed_metadata) {
     for (const benchId of Object.keys(model.imputed_metadata)) {

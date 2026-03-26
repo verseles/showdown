@@ -12,11 +12,15 @@ import {
 	formatPrice,
 	formatSpeed,
 	getUniqueProviders,
+	getCategoryBreakdown,
 	getPriceRange,
 	getSpeedRange,
 	imputeMissingScores,
 	calculateSuperiorityRatio,
 	getConfidenceLevel,
+	buildSweBenchCalibration,
+	calibrateSweBenchProToVerified,
+	applySweBenchFamilyBridge,
 	MIN_SUPERIORITY_RATIO,
 	MAX_SUPERIORITY_RATIO,
 	DEFAULT_SUPERIORITY_RATIO
@@ -1047,6 +1051,159 @@ describe('getConfidenceLevel', () => {
 		expect(getConfidenceLevel(6)).toBe('high');
 		expect(getConfidenceLevel(10)).toBe('high');
 		expect(getConfidenceLevel(20)).toBe('high');
+	});
+});
+
+// ============================================
+// SWE-Bench family bridge Tests
+// ============================================
+
+describe('SWE-Bench family bridge', () => {
+	function createModel(id: string, benchmark_scores: Record<string, number | null>): Model {
+		return {
+			...mockModel,
+			id,
+			name: id,
+			benchmark_scores
+		};
+	}
+
+	it('should build a monotonic calibration curve from dual-score anchors', () => {
+		const calibration = buildSweBenchCalibration([
+			createModel('low', { swe_bench: 62.5, swe_bench_pro: 21.4 }),
+			createModel('mid', { swe_bench: 71.2, swe_bench_pro: 27.7 }),
+			createModel('high', { swe_bench: 80.0, swe_bench_pro: 55.6 })
+		]);
+
+		expect(calibration.anchorsUsed).toBe(3);
+		expect(calibration.points[0]).toEqual({ pro: 0, verified: 0 });
+		expect(calibration.points.at(-1)).toEqual({ pro: 100, verified: 100 });
+		for (let i = 1; i < calibration.points.length; i++) {
+			expect(calibration.points[i].verified).toBeGreaterThanOrEqual(
+				calibration.points[i - 1].verified
+			);
+		}
+	});
+
+	it('should interpolate SWE-Bench Pro onto the Verified scale', () => {
+		const calibration = buildSweBenchCalibration([
+			createModel('low', { swe_bench: 60, swe_bench_pro: 20 }),
+			createModel('high', { swe_bench: 80, swe_bench_pro: 40 })
+		]);
+
+		expect(calibrateSweBenchProToVerified(30, calibration)).toBeCloseTo(70);
+	});
+
+	it('should overwrite a weaker fallback SWE-Bench score when Pro is available', () => {
+		const calibration = buildSweBenchCalibration([
+			createModel('low', { swe_bench: 60, swe_bench_pro: 20 }),
+			createModel('high', { swe_bench: 80, swe_bench_pro: 40 }),
+			createModel('top', { swe_bench: 90, swe_bench_pro: 50 })
+		]);
+
+		const original = createModel('pro-only', {
+			swe_bench: null,
+			swe_bench_pro: 40,
+			terminal_bench: 35
+		});
+
+		const imputed = {
+			...original,
+			benchmark_scores: {
+				...original.benchmark_scores,
+				swe_bench: 35
+			},
+			imputed_metadata: {
+				swe_bench: {
+					original_value: null,
+					imputed_value: 35,
+					method: 'category_average' as const,
+					imputed_date: '2026-03-26',
+					note: 'Fallback average',
+					confidence: 'low' as const,
+					benchmarks_used: 1
+				}
+			}
+		};
+
+		const bridged = applySweBenchFamilyBridge(original, imputed, calibration, '2026-03-26');
+
+		expect(bridged.benchmark_scores.swe_bench).toBeCloseTo(80);
+		expect(bridged.imputed_metadata?.swe_bench.method).toBe('benchmark_bridge');
+		expect(bridged.imputed_metadata?.swe_bench.original_value).toBeNull();
+	});
+
+	it('should blend Verified and calibrated Pro when both are present', () => {
+		const calibration = buildSweBenchCalibration([
+			createModel('low', { swe_bench: 60, swe_bench_pro: 20 }),
+			createModel('high', { swe_bench: 80, swe_bench_pro: 40 }),
+			createModel('top', { swe_bench: 90, swe_bench_pro: 50 })
+		]);
+
+		const original = createModel('both', {
+			swe_bench: 70,
+			swe_bench_pro: 40,
+			terminal_bench: 40
+		});
+
+		const bridged = applySweBenchFamilyBridge(original, original, calibration, '2026-03-26');
+
+		expect(bridged.benchmark_scores.swe_bench).toBeCloseTo(76.5);
+		expect(bridged.imputed_metadata?.swe_bench.method).toBe('benchmark_bridge');
+		expect(bridged.imputed_metadata?.swe_bench.original_value).toBe(70);
+	});
+
+	it('should ignore zero-weight raw benchmarks in coverage and breakdowns', () => {
+		const category: Category = {
+			id: 'coding',
+			name: 'Coding',
+			emoji: '💻',
+			weight: 1,
+			description: 'Coding tests',
+			benchmarks: [
+				{
+					id: 'swe_bench',
+					name: 'SWE-Bench Verified',
+					type: 'percentage',
+					weight: 0.6,
+					url: '',
+					description: ''
+				},
+				{
+					id: 'swe_bench_pro',
+					name: 'SWE-Bench Pro',
+					type: 'percentage',
+					weight: 0,
+					url: '',
+					description: ''
+				},
+				{
+					id: 'lmarena_coding_elo',
+					name: 'Arena Coding',
+					type: 'elo',
+					weight: 0.4,
+					url: '',
+					description: '',
+					elo_range: { min: 1000, max: 1500 }
+				}
+			]
+		};
+
+		const model = createModel('coverage-test', {
+			swe_bench: 80,
+			swe_bench_pro: null,
+			lmarena_coding_elo: 1250
+		});
+
+		const metrics = calculateModelMetrics(model, [category]);
+		const breakdown = getCategoryBreakdown(model, category);
+
+		expect(metrics.coverage).toBe(100);
+		expect(breakdown).toHaveLength(2);
+		expect(breakdown.map((item: (typeof breakdown)[number]) => item.benchmark.id)).toEqual([
+			'swe_bench',
+			'lmarena_coding_elo'
+		]);
 	});
 });
 

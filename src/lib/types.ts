@@ -17,12 +17,13 @@ export interface Performance {
 export type ImputationConfidence = 'low' | 'medium' | 'high';
 
 export interface ImputedMetadata {
-	original_value: null;
+	original_value: number | null;
 	imputed_value: number;
 	method:
 		| 'category_average'
 		| 'superior_of'
 		| 'inferior_of'
+		| 'benchmark_bridge'
 		| 'cross_model_average'
 		| 'estimated'
 		| 'manual';
@@ -48,6 +49,8 @@ export interface Model {
 	disabled?: boolean;
 	/** ID of the base model this is superior to (for thinking/enhanced variants) */
 	superior_of?: string;
+	/** ID of the enhanced model this base profile trails (data/documentation hint) */
+	inferior_of?: string;
 	/** Alternative names for this model (for benchmark matching) */
 	aka?: string[];
 	pricing: Pricing;

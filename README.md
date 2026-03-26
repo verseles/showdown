@@ -52,7 +52,7 @@ We aggregate scores from 20+ industry benchmarks, weighted by practical importan
 
 - Percentage benchmarks used directly
 - Elo scores normalized to 0-100
-- Missing data? We **estimate** using smart imputation (marked with \* in UI)
+- Missing data? We **estimate** using smart imputation and benchmark-family bridging (marked with \* in UI)
 - Final score = weighted average across categories
 
 ### Imputation Methods
@@ -62,6 +62,8 @@ When benchmark data is missing, we use two estimation methods:
 1. **Superior Model Imputation** (green \*): For "thinking" variants, we calculate their expected superiority over the base model using benchmarks where both have real data, then apply that ratio to missing benchmarks. More reliable since it's based on real performance differences.
 
 2. **Category Average** (yellow \*): Falls back to averaging other benchmarks in the same category. Less reliable but ensures all models can be compared.
+
+3. **Benchmark Family Bridge** (yellow \*): For benchmark transitions like SWE-Bench Verified to SWE-Bench Pro, we keep both raw values in the dataset but score a single calibrated family value so Pro can count more without double-counting or unfairly punishing models that only have one variant.
 
 > **Note:** Estimated values are clearly marked and should be replaced with real data when available. See [UPDATE.md](UPDATE.md#imputed-estimated-values) for details.
 
@@ -95,6 +97,7 @@ When benchmark data is missing, we use two estimation methods:
 Rankings aggregate data from trusted sources:
 
 - [SWE-Bench](https://swebench.com) - Real GitHub issue resolution
+- [Scale AI SWE-Bench Pro](https://labs.scale.com/leaderboard/swe_bench_pro_public) - Harder multi-language software engineering benchmark
 - [GPQA](https://github.com/idavidrein/gpqa) - PhD-level questions
 - [BFCL](https://gorilla.cs.berkeley.edu/leaderboard.html) - Function calling
 - [Arena](https://arena.ai) (formerly LMArena) - Human preferences

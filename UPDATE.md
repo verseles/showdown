@@ -339,9 +339,11 @@ Each model in `data/showdown.json` must follow this structure:
 **Coding (25% weight):**
 
 - `swe_bench` - SWE-Bench Verified (%)
+- `swe_bench_pro` - SWE-Bench Pro raw score (%) used to calibrate the SWE family score
 - `terminal_bench` - Terminal-Bench (%)
 - `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1500)
 - `live_code_bench` - LiveCodeBench (%)
+- `livebench_coding` - LiveBench Coding (%)
 
 **Reasoning (25% weight):**
 
@@ -401,6 +403,18 @@ When a benchmark score is missing (`null`):
 3. **Use that average** as an estimated value (normalized to 0-100 scale)
 4. **Store metadata** tracking that this value was estimated, not real
 
+### Benchmark Family Bridge
+
+Some benchmark families are in transition rather than simply missing. The current Coding category handles SWE-Bench this way:
+
+1. Keep **raw** `swe_bench` (Verified) and `swe_bench_pro` (Pro) values in `benchmark_scores`
+2. Use overlapping models that have both scores to build a monotonic Pro -> Verified calibration curve
+3. Score a single effective SWE family value under `swe_bench`
+4. When both raw values exist, blend them with **35% Verified / 65% calibrated Pro**
+5. When only Pro exists, calibrate Pro onto the Verified scale and use that family score
+
+This avoids double-counting Verified and Pro while still letting Pro count more when both are available.
+
 **Example:** If Claude Opus 4.5 Thinking is missing Terminal-Bench (Coding category):
 
 - Other Coding scores: SWE-Bench (80.9), LMArena Coding (87.4), LiveCodeBench (75.5)
@@ -436,6 +450,7 @@ In the UI:
 - **Asterisk (\*)** appears next to category scores with estimated values
 - **Yellow highlighting** in tooltips shows which specific benchmarks were estimated
 - **Hover text** explains the estimation method
+- **Benchmark bridge notes** explain when SWE-Bench Pro was blended or calibrated into the SWE family score
 
 ### Important: Replace Estimated Values When Real Data Becomes Available
 

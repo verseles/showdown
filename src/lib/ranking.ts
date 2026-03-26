@@ -59,10 +59,16 @@ export const VALID_IMPUTATION_METHODS = [
 	'category_average',
 	'superior_of',
 	'inferior_of',
+	'benchmark_bridge',
 	'cross_model_average',
 	'estimated',
 	'manual'
 ] as const;
+
+export const SWE_BENCH_BENCHMARK_ID = 'swe_bench';
+export const SWE_BENCH_PRO_BENCHMARK_ID = 'swe_bench_pro';
+export const SWE_BENCH_VERIFIED_BLEND_WEIGHT = 0.35;
+export const SWE_BENCH_PRO_BLEND_WEIGHT = 0.65;
 
 /**
  * Minimum superiority ratio (2% improvement minimum)
@@ -104,6 +110,150 @@ export function getConfidenceLevel(benchmarksUsed: number): ImputationConfidence
 	if (benchmarksUsed <= 2) return 'low';
 	if (benchmarksUsed <= 5) return 'medium';
 	return 'high';
+}
+
+export interface SweBenchCalibrationPoint {
+	pro: number;
+	verified: number;
+}
+
+export interface SweBenchCalibration {
+	anchorsUsed: number;
+	points: SweBenchCalibrationPoint[];
+}
+
+function clampPercentageScore(score: number): number {
+	return Math.max(0, Math.min(100, score));
+}
+
+function isScoredBenchmark(benchmark: Benchmark): boolean {
+	return benchmark.weight > 0;
+}
+
+export function buildSweBenchCalibration(models: Model[]): SweBenchCalibration {
+	const rawPairs: SweBenchCalibrationPoint[] = [];
+
+	for (const model of models) {
+		const verified = model.benchmark_scores[SWE_BENCH_BENCHMARK_ID];
+		const pro = model.benchmark_scores[SWE_BENCH_PRO_BENCHMARK_ID];
+
+		if (verified == null || pro == null) continue;
+
+		rawPairs.push({
+			pro: clampPercentageScore(pro),
+			verified: clampPercentageScore(verified)
+		});
+	}
+
+	rawPairs.sort((a, b) => a.pro - b.pro || a.verified - b.verified);
+
+	const points: SweBenchCalibrationPoint[] = [{ pro: 0, verified: 0 }];
+	for (const pair of rawPairs) {
+		const lastPoint = points[points.length - 1];
+		if (lastPoint && Math.abs(lastPoint.pro - pair.pro) < 0.001) {
+			lastPoint.verified = Math.max(lastPoint.verified, pair.verified);
+			continue;
+		}
+		points.push({ ...pair });
+	}
+	points.push({ pro: 100, verified: 100 });
+
+	let runningVerifiedMax = 0;
+	for (const point of points) {
+		runningVerifiedMax = Math.max(runningVerifiedMax, point.verified);
+		point.verified = runningVerifiedMax;
+	}
+
+	return {
+		anchorsUsed: rawPairs.length,
+		points
+	};
+}
+
+export function calibrateSweBenchProToVerified(
+	proScore: number,
+	calibration: SweBenchCalibration
+): number {
+	const safeProScore = clampPercentageScore(proScore);
+	const { points } = calibration;
+
+	if (points.length === 0) {
+		return safeProScore;
+	}
+
+	if (safeProScore <= points[0].pro) {
+		return clampPercentageScore(points[0].verified);
+	}
+
+	for (let i = 1; i < points.length; i++) {
+		const previous = points[i - 1];
+		const current = points[i];
+
+		if (safeProScore > current.pro) continue;
+
+		const range = current.pro - previous.pro;
+		if (range <= 0) {
+			return clampPercentageScore(current.verified);
+		}
+
+		const progress = (safeProScore - previous.pro) / range;
+		return clampPercentageScore(
+			previous.verified + (current.verified - previous.verified) * progress
+		);
+	}
+
+	return clampPercentageScore(points[points.length - 1].verified);
+}
+
+export function applySweBenchFamilyBridge(
+	originalModel: Model,
+	model: Model,
+	calibration: SweBenchCalibration,
+	todayDate?: string
+): Model {
+	const verified = originalModel.benchmark_scores[SWE_BENCH_BENCHMARK_ID];
+	const pro = originalModel.benchmark_scores[SWE_BENCH_PRO_BENCHMARK_ID];
+
+	if (pro == null) {
+		return model;
+	}
+
+	const calibratedPro = calibrateSweBenchProToVerified(pro, calibration);
+	const effectiveScore = clampPercentageScore(
+		verified == null
+			? calibratedPro
+			: verified * SWE_BENCH_VERIFIED_BLEND_WEIGHT + calibratedPro * SWE_BENCH_PRO_BLEND_WEIGHT
+	);
+
+	const today = todayDate ?? new Date().toISOString().slice(0, 10);
+	const anchorsUsed = calibration.anchorsUsed;
+	const anchorLabel = `${anchorsUsed} dual-score anchor${anchorsUsed === 1 ? '' : 's'}`;
+	const confidence = getConfidenceLevel(anchorsUsed);
+
+	const note =
+		verified == null
+			? `Derived SWE-Bench family score from SWE-Bench Pro (${pro.toFixed(1)} → ${calibratedPro.toFixed(1)} on the Verified scale) using ${anchorLabel}.`
+			: `Blended SWE-Bench Verified (${verified.toFixed(1)}) with SWE-Bench Pro (${pro.toFixed(1)} → ${calibratedPro.toFixed(1)} on the Verified scale) using ${Math.round(SWE_BENCH_VERIFIED_BLEND_WEIGHT * 100)}/${Math.round(SWE_BENCH_PRO_BLEND_WEIGHT * 100)} family weights and ${anchorLabel}.`;
+
+	return {
+		...model,
+		benchmark_scores: {
+			...model.benchmark_scores,
+			[SWE_BENCH_BENCHMARK_ID]: effectiveScore
+		},
+		imputed_metadata: {
+			...(model.imputed_metadata ?? {}),
+			[SWE_BENCH_BENCHMARK_ID]: {
+				original_value: verified ?? null,
+				imputed_value: effectiveScore,
+				method: 'benchmark_bridge',
+				imputed_date: today,
+				note,
+				confidence,
+				benchmarks_used: anchorsUsed
+			}
+		}
+	};
 }
 
 /**
@@ -405,6 +555,8 @@ export function imputeMissingScores(
 		const missingBenchmarks: Benchmark[] = [];
 
 		for (const benchmark of category.benchmarks) {
+			if (!isScoredBenchmark(benchmark)) continue;
+
 			// Only use values that are present in the original model OR imputed via superior_of
 			// We do NOT use values imputed via category_average in the same pass
 			const rawScore = imputedModel.benchmark_scores[benchmark.id];
@@ -430,7 +582,10 @@ export function imputeMissingScores(
 		if (missingBenchmarks.length === 0) continue;
 
 		// Count total benchmarks in category
-		const totalBenchmarks = category.benchmarks.length;
+		const totalBenchmarks = category.benchmarks.filter(isScoredBenchmark).length;
+		if (totalBenchmarks === 0) {
+			continue;
+		}
 
 		// Only impute if we have at least 50% (ceil) of benchmarks with values
 		const minRequired = Math.ceil(totalBenchmarks * MIN_IMPUTATION_COVERAGE);
@@ -621,7 +776,7 @@ export function getCategoryBreakdown(
 	rawScore: number | null;
 	normalizedScore: number | null;
 }[] {
-	return category.benchmarks.map((benchmark) => {
+	return category.benchmarks.filter(isScoredBenchmark).map((benchmark) => {
 		const rawScore = model.benchmark_scores[benchmark.id] ?? null;
 		const normalizedScore = getBenchmarkScore(model, benchmark);
 		return { benchmark, rawScore, normalizedScore };
@@ -700,9 +855,15 @@ export function calculateModelMetrics(
 		}
 
 		let categoryAvailable = 0;
-		const categoryTotal = category.benchmarks.length;
+		let categoryTotal = 0;
 
 		for (const benchmark of category.benchmarks) {
+			if (!isScoredBenchmark(benchmark)) {
+				continue;
+			}
+
+			categoryTotal++;
+
 			// Inlined getBenchmarkScore logic to avoid function call overhead and redundant lookup
 			const rawScore = model.benchmark_scores[benchmark.id];
 
@@ -788,6 +949,7 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 		modelMap.set(m.id, m);
 	}
 	const today = new Date().toISOString().slice(0, 10);
+	const sweBenchCalibration = buildSweBenchCalibration(models);
 
 	// Optimize: Combined filter and map into a single loop to avoid intermediate array allocation
 	const activeModels: Omit<RankedModel, 'rank'>[] = [];
@@ -806,14 +968,21 @@ export function rankModels(models: Model[], categories: Category[]): RankedModel
 			today
 		);
 
+		const resolvedModel = applySweBenchFamilyBridge(
+			model,
+			imputedModel,
+			sweBenchCalibration,
+			today
+		);
+
 		const {
 			scores: categoryScores,
 			coverage,
 			overallScore
-		} = calculateModelMetrics(imputedModel, categories, categoryWeights);
+		} = calculateModelMetrics(resolvedModel, categories, categoryWeights);
 
 		activeModels.push({
-			model: imputedModel,
+			model: resolvedModel,
 			overallScore,
 			categoryScores,
 			coverage
