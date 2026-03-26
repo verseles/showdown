@@ -329,10 +329,10 @@ Each model in `data/showdown.json` must follow this structure:
 
 ### Benchmark Score Ranges
 
-| Benchmark             | Type | Valid Range | Notes             |
-| --------------------- | ---- | ----------- | ----------------- |
-| Percentage benchmarks | %    | 0-100       | Direct percentage |
-| Elo benchmarks        | elo  | 1100-1550   | Higher is better  |
+| Benchmark             | Type | Valid Range  | Notes                                                                             |
+| --------------------- | ---- | ------------ | --------------------------------------------------------------------------------- |
+| Percentage benchmarks | %    | 0-100        | Direct percentage                                                                 |
+| Elo benchmarks        | elo  | per-category | Arena-based Elo ranges are recalibrated so the current leader sits at ~80% of max |
 
 #### All Benchmark IDs
 
@@ -341,7 +341,7 @@ Each model in `data/showdown.json` must follow this structure:
 - `swe_bench` - SWE-Bench Verified (%)
 - `swe_bench_pro` - SWE-Bench Pro raw score (%) used to calibrate the SWE family score
 - `terminal_bench` - Terminal-Bench (%)
-- `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1500)
+- `lmarena_coding_elo` - LMArena Coding (Elo: 1100-1668.75)
 - `live_code_bench` - LiveCodeBench (%)
 - `livebench_coding` - LiveBench Coding (%)
 
@@ -351,25 +351,25 @@ Each model in `data/showdown.json` must follow this structure:
 - `arc_agi_2` - ARC-AGI-2 (%)
 - `livebench` - LiveBench (%)
 - `humanity_last_exam` - HLE (%)
-- `lmarena_hard_elo` - LMArena Hard (Elo: 1100-1550)
+- `lmarena_hard_elo` - LMArena Hard (Elo: 1100-1602.5)
 
 **Agents & Tools (18% weight):**
 
 - `bfcl` - Berkeley Function Calling (%)
 - `tau_bench` - TAU-Bench (%)
 - `osworld` - OSWorld (%)
-- `webdev_arena_elo` - WebDev Arena (Elo: 1100-1450)
+- `webdev_arena_elo` - WebDev Arena (Elo: 1100-1665)
 
 **Conversation (12% weight):**
 
-- `lmarena_creative_elo` - LMArena Creative (Elo: 1100-1500)
-- `lmarena_if_elo` - LMArena Instruction Following (Elo: 1100-1500)
+- `lmarena_creative_elo` - LMArena Creative (Elo: 1100-1587.5)
+- `lmarena_if_elo` - LMArena Instruction Following (Elo: 1100-1610)
 
 **Math (10% weight):**
 
 - `math_500` - MATH-500 (%)
 - `aime` - AIME 2025 (%)
-- `lmarena_math_elo` - LMArena Math (Elo: 1100-1500)
+- `lmarena_math_elo` - LMArena Math (Elo: 1100-1625)
 - `frontiermath` - FrontierMath (%)
 
 **Multimodal (7% weight):**
@@ -377,14 +377,14 @@ Each model in `data/showdown.json` must follow this structure:
 - `mathvista` - MathVista (%)
 - `mmmu` - MMMU (%)
 - `mmmu_pro` - MMMU-Pro (%)
-- `lmarena_vision_elo` - LMArena Vision (Elo: 1100-1450)
+- `lmarena_vision_elo` - LMArena Vision (Elo: 1100-1556.25)
 
 **Knowledge (3% weight):**
 
 - `mmlu_pro` - MMLU-Pro (%)
 - `mmmlu` - MMMLU (%)
-- `lmarena_en_elo` - LMArena English (Elo: 1100-1500)
-- `lmarena_zh_elo` - LMArena Chinese (Elo: 1100-1450)
+- `lmarena_en_elo` - LMArena English (Elo: 1100-1618.75)
+- `lmarena_zh_elo` - LMArena Chinese (Elo: 1100-1671.25)
 
 ---
 

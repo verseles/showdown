@@ -3150,7 +3150,7 @@
 					"description": "Human preference votes on coding tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1668.75
 					}
 				},
 				{
@@ -3227,7 +3227,7 @@
 					"description": "Human preference on challenging reasoning tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1550
+						"max": 1602.5
 					}
 				}
 			]
@@ -3272,7 +3272,7 @@
 					"description": "Web development task completion",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1665
 					}
 				},
 				{
@@ -3309,7 +3309,7 @@
 					"description": "Human preference on creative writing tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1587.5
 					}
 				},
 				{
@@ -3321,7 +3321,7 @@
 					"description": "Human preference on instruction following tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1610
 					}
 				},
 				{
@@ -3366,7 +3366,7 @@
 					"description": "Human preference on math tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1625
 					}
 				},
 				{
@@ -3427,7 +3427,7 @@
 					"description": "Human preference on vision tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1450
+						"max": 1556.25
 					}
 				}
 			]
@@ -3472,7 +3472,7 @@
 					"description": "Human preference on English tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1618.75
 					}
 				},
 				{
@@ -3484,7 +3484,7 @@
 					"description": "Human preference on Chinese tasks",
 					"elo_range": {
 						"min": 1100,
-						"max": 1600
+						"max": 1671.25
 					}
 				},
 				{
