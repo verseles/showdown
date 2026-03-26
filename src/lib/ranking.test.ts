@@ -1277,8 +1277,8 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// 88/80 = 1.1, 66/60 = 1.1 => average = 1.1
-		expect(result.ratio).toBeCloseTo(1.1);
+		// Low-confidence variant inheritance shrinks the uplift aggressively.
+		expect(result.ratio).toBeCloseTo(1.021, 3);
 		expect(result.benchmarksUsed).toBe(2);
 	});
 
@@ -1296,8 +1296,7 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// (1.0 + 1.00625) / 2 = ~1.003 => clamped to MIN_SUPERIORITY_RATIO (1.02)
-		expect(result.ratio).toBe(MIN_SUPERIORITY_RATIO);
+		expect(result.ratio).toBeCloseTo(1.001, 3);
 		expect(result.benchmarksUsed).toBe(2);
 	});
 
@@ -1315,8 +1314,7 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// 75/50 = 1.5 => clamped to MAX_SUPERIORITY_RATIO (1.2)
-		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBeCloseTo(1.021, 3);
 		expect(result.benchmarksUsed).toBe(2);
 	});
 
@@ -1336,6 +1334,7 @@ describe('calculateSuperiorityRatio', () => {
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
 		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(0);
+		expect(result.canImpute).toBe(false);
 	});
 
 	it('should handle Elo benchmarks by normalizing before ratio', () => {
@@ -1352,8 +1351,7 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// 60/40 = 1.5 => clamped to MAX
-		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBeCloseTo(1.021, 3);
 		expect(result.benchmarksUsed).toBe(1);
 	});
 
@@ -1371,9 +1369,7 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// percent1: 72/80 = 0.9 (ignored), percent2: 84/70 = 1.2
-		// Only 84/70 = 1.2 is used => clamped to MAX (1.2)
-		expect(result.ratio).toBe(MAX_SUPERIORITY_RATIO);
+		expect(result.ratio).toBeCloseTo(1.021, 3);
 		expect(result.benchmarksUsed).toBe(1); // Only percent2 was used
 	});
 
@@ -1391,9 +1387,51 @@ describe('calculateSuperiorityRatio', () => {
 		};
 
 		const result = calculateSuperiorityRatio(superiorModel, baseModel, benchmarkMap);
-		// No valid comparisons => DEFAULT
 		expect(result.ratio).toBe(DEFAULT_SUPERIORITY_RATIO);
 		expect(result.benchmarksUsed).toBe(0);
+		expect(result.canImpute).toBe(false);
+	});
+
+	it('should damp successor generations more aggressively than variants', () => {
+		const glm46: Model = {
+			...mockModel,
+			id: 'glm-4-6',
+			name: 'GLM-4.6',
+			provider: 'Z.ai',
+			benchmark_scores: { percent1: 80, percent2: 70 }
+		};
+
+		const glm5: Model = {
+			...mockModel,
+			id: 'glm-5',
+			name: 'GLM-5',
+			provider: 'Z.ai',
+			benchmark_scores: { percent1: 90, percent2: 79 }
+		};
+
+		const variantBase: Model = {
+			...mockModel,
+			id: 'claude-base',
+			name: 'Claude Sonnet 4.6',
+			provider: 'Anthropic',
+			benchmark_scores: { percent1: 80, percent2: 70 }
+		};
+
+		const variantThinking: Model = {
+			...mockModel,
+			id: 'claude-thinking',
+			name: 'Claude Sonnet 4.6 Thinking',
+			provider: 'Anthropic',
+			benchmark_scores: { percent1: 90, percent2: 79 }
+		};
+
+		const successorResult = calculateSuperiorityRatio(glm5, glm46, benchmarkMap);
+		const variantResult = calculateSuperiorityRatio(variantThinking, variantBase, benchmarkMap);
+
+		expect(successorResult.relationship).toBe('successor');
+		expect(successorResult.ratio).toBeCloseTo(1.006, 3);
+		expect(variantResult.relationship).toBe('variant');
+		expect(variantResult.ratio).toBeGreaterThan(successorResult.ratio);
 	});
 });
 
@@ -1457,12 +1495,11 @@ describe('imputeMissingScores with superior_of', () => {
 
 		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
 
-		// Ratio: 88/80 = 1.1, imputed bench2 = 70 * 1.1 = 77
-		expect(imputed.benchmark_scores.bench2).toBeCloseTo(77);
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(71.47, 2);
 		expect(imputed.imputed_metadata).toBeDefined();
 		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
 		expect(imputed.imputed_metadata!.bench2.superior_of_model).toBe('base-model');
-		expect(imputed.imputed_metadata!.bench2.superiority_ratio).toBeCloseTo(1.1);
+		expect(imputed.imputed_metadata!.bench2.superiority_ratio).toBeCloseTo(1.021, 3);
 	});
 
 	it('should cap percentage values at 100', () => {
@@ -1508,10 +1545,6 @@ describe('imputeMissingScores with superior_of', () => {
 
 		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
 
-		// Ratio: 90/80 = 1.125
-		// Base Elo: 1490 (Range 1000-1500) -> Normalized: 98
-		// Imputed Norm: 98 * 1.125 = 110.25
-		// Denormalized > 1500 => capped at 1500
 		expect(imputed.benchmark_scores.elo_bench).toBe(1500);
 	});
 
@@ -1534,9 +1567,7 @@ describe('imputeMissingScores with superior_of', () => {
 		// Should use superior_of (method: 'superior_of'), not category_average
 		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
 
-		// If it had used category_average, it would be 88 (same as bench1)
-		// But with superior_of ratio 1.1, it should be 66
-		expect(imputed.benchmark_scores.bench2).toBeCloseTo(66);
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(61.26, 2);
 	});
 
 	it('should fall back to category_average when base model lacks data', () => {
@@ -1659,13 +1690,13 @@ describe('imputeMissingScores with superior_of', () => {
 		const metadata = imputed.imputed_metadata!.bench2;
 
 		expect(metadata.original_value).toBeNull();
-		expect(metadata.imputed_value).toBeCloseTo(77);
+		expect(metadata.imputed_value).toBeCloseTo(71.47, 2);
 		expect(metadata.method).toBe('superior_of');
 		expect(metadata.imputed_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
 		expect(metadata.note).toContain('Claude Base');
 		expect(metadata.note).toContain('ratio');
 		expect(metadata.superior_of_model).toBe('claude-base');
-		expect(metadata.superiority_ratio).toBeCloseTo(1.1);
+		expect(metadata.superiority_ratio).toBeCloseTo(1.021, 3);
 		expect(metadata.confidence).toBe('low'); // Only 1 shared benchmark
 		expect(metadata.benchmarks_used).toBe(1);
 	});
@@ -1746,14 +1777,69 @@ describe('imputeMissingScores with superior_of', () => {
 			[baseModel, thinkingModel, proModel]
 		);
 
-		// pro looks at thinking for bench2 -> null
-		// Cascades to base -> 70
-		// Ratio based on pro vs thinking: 92/88 = 1.045
-		// Imputed = 70 * 1.045 = ~73.2
-		expect(imputed.benchmark_scores.bench2).toBeCloseTo(73.2, 0);
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(71.11, 2);
 		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
 		expect(imputed.imputed_metadata!.bench2.superior_of_model).toBe('base-model');
 		expect(imputed.imputed_metadata!.bench2.note).toContain('via');
+	});
+
+	it('should not cascade successor generations through multiple releases', () => {
+		const bench3: Benchmark = {
+			id: 'bench3',
+			name: 'Benchmark 3',
+			type: 'percentage',
+			weight: 0.34,
+			url: '',
+			description: ''
+		};
+
+		const successorCategory: Category = {
+			id: 'successor',
+			name: 'Successor',
+			emoji: '🧪',
+			weight: 1,
+			description: 'Successor chain test',
+			benchmarks: [bench1, bench2, bench3]
+		};
+
+		const glm46: Model = {
+			...mockModel,
+			id: 'glm-4-6',
+			name: 'GLM-4.6',
+			provider: 'Z.ai',
+			benchmark_scores: { bench1: 70, bench2: 68, bench3: 66 }
+		};
+
+		const glm47: Model = {
+			...mockModel,
+			id: 'glm-4-7',
+			name: 'GLM-4.7',
+			provider: 'Z.ai',
+			superior_of: 'glm-4-6',
+			benchmark_scores: {
+				bench1: 75,
+				bench2: null as unknown as number,
+				bench3: null as unknown as number
+			}
+		};
+
+		const glm5: Model = {
+			...mockModel,
+			id: 'glm-5',
+			name: 'GLM-5',
+			provider: 'Z.ai',
+			superior_of: 'glm-4-7',
+			benchmark_scores: {
+				bench1: 80,
+				bench2: null as unknown as number,
+				bench3: null as unknown as number
+			}
+		};
+
+		const imputed = imputeMissingScores(glm5, [successorCategory], [glm46, glm47, glm5]);
+
+		expect(imputed.benchmark_scores.bench2).toBeNull();
+		expect(imputed.imputed_metadata?.bench2).toBeUndefined();
 	});
 
 	it('should not mutate original model when using superior_of', () => {
@@ -1800,9 +1886,7 @@ describe('imputeMissingScores with superior_of', () => {
 
 		const imputed = imputeMissingScores(thinkingModel, [testCategory], [baseModel, thinkingModel]);
 
-		// Should use superior_of (method: 'superior_of')
-		// Ratio 1.1. Base 70. Expect 77.
-		expect(imputed.benchmark_scores.bench2).toBeCloseTo(77);
+		expect(imputed.benchmark_scores.bench2).toBeCloseTo(71.47, 2);
 		expect(imputed.imputed_metadata!.bench2.method).toBe('superior_of');
 	});
 });
@@ -1865,9 +1949,6 @@ describe('rankModels with superior_of integration', () => {
 
 		const ranked = rankModels([baseModel, thinkingModel], categories);
 
-		// Thinking model should be ranked higher (imputed bench2 = 70 * 1.1 = 77)
-		// Thinking: (88 + 77) / 2 = 82.5 per category
-		// Base: (80 + 70) / 2 = 75 per category
 		expect(ranked[0].model.id).toBe('thinking-model');
 		expect(ranked[1].model.id).toBe('base-model');
 	});
@@ -1970,8 +2051,8 @@ describe('rankModels with disabled models', () => {
 
 		expect(ranked).toHaveLength(1);
 		expect(ranked[0].model.id).toBe('thinking-active');
-		expect(ranked[0].model.benchmark_scores.bench2).toBeCloseTo(77);
 		expect(ranked[0].model.imputed_metadata?.bench2?.method).toBe('superior_of');
+		expect(ranked[0].model.benchmark_scores.bench2).toBeCloseTo(71.47, 2);
 	});
 
 	it('should handle models with disabled: false as active', () => {
@@ -2093,16 +2174,10 @@ describe('imputeMissingScores with multi-level inferior_of', () => {
 
 		const allModels = [base, thinking, pro];
 
-		// Thinking is missing bench. Pro has bench=100.
-		// Thinking should impute from Pro (100 * 0.9 = 90).
-		// Currently fails because Thinking has superior_of: 'base', so Step 3 is skipped.
-
 		const imputedThinking = imputeMissingScores(thinking, [category], allModels);
 
-		// If fixed, this should be 90.
-		// If not fixed, this will be null (or fail assertion).
-		expect(imputedThinking.benchmark_scores.bench).toBeCloseTo(90);
-		expect(imputedThinking.imputed_metadata!.bench.method).toBe('inferior_of');
+		expect(imputedThinking.benchmark_scores.bench).toBeNull();
+		expect(imputedThinking.imputed_metadata?.bench).toBeUndefined();
 	});
 });
 
@@ -2188,7 +2263,7 @@ describe('imputeMissingScores - Missing Benchmark Keys in Inferior Model', () =>
 
 		const imputedBase = imputeMissingScores(mockModelBase, [category], allModels);
 
-		expect(imputedBase.benchmark_scores.bench2).toBeCloseTo(63);
+		expect(imputedBase.benchmark_scores.bench2).toBeCloseTo(68.56, 2);
 		expect(imputedBase.imputed_metadata?.bench2?.method).toBe('inferior_of');
 	});
 });

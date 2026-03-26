@@ -70,28 +70,35 @@ export const SWE_BENCH_PRO_BENCHMARK_ID = 'swe_bench_pro';
 export const SWE_BENCH_VERIFIED_BLEND_WEIGHT = 0.35;
 export const SWE_BENCH_PRO_BLEND_WEIGHT = 0.65;
 
-/**
- * Minimum superiority ratio (2% improvement minimum)
- */
-export const MIN_SUPERIORITY_RATIO = 1.02;
+export type ImputationRelationship = 'variant' | 'successor';
 
 /**
- * Maximum superiority ratio (10% improvement maximum)
- * Reduced from 1.20 to 1.10 to avoid artificially inflated imputed values
+ * Minimum superiority ratio.
+ * Kept at 1.0 so sparse inheritance can shrink all the way back to parity.
  */
-export const MAX_SUPERIORITY_RATIO = 1.1;
+export const MIN_SUPERIORITY_RATIO = 1.0;
 
 /**
- * Default superiority ratio when no shared benchmarks exist (5% improvement)
+ * Maximum superiority ratio.
+ * Kept conservative to avoid overestimating sparse successor families.
  */
-export const DEFAULT_SUPERIORITY_RATIO = 1.05;
+export const MAX_SUPERIORITY_RATIO = 1.06;
 
 /**
- * Ratio used when imputing BASE model scores from THINKING model values.
- * Base models without thinking are expected to perform ~10% worse.
- * Example: If thinking model has 78% on SWE-Bench, base gets 78 × 0.90 = 70.2%
+ * Default superiority ratio when inheritance is not allowed.
  */
-export const INFERIOR_OF_RATIO = 0.9;
+export const DEFAULT_SUPERIORITY_RATIO = 1.0;
+
+/**
+ * Relationship-aware shrinkage weights for inherited ratios.
+ * Successor generations are damped much more than same-generation variants.
+ */
+export const VARIANT_LOW_CONFIDENCE_SHRINK = 0.35;
+export const VARIANT_MEDIUM_CONFIDENCE_SHRINK = 0.7;
+export const VARIANT_HIGH_CONFIDENCE_SHRINK = 1.0;
+export const SUCCESSOR_LOW_CONFIDENCE_SHRINK = 0.1;
+export const SUCCESSOR_MEDIUM_CONFIDENCE_SHRINK = 0.35;
+export const SUCCESSOR_HIGH_CONFIDENCE_SHRINK = 0.6;
 
 /**
  * Maximum percentage for imputed values via superior_of method.
@@ -110,6 +117,54 @@ export function getConfidenceLevel(benchmarksUsed: number): ImputationConfidence
 	if (benchmarksUsed <= 2) return 'low';
 	if (benchmarksUsed <= 5) return 'medium';
 	return 'high';
+}
+
+function extractPrimaryVersionSignature(model: Model): string | null {
+	const versionMatch = model.name.match(/\d+(?:\.\d+)?/);
+	return versionMatch?.[0] ?? null;
+}
+
+function hasVariantNameHint(model: Model): boolean {
+	return /(thinking|reasoning|high|instant|preview|turbo|max|lite|flash|air|pro)/i.test(model.name);
+}
+
+export function getImputationRelationship(
+	superiorModel: Model,
+	inferiorModel: Model
+): ImputationRelationship {
+	const superiorVersion = extractPrimaryVersionSignature(superiorModel);
+	const inferiorVersion = extractPrimaryVersionSignature(inferiorModel);
+
+	if (superiorVersion && inferiorVersion) {
+		return superiorVersion === inferiorVersion ? 'variant' : 'successor';
+	}
+
+	if (hasVariantNameHint(superiorModel) || hasVariantNameHint(inferiorModel)) {
+		return 'variant';
+	}
+
+	return 'variant';
+}
+
+function getImputationShrinkage(
+	benchmarksUsed: number,
+	relationship: ImputationRelationship
+): number {
+	const confidence = getConfidenceLevel(benchmarksUsed);
+
+	if (relationship === 'successor') {
+		if (confidence === 'low') return SUCCESSOR_LOW_CONFIDENCE_SHRINK;
+		if (confidence === 'medium') return SUCCESSOR_MEDIUM_CONFIDENCE_SHRINK;
+		return SUCCESSOR_HIGH_CONFIDENCE_SHRINK;
+	}
+
+	if (confidence === 'low') return VARIANT_LOW_CONFIDENCE_SHRINK;
+	if (confidence === 'medium') return VARIANT_MEDIUM_CONFIDENCE_SHRINK;
+	return VARIANT_HIGH_CONFIDENCE_SHRINK;
+}
+
+function getAncestorCascadeDepth(relationship: ImputationRelationship): number {
+	return relationship === 'variant' ? 1 : 0;
 }
 
 export interface SweBenchCalibrationPoint {
@@ -282,6 +337,9 @@ export function denormalizeEloScore(normalized: number, min: number, max: number
 export interface SuperiorityResult {
 	ratio: number;
 	benchmarksUsed: number;
+	canImpute: boolean;
+	relationship: ImputationRelationship;
+	shrinkage: number;
 }
 
 /**
@@ -304,6 +362,7 @@ export function calculateSuperiorityRatio(
 	inferiorModel: Model,
 	benchmarkById: Map<string, { benchmark: Benchmark; category: Category }>
 ): SuperiorityResult {
+	const relationship = getImputationRelationship(superiorModel, inferiorModel);
 	let sumRatio = 0;
 	let count = 0;
 
@@ -347,9 +406,15 @@ export function calculateSuperiorityRatio(
 		}
 	}
 
-	// If no shared benchmarks, use default ratio
+	// If there is no real overlap, skip family inheritance rather than guessing.
 	if (count === 0) {
-		return { ratio: DEFAULT_SUPERIORITY_RATIO, benchmarksUsed: 0 };
+		return {
+			ratio: DEFAULT_SUPERIORITY_RATIO,
+			benchmarksUsed: 0,
+			canImpute: false,
+			relationship,
+			shrinkage: 0
+		};
 	}
 
 	// Calculate average ratio
@@ -357,8 +422,16 @@ export function calculateSuperiorityRatio(
 
 	// Clamp to [MIN, MAX]
 	const clampedRatio = Math.min(MAX_SUPERIORITY_RATIO, Math.max(MIN_SUPERIORITY_RATIO, avgRatio));
+	const shrinkage = getImputationShrinkage(count, relationship);
+	const dampedRatio = 1 + (clampedRatio - 1) * shrinkage;
 
-	return { ratio: clampedRatio, benchmarksUsed: count };
+	return {
+		ratio: dampedRatio,
+		benchmarksUsed: count,
+		canImpute: true,
+		relationship,
+		shrinkage
+	};
 }
 
 /**
@@ -469,79 +542,79 @@ export function imputeMissingScores(
 	if (model.superior_of && getAllModelsSize() > 0) {
 		const inferiorModel = getModelById(model.superior_of);
 		if (inferiorModel) {
-			const { ratio, benchmarksUsed } = calculateSuperiorityRatio(
-				model,
-				inferiorModel,
-				benchmarkById
-			);
+			const { ratio, benchmarksUsed, canImpute, relationship, shrinkage } =
+				calculateSuperiorityRatio(model, inferiorModel, benchmarkById);
 			const confidence = getConfidenceLevel(benchmarksUsed);
 
-			// Find missing benchmarks
-			for (const benchmarkId of benchmarkById.keys()) {
-				const score = model.benchmark_scores[benchmarkId];
-				if (score != null) continue; // Skip non-null values
+			if (!canImpute) {
+				// Prefer null to aggressive family inheritance when there is no real overlap.
+			} else {
+				// Find missing benchmarks
+				for (const benchmarkId of benchmarkById.keys()) {
+					const score = model.benchmark_scores[benchmarkId];
+					if (score != null) continue; // Skip non-null values
 
-				// Try direct inferior first, then cascade up the chain
-				let sourceModel = inferiorModel;
-				let sourceValue = inferiorModel.benchmark_scores[benchmarkId];
+					// Try direct inferior first, then a limited cascade for same-generation variants.
+					let sourceModel = inferiorModel;
+					let sourceValue = inferiorModel.benchmark_scores[benchmarkId];
 
-				if (sourceValue == null) {
-					// Cascade: look up the chain for an ancestor with this value
-					const ancestor = findAncestorWithValue(benchmarkId, inferiorModel.superior_of, 4);
-					if (ancestor) {
-						sourceModel = ancestor.model;
-						sourceValue = ancestor.value;
+					if (sourceValue == null) {
+						const cascadeDepth = getAncestorCascadeDepth(relationship);
+						if (cascadeDepth > 0) {
+							const ancestor = findAncestorWithValue(
+								benchmarkId,
+								inferiorModel.superior_of,
+								cascadeDepth
+							);
+							if (ancestor) {
+								sourceModel = ancestor.model;
+								sourceValue = ancestor.value;
+							}
+						}
 					}
-				}
 
-				if (sourceValue == null) continue; // No ancestor has it either
+					if (sourceValue == null) continue;
 
-				const benchmarkInfo = benchmarkById.get(benchmarkId);
-				if (!benchmarkInfo) continue;
+					const benchmarkInfo = benchmarkById.get(benchmarkId);
+					if (!benchmarkInfo) continue;
 
-				const { benchmark } = benchmarkInfo;
+					const { benchmark } = benchmarkInfo;
 
-				// Calculate imputed value using superiority ratio
-				let imputedValue: number;
+					let imputedValue: number;
 
-				if (benchmark.type === 'elo' && benchmark.elo_range) {
-					// For Elo scores, apply ratio to the NORMALIZED score
-					const { min, max } = benchmark.elo_range;
-					const normalizedSource = normalizeEloScore(sourceValue, min, max);
-					const normalizedImputed = normalizedSource * ratio;
+					if (benchmark.type === 'elo' && benchmark.elo_range) {
+						const { min, max } = benchmark.elo_range;
+						const normalizedSource = normalizeEloScore(sourceValue, min, max);
+						const normalizedImputed = normalizedSource * ratio;
 
-					// Denormalize back to Elo scale
-					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
-					imputedValue = Math.min(max, imputedValue);
-				} else {
-					imputedValue = sourceValue * ratio;
+						imputedValue = denormalizeEloScore(normalizedImputed, min, max);
+						imputedValue = Math.min(max, imputedValue);
+					} else {
+						imputedValue = sourceValue * ratio;
 
-					// Limit to maximum possible value
-					// For percentage benchmarks, cap at MAX_IMPUTED_PERCENTAGE (95%) to avoid
-					// artificially perfect scores from imputation
-					if (benchmark.type === 'percentage') {
-						imputedValue = Math.min(MAX_IMPUTED_PERCENTAGE, imputedValue);
+						if (benchmark.type === 'percentage') {
+							imputedValue = Math.min(MAX_IMPUTED_PERCENTAGE, imputedValue);
+						}
 					}
+
+					imputedModel.benchmark_scores[benchmarkId] = imputedValue;
+
+					const cascadeNote =
+						sourceModel.id !== inferiorModel.id ? ` (via ${sourceModel.name})` : '';
+					const relationLabel = relationship === 'variant' ? 'variant' : 'successor';
+
+					imputedModel.imputed_metadata![benchmarkId] = {
+						original_value: null,
+						imputed_value: imputedValue,
+						method: 'superior_of',
+						imputed_date: today,
+						note: `Estimated as a conservative ${relationLabel} uplift over ${sourceModel.name}${cascadeNote} (ratio: ${ratio.toFixed(3)}, shrinkage: ${shrinkage.toFixed(2)}, base: ${sourceValue.toFixed(1)})`,
+						superior_of_model: sourceModel.id,
+						superiority_ratio: ratio,
+						confidence,
+						benchmarks_used: benchmarksUsed
+					};
 				}
-
-				// Update the benchmark score
-				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
-
-				// Note which model was the source
-				const cascadeNote = sourceModel.id !== inferiorModel.id ? ` (via ${sourceModel.name})` : '';
-
-				// Store metadata about the imputation
-				imputedModel.imputed_metadata![benchmarkId] = {
-					original_value: null,
-					imputed_value: imputedValue,
-					method: 'superior_of',
-					imputed_date: today,
-					note: `Estimated as superior to ${sourceModel.name}${cascadeNote} (ratio: ${ratio.toFixed(3)}, base: ${sourceValue.toFixed(1)})`,
-					superior_of_model: sourceModel.id,
-					superiority_ratio: ratio,
-					confidence,
-					benchmarks_used: benchmarksUsed
-				};
 			}
 		}
 	}
@@ -627,8 +700,8 @@ export function imputeMissingScores(
 		}
 	}
 
-	// STEP 3: inferior_of - Impute BASE model scores from THINKING (superior) models
-	// If this model is referenced as superior_of by another model, use that model's values × INFERIOR_OF_RATIO
+	// STEP 3: inferior_of - Impute BASE model scores from superior models
+	// Uses the inverse of the conservative superiority ratio when there is real overlap.
 	if (getAllModelsSize() > 0) {
 		let superiorModelRaw: Model | undefined;
 		if (baseToThinkingMap) {
@@ -651,6 +724,18 @@ export function imputeMissingScores(
 				today
 			);
 
+			const superiority = calculateSuperiorityRatio(superiorModelRaw, model, benchmarkById);
+			if (!superiority.canImpute) {
+				if (imputationCache) {
+					imputationCache.set(model.id, imputedModel);
+				}
+				return imputedModel;
+			}
+
+			const reverseRatio = superiority.ratio <= 0 ? 1 : 1 / superiority.ratio;
+			const inferiorConfidence = getConfidenceLevel(superiority.benchmarksUsed);
+			const relationLabel = superiority.relationship === 'variant' ? 'variant' : 'successor';
+
 			for (const benchmarkId of benchmarkById.keys()) {
 				const superiorValue = superiorModel.benchmark_scores[benchmarkId];
 				const score = imputedModel.benchmark_scores[benchmarkId];
@@ -665,16 +750,14 @@ export function imputeMissingScores(
 				let imputedValue: number;
 
 				if (benchmark.type === 'elo' && benchmark.elo_range) {
-					// For Elo scores, apply ratio to the NORMALIZED score
 					const { min, max } = benchmark.elo_range;
 					const normalizedSuperior = normalizeEloScore(superiorValue, min, max);
-					const normalizedImputed = normalizedSuperior * INFERIOR_OF_RATIO;
+					const normalizedImputed = normalizedSuperior * reverseRatio;
 
-					// Denormalize back to Elo scale
 					imputedValue = denormalizeEloScore(normalizedImputed, min, max);
 					imputedValue = Math.max(min, imputedValue);
 				} else {
-					imputedValue = superiorValue * INFERIOR_OF_RATIO;
+					imputedValue = superiorValue * reverseRatio;
 				}
 
 				imputedModel.benchmark_scores[benchmarkId] = imputedValue;
@@ -684,9 +767,9 @@ export function imputeMissingScores(
 					imputed_value: imputedValue,
 					method: 'inferior_of',
 					imputed_date: today,
-					note: `Estimated as base of ${superiorModel.name} (${superiorValue.toFixed(1)} × ${INFERIOR_OF_RATIO})`,
-					confidence: 'medium',
-					benchmarks_used: 1
+					note: `Estimated as a conservative ${relationLabel} fallback from ${superiorModel.name} (ratio: ${reverseRatio.toFixed(3)}, shared benchmarks: ${superiority.benchmarksUsed})`,
+					confidence: inferiorConfidence,
+					benchmarks_used: superiority.benchmarksUsed
 				};
 			}
 		}
