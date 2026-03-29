@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.26",
-		"last_update": "2026-03-28T16:03:28Z",
+		"version": "2026.03.29",
+		"last_update": "2026-03-29T06:28:48Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -122,13 +122,7 @@
 		{
 			"id": "claude-opus-4-6-20260205",
 			"name": "Claude Opus 4.6",
-			"aka": [
-				"claude-opus-4-6",
-				"claude-opus-4.6",
-				"claude-4.6-opus",
-				"opus-4.6",
-				"claude-opus-4-6-base"
-			],
+			"aka": ["claude-opus-4-6", "claude-opus-4.6", "claude-4.6-opus", "opus-4.6"],
 			"inferior_of": "claude-opus-4-6-20260205-thinking-32k",
 			"provider": "Anthropic",
 			"type": "proprietary",
@@ -460,7 +454,7 @@
 			},
 			"editor_notes": "High-effort adaptive thinking profile for Claude Sonnet 4.6 with benchmark values populated from Anthropic's official system card (single-source fallback where independent mirrors are unavailable).",
 			"benchmark_scores": {
-				"aime": 95.6,
+				"aime": 91.2,
 				"arc_agi_2": 60.4,
 				"bfcl": null,
 				"frontiermath": null,
@@ -1641,11 +1635,11 @@
 			"aka": ["deepseek-v3-2", "deepseek-v32", "deepseek-v3.2-base"],
 			"provider": "DeepSeek",
 			"type": "open-source",
-			"release_date": "2025-12-01",
+			"release_date": "2025-09-01",
 			"pricing": {
-				"input_per_1m": 0.27,
-				"output_per_1m": 1.1,
-				"average_per_1m": 0.69
+				"input_per_1m": 0.28,
+				"output_per_1m": 0.42,
+				"average_per_1m": 0.35
 			},
 			"performance": {
 				"output_speed_tps": 120,
@@ -1654,7 +1648,7 @@
 			},
 			"editor_notes": "Outstanding value as open-source model. V3.2 improves reasoning and tool use. Strong coding performance at fraction of proprietary model costs.",
 			"benchmark_scores": {
-				"aime": 49.8,
+				"aime": 87.2,
 				"arc_agi_2": 8.5,
 				"bfcl": 80.5,
 				"frontiermath": 22.1,
@@ -1700,9 +1694,9 @@
 			"type": "open-source",
 			"release_date": "2025-12-01",
 			"pricing": {
-				"input_per_1m": 0.27,
-				"output_per_1m": 1.1,
-				"average_per_1m": 0.69
+				"input_per_1m": 0.28,
+				"output_per_1m": 0.42,
+				"average_per_1m": 0.35
 			},
 			"performance": {
 				"output_speed_tps": 60,
@@ -1807,21 +1801,21 @@
 		{
 			"id": "grok-4-20",
 			"name": "Grok 4.20",
-			"aka": ["grok-4.20"],
+			"aka": ["grok-4.20", "grok-4.20-0309-non-reasoning"],
 			"provider": "xAI",
 			"type": "proprietary",
-			"release_date": "2026-02-19",
+			"release_date": "2026-03-12",
 			"pricing": {
-				"input_per_1m": 3,
-				"output_per_1m": 15,
-				"average_per_1m": 9
+				"input_per_1m": 2,
+				"output_per_1m": 6,
+				"average_per_1m": 4
 			},
 			"performance": {
 				"output_speed_tps": 100,
 				"latency_ttft_ms": 800,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Newest Grok model release. Limited data available at launch.",
+			"editor_notes": "Repo-level alias for xAI's Grok 4.20 non-reasoning API checkpoint. Public benchmark coverage remains limited.",
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": null,
@@ -1864,21 +1858,21 @@
 		{
 			"id": "grok-4-20-thinking",
 			"name": "Grok 4.20 Thinking",
-			"aka": ["grok-4.20-thinking", "grok-4.20-heavy"],
+			"aka": ["grok-4.20-thinking", "grok-4.20-heavy", "grok-4.20-0309-reasoning"],
 			"provider": "xAI",
 			"type": "proprietary",
-			"release_date": "2026-02-19",
+			"release_date": "2026-03-12",
 			"pricing": {
-				"input_per_1m": 3,
-				"output_per_1m": 15,
-				"average_per_1m": 9
+				"input_per_1m": 2,
+				"output_per_1m": 6,
+				"average_per_1m": 4
 			},
 			"performance": {
 				"output_speed_tps": 100,
 				"latency_ttft_ms": 800,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Newest Grok model release. Added current Arena overall Elo while broader benchmark coverage remains limited.",
+			"editor_notes": "Repo-level alias for xAI's Grok 4.20 reasoning API checkpoint. Added current Arena overall Elo while broader benchmark coverage remains limited.",
 			"benchmark_scores": {
 				"aime": 100,
 				"arc_agi_2": null,
@@ -1921,21 +1915,21 @@
 		{
 			"id": "grok-4.1",
 			"name": "Grok 4.1",
-			"aka": ["grok-4-1", "grok4.1"],
+			"aka": ["grok-4-1", "grok4.1", "grok-4-1-fast-non-reasoning"],
 			"provider": "xAI",
 			"type": "proprietary",
-			"release_date": "2025-11-17",
+			"release_date": "2025-11-19",
 			"pricing": {
-				"input_per_1m": 3,
-				"output_per_1m": 15,
-				"average_per_1m": 9
+				"input_per_1m": 0.2,
+				"output_per_1m": 0.5,
+				"average_per_1m": 0.35
 			},
 			"performance": {
 				"output_speed_tps": 95,
 				"latency_ttft_ms": 850,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "xAI's flagship successor to Grok 4. #2 on LMArena Overall (1465 Elo). 3x reduction in hallucinations vs Grok 4. Excels at emotional intelligence and conversation.",
+			"editor_notes": "Repo-level alias for xAI's Grok 4.1 fast non-reasoning API checkpoint. Public Grok 4.1 benchmark disclosures still show strong conversation and general reasoning performance.",
 			"benchmark_scores": {
 				"aime": 84,
 				"arc_agi_2": 15.9,
@@ -1977,22 +1971,22 @@
 		{
 			"id": "grok-4.1-thinking",
 			"name": "Grok 4.1 Thinking",
-			"aka": ["grok-4.1-think", "grok-4-1-thinking", "grok4.1-thinking"],
+			"aka": ["grok-4.1-think", "grok-4-1-thinking", "grok4.1-thinking", "grok-4-1-fast-reasoning"],
 			"superior_of": "grok-4.1",
 			"provider": "xAI",
 			"type": "proprietary",
-			"release_date": "2025-11-17",
+			"release_date": "2025-11-19",
 			"pricing": {
-				"input_per_1m": 3,
-				"output_per_1m": 15,
-				"average_per_1m": 9
+				"input_per_1m": 0.2,
+				"output_per_1m": 0.5,
+				"average_per_1m": 0.35
 			},
 			"performance": {
 				"output_speed_tps": 45,
 				"latency_ttft_ms": 2200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Reasoning-focused Grok 4.1 profile with current LiveBench overall coverage added; family-level benchmark claims stay on the thinking variant when public sources do not split variants.",
+			"editor_notes": "Repo-level alias for xAI's Grok 4.1 fast reasoning API checkpoint. Family-level benchmark claims stay on the thinking variant when public sources do not split variants.",
 			"benchmark_scores": {
 				"aime": 84,
 				"arc_agi_2": 26,
@@ -2063,7 +2057,7 @@
 				"arc_agi_2": 7.8,
 				"bfcl": 77.6,
 				"frontiermath": null,
-				"gpqa_diamond": 67,
+				"gpqa_diamond": 69.8,
 				"humanity_last_exam": 20,
 				"live_code_bench": 43.4,
 				"livebench": null,
@@ -2076,12 +2070,12 @@
 				"lmarena_vision_elo": 1146,
 				"lmarena_zh_elo": 1310,
 				"math_500": 61.2,
-				"mathvista": 58.5,
-				"mmlu_pro": 62.9,
+				"mathvista": 73.7,
+				"mmlu_pro": 80.5,
 				"mmmlu": 78.5,
 				"simpleqa": 15,
-				"mmmu": 55.2,
-				"mmmu_pro": null,
+				"mmmu": 73.4,
+				"mmmu_pro": 59.6,
 				"osworld": 32.5,
 				"swe_bench": 58.5,
 				"tau_bench": 48.5,
@@ -2122,13 +2116,13 @@
 				"latency_ttft_ms": 120,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Blazing fast with 10M token context. Exceptional speed at 2600 tokens/s. Ideal for high-throughput applications.",
+			"editor_notes": "Blazing fast with a benchmark-verified 128K context window. Exceptional speed at 2600 tokens/s and well suited to high-throughput applications.",
 			"benchmark_scores": {
 				"aime": 7.8,
 				"arc_agi_2": 5.2,
 				"bfcl": 72.5,
 				"frontiermath": null,
-				"gpqa_diamond": 51.8,
+				"gpqa_diamond": 57.2,
 				"humanity_last_exam": null,
 				"live_code_bench": 35.5,
 				"livebench": null,
@@ -2141,12 +2135,12 @@
 				"lmarena_vision_elo": 1125,
 				"lmarena_zh_elo": 1305,
 				"math_500": 52.5,
-				"mathvista": 48.5,
-				"mmlu_pro": 58.2,
+				"mathvista": 70.7,
+				"mmlu_pro": 74.3,
 				"mmmlu": 72.5,
 				"simpleqa": 10,
-				"mmmu": 45.5,
-				"mmmu_pro": null,
+				"mmmu": 69.4,
+				"mmmu_pro": 52.2,
 				"osworld": 25.5,
 				"swe_bench": 42.5,
 				"tau_bench": 38.5,
@@ -2821,10 +2815,10 @@
 		{
 			"id": "kimi-k2.5-instant",
 			"name": "Kimi K2.5 Instant",
-			"aka": ["kimi-k2.5"],
+			"aka": ["kimi-k2.5", "kimi-k2.5-instant"],
 			"provider": "Moonshot AI",
 			"type": "open-source",
-			"release_date": "2026-02-10",
+			"release_date": "2026-01-27",
 			"pricing": {
 				"input_per_1m": 0.6,
 				"output_per_1m": 2.5,
@@ -2835,7 +2829,7 @@
 				"latency_ttft_ms": 650,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "High-speed version of Kimi K2.5, offering strong performance across general tasks with low latency.",
+			"editor_notes": "Instant mode of Kimi K2.5, optimized for low-latency responses while keeping the same base pricing tier.",
 			"benchmark_scores": {
 				"swe_bench": null,
 				"terminal_bench": null,
@@ -2881,7 +2875,7 @@
 			"superior_of": "kimi-k2.5-instant",
 			"provider": "Moonshot AI",
 			"type": "open-source",
-			"release_date": "2026-02-10",
+			"release_date": "2026-01-27",
 			"pricing": {
 				"input_per_1m": 0.6,
 				"output_per_1m": 2.5,
@@ -2892,7 +2886,7 @@
 				"latency_ttft_ms": 1800,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Latest thinking model from Moonshot AI with enhanced reasoning and multi-step tool use. Optimized for complex coding and math tasks.",
+			"editor_notes": "Thinking mode of Kimi K2.5 with enhanced reasoning and multi-step tool use for harder coding and math tasks.",
 			"benchmark_scores": {
 				"swe_bench": 70.8,
 				"terminal_bench": 50.8,
@@ -2937,7 +2931,7 @@
 			"aka": ["longcat-flash", "longcat-chat", "longcat-flashchat"],
 			"provider": "Meituan",
 			"type": "open-source",
-			"release_date": "2025-12-01",
+			"release_date": "2025-09-01",
 			"pricing": {
 				"input_per_1m": 0.15,
 				"output_per_1m": 0.75,
@@ -3171,63 +3165,6 @@
 				"livebench": null,
 				"frontiermath": null
 			}
-		},
-		{
-			"id": "kimi-k2-5",
-			"name": "Kimi K2.5 Thinking",
-			"provider": "Moonshot AI",
-			"type": "open-source",
-			"release_date": "2026-02-10",
-			"pricing": {
-				"input_per_1m": 0.6,
-				"output_per_1m": 2.5,
-				"average_per_1m": 1.55
-			},
-			"performance": {
-				"output_speed_tps": 85,
-				"latency_ttft_ms": 650,
-				"source": "https://artificialanalysis.ai"
-			},
-			"editor_notes": "Newer version of Kimi K2 with superior performance.",
-			"superior_of": "kimi-k2-0905-preview",
-			"benchmark_scores": {
-				"aime": null,
-				"arc_agi_2": null,
-				"bfcl": null,
-				"frontiermath": null,
-				"gpqa_diamond": null,
-				"humanity_last_exam": null,
-				"live_code_bench": null,
-				"livebench": null,
-				"livebench_agentic_coding": null,
-				"livebench_coding": null,
-				"livebench_data_analysis": null,
-				"livebench_if": null,
-				"livebench_language": null,
-				"livebench_math": null,
-				"livebench_reasoning": null,
-				"lmarena_coding_elo": null,
-				"lmarena_creative_elo": null,
-				"lmarena_en_elo": null,
-				"lmarena_hard_elo": null,
-				"lmarena_if_elo": null,
-				"lmarena_math_elo": null,
-				"lmarena_vision_elo": null,
-				"lmarena_zh_elo": null,
-				"math_500": null,
-				"mathvista": null,
-				"mmlu_pro": null,
-				"mmmlu": null,
-				"mmmu": null,
-				"mmmu_pro": null,
-				"osworld": null,
-				"simpleqa": null,
-				"swe_bench": null,
-				"tau_bench": null,
-				"terminal_bench": null,
-				"webdev_arena_elo": null
-			},
-			"aka": ["kimi-k2.5", "kimi-k2-5"]
 		},
 		{
 			"id": "minimax-m2-7",
