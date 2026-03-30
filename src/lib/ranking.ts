@@ -1280,34 +1280,43 @@ export function filterModels(
 		minReleaseDateString = new Date(cutoffTimestamp).toISOString().slice(0, 10);
 	}
 
-	return rankedModels.filter((ranked) => {
+	const filteredModels: RankedModel[] = [];
+
+	for (const ranked of rankedModels) {
 		const model = ranked.model;
 
 		// Search query filter
 		if (query) {
-			const matches =
-				model.name.toLowerCase().includes(query) ||
-				model.provider.toLowerCase().includes(query) ||
-				(model.aka?.some((alias) => alias.toLowerCase().includes(query)) ?? false);
+			let matches =
+				model.name.toLowerCase().includes(query) || model.provider.toLowerCase().includes(query);
 
-			if (!matches) return false;
+			if (!matches && model.aka) {
+				for (const alias of model.aka) {
+					if (alias.toLowerCase().includes(query)) {
+						matches = true;
+						break;
+					}
+				}
+			}
+
+			if (!matches) continue;
 		}
 
 		// Provider filter
 		if (providerSet) {
-			if (!providerSet.has(model.provider)) return false;
+			if (!providerSet.has(model.provider)) continue;
 		}
 
 		// Type filter
 		if (typeSet) {
-			if (!typeSet.has(model.type)) return false;
+			if (!typeSet.has(model.type)) continue;
 		}
 
 		// Price range filter
 		if (filters.priceRange) {
 			const [min, max] = filters.priceRange;
 			if (model.pricing.average_per_1m < min || model.pricing.average_per_1m > max) {
-				return false;
+				continue;
 			}
 		}
 
@@ -1315,22 +1324,24 @@ export function filterModels(
 		if (filters.speedRange) {
 			const [min, max] = filters.speedRange;
 			if (model.performance.output_speed_tps < min || model.performance.output_speed_tps > max) {
-				return false;
+				continue;
 			}
 		}
 
 		// Date range filter
 		if (minReleaseDateString !== null) {
-			if (model.release_date < minReleaseDateString) return false;
+			if (model.release_date < minReleaseDateString) continue;
 		}
 
 		// Favorites filter
 		if (filters.favoritesOnly && favoriteSet) {
-			if (!favoriteSet.has(model.id)) return false;
+			if (!favoriteSet.has(model.id)) continue;
 		}
 
-		return true;
-	});
+		filteredModels.push(ranked);
+	}
+
+	return filteredModels;
 }
 
 /**
