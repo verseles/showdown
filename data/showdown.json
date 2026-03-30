@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.03.29",
-		"last_update": "2026-03-29T06:28:48Z",
+		"last_update": "2026-03-30T15:42:18Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -231,13 +231,13 @@
 				"tau_bench": null,
 				"terminal_bench": 65.4,
 				"webdev_arena_elo": 1552,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 88.67,
+				"livebench_coding": 78.18,
+				"livebench_agentic_coding": 61.67,
+				"livebench_math": 89.32,
+				"livebench_data_analysis": 69.89,
+				"livebench_language": 83.27,
+				"livebench_if": 63.31
 			}
 		},
 		{
@@ -328,12 +328,12 @@
 			"benchmark_scores": {
 				"aime": 86.1,
 				"arc_agi_2": 37.6,
-				"bfcl": 80.9,
+				"bfcl": 77.47,
 				"frontiermath": 20.7,
 				"gpqa_diamond": 86,
 				"humanity_last_exam": 25.2,
 				"live_code_bench": 75.5,
-				"livebench": 75.61,
+				"livebench": 75.96,
 				"lmarena_coding_elo": 1538,
 				"lmarena_creative_elo": 1458,
 				"lmarena_en_elo": 1484,
@@ -352,14 +352,14 @@
 				"osworld": 66.3,
 				"swe_bench": 80.9,
 				"swe_bench_pro": 45.89,
-				"tau_bench": 93.6,
+				"tau_bench": 70.2,
 				"terminal_bench": 59.3,
 				"webdev_arena_elo": 1510,
 				"livebench_reasoning": 80.09,
 				"livebench_coding": 79.65,
 				"livebench_agentic_coding": 63.33,
 				"livebench_math": 90.39,
-				"livebench_data_analysis": 71.98,
+				"livebench_data_analysis": 74.44,
 				"livebench_language": 81.26,
 				"livebench_if": 62.55
 			}
@@ -482,13 +482,13 @@
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 84.77,
+				"livebench_coding": 79.27,
+				"livebench_agentic_coding": 60.0,
+				"livebench_math": 86.99,
+				"livebench_data_analysis": 77.95,
+				"livebench_language": 76.1,
+				"livebench_if": 63.22
 			}
 		},
 		{
@@ -584,7 +584,7 @@
 				"gpqa_diamond": 81.7,
 				"humanity_last_exam": 35,
 				"live_code_bench": 77.2,
-				"livebench": 70.31,
+				"livebench": 68.19,
 				"lmarena_coding_elo": 1524,
 				"lmarena_creative_elo": 1444,
 				"lmarena_en_elo": 1471,
@@ -610,7 +610,7 @@
 				"livebench_coding": 80.36,
 				"livebench_agentic_coding": 53.33,
 				"livebench_math": 79.31,
-				"livebench_data_analysis": 71.76,
+				"livebench_data_analysis": 56.97,
 				"livebench_language": 76.45,
 				"livebench_if": 53.35
 			},
@@ -650,7 +650,7 @@
 				"gpqa_diamond": 73.2,
 				"humanity_last_exam": null,
 				"live_code_bench": 68.2,
-				"livebench": null,
+				"livebench": 61.81,
 				"lmarena_coding_elo": 1504,
 				"lmarena_creative_elo": 1441,
 				"lmarena_en_elo": 1458,
@@ -671,13 +671,13 @@
 				"tau_bench": 62.8,
 				"terminal_bench": 54.2,
 				"webdev_arena_elo": 1386,
-				"livebench_reasoning": 40.89,
-				"livebench_coding": 76.07,
-				"livebench_agentic_coding": 53.33,
-				"livebench_math": 80.44,
-				"livebench_data_analysis": 66.95,
-				"livebench_language": 76.75,
-				"livebench_if": 25.92
+				"livebench_reasoning": 72.33,
+				"livebench_coding": 74.66,
+				"livebench_agentic_coding": 48.33,
+				"livebench_math": 73.19,
+				"livebench_data_analysis": 48.98,
+				"livebench_language": 72.76,
+				"livebench_if": 42.4
 			}
 		},
 		{
@@ -839,7 +839,7 @@
 				"gpqa_diamond": 88.1,
 				"humanity_last_exam": 26.5,
 				"live_code_bench": 78,
-				"livebench": 72.39,
+				"livebench": 72.04,
 				"lmarena_coding_elo": 1496,
 				"lmarena_creative_elo": 1438,
 				"lmarena_en_elo": 1468,
@@ -864,7 +864,7 @@
 				"livebench_coding": 72.49,
 				"livebench_agentic_coding": 53.33,
 				"livebench_math": 86.9,
-				"livebench_data_analysis": 72.07,
+				"livebench_data_analysis": 69.61,
 				"livebench_language": 79.26,
 				"livebench_if": 63.9
 			}
@@ -919,12 +919,12 @@
 			"benchmark_scores": {
 				"aime": 100,
 				"arc_agi_2": 43.3,
-				"bfcl": 88.5,
+				"bfcl": 45.27,
 				"frontiermath": 40.3,
 				"gpqa_diamond": 92.4,
 				"humanity_last_exam": 34.5,
 				"live_code_bench": 78.5,
-				"livebench": 74.07,
+				"livebench": 74.84,
 				"lmarena_coding_elo": 1499,
 				"lmarena_creative_elo": 1388,
 				"lmarena_en_elo": 1455,
@@ -943,14 +943,14 @@
 				"osworld": 58.5,
 				"swe_bench": 80,
 				"swe_bench_pro": 55.6,
-				"tau_bench": 98.7,
+				"tau_bench": 69.9,
 				"terminal_bench": 52.5,
 				"webdev_arena_elo": 1476,
 				"livebench_reasoning": 83.21,
 				"livebench_coding": 76.07,
 				"livebench_agentic_coding": 51.67,
 				"livebench_math": 93.17,
-				"livebench_data_analysis": 72.79,
+				"livebench_data_analysis": 78.16,
 				"livebench_language": 79.81,
 				"livebench_if": 61.77
 			}
@@ -1032,8 +1032,8 @@
 				"average_per_1m": 8.75
 			},
 			"performance": {
-				"output_speed_tps": 75.3,
-				"latency_ttft_ms": 187590,
+				"output_speed_tps": 73.3,
+				"latency_ttft_ms": 154880,
 				"source": "https://artificialanalysis.ai/models/gpt-5-4/providers"
 			},
 			"editor_notes": "OpenAI's March 2026 high-effort GPT-5.4 reasoning profile. This entry uses official GPT-5.4 API pricing because 'High' is an xhigh reasoning setting rather than a separate API SKU, and only directly verifiable public benchmark results are populated.",
@@ -1067,13 +1067,13 @@
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 88.12,
+				"livebench_coding": 77.54,
+				"livebench_agentic_coding": 70.0,
+				"livebench_math": 94.15,
+				"livebench_data_analysis": 79.31,
+				"livebench_language": 82.63,
+				"livebench_if": 70.22
 			}
 		},
 		{
@@ -1191,13 +1191,13 @@
 				"tau_bench": null,
 				"terminal_bench": 68.5,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 84.0,
+				"livebench_coding": 76.45,
+				"livebench_agentic_coding": 65.0,
+				"livebench_math": 91.04,
+				"livebench_data_analysis": 78.54,
+				"livebench_language": 85.38,
+				"livebench_if": 79.1
 			},
 			"superior_of": "gemini-3-1-pro-preview"
 		},
@@ -1479,7 +1479,7 @@
 			"benchmark_scores": {
 				"aime": null,
 				"arc_agi_2": null,
-				"bfcl": null,
+				"bfcl": 72.38,
 				"frontiermath": null,
 				"gpqa_diamond": 81,
 				"humanity_last_exam": 17.2,
@@ -1599,7 +1599,7 @@
 				"gpqa_diamond": 86,
 				"humanity_last_exam": 30.5,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 68.85,
 				"lmarena_coding_elo": null,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": null,
@@ -1620,13 +1620,13 @@
 				"tau_bench": 89.7,
 				"terminal_bench": 56.2,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 69.11,
+				"livebench_coding": 73.64,
+				"livebench_agentic_coding": 55.0,
+				"livebench_math": 83.46,
+				"livebench_data_analysis": 67.9,
+				"livebench_language": 77.53,
+				"livebench_if": 55.33
 			}
 		},
 		{
@@ -1712,7 +1712,7 @@
 				"gpqa_diamond": 80.1,
 				"humanity_last_exam": 15.9,
 				"live_code_bench": 74.8,
-				"livebench": 65.17,
+				"livebench": 62.2,
 				"lmarena_coding_elo": 1466,
 				"lmarena_creative_elo": 1405,
 				"lmarena_en_elo": 1442,
@@ -1735,9 +1735,9 @@
 				"webdev_arena_elo": 1290,
 				"livebench_reasoning": 77.17,
 				"livebench_coding": 64.62,
-				"livebench_agentic_coding": 40,
+				"livebench_agentic_coding": 40.0,
 				"livebench_math": 85.03,
-				"livebench_data_analysis": 70.8,
+				"livebench_data_analysis": 50.0,
 				"livebench_language": 70.41,
 				"livebench_if": 48.19
 			}
@@ -1881,7 +1881,7 @@
 				"gpqa_diamond": 87.5,
 				"humanity_last_exam": null,
 				"live_code_bench": null,
-				"livebench": null,
+				"livebench": 67.96,
 				"lmarena_coding_elo": null,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1493,
@@ -1902,13 +1902,13 @@
 				"tau_bench": null,
 				"terminal_bench": 40.5,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 75.28,
+				"livebench_coding": 66.09,
+				"livebench_agentic_coding": 43.33,
+				"livebench_math": 87.06,
+				"livebench_data_analysis": 62.86,
+				"livebench_language": 77.72,
+				"livebench_if": 63.39
 			},
 			"superior_of": "grok-4-20"
 		},
@@ -2205,7 +2205,7 @@
 				"mmmu": null,
 				"mmmu_pro": null,
 				"osworld": null,
-				"tau_bench": null,
+				"tau_bench": 68.4,
 				"webdev_arena_elo": null,
 				"livebench_reasoning": null,
 				"livebench_coding": null,
@@ -3180,8 +3180,8 @@
 				"average_per_1m": 0.75
 			},
 			"performance": {
-				"output_speed_tps": 53.6,
-				"latency_ttft_ms": 2810,
+				"output_speed_tps": 44.1,
+				"latency_ttft_ms": 2330,
 				"source": "https://artificialanalysis.ai/models/minimax-m2-7/providers"
 			},
 			"editor_notes": "MiniMax's March 2026 flagship reasoning release. This entry keeps only current pricing, performance, and Arena scores that could be verified conservatively from public sources.",
@@ -3210,15 +3210,15 @@
 				"osworld": null,
 				"tau_bench": null,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null,
+				"livebench_reasoning": 74.79,
+				"livebench_coding": 54.9,
+				"livebench_agentic_coding": 50.0,
+				"livebench_math": 80.54,
+				"livebench_data_analysis": 56.34,
+				"livebench_language": 66.78,
+				"livebench_if": 61.12,
 				"bfcl": null,
-				"livebench": null,
+				"livebench": 63.49,
 				"frontiermath": null
 			}
 		}
