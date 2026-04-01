@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.03.29",
-		"last_update": "2026-03-30T15:42:18Z",
+		"version": "2026.04.01",
+		"last_update": "2026-04-01T04:37:46Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -285,7 +285,7 @@
 				"mmmu_pro": 80.7,
 				"osworld": 61.4,
 				"swe_bench": 80.9,
-				"tau_bench": 64.2,
+				"tau_bench": 70.2,
 				"terminal_bench": 59.3,
 				"webdev_arena_elo": 1479,
 				"livebench_reasoning": 53.21,
@@ -484,7 +484,7 @@
 				"webdev_arena_elo": null,
 				"livebench_reasoning": 84.77,
 				"livebench_coding": 79.27,
-				"livebench_agentic_coding": 60.0,
+				"livebench_agentic_coding": 60,
 				"livebench_math": 86.99,
 				"livebench_data_analysis": 77.95,
 				"livebench_language": 76.1,
@@ -894,7 +894,8 @@
 				"lmarena_en_elo": 1441,
 				"lmarena_coding_elo": 1493,
 				"lmarena_hard_elo": 1466,
-				"lmarena_math_elo": 1446
+				"lmarena_math_elo": 1446,
+				"tau_bench": 69.9
 			}
 		},
 		{
@@ -1069,7 +1070,7 @@
 				"webdev_arena_elo": null,
 				"livebench_reasoning": 88.12,
 				"livebench_coding": 77.54,
-				"livebench_agentic_coding": 70.0,
+				"livebench_agentic_coding": 70,
 				"livebench_math": 94.15,
 				"livebench_data_analysis": 79.31,
 				"livebench_language": 82.63,
@@ -1191,9 +1192,9 @@
 				"tau_bench": null,
 				"terminal_bench": 68.5,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": 84.0,
+				"livebench_reasoning": 84,
 				"livebench_coding": 76.45,
-				"livebench_agentic_coding": 65.0,
+				"livebench_agentic_coding": 65,
 				"livebench_math": 91.04,
 				"livebench_data_analysis": 78.54,
 				"livebench_language": 85.38,
@@ -1622,7 +1623,7 @@
 				"webdev_arena_elo": null,
 				"livebench_reasoning": 69.11,
 				"livebench_coding": 73.64,
-				"livebench_agentic_coding": 55.0,
+				"livebench_agentic_coding": 55,
 				"livebench_math": 83.46,
 				"livebench_data_analysis": 67.9,
 				"livebench_language": 77.53,
@@ -1735,9 +1736,9 @@
 				"webdev_arena_elo": 1290,
 				"livebench_reasoning": 77.17,
 				"livebench_coding": 64.62,
-				"livebench_agentic_coding": 40.0,
+				"livebench_agentic_coding": 40,
 				"livebench_math": 85.03,
-				"livebench_data_analysis": 50.0,
+				"livebench_data_analysis": 50,
 				"livebench_language": 70.41,
 				"livebench_if": 48.19
 			}
@@ -3212,7 +3213,7 @@
 				"webdev_arena_elo": null,
 				"livebench_reasoning": 74.79,
 				"livebench_coding": 54.9,
-				"livebench_agentic_coding": 50.0,
+				"livebench_agentic_coding": 50,
 				"livebench_math": 80.54,
 				"livebench_data_analysis": 56.34,
 				"livebench_language": 66.78,
