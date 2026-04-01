@@ -1,7 +1,7 @@
 const fs = require('fs');
 const local = JSON.parse(fs.readFileSync('data/showdown.json'));
-let o3m = local.models.find(m => m.id === 'o3-mini-20250129');
-let dsr1 = local.models.find(m => m.id === 'deepseek-r1');
+let o3m = local.models.find((m) => m.id === 'o3-mini-20250129');
+let dsr1 = local.models.find((m) => m.id === 'deepseek-r1');
 
 let modified = false;
 
