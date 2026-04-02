@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.04.01",
-		"last_update": "2026-04-01T04:37:46Z",
+		"last_update": "2026-04-02T03:19:37Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -76,8 +76,8 @@
 				"average_per_1m": 0.75
 			},
 			"performance": {
-				"output_speed_tps": 39.3,
-				"latency_ttft_ms": 3080,
+				"output_speed_tps": 52.0,
+				"latency_ttft_ms": 2130,
 				"source": "https://artificialanalysis.ai/models/minimax-m2-5"
 			},
 			"editor_notes": "MiniMax's latest 229B MoE model focused on agentic coding. Officially reports 80.2% on SWE-Bench Verified, now includes current Arena Coding Elo, and uses refreshed pricing/performance from current provider and benchmark tracking sources.",
@@ -1594,7 +1594,7 @@
 			"editor_notes": "Z.ai's February 2026 open-weights flagship focused on long-horizon agent workflows. Added with official GLM-5 benchmark figures where available, plus Artificial Analysis pricing and speed data; remaining public leaderboard gaps stay null for now.",
 			"benchmark_scores": {
 				"aime": 92.7,
-				"arc_agi_2": null,
+				"arc_agi_2": 4.9,
 				"bfcl": null,
 				"frontiermath": null,
 				"gpqa_diamond": 86,
@@ -1876,7 +1876,7 @@
 			"editor_notes": "Repo-level alias for xAI's Grok 4.20 reasoning API checkpoint. Added current Arena overall Elo while broader benchmark coverage remains limited.",
 			"benchmark_scores": {
 				"aime": 100,
-				"arc_agi_2": null,
+				"arc_agi_2": 65.1,
 				"bfcl": null,
 				"frontiermath": null,
 				"gpqa_diamond": 87.5,
@@ -2523,7 +2523,7 @@
 			"editor_notes": "Cost-efficient reasoning model optimized for STEM and coding. #1 in math/reasoning for its price tier. Features 'high' reasoning effort mode.",
 			"benchmark_scores": {
 				"aime": 87.3,
-				"arc_agi_2": 6,
+				"arc_agi_2": 3.0,
 				"bfcl": 98.7,
 				"frontiermath": 9.2,
 				"gpqa_diamond": 79.7,
