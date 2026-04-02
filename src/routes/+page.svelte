@@ -331,7 +331,12 @@
 			const csvContent = [
 				headers.join(','),
 				...dataToExport.map((row) =>
-					headers.map((fieldName) => JSON.stringify(row[fieldName])).join(',')
+					headers
+						.map((fieldName) => {
+							const val = row[fieldName];
+							return val === null || val === undefined ? '' : JSON.stringify(val);
+						})
+						.join(',')
 				)
 			].join('\n');
 
