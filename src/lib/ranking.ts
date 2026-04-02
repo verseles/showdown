@@ -1365,6 +1365,7 @@ export function formatSpeed(tps: number): string {
 export function getUniqueProviders(models: Model[]): string[] {
 	const providers = new Set<string>();
 	for (const model of models) {
+		if (model.disabled) continue;
 		providers.add(model.provider);
 	}
 	return Array.from(providers).sort();
@@ -1378,10 +1379,12 @@ export function getPriceRange(models: Model[]): [number, number] {
 	let min = Infinity;
 	let max = -Infinity;
 	for (const model of models) {
+		if (model.disabled) continue;
 		const price = model.pricing.average_per_1m;
 		if (price < min) min = price;
 		if (price > max) max = price;
 	}
+	if (max === -Infinity) return [0, 0];
 	return [min, max];
 }
 
@@ -1393,9 +1396,11 @@ export function getSpeedRange(models: Model[]): [number, number] {
 	let min = Infinity;
 	let max = -Infinity;
 	for (const model of models) {
+		if (model.disabled) continue;
 		const speed = model.performance.output_speed_tps;
 		if (speed < min) min = speed;
 		if (speed > max) max = speed;
 	}
+	if (max === -Infinity) return [0, 0];
 	return [min, max];
 }
