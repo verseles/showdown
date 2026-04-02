@@ -948,6 +948,16 @@ describe('getUniqueProviders', () => {
 		const providers = getUniqueProviders(models);
 		expect(providers).toEqual(['Anthropic', 'OpenAI']);
 	});
+
+	it('should ignore disabled models', () => {
+		const models: Model[] = [
+			{ ...mockModel, provider: 'OpenAI' },
+			{ ...mockModel, provider: 'Anthropic', disabled: true },
+			{ ...mockModel, provider: 'Google' }
+		];
+		const providers = getUniqueProviders(models);
+		expect(providers).toEqual(['Google', 'OpenAI']);
+	});
 });
 
 describe('Benchmark Modernization 2025', () => {
@@ -2104,6 +2114,24 @@ describe('getPriceRange', () => {
 		const range = getPriceRange(models);
 		expect(range).toEqual([10, 10]);
 	});
+
+	it('should ignore disabled models', () => {
+		const models: Model[] = [
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 10 } },
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 2 }, disabled: true },
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 20 } }
+		];
+		const range = getPriceRange(models);
+		expect(range).toEqual([10, 20]);
+	});
+
+	it('should return [0, 0] if all models are disabled', () => {
+		const models: Model[] = [
+			{ ...mockModel, pricing: { ...mockModel.pricing, average_per_1m: 10 }, disabled: true }
+		];
+		const range = getPriceRange(models);
+		expect(range).toEqual([0, 0]);
+	});
 });
 
 describe('getSpeedRange', () => {
@@ -2128,6 +2156,32 @@ describe('getSpeedRange', () => {
 		];
 		const range = getSpeedRange(models);
 		expect(range).toEqual([100, 100]);
+	});
+
+	it('should ignore disabled models', () => {
+		const models: Model[] = [
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 100 } },
+			{
+				...mockModel,
+				performance: { ...mockModel.performance, output_speed_tps: 50 },
+				disabled: true
+			},
+			{ ...mockModel, performance: { ...mockModel.performance, output_speed_tps: 200 } }
+		];
+		const range = getSpeedRange(models);
+		expect(range).toEqual([100, 200]);
+	});
+
+	it('should return [0, 0] if all models are disabled', () => {
+		const models: Model[] = [
+			{
+				...mockModel,
+				performance: { ...mockModel.performance, output_speed_tps: 100 },
+				disabled: true
+			}
+		];
+		const range = getSpeedRange(models);
+		expect(range).toEqual([0, 0]);
 	});
 });
 
