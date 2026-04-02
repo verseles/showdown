@@ -17,7 +17,7 @@
 ### What It Does:
 
 - ✓ Installs dependencies
-- ✓ Runs linter (code quality)
+- ✓ Runs the exact CI lint gate: `npm run lint` (`prettier --check . && eslint .`)
 - ✓ Generates translation files
 - ✓ Performs TypeScript type checking
 - ✓ Builds the project
@@ -30,6 +30,13 @@
 - FIX all errors first
 - Run `./precommit.sh` again
 - Only proceed when ALL checks pass ✓
+
+### Lint Is A Required CI Gate
+
+- `npm run lint` must pass locally before every commit and push.
+- GitHub Actions runs the same command in the `Lint` step, so local success must match CI success.
+- Root-level scripts and utilities such as `*.cjs`, `*.js`, and `*.ts` are included by `eslint .`; do not assume only `src/` is linted.
+- If CI lint fails unexpectedly, run `npm ci && npm run lint` locally to reproduce the clean-runner environment.
 
 ---
 

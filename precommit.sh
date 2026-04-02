@@ -50,40 +50,45 @@ print_error() {
 }
 
 # Step 1: Install dependencies
-print_step "1/7" "Installing dependencies"
+print_step "1/8" "Installing dependencies"
 npm ci
 print_success "Dependencies installed"
 
 # Step 2: Auto-fix formatting
-print_step "2/7" "Fixing code formatting"
+print_step "2/8" "Fixing code formatting"
 npx prettier --write .
 print_success "Formatting fixed"
 
 # Step 3: Generate Paraglide files (i18n)
-print_step "3/7" "Generating Paraglide translation files"
+print_step "3/8" "Generating Paraglide translation files"
 npx @inlang/paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide
 print_success "Translation files generated"
 
-# Step 4: Type check
-print_step "4/7" "Running TypeScript type check"
+# Step 4: Lint
+print_step "4/8" "Running lint checks"
+npm run lint
+print_success "Lint passed"
+
+# Step 5: Type check
+print_step "5/8" "Running TypeScript type check"
 npm run check
 print_success "Type check passed"
 
-# Step 5: Build
-print_step "5/7" "Building project"
+# Step 6: Build
+print_step "6/8" "Building project"
 npm run build
 print_success "Build successful"
 
-# Step 6: Run tests (if configured)
-print_step "6/7" "Running tests"
+# Step 7: Run tests (if configured)
+print_step "7/8" "Running tests"
 if npm run test 2>/dev/null; then
     print_success "Tests passed"
 else
     echo -e "${CYAN}ℹ No tests configured or tests skipped${NC}"
 fi
 
-# Step 7: Validate JSON data
-print_step "7/7" "Validating JSON data"
+# Step 8: Validate JSON data
+print_step "8/8" "Validating JSON data"
 node -e "
 const data = require('./data/showdown.json');
 const models = data.models;
