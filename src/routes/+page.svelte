@@ -140,18 +140,14 @@
 	// Save favorites to localStorage (only after initialization)
 	$effect(() => {
 		if (isInitialized) {
-			untrack(() => {
-				localStorage.setItem('favorites', JSON.stringify(favorites));
-			});
+			localStorage.setItem('favorites', JSON.stringify(favorites));
 		}
 	});
 
 	// Save column visibility to localStorage (only after initialization)
 	$effect(() => {
 		if (isInitialized) {
-			untrack(() => {
-				localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
-			});
+			localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
 		}
 	});
 
