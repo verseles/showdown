@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { untrack } from 'svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import SimpleMultiSelect from '$lib/components/SimpleMultiSelect.svelte';
 	import RangeSlider from '$lib/components/RangeSlider.svelte';
 	import type { PageData } from './$types';
@@ -66,6 +68,8 @@
 	// Favorites state
 	let favorites = $state<string[]>([]);
 
+	let isUrlStateLoaded = $state(false);
+
 	// Column visibility state - Provider hidden by default
 	let visibleColumns = $state({
 		rank: true,
@@ -96,6 +100,50 @@
 
 	// Load favorites and column visibility from localStorage (only once on mount)
 	onMount(() => {
+		const searchParams = $page.url.searchParams;
+
+		if (searchParams.has('sortBy')) {
+			sortBy = searchParams.get('sortBy')!;
+		}
+		if (searchParams.has('sortOrder')) {
+			const order = searchParams.get('sortOrder');
+			if (order === 'asc' || order === 'desc') sortOrder = order;
+		}
+		if (searchParams.has('searchQuery')) {
+			filters.searchQuery = searchParams.get('searchQuery')!;
+		}
+		if (searchParams.has('providers')) {
+			filters.providers = searchParams.get('providers')!.split(',');
+		}
+		if (searchParams.has('types')) {
+			filters.types = searchParams.get('types')!.split(',');
+		}
+		if (searchParams.has('dateRange')) {
+			const dr = searchParams.get('dateRange');
+			if (dr === 'all' || dr === '30d' || dr === '90d' || dr === '180d') {
+				filters.dateRange = dr as 'all' | '30d' | '90d' | '180d';
+			}
+		}
+		if (searchParams.has('favoritesOnly')) {
+			filters.favoritesOnly = searchParams.get('favoritesOnly') === 'true';
+		}
+		if (searchParams.has('priceMin') && searchParams.has('priceMax')) {
+			const min = parseFloat(searchParams.get('priceMin')!);
+			const max = parseFloat(searchParams.get('priceMax')!);
+			if (!isNaN(min) && !isNaN(max)) {
+				filters.priceRange = [min, max];
+			}
+		}
+		if (searchParams.has('speedMin') && searchParams.has('speedMax')) {
+			const min = parseFloat(searchParams.get('speedMin')!);
+			const max = parseFloat(searchParams.get('speedMax')!);
+			if (!isNaN(min) && !isNaN(max)) {
+				filters.speedRange = [min, max];
+			}
+		}
+
+		isUrlStateLoaded = true;
+
 		const storedFavorites = localStorage.getItem('favorites');
 		if (storedFavorites) {
 			try {
@@ -149,6 +197,79 @@
 		if (isInitialized) {
 			localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
 		}
+	});
+
+	// Sync state back to URL
+	$effect(() => {
+		if (!isUrlStateLoaded) return;
+
+		// Access values here to track dependencies
+		const currentSortBy = sortBy;
+		const currentSortOrder = sortOrder;
+		const sq = filters.searchQuery;
+		const provs = filters.providers;
+		const typs = filters.types;
+		const dr = filters.dateRange;
+		const fo = filters.favoritesOnly;
+		const pRange = [...filters.priceRange];
+		const sRange = [...filters.speedRange];
+
+		// Use untrack so we don't accidentally subscribe to other things
+		untrack(() => {
+			// Using the built-in URLSearchParams, but casting as any or using window.URLSearchParams to avoid Svelte compiler warning
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity
+			const params = new URLSearchParams($page.url.searchParams.toString());
+
+			if (currentSortBy !== 'coding') params.set('sortBy', currentSortBy);
+			else params.delete('sortBy');
+
+			if (currentSortOrder !== 'desc') params.set('sortOrder', currentSortOrder);
+			else params.delete('sortOrder');
+
+			if (sq) params.set('searchQuery', sq);
+			else params.delete('searchQuery');
+
+			if (provs.length > 0) params.set('providers', provs.join(','));
+			else params.delete('providers');
+
+			if (typs.length > 0) params.set('types', typs.join(','));
+			else params.delete('types');
+
+			if (dr !== 'all') params.set('dateRange', dr);
+			else params.delete('dateRange');
+
+			if (fo) params.set('favoritesOnly', 'true');
+			else params.delete('favoritesOnly');
+
+			const initialPriceRange = getPriceRange(data.models);
+			if (pRange[0] !== initialPriceRange[0] || pRange[1] !== initialPriceRange[1]) {
+				params.set('priceMin', pRange[0].toString());
+				params.set('priceMax', pRange[1].toString());
+			} else {
+				params.delete('priceMin');
+				params.delete('priceMax');
+			}
+
+			const initialSpeedRange = getSpeedRange(data.models);
+			if (sRange[0] !== initialSpeedRange[0] || sRange[1] !== initialSpeedRange[1]) {
+				params.set('speedMin', sRange[0].toString());
+				params.set('speedMax', sRange[1].toString());
+			} else {
+				params.delete('speedMin');
+				params.delete('speedMax');
+			}
+
+			const query = params.toString();
+			const to = query ? `?${query}` : $page.url.pathname;
+
+			// Compare strings directly since URL objects can have empty search vs no search
+			const currentSearch =
+				$page.url.search === '' && query === '' ? true : $page.url.search === `?${query}`;
+
+			if (!currentSearch) {
+				goto(to, { replaceState: true, keepFocus: true, noScroll: true });
+			}
+		});
 	});
 
 	// Computed values

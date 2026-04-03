@@ -133,7 +133,7 @@ This document tracks the development progress of Showdown. Features are organize
 - [ ] Benchmark detail pages
 - [ ] Model detail pages with full history
 - [ ] Search functionality
-- [ ] URL-based filter state (shareable links)
+- [x] URL-based filter state (shareable links)
 - [ ] Export data (CSV, JSON)
 - [ ] API access for developers
 - [ ] Historical score tracking
