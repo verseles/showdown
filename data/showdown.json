@@ -920,7 +920,7 @@
 				"latency_ttft_ms": 1200,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "AKA GPT-5.2 Thinking (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 43.3% ARC-AGI-2 Verified. Achieves 80% on SWE-Bench and 55.6% on SWE-Bench Pro.",
+			"editor_notes": "AKA GPT-5.2 Thinking (high effort). Extended thinking variant with 100% on AIME 2025. Top reasoning performance with 43.3% ARC-AGI-2 Verified. Achieves 72.8% on SWE-Bench and 55.6% on SWE-Bench Pro.",
 			"benchmark_scores": {
 				"aime": 100,
 				"arc_agi_2": 43.3,
@@ -1343,7 +1343,7 @@
 				"latency_ttft_ms": 400,
 				"source": "https://artificialanalysis.ai"
 			},
-			"editor_notes": "Thinking mode of Gemini 3 Flash. Outperforms even Gemini 3 Pro on SWE-Bench (78%) at quarter the cost. Uses thinking_level parameter for controlled reasoning. #2 on LMArena Overall.",
+			"editor_notes": "Thinking mode of Gemini 3 Flash. Outperforms even Gemini 3 Pro on SWE-Bench (75.8%) at quarter the cost. Uses thinking_level parameter for controlled reasoning. #2 on LMArena Overall.",
 			"benchmark_scores": {
 				"aime": 95.2,
 				"arc_agi_2": 33.6,
