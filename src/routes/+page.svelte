@@ -453,7 +453,10 @@
 							const val = row[fieldName];
 							if (val === null || val === undefined) return '';
 							const str = String(val);
-							return str.includes(',') || str.includes('"') || str.includes('\n')
+							return str.includes(',') ||
+								str.includes('"') ||
+								str.includes('\n') ||
+								str.includes('\r')
 								? '"' + str.replace(/"/g, '""') + '"'
 								: str;
 						})
