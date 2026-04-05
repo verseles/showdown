@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.04.01",
-		"last_update": "2026-04-02T03:19:37Z",
+		"last_update": "2026-04-05T03:29:36Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -1308,7 +1308,7 @@
 				"mmmu": 81.2,
 				"mmmu_pro": 81.2,
 				"osworld": null,
-				"swe_bench": 78,
+				"swe_bench": null,
 				"tau_bench": 90.2,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1455,
@@ -2191,7 +2191,7 @@
 				"aime": null,
 				"mmlu_pro": null,
 				"humanity_last_exam": null,
-				"lmarena_coding_elo": 1386,
+				"lmarena_coding_elo": 1488,
 				"lmarena_creative_elo": null,
 				"lmarena_en_elo": 1452,
 				"lmarena_hard_elo": null,
@@ -3221,6 +3221,62 @@
 				"bfcl": null,
 				"livebench": 63.49,
 				"frontiermath": null
+			}
+		},
+		{
+			"id": "qwen3-6-plus",
+			"name": "Qwen 3.6 Plus",
+			"aka": ["qwen-3.6-plus", "qwen3.6-plus", "qwen3-6-plus"],
+			"provider": "Alibaba",
+			"type": "proprietary",
+			"release_date": "2026-04-02",
+			"pricing": {
+				"input_per_1m": 0.39,
+				"output_per_1m": 2.34,
+				"average_per_1m": 1.365
+			},
+			"performance": {
+				"output_speed_tps": 85.3,
+				"latency_ttft_ms": 2670,
+				"source": "https://artificialanalysis.ai/models/qwen3-5-397b-a17b"
+			},
+			"editor_notes": "Alibaba's April 2026 flagship API release, drastically enhancing agentic coding capabilities and multimodal perception. Pricing and latency fall back to Qwen 3.5 Plus until Artificial Analysis indexing catches up.",
+			"benchmark_scores": {
+				"swe_bench": 78.8,
+				"terminal_bench": 61.6,
+				"live_code_bench": 87.1,
+				"gpqa_diamond": 90.4,
+				"aime": null,
+				"mmlu_pro": 88.5,
+				"humanity_last_exam": 28.8,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmmlu": 89.5,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"tau_bench": 70.7,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null,
+				"bfcl": null,
+				"livebench": null,
+				"frontiermath": null,
+				"swe_bench_pro": 56.6
 			}
 		}
 	],
