@@ -451,7 +451,14 @@
 					headers
 						.map((fieldName) => {
 							const val = row[fieldName];
-							return val === null || val === undefined ? '' : JSON.stringify(val);
+							if (val === null || val === undefined) return '';
+							const str = String(val);
+							return str.includes(',') ||
+								str.includes('"') ||
+								str.includes('\n') ||
+								str.includes('\r')
+								? '"' + str.replace(/"/g, '""') + '"'
+								: str;
 						})
 						.join(',')
 				)
