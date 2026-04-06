@@ -21,8 +21,12 @@
 	});
 
 	// Calculate percentages for the UI
-	let minPercent = $derived(Math.max(0, Math.min(100, ((lowerValue - min) / (max - min)) * 100)));
-	let maxPercent = $derived(Math.max(0, Math.min(100, ((upperValue - min) / (max - min)) * 100)));
+	let minPercent = $derived(
+		max === min ? 0 : Math.max(0, Math.min(100, ((lowerValue - min) / (max - min)) * 100))
+	);
+	let maxPercent = $derived(
+		max === min ? 100 : Math.max(0, Math.min(100, ((upperValue - min) / (max - min)) * 100))
+	);
 </script>
 
 <div class="range-slider">
