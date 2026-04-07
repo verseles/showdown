@@ -1,0 +1,426 @@
+Title: Scale Labs Leaderboard: Humanity's Last Exam | Scale Labs
+
+URL Source: https://scale.com/leaderboard/humanitys_last_exam
+
+Markdown Content:
+# Scale Labs Leaderboard: Humanity's Last Exam | Scale Labs
+
+[![Image 1: Scale Labs](https://static.scale.com/uploads/6019a18f03a4ae003acb1113/logo-scale-labs.svg)](https://scale.com/)[[PAPERS]](https://scale.com/papers)[[BLOG]](https://scale.com/blog)[LEADERBOARDS][[SHOWDOWN]](https://scale.com/showdown)⌘K
+
+⌘K
+
+[Leaderboard](https://scale.com/leaderboard)
+
+Agentic
+
+Safety
+
+Frontier
+
+[SciPredict](https://scale.com/leaderboard/scipredict)
+
+[Humanity's Last Exam](https://scale.com/leaderboard/humanitys_last_exam)
+
+[Humanity's Last Exam (Text Only)](https://scale.com/leaderboard/humanitys_last_exam_text_only)
+
+[AudioMultiChallenge](https://scale.com/leaderboard/audiomc)
+
+[AudioMultiChallenge - Audio Output](https://scale.com/leaderboard/audiomc-audio)
+
+[AudioMultiChallenge - Text Output](https://scale.com/leaderboard/audiomc-text)
+
+[Professional Reasoning Benchmark - Finance](https://scale.com/leaderboard/prbench-finance)
+
+[Professional Reasoning Benchmark - Legal](https://scale.com/leaderboard/prbench-legal)
+
+[VisualToolBench (VTB)](https://scale.com/leaderboard/vtb)
+
+[MultiNRC](https://scale.com/leaderboard/multinrc)
+
+[MultiChallenge](https://scale.com/leaderboard/multichallenge)
+
+[EnigmaEval](https://scale.com/leaderboard/enigma_eval)
+
+[VISTA](https://scale.com/leaderboard/visual_language_understanding)
+
+[TutorBench](https://scale.com/leaderboard/tutorbench)
+
+Legacy
+
+2025 Scale AI. All rights reserved.
+
+[BACK](https://scale.com/leaderboard)
+
+# Humanity's Last Exam
+
+Challenging LLMs at the frontier of human knowledge
+
+**Update April 3, 2025**
+
+HLE has been finalized to 2,500 questions. The previous version of the leaderboard is now under the “Legacy” section and will be referred to as “HLE-preview”. All current model performance on this version of HLE is similar to the previous version.
+
+Changes
+
+*   We removed all errors correctly flagged as part of our community feedback [bug bounty](https://scale.com/blog/humanitys-last-exam-results)program. This program ended on March 21, 2025.
+
+*   Searchable questions were removed by the following procedure. A question is potentially searchable if a model with search tools answered correctly, but answered incorrectly without search. Each of these potentially searchable questions was then manually audited, removing any that were easily found via web search. We used GPT-4o mini/GPT-4o search and Perplexity Sonar models in this procedure.
+
+*   A backup pool of high quality questions was used to replace a portion of the questions removed.
+
+## Introduction
+
+AI capability is evaluated based on benchmarks, yet as their progress accelerates, benchmarks become quickly saturated, losing their utility as a measurement tool. Performing well on formerly frontier benchmarks such as [MMLU](https://arxiv.org/abs/2009.03300) and [GPQA](https://arxiv.org/abs/2311.12022) are no longer strong signals of progress as frontier models reach or exceed human level performance on them.
+
+In partnership with the [Center for AI Safety](https://www.safe.ai/), we address the problem of benchmark saturation by creating Humanity’s Last Exam (HLE):**2,500 of the toughest, subject-diverse, multi-modal questions designed to be the last academic exam of its kind for AI**. HLE is designed to test for both depth of reasoning (eg. world-class mathematical problems) and breadth of knowledge across its subject domains, providing a precise measurement of model capability. Current frontier models perform poorly on HLE with low accuracies, and systematically exhibit uncalibrated overconfidence in their answers.
+
+We **publicly release Humanity’s Last Exam** for the research community to better understand model capabilities. Evaluation is low-cost, as questions are precise and unambiguous with closed-ended answers provided – allowing for automatic evaluation. To combat the serious problem of training data contamination and benchmark hacking, we have an additional held-out private set of HLE questions to periodically measure overfitting to the public dataset. More research on overfitting can be found [here](https://scale.com/research/llm-performance-grade-school-arithmetic).
+
+High accuracy on HLE would demonstrate AI has achieved expert-level performance on closed-ended cutting-edge scientific knowledge, but it would not alone suggest autonomous research capabilities or “artificial general intelligence.”
+
+See the linked [full paper](https://arxiv.org/abs/2501.14249) and [dataset.](https://lastexam.ai/)
+
+## Methodology
+
+Leaderboard rankings are determined using **Rank (Upper Bound)**, which reflects a model’s statistical position based on confidence intervals. The ranking process follows these steps:
+
+1.   Count the number of models that are **statistically significantly better** than the target model.
+
+2.   Add **1** to this count to determine the model’s rank.
+
+A model is considered **statistically significantly better** than another if its **lower-bound score (95% confidence interval) is higher** than the other model’s **upper-bound score**.Models receive the **same rank** when the same number of models are statistically better than each of them. This approach groups models based on statistical significance rather than raw scores, ensuring rankings reflect meaningful performance differences.
+
+## Dataset Summary
+
+Humanity’s Last Exam includes questions across dozens of subjects across mathematics, humanities, and the natural sciences. We provide a high level visualization of the distribution of the benchmark categories – though there are many subjects within each summarized category.
+
+![Image 2: puzzle piece graphic of HLE areas of study](https://cdn.sanity.io/images/5uhyv5jy/production/f43f8f8af51005693e802e04fefb9b819c70fa11-2676x1166.png?w=1400&fit=crop&auto=format)
+The benchmark is multimodal, with 14% of questions requiring comprehending a diagram or figure to answer the question. In addition, 24% of the questions are multiple choice.
+
+## Dataset Design
+
+Humanity’s Last Exam is a collaborative effort with questions from nearly 1000 subject expert contributors, affiliated with over 500 institutions across 50 countries – composed mostly of professors, researchers, and graduate degree holders. Participants competed for a $500,000 USD prize pool – $5,000 USD for each of the top 50 questions and $500 USD for the next 500 questions, along with the opportunity for optional co-authorship if any question is accepted in the final dataset. This structure incentives top questions from subject experts all around the world. More details can be found in our original announcement: [https://scale.com/blog/humanitys-last-exam](https://scale.com/blog/humanitys-last-exam).
+
+![Image 3: Dataset creation pipeline for HLE](https://cdn.sanity.io/images/5uhyv5jy/production/7562725f47afbde71b4e480ed9d0da5ccc68b89d-2558x714.png?w=1400&fit=crop&auto=format)
+Submission: Submitted questions must stump several frontier LLMs for exact match questions, or allow only up to random chance across all LLMs for multiple choice questions to be considered for human review. This ensures the questions are of a necessary difficulty bar for the current generation of models, we further verify they are sufficiently difficult with human review. In total, we received over 70,000 submissions, with 13,000 passing this difficulty bar and forwarded to human review.
+
+Human Review: We train experts sourced from [Scale’s Outlier platform](https://scale.com/blog/new-era-outlier) to review questions. All of the human reviewers have a graduate degree in their field. Reviewers score questions against a standardized rubric, providing feedback to help question creators iterate questions. A primary round is used to shortlist the best questions. A secondary review with both organizers and expert reviewers approves or rejects questions from the final dataset – resulting in 2,700 public questions and an additional set of private questions of equal quality and difficulty. Subsequent community feedback and removal of searchable questions resulted in a finalized dataset of 2,500 questions.
+
+## Metrics
+
+We report both the accuracy on public questions of Humanity’s Last Exam and use the model’s own stated confidence to derive an [RMS calibration error](https://github.com/hendrycks/outlier-exposure/blob/master/utils/calibration_tools.py) using the implementation from [Hendrycks et al., 2022](https://arxiv.org/abs/2112.05135) with the default hyperparameters provided, reported in our paper for brevity. Models are ranked on the leaderboard using accuracy, however we want to emphasize calibration errors as an important metric in our paper.
+
+A well-calibrated model should exhibit an average confidence similar to its accuracy on a benchmark - eg. 50% accuracy paired with 50% confidence. As of our initial publication, we observe systematic high calibration errors (greater than 80%) paired with low accuracy (less than 10%), which indicates strong evidence for confabulation/hallucination in all measured models.
+
+Details on our evaluation methodology found below. At this time, we do not report any model performance metrics on the private held-out set.
+
+## Evaluation Methodology
+
+Evaluation is automatic. Each model on the leaderboard is evaluated on all public questions of Humanity’s Last Exam with temperature 0.0 when configurable or stated otherwise. Models are prompted to give a final answer and an estimation of confidence using the system prompts (or user prompt when not configurable), following the setup from [Wei et al., 2024](https://arxiv.org/abs/2411.04368).
+
+As HLE uses closed-form solutions, we use o3-mini-2025-01-31 as an automatic extractor and judge to compare the model response against the ground truth answer. We employ structured decoding to extract a JSON from the following prompt. We note small differences could arise from different judge models and prompts used on edge cases (eg. acceptable precision), hence we encourage the documentation of prompts and models used for evaluation on HLE. We document ours for this evaluation below.
+
+## Acknowledgements
+
+Humanity’s Last Exam was a global collaborative effort developed in partnership with the [Center for AI Safety](https://www.safe.ai/). We extend our deepest gratitude to all participating question contributors and expert reviewers involved in creating and refining the Humanity’s Last Exam dataset.
+
+Scale AI Team: Ziwen Han, Josephina Hu, † Hugh Zhang, Chen Bo Calvin Zhang, Mohamed Shaaban, John Ling, Sean Shi, Michael Choi, Anish Agrawal, Arnav Chopra, William Qian, Luis Esquivel, Caton Lu, Monica Mishra, Dean Lee, Summer Yue, Alexandr Wang
+
+## Performance Comparison
+
+1
+
+gpt-5.4-pro-2026-03-05
+
+NEW
+
+44.32±1.95 Calib Err:38
+
+2
+
+gemini-3-pro-preview
+
+37.52±1.90 Calib Err:57
+
+2
+
+gpt-5.4-2026-03-05 (xhigh thinking)
+
+NEW
+
+36.24±1.88 Calib Err:42
+
+2
+
+claude-opus-4-6-thinking-max
+
+34.44±1.86 Calib Err:46
+
+4
+
+gpt-5-pro-2025-10-06
+
+31.64±1.82 Calib Err:49
+
+6
+
+gpt-5.2-2025-12-11
+
+27.80±1.76 Calib Err:45
+
+6
+
+gpt-5-2025-08-07
+
+25.32±1.70 Calib Err:50
+
+6
+
+claude-opus-4-5-20251101-thinking
+
+25.20±1.70 Calib Err:55
+
+6
+
+kimi-k2.5
+
+24.37±1.81 Calib Err:67
+
+7
+
+gpt-5.1-thinking
+
+23.68±1.67 Calib Err:55
+
+9
+
+gemini-2.5-pro-preview-06-05
+
+21.64±1.61 Calib Err:72
+
+11
+
+o3 (high) (April 2025)
+
+20.32±1.58 Calib Err:34
+
+11
+
+gpt-5-mini-2025-08-07
+
+19.44±1.55 Calib Err:65
+
+11
+
+o3 (medium) (April 2025)
+
+19.20±1.54 Calib Err:39
+
+11
+
+claude-opus-4-6 (Non-Thinking)
+
+19.00±1.54 Calib Err:44
+
+12
+
+Gemini 2.5 Pro Experimental (March 2025)
+
+18.16±1.51 Calib Err:71
+
+12
+
+o4-mini (high) (April 2025)
+
+18.08±1.51 Calib Err:57
+
+12
+
+Gemini 2.5 Pro Preview (May 06 2025)
+
+17.80±1.50 Calib Err:70
+
+19
+
+o4-mini (medium) (April 2025)
+
+14.28±1.37 Calib Err:59
+
+19
+
+claude-opus-4-5-20251101
+
+14.16±1.37 Calib Err:56
+
+19
+
+claude-sonnet-4-5-20250929-thinking
+
+13.72±1.35 Calib Err:65
+
+19
+
+Gemini 2.5 Flash (April 2025)
+
+12.08±1.28 Calib Err:80
+
+21
+
+claude-opus-4-1-20250805-thinking
+
+11.52±1.25 Calib Err:71
+
+22
+
+Gemini 2.5 Flash Preview (May 2025)
+
+10.96±1.22 Calib Err:82
+
+22
+
+Claude Opus 4 (Thinking)
+
+10.72±1.21 Calib Err:73
+
+24
+
+gemini-3.1-flash-lite-preview
+
+NEW
+
+8.64±1.10 Calib Err:83
+
+26
+
+glm-4p5
+
+8.32±1.08 Calib Err:79
+
+26
+
+o1 Pro
+
+8.12±1.07 Calib Err:82
+
+26
+
+glm-4p5-air
+
+8.12±1.07 Calib Err:77
+
+26
+
+Claude 3.7 Sonnet (Thinking)
+
+8.04±1.07 Calib Err:80
+
+26
+
+o1 (December 2024)
+
+7.96±1.06 Calib Err:83
+
+26
+
+claude-opus-4-1-20250805
+
+7.92±1.06 Calib Err:70
+
+26
+
+Claude Sonnet 4 (Thinking)
+
+7.76±1.05 Calib Err:75
+
+26
+
+claude-sonnet-4-5-20250929
+
+7.52±1.03 Calib Err:70
+
+26
+
+gpt-5.1-instant
+
+6.80±0.99 Calib Err:69
+
+26
+
+Claude Opus 4
+
+6.68±0.98 Calib Err:74
+
+27
+
+Gemini 2.0 Flash Thinking (January 2025)
+
+6.56±0.97 Calib Err:82
+
+28
+
+Llama 4 Maverick
+
+5.68±0.91 Calib Err:83
+
+35
+
+Claude Sonnet 4
+
+5.52±0.90 Calib Err:76
+
+35
+
+GPT 4.5 Preview
+
+5.44±0.89 Calib Err:85
+
+35
+
+GPT-4.1
+
+5.40±0.89 Calib Err:89
+
+38
+
+Gemini-1.5-Pro-002
+
+4.60±0.82 Calib Err:88
+
+38
+
+Mistral Medium 3
+
+4.52±0.81 Calib Err:77
+
+39
+
+Nova Pro
+
+4.40±0.80 Calib Err:80
+
+39
+
+Claude 3.5 Sonnet (October 2024)
+
+4.08±0.78 Calib Err:84
+
+42
+
+Nova Lite
+
+3.64±0.73 Calib Err:82
+
+45
+
+GPT-4o (November 2024)
+
+2.72±0.64 Calib Err:89
+
+Legend
+
+_**Rank (UB):**_ _1 + the number of models whose lower CI bound exceeds this model’s upper CI bound._
+
+-
+
+_**CE:**_ _Calibration Error_
+
+[All leaderboards](https://scale.com/leaderboard)
