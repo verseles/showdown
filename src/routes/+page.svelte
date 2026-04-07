@@ -641,7 +641,7 @@
 					max={speedBounds[1]}
 					step={10}
 					bind:value={filters.speedRange}
-					format={(v) => formatSpeed(v) + ' t/s'}
+					format={(v) => v === 0 ? 'Unknown' : formatSpeed(v) + ' t/s'}
 				/>
 			</div>
 
@@ -1002,7 +1002,7 @@
 								</td>
 							{/if}
 							{#if visibleColumns.speed}
-								<td class="col-num">{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</td
+								<td class="col-num">{ranked.model.performance.output_speed_tps === 0 ? 'Unknown' : formatSpeed(ranked.model.performance.output_speed_tps) + ' t/s'}</td
 								>
 							{/if}
 							{#if visibleColumns.latency}
@@ -1149,7 +1149,7 @@
 									<div class="detail-row">
 										<span class="detail-label">{m.card_speed()}</span>
 										<span class="detail-value"
-											>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+											>{ranked.model.performance.output_speed_tps === 0 ? 'Unknown' : formatSpeed(ranked.model.performance.output_speed_tps) + ' t/s'}</span
 										>
 									</div>
 								{/if}
@@ -1175,7 +1175,7 @@
 								{/if}
 								{#if visibleColumns.speed}
 									<span class="speed"
-										>{formatSpeed(ranked.model.performance.output_speed_tps)} t/s</span
+										>{ranked.model.performance.output_speed_tps === 0 ? 'Unknown' : formatSpeed(ranked.model.performance.output_speed_tps) + ' t/s'}</span
 									>
 								{/if}
 							</div>

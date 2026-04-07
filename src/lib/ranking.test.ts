@@ -936,6 +936,10 @@ describe('formatSpeed', () => {
 	it('should use k suffix for thousands', () => {
 		expect(formatSpeed(2500)).toBe('2.5k');
 	});
+
+	it('should show Unknown for 0', () => {
+		expect(formatSpeed(0)).toBe('Unknown');
+	});
 });
 
 describe('getUniqueProviders', () => {
