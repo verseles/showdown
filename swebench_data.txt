@@ -1,0 +1,49 @@
+Title: SWE-bench Leaderboards
+
+URL Source: https://www.swebench.com/
+
+Published Time: Wed, 04 Mar 2026 21:03:34 GMT
+
+Markdown Content:
+|  | Model | % Resolved | Avg. $ | Trajs | Org | Date | Agent |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | 🆕 Claude 4.5 Opus (high reasoning) | 76.80 | $0.75 | [](https://docent.transluce.org/dashboard/b038912e-0133-4594-b093-92806f8ffb17) | ![Image 1](https://pbs.twimg.com/profile_images/1798110641414443008/XP8gyBaY_400x400.jpg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Gemini 3 Flash (high reasoning) | 75.80 | $0.36 | [](https://docent.transluce.org/dashboard/1ebbdd7a-55b3-4015-9b83-5978cc7fb618) | ![Image 2](https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 MiniMax M2.5 (high reasoning) | 75.80 | $0.07 | [](https://docent.transluce.org/dashboard/5b77e003-7328-4003-879e-9b55dd3a0b6f) | ![Image 3](https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Claude Opus 4.6 | 75.60 | $0.55 | [](https://docent.transluce.org/dashboard/9243cc78-d399-402f-be97-e366ff63282c) | ![Image 4](https://pbs.twimg.com/profile_images/1798110641414443008/XP8gyBaY_400x400.jpg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 GPT-5-2 Codex | 72.80 | $0.45 | [](https://docent.transluce.org/dashboard/fb22a2e4-0a41-4d41-8e1e-388d4cb50d80) | ![Image 5](https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg) | 2026-02-19 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 GLM-5 (high reasoning) | 72.80 | $0.53 | [](https://docent.transluce.org/dashboard/5fc22eb4-1f44-405e-9dff-40a61f9f6ef6) | ![Image 6](https://z-cdn.chatglm.cn/z-blog/z-icon.svg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 GPT-5-2 (high reasoning) | 72.80 | $0.47 | [](https://docent.transluce.org/dashboard/c2c7f5be-2c1a-472f-a34a-92e9e1df4f01) | ![Image 7](https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 GPT 5.2 Codex | 72.80 | $0.45 | [](https://docent.transluce.org/dashboard/fb22a2e4-0a41-4d41-8e1e-388d4cb50d80) | ![Image 8](https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg) | 2026-02-19 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Claude 4.5 Sonnet (high reasoning) | 71.40 | $0.66 | [](https://docent.transluce.org/dashboard/737e5dd2-8555-435a-9fbd-1c6907c972f1) | ![Image 9](https://pbs.twimg.com/profile_images/1798110641414443008/XP8gyBaY_400x400.jpg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Kimi K2.5 (high reasoning) | 70.80 | $0.15 | [](https://docent.transluce.org/dashboard/c4f6e550-6e49-436e-96fa-3aafd9a0c936) | ![Image 10](https://avatars.githubusercontent.com/u/129152888?s=200&v=4) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 DeepSeek V3.2 (high reasoning) | 70.00 | $0.45 | [](https://docent.transluce.org/dashboard/4b463c14-4776-49a2-accf-b42b1c076bba) | ![Image 11](https://upload.wikimedia.org/wikipedia/commons/9/95/DeepSeek-icon.svg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Gemini 3 Pro | 69.60 | $0.96 | [](https://docent.transluce.org/dashboard/cf47db93-89ae-4f15-984d-e117c77cb96d) | ![Image 12](https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg) | 2026-02-26 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 Claude 4.5 Haiku (high reasoning) | 66.60 | $0.33 | [](https://docent.transluce.org/dashboard/a91fc32b-2035-4ec0-950e-433922852071) | ![Image 13](https://pbs.twimg.com/profile_images/1798110641414443008/XP8gyBaY_400x400.jpg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+|  | 🆕 GPT-5 Mini | 56.20 | $0.05 | [](https://docent.transluce.org/dashboard/7e2c27bc-5b56-4359-b871-677bcb7bbdf1) | ![Image 14](https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg) | 2026-02-17 | [2.0.0](https://github.com/SWE-agent/mini-swe-agent/tree/v2.0.0) |
+
+SWE-bench **Verified** is a human-filtered subset of 500 instances; use the Agent dropdown to compare LMs with [mini-SWE-agent](https://github.com/SWE-agent/mini-swe-agent) or view all agents [[Post](https://www.swebench.com/verified.html)].
+
+ SWE-bench **Multilingual** features 300 tasks across 9 programming languages [[Post](https://www.swebench.com/multilingual-leaderboard.html)].
+
+ SWE-bench **Lite** is a subset curated for less costly evaluation [[Post](https://www.swebench.com/lite.html)].
+
+ SWE-bench **Multimodal** features issues with visual elements [[Post](https://www.swebench.com/multimodal.html)].
+
+Each entry reports the **% Resolved** metric, the percentage of instances solved (out of 2294 Full, 500 Verified, 300 Lite & Multilingual, 517 Multimodal).
+
+## News
+
+*   [11/2025] Introducing CodeClash, our new eval of LMs as goal (not task) oriented developers! [[Link](https://codeclash.ai/)]
+*   [07/2025] mini-SWE-agent scores 65% on SWE-bench Verified in 100 lines of python code. [[Link](https://github.com/SWE-agent/mini-swe-agent)]
+*   [05/2025] SWE-smith is out! Train your own models for software engineering agents. [[Link](https://swesmith.com/)]
+*   [03/2025] SWE-agent 1.0 is the open source SOTA on SWE-bench Lite! [[Link](https://github.com/SWE-agent/SWE-agent)]
+*   [10/2024] Introducing **SWE-bench Multimodal**! [[Link](https://www.swebench.com/multimodal.html)]
+*   [08/2024] SWE-bench x OpenAI = **SWE-bench Verified** [[Report](https://openai.com/index/introducing-swe-bench-verified/)]
+*   [06/2024] **Docker**-ized SWE-bench for easier evaluation [[Report](https://www.swebench.com/SWE-bench/guides/docker_setup/)]
+*   [03/2024] Check out **SWE-agent** (12.47% on SWE-bench) [[Link](https://github.com/SWE-agent/SWE-agent)]
+*   [03/2024] Released **SWE-bench Lite** [[Report](https://www.swebench.com/lite.html)]
+
+## Acknowledgements
+
+We thank the following institutions for their generous support: Open Philanthropy, AWS, Modal, Andreessen Horowitz, OpenAI, and Anthropic.

@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.04.01",
-		"last_update": "2026-04-05T15:45:50Z",
+		"last_update": "2026-04-07T15:51:05Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -2250,7 +2250,7 @@
 				"gpqa_diamond": 80.1,
 				"humanity_last_exam": null,
 				"live_code_bench": 68.5,
-				"livebench": 77.1,
+				"livebench": 48.84,
 				"lmarena_coding_elo": 1469,
 				"lmarena_creative_elo": 1379,
 				"lmarena_en_elo": 1432,
@@ -2272,13 +2272,13 @@
 				"tau_bench": 52.5,
 				"terminal_bench": 45.5,
 				"webdev_arena_elo": 1295,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 58.43,
+				"livebench_coding": 69.61,
+				"livebench_agentic_coding": 13.33,
+				"livebench_math": 68.03,
+				"livebench_data_analysis": 44.72,
+				"livebench_language": 66.07,
+				"livebench_if": 21.72
 			}
 		},
 		{
@@ -2307,7 +2307,7 @@
 				"gpqa_diamond": 65.5,
 				"humanity_last_exam": null,
 				"live_code_bench": 55.5,
-				"livebench": 74.9,
+				"livebench": 43.56,
 				"lmarena_coding_elo": 1405,
 				"lmarena_creative_elo": 1304,
 				"lmarena_en_elo": 1305,
@@ -2328,13 +2328,13 @@
 				"tau_bench": 45.5,
 				"terminal_bench": 35.5,
 				"webdev_arena_elo": 1245,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 48.25,
+				"livebench_coding": 66.03,
+				"livebench_agentic_coding": 3.33,
+				"livebench_math": 67.44,
+				"livebench_data_analysis": 46.54,
+				"livebench_language": 55.54,
+				"livebench_if": 17.77
 			},
 			"imputed_metadata": {
 				"simpleqa": {
@@ -3103,15 +3103,15 @@
 				"osworld": null,
 				"tau_bench": null,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null,
+				"livebench_reasoning": 69.7,
+				"livebench_coding": 68.85,
+				"livebench_agentic_coding": 30.0,
+				"livebench_math": 76.96,
+				"livebench_data_analysis": 49.21,
+				"livebench_language": 69.07,
+				"livebench_if": 43.22,
 				"bfcl": null,
-				"livebench": null,
+				"livebench": 58.14,
 				"frontiermath": null
 			}
 		},
@@ -3270,15 +3270,15 @@
 				"osworld": null,
 				"tau_bench": 70.7,
 				"webdev_arena_elo": null,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null,
+				"livebench_reasoning": 75.83,
+				"livebench_coding": 78.18,
+				"livebench_agentic_coding": 55.0,
+				"livebench_math": 83.72,
+				"livebench_data_analysis": 69.91,
+				"livebench_language": 74.99,
+				"livebench_if": 58.34,
 				"bfcl": null,
-				"livebench": null,
+				"livebench": 70.85,
 				"frontiermath": null,
 				"swe_bench_pro": 56.6
 			}

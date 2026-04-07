@@ -1,0 +1,189 @@
+Title: FrontierMath: LLM Benchmark for Advanced AI Math Reasoning
+
+URL Source: https://epoch.ai/frontiermath
+
+Markdown Content:
+# FrontierMath: LLM Benchmark for Advanced AI Math Reasoning | Epoch AI
+
+![Image 1: Menu](https://epoch.ai/assets/icons/nav-hamburger.svg)![Image 2: Menu](https://epoch.ai/assets/icons/x-lg.svg) [![Image 3: Epoch AI logo](https://epoch.ai/assets/logo/logo.svg)](https://epoch.ai/)
+
+- [x]
+
+[Latest](https://epoch.ai/latest)
+
+Our Work
+
+#### Research & Commentary
+
+*   [AI Trends & Statistics Key numbers on the significant growth and impact of artificial intelligence.](https://epoch.ai/trends)
+
+*   [Papers & Reports Research and analysis on the trajectory of AI development.](https://epoch.ai/blog)
+
+*   [Newsletter: Gradient Updates Expert commentary on the important questions in AI today.](https://epoch.ai/gradient-updates)
+
+#### More
+
+*   [Data Insights](https://epoch.ai/data-insights)
+*   [Podcast: Epoch After Hours](https://epoch.ai/epoch-after-hours)
+
+[See the latest](https://epoch.ai/latest)
+
+Data on AI
+
+#### Datasets
+
+*   [Models Database of AI systems tracked by training compute, org, and release date.](https://epoch.ai/data/ai-models)
+*   [Frontier Data Centers AI data centers tracked via satellite imagery and permit data.](https://epoch.ai/data/data-centers)
+
+*   [Chip Owners Ownership of global AI chips across major companies.](https://epoch.ai/data/ai-chip-owners)
+*   [Companies Data on key organizations and labs driving AI development worldwide.](https://epoch.ai/data/ai-companies)
+
+*   [Chip Sales AI chip shipment volumes and revenue tracked across major vendors over time.](https://epoch.ai/data/ai-chip-sales)
+*   [Polling on Usage Survey data on how individuals and organizations are engaging with AI.](https://epoch.ai/data/polling)
+
+[See all data on AI](https://epoch.ai/data)
+
+We also track AI model performance across 40+ benchmarks.
+
+[AI Capabilities](https://epoch.ai/benchmarks)
+
+Benchmarking
+
+#### Benchmarking Data
+
+*   [AI Capabilities Track and compare frontier model performance across 40+ evaluations.](https://epoch.ai/benchmarks)
+
+#### By Epoch AI
+
+*   [Epoch Capabilities Index Aggregating benchmarks into a single, general capability scale.](https://epoch.ai/eci)
+
+*   [FrontierMath A benchmark of extremely challenging math problems.](https://epoch.ai/frontiermath)
+
+About
+
+#### About
+
+*   [About Epoch AI Investigating the trajectory of AI for the benefit of society.](https://epoch.ai/about)
+
+*   [Team Meet the researchers, engineers, and scientists working to make sense of AI.](https://epoch.ai/about/team)
+
+*   [Consultations Commission custom research or expert briefings.](https://epoch.ai/about/consultations)
+
+*   [Transparency The funders, collaborations, and the principles that guide our independence.](https://epoch.ai/about/transparency)
+
+*   [Donate Support independent AI research that informs better decision-making.](https://epoch.ai/about/donate)
+
+*   [Careers Join a curiosity-driven team helping people and organizations navigate AI.](https://epoch.ai/about/careers)
+
+*   [For press Independent, data-driven analysis on the future of AI — for journalists.](https://epoch.ai/about/press)
+
+[Contact](https://epoch.ai/contact)
+
+[![Image 4: Epoch AI logo](https://epoch.ai/assets/logo/logo.svg)](https://epoch.ai/)
+
+*   [Latest](https://epoch.ai/latest)
+*   [Our Work](https://epoch.ai/frontiermath)#### Research & Commentary
+
+[##### AI Trends & Statistics Key numbers on the significant growth and impact of artificial intelligence.](https://epoch.ai/trends) [See the latest](https://epoch.ai/latest) [##### Papers & Reports Research and analysis on the trajectory of AI development.](https://epoch.ai/blog)  [##### Newsletter: Gradient Updates Expert commentary on the important questions in AI today.](https://epoch.ai/gradient-updates)  #### More
+
+[##### Data Insights](https://epoch.ai/data-insights)[##### Podcast: Epoch After Hours](https://epoch.ai/epoch-after-hours)
+*   [Data on AI](https://epoch.ai/data)#### Datasets
+
+[##### Models Database of AI systems tracked by training compute, org, and release date.](https://epoch.ai/data/ai-models)[##### Frontier Data Centers AI data centers tracked via satellite imagery and permit data.](https://epoch.ai/data/data-centers) [See all data on AI](https://epoch.ai/data) [##### Chip Owners Ownership of global AI chips across major companies.](https://epoch.ai/data/ai-chip-owners)[##### Companies Data on key organizations and labs driving AI development worldwide.](https://epoch.ai/data/ai-companies)  [##### Chip Sales AI chip shipment volumes and revenue tracked across major vendors over time.](https://epoch.ai/data/ai-chip-sales)[##### Polling on Usage Survey data on how individuals and organizations are engaging with AI.](https://epoch.ai/data/polling)  We also track AI model performance across 40+ benchmarks.
+
+[AI Capabilities](https://epoch.ai/benchmarks)
+*   [Benchmarking](https://epoch.ai/frontiermath)#### Benchmarking Data
+
+[##### AI Capabilities Track and compare frontier model performance across 40+ evaluations.](https://epoch.ai/benchmarks)  #### By Epoch AI
+
+[##### Epoch Capabilities Index Aggregating benchmarks into a single, general capability scale.](https://epoch.ai/eci)  [##### FrontierMath A benchmark of extremely challenging math problems.](https://epoch.ai/frontiermath)
+*   [About](https://epoch.ai/about)#### About
+
+[##### About Epoch AI Investigating the trajectory of AI for the benefit of society.](https://epoch.ai/about)  [##### Team Meet the researchers, engineers, and scientists working to make sense of AI.](https://epoch.ai/about/team)  [##### Consultations Commission custom research or expert briefings.](https://epoch.ai/about/consultations)  [##### Transparency The funders, collaborations, and the principles that guide our independence.](https://epoch.ai/about/transparency)  [##### Donate Support independent AI research that informs better decision-making.](https://epoch.ai/about/donate)  [##### Careers Join a curiosity-driven team helping people and organizations navigate AI.](https://epoch.ai/about/careers)  [##### For press Independent, data-driven analysis on the future of AI — for journalists.](https://epoch.ai/about/press)
+*   [Contact](https://epoch.ai/contact)
+
+# FrontierMath: Benchmarking AI against advanced mathematical research
+
+FrontierMath includes both carefully crafted challenge problems and open research problems that remain unsolved by mathematicians.
+
+![Image 5: FrontierMath Tiers 1–4](https://epoch.ai/legacy_assets/images/frontiermath-banner.png)
+
+[](https://epoch.ai/frontiermath/tiers-1-4)FrontierMath Tiers 1–4
+
+A benchmark of several hundred unpublished, highly challenging mathematics problems. Difficulty Tiers 1-3 cover undergraduate through early postdoc level problems, while Tier 4 is research-level mathematics.
+
+![Image 6: Open Problems](https://epoch.ai/assets/images/frontiermath/open-problems-cover.png)
+
+[](https://epoch.ai/frontiermath/open-problems)Open Problems
+
+A collection of unsolved mathematics problems that have resisted serious attempts by professional mathematicians. AI solutions would meaningfully advance the state of human mathematical knowledge.
+
+![Image 7: Epoch AI](https://epoch.ai/assets/logo/logo-white.svg)
+## Investigating the trajectory of AI for the benefit of society
+
+Get the latest from Epoch AI in your inbox
+
+[Subscribe](https://epochai.substack.com/subscribe)
+
+[](https://x.com/EpochAIResearch)[](https://substack.com/@epochai)[](https://bsky.app/profile/epochai.bsky.social)[](https://github.com/epoch-research)[](https://www.linkedin.com/company/epochai)
+
+### Our Work
+
+*   [Latest](https://epoch.ai/latest)
+*   [AI Trends & Statistics](https://epoch.ai/trends)
+*   [Papers & Reports](https://epoch.ai/blog)
+*   [Data Insights](https://epoch.ai/data-insights)
+*   [Newsletter: Gradient Updates](https://epoch.ai/gradient-updates)
+*   [Podcast](https://epoch.ai/epoch-after-hours)
+
+### Data on AI
+
+*   [Models](https://epoch.ai/data/ai-models)
+*   [Frontier Data Centers](https://epoch.ai/data/data-centers)
+*   [Hardware](https://epoch.ai/data/machine-learning-hardware)
+*   [Companies](https://epoch.ai/data/ai-companies)
+*   [Chip Sales](https://epoch.ai/data/ai-chip-sales)
+*   [Polling](https://epoch.ai/data/polling)
+
+### Benchmarking
+
+*   [AI Capabilities](https://epoch.ai/benchmarks)
+*   [FrontierMath](https://epoch.ai/frontiermath)
+
+### Company
+
+*   [About](https://epoch.ai/about)
+*   [Team](https://epoch.ai/about/team)
+*   [Consultations](https://epoch.ai/about/consultations)
+*   [Transparency](https://epoch.ai/about/transparency)
+*   [Donate](https://epoch.ai/about/donate)
+*   [Careers](https://epoch.ai/about/careers)
+
+© 2026 Epoch AI
+
+[Privacy Policy](https://epoch.ai/privacy)[Cookie Policy](https://epoch.ai/cookies)[Designed by And—Now](https://and-now.co.uk/)
+
+Feedback
+
+## Feedback
+
+Have a question? Noticed something wrong? Let us know.
+
+Message
+
+
+If you would like a reply, please include your name and email address.
+
+Name
+
+
+
+Email address
+
+
+
+Cancel Submit
+
+# FrontierMath
+
+FrontierMath is an AI benchmark consisting of extremely challenging math problems, including open research problems that remain unsolved by mathematicians.
