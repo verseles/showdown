@@ -851,6 +851,25 @@ describe('filterModels', () => {
 		expect(filtered[0].model.id).toBe('model1');
 	});
 
+	it('should filter by multi-word search query across fields', () => {
+		const model1: Model = {
+			...mockModel,
+			id: 'model1',
+			name: 'GPT-4',
+			provider: 'OpenAI'
+		};
+		const model2: Model = { ...mockModel, id: 'model2', name: 'Claude', provider: 'Anthropic' };
+		const categories: Category[] = [mockCategory];
+		const ranked = rankModels([model1, model2], categories);
+
+		const filtered = filterModels(ranked, {
+			searchQuery: 'openai gpt'
+		});
+
+		expect(filtered).toHaveLength(1);
+		expect(filtered[0].model.id).toBe('model1');
+	});
+
 	it('should filter by aka (alternative names)', () => {
 		const model1: Model = {
 			...mockModel,
