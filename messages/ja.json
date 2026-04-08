@@ -148,5 +148,6 @@
 	"filter_date_all": "全期間",
 	"filter_date_30d": "過去 30 日間",
 	"filter_date_90d": "過去 90 日間",
-	"filter_date_180d": "過去 6 ヶ月間"
+	"filter_date_180d": "過去 6 ヶ月間",
+	"common_unknown": "不明"
 }

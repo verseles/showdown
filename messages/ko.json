@@ -148,5 +148,6 @@
 	"filter_date_all": "전체 기간",
 	"filter_date_30d": "최근 30일",
 	"filter_date_90d": "최근 90일",
-	"filter_date_180d": "최근 6개월"
+	"filter_date_180d": "최근 6개월",
+	"common_unknown": "알 수 없음"
 }

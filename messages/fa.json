@@ -151,5 +151,6 @@
 	"bench_livebench_math": "LiveBench ریاضی",
 	"bench_livebench_data_analysis": "LiveBench تحلیل داده",
 	"bench_livebench_language": "LiveBench زبان",
-	"bench_livebench_if": "LiveBench پیروی از دستور"
+	"bench_livebench_if": "LiveBench پیروی از دستور",
+	"common_unknown": "ناشناخته"
 }

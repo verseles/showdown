@@ -148,5 +148,6 @@
 	"filter_date_all": "Все время",
 	"filter_date_30d": "Последние 30 дней",
 	"filter_date_90d": "Последние 90 дней",
-	"filter_date_180d": "Последние 6 месяцев"
+	"filter_date_180d": "Последние 6 месяцев",
+	"common_unknown": "Неизвестно"
 }

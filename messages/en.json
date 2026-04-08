@@ -151,5 +151,6 @@
 	"bench_livebench_math": "LiveBench Math",
 	"bench_livebench_data_analysis": "LiveBench Data Analysis",
 	"bench_livebench_language": "LiveBench Language",
-	"bench_livebench_if": "LiveBench IF"
+	"bench_livebench_if": "LiveBench IF",
+	"common_unknown": "Unknown"
 }

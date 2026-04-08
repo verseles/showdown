@@ -148,5 +148,6 @@
 	"filter_date_all": "所有时间",
 	"filter_date_30d": "最近 30 天",
 	"filter_date_90d": "最近 90 天",
-	"filter_date_180d": "最近 6 个月"
+	"filter_date_180d": "最近 6 个月",
+	"common_unknown": "未知"
 }

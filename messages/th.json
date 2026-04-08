@@ -148,5 +148,6 @@
 	"filter_date_all": "ตลอดเวลา",
 	"filter_date_30d": "30 วันที่ผ่านมา",
 	"filter_date_90d": "90 วันที่ผ่านมา",
-	"filter_date_180d": "6 เดือนที่ผ่านมา"
+	"filter_date_180d": "6 เดือนที่ผ่านมา",
+	"common_unknown": "ไม่ทราบ"
 }

@@ -148,5 +148,6 @@
 	"filter_date_all": "Tüm zamanlar",
 	"filter_date_30d": "Son 30 gün",
 	"filter_date_90d": "Son 90 gün",
-	"filter_date_180d": "Son 6 ay"
+	"filter_date_180d": "Son 6 ay",
+	"common_unknown": "Bilinmeyen"
 }
