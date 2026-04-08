@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.04.01",
-		"last_update": "2026-04-07T15:51:05Z",
+		"version": "2026.04.08",
+		"last_update": "2026-04-08T15:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -267,7 +267,7 @@
 				"gpqa_diamond": 87,
 				"humanity_last_exam": 25.2,
 				"live_code_bench": 72.3,
-				"livebench": 65.01,
+				"livebench": 59.1,
 				"lmarena_coding_elo": 1520,
 				"lmarena_creative_elo": 1465,
 				"lmarena_en_elo": 1478,
@@ -291,8 +291,8 @@
 				"livebench_reasoning": 53.21,
 				"livebench_coding": 78.51,
 				"livebench_agentic_coding": 63.33,
-				"livebench_math": 86.09,
-				"livebench_data_analysis": 67.19,
+				"livebench_math": 66.32,
+				"livebench_data_analysis": 45.54,
 				"livebench_language": 78.66,
 				"livebench_if": 28.11
 			},
@@ -650,7 +650,7 @@
 				"gpqa_diamond": 73.2,
 				"humanity_last_exam": null,
 				"live_code_bench": 68.2,
-				"livebench": 61.81,
+				"livebench": 54.45,
 				"lmarena_coding_elo": 1504,
 				"lmarena_creative_elo": 1441,
 				"lmarena_en_elo": 1458,
@@ -671,13 +671,13 @@
 				"tau_bench": 62.8,
 				"terminal_bench": 54.2,
 				"webdev_arena_elo": 1386,
-				"livebench_reasoning": 72.33,
-				"livebench_coding": 74.66,
-				"livebench_agentic_coding": 48.33,
-				"livebench_math": 73.19,
-				"livebench_data_analysis": 48.98,
-				"livebench_language": 72.76,
-				"livebench_if": 42.4
+				"livebench_reasoning": 40.89,
+				"livebench_coding": 76.07,
+				"livebench_agentic_coding": 53.33,
+				"livebench_math": 62.83,
+				"livebench_data_analysis": 45.38,
+				"livebench_language": 76.75,
+				"livebench_if": 25.92
 			}
 		},
 		{
@@ -1660,7 +1660,7 @@
 				"gpqa_diamond": 74.9,
 				"humanity_last_exam": 30,
 				"live_code_bench": 56.4,
-				"livebench": 54.94,
+				"livebench": 51.84,
 				"lmarena_coding_elo": 1469,
 				"lmarena_creative_elo": 1392,
 				"lmarena_en_elo": 1440,
@@ -1685,7 +1685,7 @@
 				"livebench_coding": 75.69,
 				"livebench_agentic_coding": 46.67,
 				"livebench_math": 63.95,
-				"livebench_data_analysis": 66.71,
+				"livebench_data_analysis": 45.03,
 				"livebench_language": 64.24,
 				"livebench_if": 23.06
 			}
@@ -1943,7 +1943,7 @@
 				"gpqa_diamond": 87,
 				"humanity_last_exam": 44.4,
 				"live_code_bench": 70.5,
-				"livebench": null,
+				"livebench": 33.45,
 				"lmarena_coding_elo": 1495,
 				"lmarena_creative_elo": 1428,
 				"lmarena_en_elo": 1465,
@@ -1964,13 +1964,13 @@
 				"tau_bench": 58.5,
 				"terminal_bench": 54,
 				"webdev_arena_elo": 1335,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 23.35,
+				"livebench_coding": 54.26,
+				"livebench_agentic_coding": 10.0,
+				"livebench_math": 38.92,
+				"livebench_data_analysis": 40.61,
+				"livebench_language": 50.01,
+				"livebench_if": 16.98
 			}
 		},
 		{
@@ -2000,7 +2000,7 @@
 				"gpqa_diamond": 87,
 				"humanity_last_exam": 50.7,
 				"live_code_bench": 74.5,
-				"livebench": 62.02,
+				"livebench": 59.99,
 				"lmarena_coding_elo": 1510,
 				"lmarena_creative_elo": 1442,
 				"lmarena_en_elo": 1483,
@@ -2021,13 +2021,13 @@
 				"tau_bench": 62.5,
 				"terminal_bench": 56.5,
 				"webdev_arena_elo": 1202,
-				"livebench_reasoning": null,
-				"livebench_coding": null,
-				"livebench_agentic_coding": null,
-				"livebench_math": null,
-				"livebench_data_analysis": null,
-				"livebench_language": null,
-				"livebench_if": null
+				"livebench_reasoning": 80.2,
+				"livebench_coding": 69.61,
+				"livebench_agentic_coding": 31.67,
+				"livebench_math": 83.72,
+				"livebench_data_analysis": 52.24,
+				"livebench_language": 74.33,
+				"livebench_if": 28.2
 			},
 			"imputed_metadata": {
 				"simpleqa": {
