@@ -148,5 +148,6 @@
 	"filter_date_all": "Cały czas",
 	"filter_date_30d": "Ostatnie 30 dni",
 	"filter_date_90d": "Ostatnie 90 dni",
-	"filter_date_180d": "Ostatnie 6 miesięcy"
+	"filter_date_180d": "Ostatnie 6 miesięcy",
+	"common_unknown": "Nieznany"
 }

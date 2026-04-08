@@ -148,5 +148,6 @@
 	"filter_date_all": "সব সময়",
 	"filter_date_30d": "গত ৩০ দিন",
 	"filter_date_90d": "গত ৯০ দিন",
-	"filter_date_180d": "গত ৬ মাস"
+	"filter_date_180d": "গত ৬ মাস",
+	"common_unknown": "অজানা"
 }

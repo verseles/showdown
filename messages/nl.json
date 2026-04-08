@@ -148,5 +148,6 @@
 	"filter_date_all": "Altijd",
 	"filter_date_30d": "Laatste 30 dagen",
 	"filter_date_90d": "Laatste 90 dagen",
-	"filter_date_180d": "Laatste 6 maanden"
+	"filter_date_180d": "Laatste 6 maanden",
+	"common_unknown": "Onbekend"
 }
