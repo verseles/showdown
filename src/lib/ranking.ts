@@ -1364,7 +1364,6 @@ export function formatPrice(price: number): string {
  * Format speed for display
  */
 export function formatSpeed(tps: number): string {
-	if (tps === 0) return 'Unknown';
 	if (tps >= 1000) {
 		return `${(tps / 1000).toFixed(1)}k`;
 	}
