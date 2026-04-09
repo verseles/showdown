@@ -1260,6 +1260,7 @@ export function filterModels(
 	}
 ): RankedModel[] {
 	const query = filters.searchQuery?.toLowerCase().trim();
+	const queryTerms = query ? query.split(/\s+/) : null;
 
 	// Create Sets for O(1) lookups
 	const providerSet = filters.providers?.length ? new Set(filters.providers) : null;
@@ -1286,18 +1287,14 @@ export function filterModels(
 		const model = ranked.model;
 
 		// Search query filter
-		if (query) {
-			let matches =
-				model.name.toLowerCase().includes(query) || model.provider.toLowerCase().includes(query);
+		if (queryTerms && queryTerms.length > 0) {
+			const searchableText = [
+				model.name.toLowerCase(),
+				model.provider.toLowerCase(),
+				...(model.aka ? model.aka.map((a) => a.toLowerCase()) : [])
+			].join(' ');
 
-			if (!matches && model.aka) {
-				for (const alias of model.aka) {
-					if (alias.toLowerCase().includes(query)) {
-						matches = true;
-						break;
-					}
-				}
-			}
+			const matches = queryTerms.every((term) => searchableText.includes(term));
 
 			if (!matches) continue;
 		}
