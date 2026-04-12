@@ -812,6 +812,36 @@ describe('sortModels', () => {
 		const sortedDesc = sortModels(ranked, 'name', 'desc');
 		expect(sortedDesc[0].model.name).toBe('Beta');
 	});
+
+	it('should handle unknown (0) speed and latency by treating them as null (pushing to bottom)', () => {
+		const model1: Model = {
+			...mockModel,
+			id: 'm1',
+			performance: { ...mockModel.performance, output_speed_tps: 50, latency_ttft_ms: 200 }
+		};
+		const model2: Model = {
+			...mockModel,
+			id: 'm2',
+			performance: { ...mockModel.performance, output_speed_tps: 0, latency_ttft_ms: 0 }
+		};
+		const model3: Model = {
+			...mockModel,
+			id: 'm3',
+			performance: { ...mockModel.performance, output_speed_tps: 100, latency_ttft_ms: 100 }
+		};
+
+		const ranked = rankModels([model1, model2, model3], [mockCategory]);
+
+		const sortedSpeedAsc = sortModels(ranked, 'speed', 'asc');
+		expect(sortedSpeedAsc[0].model.id).toBe('m1');
+		expect(sortedSpeedAsc[1].model.id).toBe('m3');
+		expect(sortedSpeedAsc[2].model.id).toBe('m2');
+
+		const sortedLatencyAsc = sortModels(ranked, 'latency', 'asc');
+		expect(sortedLatencyAsc[0].model.id).toBe('m3');
+		expect(sortedLatencyAsc[1].model.id).toBe('m1');
+		expect(sortedLatencyAsc[2].model.id).toBe('m2');
+	});
 });
 
 describe('filterModels', () => {
