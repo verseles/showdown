@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.04.12",
-		"last_update": "2026-04-12T15:00:00Z",
+		"version": "2026.04.13",
+		"last_update": "2026-04-13T15:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -766,7 +766,7 @@
 			"editor_notes": "Significant upgrade over 4o with improved factual accuracy and reasoning. Leading in factual accuracy on SimpleQA during release.",
 			"benchmark_scores": {
 				"aime": 75,
-				"arc_agi_2": 7.5,
+				"arc_agi_2": 10.3,
 				"bfcl": 78.5,
 				"gpqa_diamond": 65,
 				"lmarena_en_elo": 1447,
