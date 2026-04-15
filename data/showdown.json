@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.04.13",
-		"last_update": "2026-04-13T15:00:00Z",
+		"version": "2026.04.15",
+		"last_update": "2026-04-15T17:24:40Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -743,6 +743,64 @@
 					"imputed_date": "2025-12-27",
 					"note": "Estimated based on older model performance"
 				}
+			},
+			"superior_of": null
+		},
+		{
+			"id": "chatgpt-4o-latest-20250326",
+			"name": "ChatGPT 4o Latest",
+			"aka": ["chatgpt-4o-latest", "gpt-4o-latest", "gpt-4o-20250326", "gpt-4o-latest-20250326"],
+			"superior_of": "gpt-4o-2024-05-13",
+			"provider": "OpenAI",
+			"type": "proprietary",
+			"release_date": "2025-03-26",
+			"pricing": {
+				"input_per_1m": 5.0,
+				"output_per_1m": 15.0,
+				"average_per_1m": 10.0
+			},
+			"performance": {
+				"output_speed_tps": 0,
+				"latency_ttft_ms": 0,
+				"source": "https://artificialanalysis.ai"
+			},
+			"editor_notes": "The latest iterative update to GPT-4o, specifically tuned for ChatGPT. Shows strong performance across benchmarks.",
+			"benchmark_scores": {
+				"aime": null,
+				"arc_agi_2": null,
+				"bfcl": null,
+				"frontiermath": null,
+				"gpqa_diamond": null,
+				"humanity_last_exam": null,
+				"live_code_bench": null,
+				"livebench": null,
+				"lmarena_coding_elo": 1468,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": 1443,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": null,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"swe_bench": null,
+				"tau_bench": null,
+				"terminal_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
@@ -1642,9 +1700,9 @@
 			"type": "open-source",
 			"release_date": "2025-09-01",
 			"pricing": {
-				"input_per_1m": 0.28,
-				"output_per_1m": 0.42,
-				"average_per_1m": 0.35
+				"input_per_1m": 0.26,
+				"output_per_1m": 0.38,
+				"average_per_1m": 0.32
 			},
 			"performance": {
 				"output_speed_tps": 120,
@@ -1699,9 +1757,9 @@
 			"type": "open-source",
 			"release_date": "2025-12-01",
 			"pricing": {
-				"input_per_1m": 0.28,
-				"output_per_1m": 0.42,
-				"average_per_1m": 0.35
+				"input_per_1m": 0.26,
+				"output_per_1m": 0.38,
+				"average_per_1m": 0.32
 			},
 			"performance": {
 				"output_speed_tps": 60,
@@ -1710,15 +1768,15 @@
 			},
 			"editor_notes": "Thinking variant of DeepSeek V3.2 with enhanced reasoning capabilities and gold-medal performance in math olympiads.",
 			"benchmark_scores": {
-				"aime": 88.4,
+				"aime": 93.1,
 				"arc_agi_2": 8.5,
 				"bfcl": 80.5,
 				"frontiermath": 22.1,
-				"gpqa_diamond": 80.1,
-				"humanity_last_exam": 15.9,
-				"live_code_bench": 74.8,
+				"gpqa_diamond": 82.4,
+				"humanity_last_exam": 25.1,
+				"live_code_bench": 83.3,
 				"livebench": 62.2,
-				"lmarena_coding_elo": 1474,
+				"lmarena_coding_elo": 1475,
 				"lmarena_creative_elo": 1405,
 				"lmarena_en_elo": 1445,
 				"lmarena_hard_elo": 1445,
@@ -1745,6 +1803,63 @@
 				"livebench_data_analysis": 50,
 				"livebench_language": 70.41,
 				"livebench_if": 48.19
+			}
+		},
+		{
+			"id": "deepseek-v3.2-speciale",
+			"name": "DeepSeek V3.2 Speciale",
+			"aka": ["deepseek-v3-2-speciale", "deepseek-v32-speciale", "deepseek-v3.2-speciale-thinking"],
+			"superior_of": "deepseek-v3.2-thinking",
+			"provider": "DeepSeek",
+			"type": "open-source",
+			"release_date": "2025-12-01",
+			"pricing": {
+				"input_per_1m": 0.26,
+				"output_per_1m": 0.38,
+				"average_per_1m": 0.32
+			},
+			"performance": {
+				"output_speed_tps": 0,
+				"latency_ttft_ms": 0,
+				"source": "https://api-docs.deepseek.com/news/news251201"
+			},
+			"editor_notes": "DeepSeek's maxed-out reasoning model, rivaling top proprietary models. API-only and dominates complex tasks.",
+			"benchmark_scores": {
+				"aime": 96.0,
+				"arc_agi_2": null,
+				"bfcl": null,
+				"frontiermath": null,
+				"gpqa_diamond": 85.7,
+				"humanity_last_exam": 30.6,
+				"live_code_bench": 88.7,
+				"livebench": null,
+				"lmarena_coding_elo": null,
+				"lmarena_creative_elo": null,
+				"lmarena_en_elo": null,
+				"lmarena_hard_elo": null,
+				"lmarena_if_elo": null,
+				"lmarena_math_elo": null,
+				"lmarena_vision_elo": null,
+				"lmarena_zh_elo": null,
+				"math_500": null,
+				"mathvista": null,
+				"mmlu_pro": null,
+				"mmmlu": null,
+				"simpleqa": null,
+				"mmmu": null,
+				"mmmu_pro": null,
+				"osworld": null,
+				"swe_bench": null,
+				"tau_bench": null,
+				"terminal_bench": null,
+				"webdev_arena_elo": null,
+				"livebench_reasoning": null,
+				"livebench_coding": null,
+				"livebench_agentic_coding": null,
+				"livebench_math": null,
+				"livebench_data_analysis": null,
+				"livebench_language": null,
+				"livebench_if": null
 			}
 		},
 		{
