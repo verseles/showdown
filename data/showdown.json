@@ -1,7 +1,7 @@
 {
 	"meta": {
-		"version": "2026.04.16",
-		"last_update": "2026-04-16T17:00:00Z",
+		"version": "2026.04.17",
+		"last_update": "2026-04-17T16:25:38Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -163,7 +163,7 @@
 				"mmmu": null,
 				"mmmu_pro": 73.9,
 				"osworld": null,
-				"swe_bench": null,
+				"swe_bench": 75.6,
 				"tau_bench": null,
 				"terminal_bench": null,
 				"webdev_arena_elo": 1543,
