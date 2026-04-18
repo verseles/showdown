@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"version": "2026.04.16",
-		"last_update": "2026-04-16T17:00:00Z",
+		"last_update": "2026-04-18T16:00:00Z",
 		"schema_version": "1.0"
 	},
 	"models": [
@@ -149,7 +149,7 @@
 				"livebench": null,
 				"lmarena_coding_elo": 1547,
 				"lmarena_creative_elo": 1468,
-				"lmarena_en_elo": 1496,
+				"lmarena_en_elo": 1497,
 				"lmarena_hard_elo": 1529,
 				"lmarena_if_elo": 1500,
 				"lmarena_math_elo": 1501,
@@ -213,7 +213,7 @@
 				"livebench": 76.33,
 				"lmarena_coding_elo": 1556,
 				"lmarena_creative_elo": 1493,
-				"lmarena_en_elo": 1502,
+				"lmarena_en_elo": 1503,
 				"lmarena_hard_elo": 1536,
 				"lmarena_if_elo": 1512,
 				"lmarena_math_elo": 1512,
@@ -1053,7 +1053,7 @@
 				"livebench": 80.28,
 				"lmarena_coding_elo": 1532,
 				"lmarena_creative_elo": 1461,
-				"lmarena_en_elo": 1481,
+				"lmarena_en_elo": 1482,
 				"lmarena_hard_elo": 1507,
 				"lmarena_if_elo": 1488,
 				"lmarena_math_elo": 1522,
