@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import { untrack } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import SimpleMultiSelect from '$lib/components/SimpleMultiSelect.svelte';
 	import RangeSlider from '$lib/components/RangeSlider.svelte';
@@ -100,7 +100,7 @@
 
 	// Load favorites and column visibility from localStorage (only once on mount)
 	onMount(() => {
-		const searchParams = $page.url.searchParams;
+		const searchParams = page.url.searchParams;
 
 		if (searchParams.has('sortBy')) {
 			sortBy = searchParams.get('sortBy')!;
@@ -218,7 +218,7 @@
 		untrack(() => {
 			// Using the built-in URLSearchParams, but casting as any or using window.URLSearchParams to avoid Svelte compiler warning
 			// eslint-disable-next-line svelte/prefer-svelte-reactivity
-			const params = new URLSearchParams($page.url.searchParams.toString());
+			const params = new URLSearchParams(page.url.searchParams.toString());
 
 			if (currentSortBy !== 'coding') params.set('sortBy', currentSortBy);
 			else params.delete('sortBy');
@@ -260,11 +260,11 @@
 			}
 
 			const query = params.toString();
-			const to = query ? `?${query}` : $page.url.pathname;
+			const to = query ? `?${query}` : page.url.pathname;
 
 			// Compare strings directly since URL objects can have empty search vs no search
 			const currentSearch =
-				$page.url.search === '' && query === '' ? true : $page.url.search === `?${query}`;
+				page.url.search === '' && query === '' ? true : page.url.search === `?${query}`;
 
 			if (!currentSearch) {
 				goto(to, { replaceState: true, keepFocus: true, noScroll: true });
