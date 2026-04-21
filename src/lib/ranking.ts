@@ -1206,10 +1206,16 @@ export function sortModels(
 			getValue = (item) => item.model.pricing.average_per_1m;
 			break;
 		case 'speed':
-			getValue = (item) => item.model.performance.output_speed_tps;
+			getValue = (item) =>
+				item.model.performance.output_speed_tps === 0
+					? null
+					: item.model.performance.output_speed_tps;
 			break;
 		case 'latency':
-			getValue = (item) => item.model.performance.latency_ttft_ms;
+			getValue = (item) =>
+				item.model.performance.latency_ttft_ms === 0
+					? null
+					: item.model.performance.latency_ttft_ms;
 			break;
 		case 'release_date':
 			getValue = (item) => item.model.release_date;

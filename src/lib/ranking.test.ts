@@ -23,7 +23,7 @@ import {
 	applySweBenchFamilyBridge,
 	DEFAULT_SUPERIORITY_RATIO
 } from './ranking.js';
-import type { Model, Category, Benchmark } from './types.js';
+import type { Model, Category, Benchmark, RankedModel } from './types.js';
 
 // Test fixtures
 const mockBenchmark: Benchmark = {
@@ -811,6 +811,50 @@ describe('sortModels', () => {
 
 		const sortedDesc = sortModels(ranked, 'name', 'desc');
 		expect(sortedDesc[0].model.name).toBe('Beta');
+	});
+
+	it('should sort unknown (0) speed and latency to the end', () => {
+		const model1: Model = {
+			...mockModel,
+			id: 'm1',
+			performance: { ...mockModel.performance, output_speed_tps: 0, latency_ttft_ms: 0 }
+		};
+		const model2: Model = {
+			...mockModel,
+			id: 'm2',
+			performance: { ...mockModel.performance, output_speed_tps: 50, latency_ttft_ms: 200 }
+		};
+		const model3: Model = {
+			...mockModel,
+			id: 'm3',
+			performance: { ...mockModel.performance, output_speed_tps: 100, latency_ttft_ms: 100 }
+		};
+
+		const ranked: RankedModel[] = [
+			{ rank: 1, model: model1, overallScore: null, categoryScores: {}, coverage: 0 },
+			{ rank: 2, model: model2, overallScore: null, categoryScores: {}, coverage: 0 },
+			{ rank: 3, model: model3, overallScore: null, categoryScores: {}, coverage: 0 }
+		];
+
+		const sortedSpeedAsc = sortModels(ranked, 'speed', 'asc');
+		expect(sortedSpeedAsc[0].model.id).toBe('m2');
+		expect(sortedSpeedAsc[1].model.id).toBe('m3');
+		expect(sortedSpeedAsc[2].model.id).toBe('m1');
+
+		const sortedSpeedDesc = sortModels(ranked, 'speed', 'desc');
+		expect(sortedSpeedDesc[0].model.id).toBe('m3');
+		expect(sortedSpeedDesc[1].model.id).toBe('m2');
+		expect(sortedSpeedDesc[2].model.id).toBe('m1');
+
+		const sortedLatencyAsc = sortModels(ranked, 'latency', 'asc');
+		expect(sortedLatencyAsc[0].model.id).toBe('m3');
+		expect(sortedLatencyAsc[1].model.id).toBe('m2');
+		expect(sortedLatencyAsc[2].model.id).toBe('m1');
+
+		const sortedLatencyDesc = sortModels(ranked, 'latency', 'desc');
+		expect(sortedLatencyDesc[0].model.id).toBe('m2');
+		expect(sortedLatencyDesc[1].model.id).toBe('m3');
+		expect(sortedLatencyDesc[2].model.id).toBe('m1');
 	});
 });
 
