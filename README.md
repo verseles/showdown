@@ -1,3 +1,5 @@
+> **Archived:** This project has been archived because maintaining a ranking this plural proved harder than we can responsibly sustain. The idea remains strong, but the execution required constant attention from one or more active collaborators.
+
 # Showdown
 
 > **Which AI model is actually the best?** We aggregate 20+ benchmarks so you don't have to.
